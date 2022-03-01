@@ -22,4 +22,34 @@ abstract class Repository
     {
         return $this->model->paginate($number);
     }
+
+    /*
+   * Destroy $this->model
+   * @param string $slug
+   * @return void
+   */
+    public function show($id)
+    {
+        return $this->model->findOrFail($id);
+    }
+
+    /*
+   * Destroy $this->model
+   * @param string $slug
+   * @return void
+   */
+    public function destroy($slug)
+    {
+        return $this->model->delete($slug);
+    }
+
+    /*
+   * Update $this->model
+   * @param string $slug
+   * @return void
+   */
+    public function update($slug)
+    {
+        return $this->model->update($slug);
+    }
 }
