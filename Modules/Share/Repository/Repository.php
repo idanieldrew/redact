@@ -38,18 +38,10 @@ abstract class Repository
    * @param string $slug
    * @return void
    */
-    public function destroy($slug)
+    public function destroy($param)
     {
-        return $this->model->delete($slug);
-    }
+        $this->show($param);
 
-    /*
-   * Update $this->model
-   * @param string $slug
-   * @return void
-   */
-    public function update($slug)
-    {
-        return $this->model->update($slug);
+        return $this->model->delete($param);
     }
 }

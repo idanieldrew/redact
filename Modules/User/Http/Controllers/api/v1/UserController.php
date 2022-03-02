@@ -4,10 +4,12 @@ namespace Module\User\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Module\User\Http\Requests\UserRequest;
 use Module\User\Http\Resources\v1\UserCollection;
 use Module\User\Http\Resources\v1\UserResource;
 use Module\User\Models\User;
 use Module\User\Repository\UserRepository;
+use Module\User\Services\UserService;
 
 class UserController extends Controller
 {
@@ -21,17 +23,20 @@ class UserController extends Controller
 
     /**
      * Display a listing of the resource.
+     * @return \Module\User\Http\Resources\v1\UserCollection
      */
     public function index()
     {
-        return new UserCollection($this->repo->paginate());
+        $users = $this->repo->paginate();
+
+        return new UserCollection($users);
     }
 
     /**
      * Display the specified resource.
      *
      * @param  int $user
-     * @return object
+     * @return \Module\User\Http\Resources\v1\UserResource
      */
     public function show($user)
     {
@@ -43,12 +48,19 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Module\User\Models\User $user
-     * @return \Illuminate\Http\Response
+     * @param  int $user
+     * @param  \Module\User\Http\Requests\UserRequest  $request
+     * @return \Module\User\Http\Resources\v1\UserResource
      */
-    public function update(Request $request, User $user)
+    public function update($user,UserRequest $request)
     {
+        $service = resolve(UserService::class);
 
+        $service->update($user,$request);
+
+        return response([
+            'success'=>'true',
+            'message'=>'success update',
+        ],204);
     }
 }
