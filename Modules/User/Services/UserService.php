@@ -2,6 +2,7 @@
 
 namespace Module\User\Services;
 
+use Illuminate\Support\Facades\Hash;
 use Module\Share\Service\Service;
 use Module\User\Models\User;
 
@@ -49,5 +50,27 @@ class UserService implements Service
         $token = $user->createToken('token')->plainTextToken;
 
         return [$user,$token];
+    }
+
+    /*
+    * try to login
+    * @param \Module\User\Http\Requests\RegisterRequest $request
+    * @return [\Module\User\Models\User,number]
+    */
+    public function login($request)
+    {
+        $user = User::whereEmail($request->email)->first();
+
+        // Check exist user
+        if (!$user || Hash::check($request->password,$user->password)){
+            return response()->json([
+                'status' => false,
+                'message' => 'invalid email or password'
+            ],401);
+        }
+
+        $token = $user->createToken('token')->plainTextToken;
+
+        return [$user, $token];
     }
 }

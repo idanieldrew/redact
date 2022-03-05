@@ -1,11 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Module\User\Http\Controllers\auth\v1\LoginController;
-use Module\User\Http\Controllers\auth\v1\RegisterController;
+use Module\User\Http\Controllers\auth\v1\AuthController;
 
 // Login
-Route::post('/login',[LoginController::class,'login'])->name('login');
+Route::post('/login',[AuthController::class,'login'])->name('login');
 
 // Register
-Route::post('register',[RegisterController::class,'register'])->name('register');
+Route::post('register',[AuthController::class,'register'])->name('register');
