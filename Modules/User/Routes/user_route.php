@@ -11,3 +11,5 @@ Route::get('/{user}',[UserController::class,'show']);
 
 // Update User
 Route::patch('/update/{user}',[UserController::class,'update']);
+
+require __DIR__ . '/auth_route.php';

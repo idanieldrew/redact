@@ -29,7 +29,8 @@ class UserPolicy
      */
     public function view(User $user, User $model)
     {
-        //
+        dd(54);
+        return $user->isAdmin();
     }
 
     /**

@@ -28,7 +28,26 @@ class UserService implements Service
     {
         return $this->model->whereId($param)->update([
             'name' => $request->name,
-            'email' => $request->email
+            'email' => $request->email,
+            'type' => $request->type
         ]);
+    }
+
+   /*
+  *Create new user
+  * @param \Module\User\Http\Requests\RegisterRequest $request
+  * @return [\Module\User\Models\User,number]
+  */
+    public function store($request)
+    {
+        $user = $this->model->create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password
+        ]);
+
+        $token = $user->createToken('token')->plainTextToken;
+
+        return [$user,$token];
     }
 }

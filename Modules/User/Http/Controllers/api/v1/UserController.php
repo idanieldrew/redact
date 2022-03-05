@@ -28,6 +28,8 @@ class UserController extends Controller
      */
     public function index()
     {
+//        $this->authorize('view',1);
+
         $users = $this->repo()->paginate();
 
         return new UserCollection($users);
