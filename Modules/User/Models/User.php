@@ -2,7 +2,6 @@
 
 namespace Module\User\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -44,6 +43,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    const TYPE_ADMIN = 'admin';
+    const TYPE_USER= 'user';
+    const TYPE_AUTHOR = 'author';
+
     /**
      * Create a new factories instance for the model.
      *
@@ -52,6 +55,21 @@ class User extends Authenticatable
     protected static function newFactory()
     {
         return UserFactory::new();
+    }
+
+    public function isAdmin()
+    {
+        return $this->type == self::TYPE_ADMIN;
+    }
+
+    public function isAuthor()
+    {
+        return $this->type == self::TYPE_AUTHOR;
+    }
+
+    public function isUser()
+    {
+        return $this->type == self::TYPE_USER;
     }
 
     public function posts()

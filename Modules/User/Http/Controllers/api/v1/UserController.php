@@ -21,7 +21,9 @@ class UserController extends Controller
     }
 
     /**
+     *
      * Display a listing of the resource.
+     *
      * @return \Module\User\Http\Resources\v1\UserCollection
      */
     public function index()
@@ -32,6 +34,7 @@ class UserController extends Controller
     }
 
     /**
+     *
      * Display the specified resource.
      *
      * @param  int $user
