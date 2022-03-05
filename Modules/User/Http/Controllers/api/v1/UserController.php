@@ -3,11 +3,9 @@
 namespace Module\User\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Module\User\Http\Requests\UserRequest;
 use Module\User\Http\Resources\v1\UserCollection;
 use Module\User\Http\Resources\v1\UserResource;
-use Module\User\Models\User;
 use Module\User\Repository\UserRepository;
 use Module\User\Services\UserService;
 
@@ -16,9 +14,10 @@ class UserController extends Controller
 
     protected $repo;
 
-    public function __construct()
+    public function repo()
     {
         $this->repo = resolve(UserRepository::class);
+        return $this->repo;
     }
 
     /**
@@ -27,7 +26,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = $this->repo->paginate();
+        $users = $this->repo()->paginate();
 
         return new UserCollection($users);
     }
@@ -40,7 +39,7 @@ class UserController extends Controller
      */
     public function show($user)
     {
-        $user = $this->repo->show($user);
+        $user = $this->repo()->show($user);
 
         return new UserResource($user);
     }
