@@ -2,11 +2,10 @@
 
 namespace Module\User\Providers;
 
-
-use App\Policies\UserPolicy;
 use Carbon\Laravel\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 use Module\User\Models\User;
+use Module\User\Policies\UserPolicy;
 
 class UserServiceProvider extends ServiceProvider
 {

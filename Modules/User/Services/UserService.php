@@ -2,6 +2,7 @@
 
 namespace Module\User\Services;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Module\Share\Service\Service;
 use Module\User\Models\User;
@@ -27,6 +28,11 @@ class UserService implements Service
    */
     public function update($param,$request)
     {
+        // Just user can edit our information
+        if (Gate::denies('update',[User::class,$param])){
+            abort(403);
+        }
+
         return $this->model->whereId($param)->update([
             'name' => $request->name,
             'email' => $request->email,

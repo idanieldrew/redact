@@ -14,26 +14,6 @@ abstract class Repository
     }
 
     /*
-     * Paginate $this->model
-     * @param int $number
-     * @return \Illuminate\Database\Eloquent\Model
-     */
-    public function paginate($number=10)
-    {
-        return $this->model->paginate($number);
-    }
-
-    /*
-   * Destroy $this->model
-   * @param string $slug
-   * @return void
-   */
-    public function show($id)
-    {
-        return $this->model->findOrFail($id);
-    }
-
-    /*
    * Destroy $this->model
    * @param string $slug
    * @return void

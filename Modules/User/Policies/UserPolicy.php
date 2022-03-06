@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Policies;
+namespace Module\User\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Module\User\Models\User;
@@ -17,43 +17,31 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->isAdmin();
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \Module\User\Models\User  $user
-     * @param  \Module\User\Models\User  $model
+     * @param  int  $author
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, User $model)
+    public function view(User $user,$author)
     {
-        dd(54);
-        return $user->isAdmin();
-    }
-
-    /**
-     * Determine whether the user can create models.
-     *
-     * @param  \Module\User\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function create(User $user)
-    {
-        //
+        return $user->id == $author;
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \Module\User\Models\User $user
-     * @param  \Module\User\Models\User  $model
+     * @param  int $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, User $model)
+    public function update(User $user,$model)
     {
-        //
+        return $user->id == $model;
     }
 
     /**

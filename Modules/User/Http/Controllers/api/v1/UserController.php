@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Module\User\Http\Requests\UserRequest;
 use Module\User\Http\Resources\v1\UserCollection;
 use Module\User\Http\Resources\v1\UserResource;
+use Module\User\Models\User;
 use Module\User\Repository\UserRepository;
 use Module\User\Services\UserService;
 
@@ -20,7 +21,7 @@ class UserController extends Controller
         return $this->repo;
     }
 
-    /**
+     /*
      *
      * Display a listing of the resource.
      *
@@ -28,8 +29,6 @@ class UserController extends Controller
      */
     public function index()
     {
-//        $this->authorize('view',1);
-
         $users = $this->repo()->paginate();
 
         return new UserCollection($users);
