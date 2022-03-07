@@ -46,6 +46,7 @@ class User extends Authenticatable
     const TYPE_ADMIN = 'admin';
     const TYPE_USER= 'user';
     const TYPE_AUTHOR = 'author';
+    const TYPE_SUPER = 'super';
 
     /**
      * Create a new factories instance for the model.
@@ -55,6 +56,11 @@ class User extends Authenticatable
     protected static function newFactory()
     {
         return UserFactory::new();
+    }
+
+    public function isSuper()
+    {
+        return $this->type == self::TYPE_SUPER;
     }
 
     public function isAdmin()
