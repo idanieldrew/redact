@@ -3,19 +3,30 @@
 namespace Module\Post\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
+use Module\Post\Http\Resources\v1\PostCollection;
 use Module\Post\Models\Post;
 use Illuminate\Http\Request;
+use Module\Post\Repository\v1\PostRepository;
 
 class PostController extends Controller
 {
+    protected $repo;
+
+    public function repo()
+    {
+        return resolve(PostRepository::class);
+    }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Module\Post\Http\Resources\v1\PostCollection
      */
     public function index()
     {
-        dd("from post");
+        $posts = $this->repo()->paginate(15);
+
+        return new PostCollection($posts);
     }
 
     /**

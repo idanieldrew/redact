@@ -6,19 +6,14 @@ use App\Http\Controllers\Controller;
 use Module\User\Http\Requests\UserRequest;
 use Module\User\Http\Resources\v1\UserCollection;
 use Module\User\Http\Resources\v1\UserResource;
-use Module\User\Models\User;
 use Module\User\Repository\UserRepository;
 use Module\User\Services\UserService;
 
 class UserController extends Controller
 {
-
-    protected $repo;
-
     public function repo()
     {
-        $this->repo = resolve(UserRepository::class);
-        return $this->repo;
+        return resolve(UserRepository::class);
     }
 
      /*

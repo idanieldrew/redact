@@ -13,6 +13,10 @@ abstract class Repository
         $this->model = $this->model();
     }
 
+    public function paginate($number = 10)
+    {
+        return $this->model->paginate($number);
+    }
     /*
    * Destroy $this->model
    * @param string $slug
