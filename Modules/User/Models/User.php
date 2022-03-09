@@ -78,6 +78,7 @@ class User extends Authenticatable
         return $this->type == self::TYPE_USER;
     }
 
+    /** Relations */
     public function posts()
     {
         return $this->hasMany(Post::class);

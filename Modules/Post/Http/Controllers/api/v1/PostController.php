@@ -3,20 +3,27 @@
 namespace Module\Post\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
+use Module\Post\Http\Requests\PostRequest;
 use Module\Post\Http\Resources\v1\PostCollection;
+use Module\Post\Http\Resources\v1\PostResource;
 use Module\Post\Models\Post;
 use Illuminate\Http\Request;
 use Module\Post\Repository\v1\PostRepository;
+use Module\Post\Services\PostService;
 
 class PostController extends Controller
 {
-    protected $repo;
-
+    // resolve \Module\Post\Repository\v1\PostRepository
     public function repo()
     {
         return resolve(PostRepository::class);
     }
 
+    // resolve \Module\Post\Services\PostService
+    public function service()
+    {
+        return resolve(PostService::class);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -30,24 +37,20 @@ class PostController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Module\Post\Http\Requests\PostRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
-        //
+        $post = $this->service()->store($request);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'successfully create',
+            'data' => new PostResource($post)
+        ],201);
     }
 
     /**

@@ -11,9 +11,16 @@ use Module\User\Services\UserService;
 
 class UserController extends Controller
 {
+    // resolve \ Module\User\Repository\UserRepository
     public function repo()
     {
         return resolve(UserRepository::class);
+    }
+
+    // resolve \Module\User\Services\UserService
+    public function service()
+    {
+        return resolve(UserService::class);
     }
 
      /*
@@ -52,9 +59,7 @@ class UserController extends Controller
      */
     public function update($user,UserRequest $request)
     {
-        $service = resolve(UserService::class);
-
-        $service->update($user,$request);
+        $this->service()->update($user,$request);
 
         return response([
             'success'=>'true',
