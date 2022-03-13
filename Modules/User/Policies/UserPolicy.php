@@ -9,11 +9,12 @@ class UserPolicy
 {
     use HandlesAuthorization;
 
-    public function before($user,$ability)
+    public function before($user)
     {
         if ($user->isSuper()){
             return true;
         }
+        return false;
     }
 
     /**
