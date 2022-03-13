@@ -23,11 +23,19 @@ class UserServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // Migrations
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
 
+        // Routes
         Route::prefix('api/user')
             ->middleware('api')
             ->namespace($this->namespace)
             ->group( __DIR__. '/../Routes/user_route.php');
+
+        Route::prefix('api/auth')
+            ->middleware('api')
+            ->namespace($this->namespace)
+            ->group( __DIR__. '/../Routes/auth_route.php');
+
     }
 }

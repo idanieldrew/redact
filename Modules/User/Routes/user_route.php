@@ -3,16 +3,14 @@
 use Illuminate\Support\Facades\Route;
 use Module\User\Http\Controllers\api\v1\UserController;
 
-Route::middleware('auth:sanctum')->group(function (){
+Route::middleware(['auth:sanctum','verified'])->group(function (){
 
     // Paginate Users
-    Route::get('all',[UserController::class,'index']);
+    Route::get('all',[UserController::class,'index'])->name('user.index');
 
     // Show User
-    Route::get('{user}',[UserController::class,'show']);
+    Route::get('{user}',[UserController::class,'show'])->name('user.show');
 
     // Update User
-    Route::patch('update/{user}',[UserController::class,'update']);
+    Route::patch('update/{user}',[UserController::class,'update'])->name('user.update');
 });
-
-require __DIR__ . '/auth_route.php';

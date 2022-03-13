@@ -2,6 +2,7 @@
 
 namespace Module\User\Services;
 
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Module\Share\Service\Service;
@@ -55,6 +56,7 @@ class UserService implements Service
 
         $token = $user->createToken('token')->plainTextToken;
 
+        event(new Registered($user));
         return [$user,$token];
     }
 

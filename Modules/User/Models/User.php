@@ -2,6 +2,7 @@
 
 namespace Module\User\Models;
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -9,7 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Module\Post\Models\Post;
 use Module\User\Database\Factories\UserFactory;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 
