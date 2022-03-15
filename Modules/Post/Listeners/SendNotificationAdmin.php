@@ -3,7 +3,9 @@
 namespace Module\Post\Listeners;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Mail;
 use Module\Post\Events\PostPublish;
+use Module\Post\Mail\PostPublishedPermission;
 use Module\User\Repository\UserRepository;
 
 class SendNotificationAdmin implements ShouldQueue
@@ -32,8 +34,10 @@ class SendNotificationAdmin implements ShouldQueue
     {
         $repo = resolve(UserRepository::class);
 
+        $mail = new PostPublishedPermission($event);
+
         foreach ($repo->admins() as $user){
-            dd(2,$user->email);
+            Mail::to($user->email)->send($mail);
         }
     }
 }

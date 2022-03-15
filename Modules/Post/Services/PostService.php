@@ -27,12 +27,14 @@ class PostService implements Service
     */
     public function store($request)
     {
-        PostPublish::dispatch(1203);
-
-        return auth()->user()->posts()->create([
+        $post =  auth()->user()->posts()->create([
             'title' => $request->title,
             'details' => $request->details,
             'description' => $request->description
         ]);
+
+        PostPublish::dispatch($post->slug);
+
+        return $post;
     }
 }
