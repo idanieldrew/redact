@@ -24,6 +24,7 @@ class PostController extends Controller
     {
         return resolve(PostService::class);
     }
+
     /**
      * Display a listing of the resource.
      *

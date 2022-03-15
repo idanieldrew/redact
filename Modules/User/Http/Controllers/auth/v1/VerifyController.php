@@ -10,7 +10,7 @@ class VerifyController extends Controller
 {
     public function notice()
     {
-        dd("verify");
+        dd("first verify");
     }
 
     public function verify(EmailVerificationRequest $request)

@@ -45,4 +45,15 @@ class UserRepository extends Repository
 
         return $this->model()->findOrFail($id);
     }
+
+    /*
+     * Find Admin & Super users
+     */
+    public function admins()
+    {
+        return User::query()
+            ->where('type','admin')
+            ->orWhere('type','super')
+            ->get();
+    }
 }

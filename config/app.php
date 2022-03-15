@@ -179,7 +179,6 @@ return [
         \Module\User\Providers\UserServiceProvider::class,
         // Post Module
         \Module\Post\Providers\PostServiceProvider::class
-
     ],
 
     /*

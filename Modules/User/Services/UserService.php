@@ -30,7 +30,7 @@ class UserService implements Service
     public function update($param,$request)
     {
         // Just user can edit our information
-        if (Gate::denies('update',[User::class,$param])){
+       if (Gate::denies('update',[User::class,$param])){
             abort(403);
         }
 
@@ -51,9 +51,8 @@ class UserService implements Service
         $user = $this->model->create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => $request->password
+            'password' => bcrypt($request->email)
         ]);
-
         $token = $user->createToken('token')->plainTextToken;
 
         event(new Registered($user));

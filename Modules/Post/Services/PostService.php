@@ -2,6 +2,7 @@
 
 namespace Module\Post\Services;
 
+use Module\Post\Events\PostPublish;
 use Module\Post\Models\Post;
 use Module\Share\Service\Service;
 
@@ -26,11 +27,12 @@ class PostService implements Service
     */
     public function store($request)
     {
+        PostPublish::dispatch(1203);
+
         return auth()->user()->posts()->create([
             'title' => $request->title,
             'details' => $request->details,
             'description' => $request->description
         ]);
     }
-
 }
