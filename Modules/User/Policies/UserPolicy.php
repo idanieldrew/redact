@@ -14,7 +14,6 @@ class UserPolicy
         if ($user->isSuper()){
             return true;
         }
-        return false;
     }
 
     /**

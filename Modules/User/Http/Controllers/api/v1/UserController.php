@@ -31,7 +31,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = $this->repo()->paginate();
+        $users = $this->repo()->paginate(10);
 
         return new UserCollection($users);
     }
