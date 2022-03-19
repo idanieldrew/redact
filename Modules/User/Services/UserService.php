@@ -34,11 +34,9 @@ class UserService implements Service
             abort(403);
         }
 
-        return $this->model->whereId($param)->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'type' => $request->type
-        ]);
+        return $this->model
+            ->whereId($param)
+            ->update($request->all());
     }
 
    /*

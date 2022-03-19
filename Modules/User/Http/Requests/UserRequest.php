@@ -23,18 +23,17 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
-       /* $rules = [
+        $rules = [
             'name' => ['required','string'],
             'email' => ['required','email','digits:11','unique:users,email']
         ];
             if (request()->method === 'PATCH'){
                 $rules['name'] = ['nullable','string','min:3','max:16'. request()->id];
                 $rules['email'] = ['nullable','email','digits:11','unique:users,email' . request()->id];
-            }*/
+            }
 
         return [
-            'name' => 'required','string',
-            'email' => 'required','email','digits:11','unique:users,email'
+           $rules
         ];
     }
 }
