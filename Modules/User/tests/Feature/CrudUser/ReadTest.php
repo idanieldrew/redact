@@ -1,12 +1,11 @@
 <?php
 
-namespace Module\User\tests\Feature;
+namespace Module\User\tests\Feature\CrudUser;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Module\User\Models\User;
 use Tests\TestCase;
 
-class UserTest extends TestCase
+class ReadTest extends TestCase
 {
     use RefreshDatabase;
 
