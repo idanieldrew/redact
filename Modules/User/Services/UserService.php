@@ -54,6 +54,7 @@ class UserService implements Service
         $token = $user->createToken('token')->plainTextToken;
 
         event(new Registered($user));
+
         return [$user,$token];
     }
 
