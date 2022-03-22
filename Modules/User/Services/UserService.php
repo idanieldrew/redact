@@ -3,9 +3,11 @@
 namespace Module\User\Services;
 
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Module\Share\Service\Service;
+use Module\User\Http\Resources\v1\UserResource;
 use Module\User\Models\User;
 
 class UserService implements Service
@@ -55,8 +57,15 @@ class UserService implements Service
 
         event(new Registered($user));
 
-        return [$user,$token];
-    }
+        return [
+            'success' => true,
+            'status' => Response::HTTP_CREATED,
+            'message' => 'Successfully registered',
+            'data' => [
+                'user' => $user,
+                'token' => $token
+            ]
+        ];    }
 
     /*
     * try to login
@@ -69,14 +78,27 @@ class UserService implements Service
 
         // Check exist user
         if (!$user || Hash::check($request->password,$user->password)){
-            return response()->json([
-                'status' => false,
-                'message' => 'invalid email or password'
-            ],401);
+            return [
+                'success' => false,
+                'status' => 401,
+                'message' => 'invalid email or password',
+                'data' => [
+                    'user' => null,
+                    'token' => null
+                ]
+            ];
         }
 
         $token = $user->createToken('token')->plainTextToken;
 
-        return [$user, $token];
+        return [
+            'success' => true,
+            'status' => 200,
+            'message' => 'invalid email or password',
+            'data' => [
+                'user' => $user,
+                'token' => $token
+            ]
+        ];
     }
 }

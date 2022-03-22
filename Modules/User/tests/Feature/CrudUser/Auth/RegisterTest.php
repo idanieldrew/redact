@@ -18,7 +18,7 @@ class RegisterTest extends TestCase
           'password' => 'password'
         ];
         $res = $this->post(route('register'),$data)
-            ->assertOk();
+            ->assertCreated();
 
         $this->assertArrayHasKey('token',$res);
     }

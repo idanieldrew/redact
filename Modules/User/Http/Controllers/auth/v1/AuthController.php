@@ -7,6 +7,7 @@ use Module\User\Http\Requests\LoginRequest;
 use Module\User\Http\Requests\RegisterRequest;
 use Module\User\Http\Resources\v1\UserResource;
 use Module\User\Services\UserService;
+use function PHPSTORM_META\type;
 
 class AuthController extends Controller
 {
@@ -26,7 +27,7 @@ class AuthController extends Controller
     {
         $store = $this->service->store($request);
 
-        return $this->response(201,'registered successfully',$store);
+        return $this->response($store['success'],$store['status'],$store['message'],$store['data']);
     }
 
     /*
@@ -38,16 +39,16 @@ class AuthController extends Controller
     {
         $login = $this->service->login($request);
 
-        return $this->response(201,'login successfully',$login);
+        return $this->response($login['success'],$login['status'],$login['message'],$login['data']);
     }
 
-    private function response($status,$message,$data)
+    private function response($success,$status,$message,$data)
     {
         return response()->json([
-            'status' => $status,
+            'success' => $success,
             'message' => $message,
-            'user' => new UserResource($data[0]),
-            'token' => $data[1]
-        ]);
+            'user' => $data['user'] ? new UserResource($data['user']) : null,
+            'token' => $data['token']
+        ],$status);
     }
 }
