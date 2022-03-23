@@ -53,7 +53,7 @@ class UserService implements Service
             'password' => bcrypt($request->email)
         ]);
         $token = $user->createToken('token')->plainTextToken;
-        dd($user->createToken('token'));
+
         return [
             'success' => true,
             'status' => Response::HTTP_CREATED,
