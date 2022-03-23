@@ -7,7 +7,6 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Module\Share\Service\Service;
-use Module\User\Http\Resources\v1\UserResource;
 use Module\User\Models\User;
 
 class UserService implements Service
@@ -54,9 +53,7 @@ class UserService implements Service
             'password' => bcrypt($request->email)
         ]);
         $token = $user->createToken('token')->plainTextToken;
-
-        event(new Registered($user));
-
+        dd($user->createToken('token'));
         return [
             'success' => true,
             'status' => Response::HTTP_CREATED,
@@ -65,7 +62,8 @@ class UserService implements Service
                 'user' => $user,
                 'token' => $token
             ]
-        ];    }
+        ];
+    }
 
     /*
     * try to login

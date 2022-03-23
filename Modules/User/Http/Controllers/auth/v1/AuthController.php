@@ -3,11 +3,11 @@
 namespace Module\User\Http\Controllers\auth\v1;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\Events\Registered;
 use Module\User\Http\Requests\LoginRequest;
 use Module\User\Http\Requests\RegisterRequest;
 use Module\User\Http\Resources\v1\UserResource;
 use Module\User\Services\UserService;
-use function PHPSTORM_META\type;
 
 class AuthController extends Controller
 {
@@ -26,6 +26,8 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
         $store = $this->service->store($request);
+
+        event(new Registered($store['data']['user']));
 
         return $this->response($store['success'],$store['status'],$store['message'],$store['data']);
     }

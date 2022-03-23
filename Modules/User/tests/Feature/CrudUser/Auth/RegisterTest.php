@@ -12,6 +12,7 @@ class RegisterTest extends TestCase
     /** @test */
     public function register_a_user()
     {
+        $this->withoutExceptionHandling();
         $data = [
           'name' => 'test',
           'email' => 'test@test.com',
