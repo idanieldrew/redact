@@ -8,8 +8,7 @@ use Module\User\Models\User;
 
 class UserRepository extends Repository
 {
-
-    /*
+    /**
      * Specify Model
      * Abstract function
      */
@@ -18,7 +17,7 @@ class UserRepository extends Repository
         return User::query();
     }
 
-    /*
+    /**
     * Paginate $this->model
     * @param int $number
     * @return \Illuminate\Database\Eloquent\Model
@@ -32,10 +31,10 @@ class UserRepository extends Repository
         return $this->model()->paginate($number);
     }
 
-    /*
-    * Destroy $this->model
-    * @param string $slug
-    * @return void
+    /**
+    * Show $this->model
+    * @param int $id
+    * @return \Module\User\Models\User
     */
     public function show($id)
     {
@@ -46,7 +45,22 @@ class UserRepository extends Repository
         return $this->model()->findOrFail($id);
     }
 
-    /*
+    /**
+     * Destroy User model
+     *
+     * @param  \Module\User\Models\User $user
+     * @return boolean
+     */
+    public function destroy($user)
+    {
+        if (Gate::denies('delete', [User::class, $user])) {
+            abort(403);
+        }
+
+        return $user->delete();
+    }
+
+    /**
      * Find Admin & Super users
      */
     public function admins()

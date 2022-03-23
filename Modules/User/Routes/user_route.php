@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Module\User\Http\Controllers\api\v1\UserController;
 
-Route::middleware(['auth:sanctum','verified'])->group(function (){
+Route::middleware(['auth:sanctum'])->group(function (){
 
     // Paginate Users
     Route::get('all',[UserController::class,'index'])->name('user.index');
@@ -13,4 +13,7 @@ Route::middleware(['auth:sanctum','verified'])->group(function (){
 
     // Update User
     Route::patch('update/{user}',[UserController::class,'update'])->name('user.update');
+
+    // Destroy User
+    Route::delete('destroy/{user}',[UserController::class,'destroy'])->name('user.destroy');
 });

@@ -17,15 +17,4 @@ abstract class Repository
     {
         return $this->model->paginate($number);
     }
-    /*
-   * Destroy $this->model
-   * @param string $slug
-   * @return void
-   */
-    public function destroy($param)
-    {
-        $this->show($param);
-
-        return $this->model->delete($param);
-    }
 }

@@ -19,7 +19,7 @@ class AuthController extends Controller implements ResponseGenerator
         $this->service = resolve(UserService::class);
     }
 
-    /*
+    /**
     * Register user
     * @param \Module\User\Http\Requests\RegisterRequest $request
     * @return $this->response($status,$message,$data)
@@ -33,7 +33,7 @@ class AuthController extends Controller implements ResponseGenerator
         return $this->res($store['success'],$store['status'],$store['message'],$store['data']);
     }
 
-    /*
+    /**
     * Login user
     * @param \Module\User\Http\Requests\LoginRequest $request
     * @return $this->response($status,$message,$data)

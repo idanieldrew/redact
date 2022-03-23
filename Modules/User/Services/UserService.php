@@ -2,7 +2,6 @@
 
 namespace Module\User\Services;
 
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
@@ -23,9 +22,10 @@ class UserService implements Service
         return User::query();
     }
 
-    /*
+    /**
    * Update $this->model
-   * @param string $slug
+   * @param string $param
+   * @param \Module\User\Http\Requests\UserRequest; $request
    * @return \Module\User\Models\User
    */
     public function update($param,$request)
