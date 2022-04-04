@@ -2,19 +2,11 @@
 
 namespace Module\Share\Repository;
 
-abstract class Repository
+interface Repository
 {
-    protected $model;
+    public function paginate($number = 10);
 
-    abstract public function  model();
+    public function show($search);
 
-    public function __construct()
-    {
-        $this->model = $this->model();
-    }
-
-    public function paginate($number = 10)
-    {
-        return $this->model->paginate($number);
-    }
+    public function destroy($model);
 }
