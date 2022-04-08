@@ -4,7 +4,9 @@ namespace Module\User\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Notification;
 use Module\Share\Contracts\Response\ResponseGenerator;
+use Module\User\Http\Notifications\CeremonyMessage;
 use Module\User\Http\Requests\UserRequest;
 use Module\User\Http\Resources\v1\UserCollection;
 use Module\User\Http\Resources\v1\UserResource;
@@ -14,13 +16,13 @@ use Module\User\Services\UserService;
 
 class UserController extends Controller implements ResponseGenerator
 {
-    // resolve \ Module\User\Repository\UserRepository
+    // resolve Module\User\Repository\UserRepository
     public function repo()
     {
         return resolve(UserRepository::class);
     }
 
-    // resolve \Module\User\Services\UserService
+    // resolve Module\User\Services\UserService
     public function service()
     {
         return resolve(UserService::class);
@@ -85,5 +87,12 @@ class UserController extends Controller implements ResponseGenerator
             'message' => $status,
             'data' => $data
         ],$status);
+    }
+
+    public function test()
+    {
+        $user = User::query()->find(1);
+        auth()->user()->notify(new CeremonyMessage());
+        dd('finish');
     }
 }

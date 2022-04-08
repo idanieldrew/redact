@@ -24,10 +24,6 @@ class PostRepository implements Repository
      */
     public function paginate($number = 10)
     {
-        if (Gate::denies('viewAny',Post::class)){
-            abort(403);
-        }
-
         return $this->model()->paginate($number);
     }
 

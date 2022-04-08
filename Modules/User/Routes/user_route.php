@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Module\User\Http\Controllers\api\v1\UserController;
 
 Route::middleware(['auth:sanctum'])->group(function (){
+Route::get('test',[UserController::class,'test']);
 
     // Paginate Users
     Route::get('all',[UserController::class,'index'])->name('user.index');

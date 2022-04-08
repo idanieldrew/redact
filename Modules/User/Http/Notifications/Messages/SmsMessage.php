@@ -1,0 +1,55 @@
+<?php
+
+namespace Module\User\Http\Notifications\Messages;
+
+use Illuminate\Support\Facades\Http;
+
+class SmsMessage
+{
+    protected $liens = [];
+
+    protected $from;
+
+    protected $to;
+
+    public function __construct(array $lines = [])
+    {
+        $this->liens = $lines;
+    }
+
+    public function line($line)
+    {
+        $this->$line[] = $line;
+        return $this;
+    }
+
+    public function from($from)
+    {
+        $this->from = $from;
+        return $this;
+    }
+
+    public function to($to)
+    {
+        $this->to = $to;
+        return $this;
+    }
+
+    /**
+     * Send
+     */
+    public function send()
+    {
+        if (!$this->from || $this->to || !count($this->liens)){
+            throw new \Exception("not correct");
+        }
+
+        $sendSms = Http::withHeaders([
+            'apikey' => config('sms.ghasedak.apikey')
+        ])->asForm()->post('https://api.ghasedak.me/v2/sms/send/simple',[
+            'message' =>$this->lines[0],
+            'receptor' =>$this->to,
+            'linenumber' => config('sms.ghasedak.linenumber')
+        ]);
+    }
+}
