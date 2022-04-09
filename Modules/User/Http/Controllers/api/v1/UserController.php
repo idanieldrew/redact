@@ -89,10 +89,10 @@ class UserController extends Controller implements ResponseGenerator
         ],$status);
     }
 
-    public function test()
+    public function sendSms()
     {
-        $user = User::query()->find(1);
         auth()->user()->notify(new CeremonyMessage());
+
         dd('finish');
     }
 }
