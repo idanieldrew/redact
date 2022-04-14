@@ -3,6 +3,7 @@
 namespace Module\Post\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 use Module\Post\Http\Requests\PostRequest;
 use Module\Post\Http\Resources\v1\PostCollection;
 use Module\Post\Http\Resources\v1\PostResource;
@@ -47,33 +48,20 @@ class PostController extends Controller
     {
         $post = $this->service()->store($request);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'successfully create',
-            'data' => new PostResource($post)
-        ],201);
+        return $this->res('success',null,$post,Response::HTTP_CREATED);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Post  $post
+     * @param  \Module\Post\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
     public function show(Post $post)
     {
-        //
-    }
+        $post = $this->repo()->show($post);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Post $post)
-    {
-        //
+        return $this->res('success',null,new PostResource($post),Response::HTTP_OK);
     }
 
     /**
@@ -97,5 +85,14 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         //
+    }
+
+    public function res($status,$message,$data,$code)
+    {
+        return response()->json([
+            'status' => $status,
+            'message' => $message,
+            'data' => $data,
+        ],$code);
     }
 }

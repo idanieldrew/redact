@@ -45,6 +45,7 @@ class AuthController extends Controller implements ResponseGenerator
         return $this->res($login['success'],$login['status'],$login['message'],$login['data']);
     }
 
+    // manage response
     public function res($success, $status, $message, $data)
     {
         return response()->json([

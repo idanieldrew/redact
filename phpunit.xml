@@ -20,7 +20,13 @@
             <directory suffix="Test.php">./Modules/User/tests/Feature</directory>
         </testsuite>
 
+        <!--post tests-->
+        <testsuite name="Feature">
+            <directory suffix="Test.php">./Modules/Post/tests/Feature</directory>
+        </testsuite>
+
     </testsuites>
+
     <coverage processUncoveredFiles="true">
         <include>
             <directory suffix=".php">./app</directory>

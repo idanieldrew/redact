@@ -29,16 +29,12 @@ class PostRepository implements Repository
 
     /**
      * Show $this->model
-     * @param int $id
-     * @return \Module\User\Models\User
+     * @param string $post
+     * @return \Module\Post\Models\Post
      */
-    public function show($id)
+    public function show($post)
     {
-        if (Gate::denies('view', [Post::class, $id])) {
-            abort(403);
-        }
-
-        return $this->model()->findOrFail($id);
+        return $this->model()->firstOrFail();
     }
 
     /**
