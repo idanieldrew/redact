@@ -2,6 +2,7 @@
 
 namespace Module\User\Repository;
 
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
 use Module\Share\Repository\Repository;
 use Module\User\Models\User;
@@ -54,7 +55,7 @@ class UserRepository implements Repository
     public function destroy($user)
     {
         if (Gate::denies('delete', [User::class, $user])) {
-            abort(403);
+            abort(Response::HTTP_FORBIDDEN);
         }
 
         return $user->delete();

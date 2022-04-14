@@ -12,7 +12,6 @@ class RegisterTest extends TestCase
     /** @test */
     public function register_a_user()
     {
-        $this->withoutExceptionHandling();
         $data = [
           'name' => 'test',
           'email' => 'test@test.com',
@@ -34,7 +33,7 @@ class RegisterTest extends TestCase
         ];
 
         $this->post(route('register'),$data)
-            ->assertSessionHasErrors();
+            ->assertStatus(422);
     }
 
     /** @test */
@@ -47,7 +46,7 @@ class RegisterTest extends TestCase
         ];
 
         $this->post(route('register'),$data)
-            ->assertSessionHasErrors();
+            ->assertStatus(422);
     }
 
     /** @test */
@@ -67,7 +66,7 @@ class RegisterTest extends TestCase
         $this->post(route('register'),$data);
 
         $this->post(route('register'),$data2)
-            ->assertSessionHasErrors();
+            ->assertStatus(422);
     }
 
     /** @test */
@@ -80,6 +79,6 @@ class RegisterTest extends TestCase
         ];
 
         $this->post(route('register'),$data)
-            ->assertSessionHasErrors();
+            ->assertStatus(422);
     }
 }
