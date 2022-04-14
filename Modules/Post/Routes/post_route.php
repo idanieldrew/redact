@@ -11,5 +11,5 @@ Route::get('{post:slug}',[PostController::class,'show'])->name('post.show');
 
 Route::middleware(['auth:sanctum'])->group(function (){
         // Store post
-        Route::post('store',[PostController::class,'store'])->name('post.stores');
+        Route::post('store',[PostController::class,'store'])->name('post.store');
 });

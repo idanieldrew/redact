@@ -46,7 +46,7 @@ class UserController extends Controller implements ResponseGenerator
      * @param  int $user
      * @return \Module\User\Http\Resources\v1\UserResource
      */
-    public function show($user)
+    public function show(User $user)
     {
         $user = $this->repo()->show($user);
 
