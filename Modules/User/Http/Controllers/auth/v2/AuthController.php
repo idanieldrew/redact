@@ -1,14 +1,10 @@
 <?php
 
-namespace Module\User\Http\Controllers\auth\v1;
+namespace Module\User\Http\Controllers\auth\v2;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Auth\Events\Registered;
 use Module\Share\Contracts\Response\ResponseGenerator;
-use Module\User\Http\Requests\LoginRequest;
-use Module\User\Http\Requests\RegisterRequest;
-use Module\User\Http\Resources\v1\UserResource;
-use Module\User\Services\v1\UserService;
+use Module\User\Services\UserService;
 
 class AuthController extends Controller implements ResponseGenerator
 {
@@ -20,10 +16,10 @@ class AuthController extends Controller implements ResponseGenerator
     }
 
     /**
-    * Register user
-    * @param \Module\User\Http\Requests\RegisterRequest $request
-    * @return $this->response($status,$message,$data)
-    */
+     * Register user
+     * @param \Module\User\Http\Requests\RegisterRequest $request
+     * @return $this->response($status,$message,$data)
+     */
     public function register(RegisterRequest $request)
     {
         $store = $this->service->store($request);
@@ -34,10 +30,10 @@ class AuthController extends Controller implements ResponseGenerator
     }
 
     /**
-    * Login user
-    * @param \Module\User\Http\Requests\LoginRequest $request
-    * @return $this->response($status,$message,$data)
-    */
+     * Login user
+     * @param \Module\User\Http\Requests\LoginRequest $request
+     * @return $this->response($status,$message,$data)
+     */
     public function login(LoginRequest$request)
     {
         $login = $this->service->login($request);
