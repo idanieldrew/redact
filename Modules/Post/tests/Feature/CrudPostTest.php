@@ -52,6 +52,16 @@ class CrudPostTest extends TestCase
     }
 
     /** @test */
+    public function required_title_post()
+    {
+        $user = $this->CreateUser();
+        $post = Post::factory()->raw(['user_id' => $user->id,'title' => '']);
+
+        $this->post(route('post.store'),$post)
+            ->assertStatus(422);
+    }
+
+    /** @test */
     public function handle_length_title_post()
     {
         $user = $this->CreateUser();
@@ -71,4 +81,35 @@ class CrudPostTest extends TestCase
         $this->post(route('post.store'),$post)
             ->assertStatus(422);
     }
+
+    /** @test */
+    public function required_details_post()
+    {
+        $user = $this->CreateUser();
+        $post = Post::factory()->raw(['user_id' => $user->id,'details' => '']);
+
+        $this->post(route('post.store'),$post)
+            ->assertStatus(422);
+    }
+
+    /** @test */
+    public function handle_length_details_post()
+    {
+        $user = $this->CreateUser();
+        $post = Post::factory()->raw(['user_id' => $user->id,'details' => 'test']);
+
+        $this->post(route('post.store'),$post)
+            ->assertStatus(422);
+    }
+
+    /** @test */
+    public function required_description_post()
+    {
+        $user = $this->CreateUser();
+        $post = Post::factory()->raw(['user_id' => $user->id,'description' => '']);
+
+        $this->post(route('post.store'),$post)
+            ->assertStatus(422);
+    }
+
 }
