@@ -30,7 +30,7 @@ class UserService extends Service
 
     /**
      *Create new user
-     * @param \Module\User\Http\Requests\RegisterRequest $request
+     * @param \Module\User\Http\Requests\v2\RegisterRequest $request
      * @return array
      */
     public function store($request)
@@ -38,9 +38,10 @@ class UserService extends Service
         $user = $this->model->create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => bcrypt($request->email),
-            'phone' => $request->phone
+            'phone' => $request->phone,
+            'password' => bcrypt($request->email)
         ]);
+
         $token = $user->createToken('token')->plainTextToken;
 
         return [
@@ -56,7 +57,7 @@ class UserService extends Service
 
     /*
     * try to login
-    * @param \Module\User\Http\Requests\RegisterRequest $request
+    * @param \Module\User\Http\Requests\v2\RegisterRequest $request
     * @return [\Module\User\Models\User,number]
     */
     public function login($request)
@@ -76,7 +77,7 @@ class UserService extends Service
             ];
         }
 
-        $token = $user->createToken('token')->plainTextToken;
+        $token = $user->createToken('test')->plainTextToken;
 
         return [
             'success' => true,

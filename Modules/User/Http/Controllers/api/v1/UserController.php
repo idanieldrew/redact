@@ -4,15 +4,14 @@ namespace Module\User\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Notification;
 use Module\Share\Contracts\Response\ResponseGenerator;
 use Module\User\Http\Notifications\CeremonyMessage;
-use Module\User\Http\Requests\UserRequest;
+use Module\User\Http\Requests\v1\UserRequest;
 use Module\User\Http\Resources\v1\UserCollection;
 use Module\User\Http\Resources\v1\UserResource;
 use Module\User\Models\User;
 use Module\User\Repository\UserRepository;
-use Module\User\Services\UserService;
+use Module\User\Services\v2\UserService;
 
 class UserController extends Controller implements ResponseGenerator
 {
@@ -43,7 +42,7 @@ class UserController extends Controller implements ResponseGenerator
     /**
      * Display the specified resource.
      *
-     * @param  int $user
+     * @param  $user
      * @return \Module\User\Http\Resources\v1\UserResource
      */
     public function show(User $user)
@@ -57,7 +56,7 @@ class UserController extends Controller implements ResponseGenerator
      * Update the specified resource in storage.
      *
      * @param  int $user
-     * @param  \Module\User\Http\Requests\UserRequest  $request
+     * @param  \Module\User\Http\Requests\v1\UserRequest  $request
      * @return \Module\User\Http\Resources\v1\UserResource
      */
     public function update($user,UserRequest $request)

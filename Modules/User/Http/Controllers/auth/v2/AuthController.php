@@ -3,8 +3,12 @@
 namespace Module\User\Http\Controllers\auth\v2;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\Events\Registered;
 use Module\Share\Contracts\Response\ResponseGenerator;
-use Module\User\Services\UserService;
+use Module\User\Http\Requests\v2\LoginRequest;
+use Module\User\Http\Requests\v2\RegisterRequest;
+use Module\User\Http\Resources\v2\UserResource;
+use Module\User\Services\v2\UserService;
 
 class AuthController extends Controller implements ResponseGenerator
 {
@@ -17,7 +21,7 @@ class AuthController extends Controller implements ResponseGenerator
 
     /**
      * Register user
-     * @param \Module\User\Http\Requests\RegisterRequest $request
+     * @param \Module\User\Http\Requests\v2\RegisterRequest $request
      * @return $this->response($status,$message,$data)
      */
     public function register(RegisterRequest $request)
@@ -31,7 +35,7 @@ class AuthController extends Controller implements ResponseGenerator
 
     /**
      * Login user
-     * @param \Module\User\Http\Requests\LoginRequest $request
+     * @param \Module\User\Http\Requests\v2\LoginRequest $request
      * @return $this->response($status,$message,$data)
      */
     public function login(LoginRequest$request)
@@ -49,5 +53,6 @@ class AuthController extends Controller implements ResponseGenerator
             'message' => $message,
             'user' => $data['user'] ? new UserResource($data['user']) : null,
             'token' => $data['token']
-        ],$status);    }
+        ],$status);
+    }
 }

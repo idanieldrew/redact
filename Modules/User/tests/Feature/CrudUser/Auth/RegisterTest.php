@@ -15,9 +15,10 @@ class RegisterTest extends TestCase
         $data = [
           'name' => 'test',
           'email' => 'test@test.com',
+            'phone' => "09121234567",
           'password' => 'password'
         ];
-        $res = $this->post(route('register'),$data)
+        $res = $this->post(route('register.v2'),$data)
             ->assertCreated();
 
         $this->assertArrayHasKey('token',$res);
@@ -27,12 +28,13 @@ class RegisterTest extends TestCase
     public function handle_length_name()
     {
         $data = [
-            'name' => 'na',
+            'name' => 't',
             'email' => 'test@test.com',
+            'phone' => "09121234567",
             'password' => 'password'
         ];
 
-        $this->post(route('register'),$data)
+        $this->post(route('register.v2'),$data)
             ->assertStatus(422);
     }
 
@@ -40,12 +42,13 @@ class RegisterTest extends TestCase
     public function handle_string_name()
     {
         $data = [
-            'name' => 1234,
+            'name' => 123,
             'email' => 'test@test.com',
+            'phone' => "09121234567",
             'password' => 'password'
         ];
 
-        $this->post(route('register'),$data)
+        $this->post(route('register.v2'),$data)
             ->assertStatus(422);
     }
 
@@ -55,17 +58,19 @@ class RegisterTest extends TestCase
         $data = [
             'name' => 'test',
             'email' => 'test@test.com',
+            'phone' => "09121234567",
             'password' => 'password'
         ];
 
         $data2 = [
             'name' => 'test2',
             'email' => 'test@test.com',
+            'phone' => "09121234567",
             'password' => 'password'
         ];
-        $this->post(route('register'),$data);
+        $this->post(route('register.v2'),$data);
 
-        $this->post(route('register'),$data2)
+        $this->post(route('register.v2'),$data2)
             ->assertStatus(422);
     }
 
@@ -75,10 +80,11 @@ class RegisterTest extends TestCase
         $data = [
             'name' => 'test',
             'email' => 'test@test.com',
-            'password' => '123'
+            'phone' => "09121234567",
+            'password' => 'pass'
         ];
 
-        $this->post(route('register'),$data)
+        $this->post(route('register.v2'),$data)
             ->assertStatus(422);
     }
 }

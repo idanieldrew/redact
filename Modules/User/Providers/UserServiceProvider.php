@@ -27,6 +27,8 @@ class UserServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
 
         // Routes
+
+        /* v1 */
         Route::prefix('api/user')
             ->middleware('api')
             ->namespace($this->namespace)
@@ -37,5 +39,10 @@ class UserServiceProvider extends ServiceProvider
             ->namespace($this->namespace)
             ->group(__DIR__ . '/../Routes/v1/auth_route.php');
 
+        /* v2 */
+        Route::prefix('api/auth')
+            ->middleware('api')
+            ->namespace($this->namespace)
+            ->group(__DIR__ . '/../Routes/v2/auth_route.php');
     }
 }

@@ -22,7 +22,8 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $fillable = [
         'name',
         'email',
-        'password',
+        'phone',
+        'password'
     ];
 
     /**
@@ -85,7 +86,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Post::class);
     }
 
-    public function tokens()
+    public function tokenz()
     {
         return $this->hasMany(Token::class);
     }

@@ -13,7 +13,7 @@ class UserService extends Service
     /**
    * Update $this->model
    * @param string $param
-   * @param \Module\User\Http\Requests\UserRequest; $request
+   * @param \Module\User\Http\Requests\v1\UserRequest; $request
    * @return \Module\User\Models\User
    */
     public function update($param,$request)
@@ -30,8 +30,8 @@ class UserService extends Service
 
    /**
   *Create new user
-  * @param \Module\User\Http\Requests\RegisterRequest $request
-  * @return [\Module\User\Models\User,number]
+  * @param \Module\User\Http\Requests\v1\RegisterRequest $request
+  * @return array
   */
     public function store($request)
     {

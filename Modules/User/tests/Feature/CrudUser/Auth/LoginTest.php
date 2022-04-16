@@ -15,23 +15,22 @@ class LoginTest extends TestCase
         $data = [
             'name' => 'test',
             'email' => 'test@test.com',
-            'password' => 'password',
-            'phone' => "09121234567"
+            'phone' => "09121234567",
+            'password' => 'password'
         ];
 
-        $this->post(route('register'),$data);
+        $this->post(route('register.v2'),$data);
     }
 
     /** @test */
     public function login_a_user()
     {
-        $this->withoutExceptionHandling();
         $this->register();
 
         $res = $this->post(route('login.v2'),[
-            'email' => $this->faker->email,
-            'password' => $this->faker->password,
-            'phone' => $this->faker->phoneNumber
+            'email' => "test@test.com",
+            'password' => "password",
+            'phone' => "09121234567"
         ])->assertOk();
 
         $this->assertArrayHasKey('token',$res);
@@ -42,7 +41,7 @@ class LoginTest extends TestCase
     {
         $this->register();
 
-        $this->post(route('login'),[
+        $this->post(route('login.v2'),[
             'email' => 'wrong@wrong.com',
             'password' => 'password'
         ])->assertUnauthorized();
@@ -53,7 +52,7 @@ class LoginTest extends TestCase
     {
         $this->register();
 
-        $this->post(route('login'),[
+        $this->post(route('login.v2'),[
             'email' => 'test@test.com',
             'password' => 'wrong'
         ])->assertStatus(422);
