@@ -2,7 +2,6 @@
 
 namespace Module\Post\tests\Feature;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
 use Module\Post\Models\Post;
