@@ -2,9 +2,11 @@
 
 namespace Module\User\Services\v2;
 
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
+use Module\User\Models\Token;
 use Module\User\Models\User;
 use Module\User\Services\UserService as Service;
 
@@ -13,7 +15,7 @@ class UserService extends Service
     /**
      * Update $this->model
      * @param string $param
-     * @param \Module\User\Http\Requests\UserRequest; $request
+     * @param \Module\User\Http\Requests\v2\UserRequest $request
      * @return \Module\User\Models\User
      */
     public function update($param,$request)
@@ -55,7 +57,7 @@ class UserService extends Service
         ];
     }
 
-    /*
+    /**
     * try to login
     * @param \Module\User\Http\Requests\v2\RegisterRequest $request
     * @return [\Module\User\Models\User,number]
@@ -77,16 +79,40 @@ class UserService extends Service
             ];
         }
 
+        /*if ($user->two){
+            $this->otp($user);
+        }*/
+
         $token = $user->createToken('test')->plainTextToken;
 
         return [
             'success' => true,
             'status' => 200,
-            'message' => 'invalid email or password',
+            'message' => null,
             'data' => [
                 'user' => $user,
                 'token' => $token
             ]
         ];
+    }
+
+    public function otp($user)
+    {
+            $token = Token::query()->create([
+                'user_id' => $user->id
+            ]);
+
+            if ($token->send()){
+                echo "send it.";
+            }
+            $token->delete();
+        return ;
+    }
+    public function storeCode(Request $request)
+    {
+        $token = Token::query()->find($request->id);
+        if (! $token || $token->isValid() || $request->code !== $token->code){
+            return 'error';
+        }
     }
 }

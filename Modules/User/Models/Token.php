@@ -5,6 +5,7 @@ namespace Module\User\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Http;
 
 class Token extends Model
 {
@@ -50,5 +51,29 @@ class Token extends Model
     public function isExpired()
     {
         return $this->created_at->diffInMinutes(Carbon::now())  > static::EXPIRATION_TIME;
+    }
+
+    public function send()
+    {
+        if (! $this->user()){
+            throw new \Exception("no user");
+        }
+        if (! $this->code){
+            $this->code = $this->generateCode();
+        }
+
+        try {
+            echo "ok";
+            /*Http::withHeaders([
+                'apikey' => "api"
+            ])->asForm()->post('https://api.ghasedak.me/v2/sms/send/simple',[
+                'message' => $this->code,
+                'receptor' => "123",
+                'linenumber' =>"092123456"
+            ]);*/
+        } catch (\Exception $e){
+            return false;
+        }
+        return true;
     }
 }

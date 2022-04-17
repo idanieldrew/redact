@@ -4,10 +4,12 @@ namespace Module\User\Http\Controllers\auth\v2;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
 use Module\Share\Contracts\Response\ResponseGenerator;
 use Module\User\Http\Requests\v2\LoginRequest;
 use Module\User\Http\Requests\v2\RegisterRequest;
 use Module\User\Http\Resources\v2\UserResource;
+use Module\User\Models\Token;
 use Module\User\Services\v2\UserService;
 
 class AuthController extends Controller implements ResponseGenerator
