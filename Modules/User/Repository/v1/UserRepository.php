@@ -29,7 +29,9 @@ class UserRepository implements Repository
             abort(403);
         }
 
-        return $this->model()->paginate($number);
+//        return $this->model()->paginate($number);
+
+        return $this->model()->withTrashed()->paginate($number);
     }
 
     /**
