@@ -4,7 +4,6 @@ namespace Module\User\Services\v2;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Module\User\Models\Token;
 use Module\User\Models\User;
@@ -12,25 +11,7 @@ use Module\User\Services\UserService as Service;
 
 class UserService extends Service
 {
-    /**
-     * Update $this->model
-     * @param string $param
-     * @param \Module\User\Http\Requests\v2\UserRequest $request
-     * @return \Module\User\Models\User
-     */
-    public function update($param,$request)
-    {
-        // Just user can edit our information
-        if (Gate::denies('update',[User::class,$param])){
-            abort(403);
-        }
-
-        return $this->model
-            ->whereId($param)
-            ->update($request->all());
-    }
-
-    /**
+     /**
      *Create new user
      * @param \Module\User\Http\Requests\v2\RegisterRequest $request
      * @return array
@@ -60,7 +41,7 @@ class UserService extends Service
     /**
     * try to login
     * @param \Module\User\Http\Requests\v2\RegisterRequest $request
-    * @return [\Module\User\Models\User,number]
+    * @return array
     */
     public function login($request)
     {
@@ -108,6 +89,7 @@ class UserService extends Service
             $token->delete();
         return ;
     }
+
     public function storeCode(Request $request)
     {
         $token = Token::query()->find($request->id);

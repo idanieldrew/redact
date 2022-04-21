@@ -4,12 +4,10 @@ namespace Module\User\Http\Controllers\auth\v2;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\Request;
 use Module\Share\Contracts\Response\ResponseGenerator;
 use Module\User\Http\Requests\v2\LoginRequest;
 use Module\User\Http\Requests\v2\RegisterRequest;
 use Module\User\Http\Resources\v2\UserResource;
-use Module\User\Models\Token;
 use Module\User\Services\v2\UserService;
 
 class AuthController extends Controller implements ResponseGenerator
@@ -21,7 +19,7 @@ class AuthController extends Controller implements ResponseGenerator
         $this->service = resolve(UserService::class);
     }
 
-    /**
+     /**
      * Register user
      * @param \Module\User\Http\Requests\v2\RegisterRequest $request
      * @return $this->response($status,$message,$data)
@@ -35,7 +33,7 @@ class AuthController extends Controller implements ResponseGenerator
         return $this->res($store['success'],$store['status'],$store['message'],$store['data']);
     }
 
-    /**
+     /**
      * Login user
      * @param \Module\User\Http\Requests\v2\LoginRequest $request
      * @return $this->response($status,$message,$data)

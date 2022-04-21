@@ -11,7 +11,7 @@ use Module\User\Http\Resources\v1\UserCollection;
 use Module\User\Http\Resources\v1\UserResource;
 use Module\User\Models\User;
 use Module\User\Repository\UserRepository;
-use Module\User\Services\v2\UserService;
+use Module\User\Services\v1\UserService;
 
 class UserController extends Controller implements ResponseGenerator
 {
