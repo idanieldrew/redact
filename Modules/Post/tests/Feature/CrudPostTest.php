@@ -4,6 +4,12 @@ namespace Module\Post\tests\Feature;
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+use Module\Post\Events\PostPublish;
+use Module\Post\Listeners\SendNotificationAdmin;
+use Module\Post\Mail\PostPublishedPermission;
 use Module\Post\Models\Post;
 use Tests\TestCase;
 
@@ -43,7 +49,6 @@ class CrudPostTest extends TestCase
     /** @test */
     public function store_post()
     {
-        $this->withoutExceptionHandling();
         $user = $this->CreateUser();
         $post = Post::factory()->raw(['user_id' => $user->id]);
 
@@ -112,4 +117,19 @@ class CrudPostTest extends TestCase
             ->assertStatus(422);
     }
 
+    /** @test */
+    public function mock_post_event_mailing()
+    {
+        Event::fake([
+            PostPublish::class
+        ]);
+
+        $user = $this->CreateUser();
+        $post = Post::factory()->raw(['user_id' => $user->id]);
+
+        $this->post(route('post.store'),$post)
+            ->assertCreated();
+
+        Event::assertDispatched(PostPublish::class);
+    }
 }
