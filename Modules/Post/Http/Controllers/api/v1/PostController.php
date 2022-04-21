@@ -10,7 +10,7 @@ use Module\Post\Http\Resources\v1\PostResource;
 use Module\Post\Models\Post;
 use Illuminate\Http\Request;
 use Module\Post\Repository\v1\PostRepository;
-use Module\Post\Services\PostService;
+use Module\Post\Services\v1\PostService;
 
 class PostController extends Controller
 {

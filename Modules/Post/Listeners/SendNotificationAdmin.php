@@ -6,7 +6,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Mail;
 use Module\Post\Events\PostPublish;
 use Module\Post\Mail\PostPublishedPermission;
-use Module\User\Repository\UserRepository;
+use Module\User\Repository\v1\UserRepository;
 
 class SendNotificationAdmin implements ShouldQueue
 {

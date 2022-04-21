@@ -1,6 +1,6 @@
 <?php
 
-namespace Module\User\Repository;
+namespace Module\User\Repository\v1;
 
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
