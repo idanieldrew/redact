@@ -26,7 +26,7 @@ class UpdateRequest extends FormRequest
         return [
             'title' => 'nullable|unique:posts|max:32|min:3',
             'details' => 'nullable|unique:posts|min:10',
-            'description' => 'nullable',
+            'description' => 'nullable|min:20',
         ];
     }
 }
