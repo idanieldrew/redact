@@ -4,11 +4,11 @@ namespace Module\Post\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
-use Module\Post\Http\Requests\PostRequest;
+use Module\Post\Http\Requests\v1\PostRequest;
+use Module\Post\Http\Requests\v1\UpdateRequest;
 use Module\Post\Http\Resources\v1\PostCollection;
 use Module\Post\Http\Resources\v1\PostResource;
 use Module\Post\Models\Post;
-use Illuminate\Http\Request;
 use Module\Post\Repository\v1\PostRepository;
 use Module\Post\Services\v1\PostService;
 use Module\Share\Contracts\Response\ResponseGenerator;
@@ -42,7 +42,7 @@ class PostController extends Controller implements ResponseGenerator
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Module\Post\Http\Requests\PostRequest  $request
+     * @param  \Module\Post\Http\Requests\v1\PostRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(PostRequest $request)
@@ -68,11 +68,11 @@ class PostController extends Controller implements ResponseGenerator
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Module\Post\Http\Requests\v1\UpdateRequest $request
      * @param  \Module\Post\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(UpdateRequest $request, Post $post)
     {
         $this->service()->update($post,$request);
 

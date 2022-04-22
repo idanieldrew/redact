@@ -49,6 +49,7 @@ class CrudPostTest extends TestCase
     /** @test */
     public function store_post()
     {
+       $this->withoutExceptionHandling();
         $user = $this->CreateUser();
         $post = Post::factory()->raw(['user_id' => $user->id]);
 

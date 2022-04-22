@@ -20,7 +20,7 @@ class UserServiceProvider extends ServiceProvider
     public function register()
     {
         // super user
-        Gate::before(function ($user,$ability){
+        Gate::before(function ($user){
             if ($user->isSuper()){
                 return true;
             }
