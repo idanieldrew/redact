@@ -2,8 +2,10 @@
 
 namespace Module\Post\Services\v1;
 
+use Illuminate\Support\Facades\Gate;
 use Module\Post\Events\PostPublish;
 use Module\Post\Http\Resources\v1\PostResource;
+use Module\Post\Models\Post;
 use Module\Post\Services\PostService as Service;
 
 class PostService extends Service
@@ -24,5 +26,21 @@ class PostService extends Service
         PostPublish::dispatch($post->slug);
 
         return new PostResource($post);
+    }
+
+    /**
+     * Update post
+     * @param string $post
+     * @param \Module\User\Http\Requests\v1\UserRequest; $request
+     * @return null
+     */
+    public function update($post,$request)
+    {
+        // Just user can edit our information
+        if (Gate::denies('update',[Post::class,$post])){
+            abort(403);
+        }
+
+        return $post->update($request->all());
     }
 }

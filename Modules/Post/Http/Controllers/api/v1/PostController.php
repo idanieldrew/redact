@@ -11,8 +11,9 @@ use Module\Post\Models\Post;
 use Illuminate\Http\Request;
 use Module\Post\Repository\v1\PostRepository;
 use Module\Post\Services\v1\PostService;
+use Module\Share\Contracts\Response\ResponseGenerator;
 
-class PostController extends Controller
+class PostController extends Controller implements ResponseGenerator
 {
     // resolve \Module\Post\Repository\v1\PostRepository
     public function repo()
@@ -48,7 +49,7 @@ class PostController extends Controller
     {
         $post = $this->service()->store($request);
 
-        return $this->res('success',null,$post,Response::HTTP_CREATED);
+        return $this->res('success',Response::HTTP_CREATED,null,new PostResource($post));
     }
 
     /**
@@ -61,19 +62,21 @@ class PostController extends Controller
     {
         $post = $this->repo()->show($post);
 
-        return $this->res('success',null,new PostResource($post),Response::HTTP_OK);
+        return $this->res('success',Response::HTTP_OK,null,new PostResource($post));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Post  $post
+     * @param  \Module\Post\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $this->service()->update($post,$request);
+
+        return $this->res('success',Response::HTTP_NO_CONTENT,null,null);
     }
 
     /**
@@ -87,12 +90,13 @@ class PostController extends Controller
         //
     }
 
-    public function res($status,$message,$data,$code)
+    // manage response
+    public function res($success, $status, $message, $data)
     {
         return response()->json([
-            'status' => $status,
+            'success' => $success,
             'message' => $message,
-            'data' => $data,
-        ],$code);
+            'data' => $data
+        ],$status);
     }
 }

@@ -6,11 +6,16 @@ use Carbon\Laravel\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 use Module\Post\Models\Post;
 use Module\Post\Observers\PostObserver;
+use Module\Post\Policies\PostPolicy;
 
 class PostServiceProvider extends ServiceProvider
 {
 
     private $namespace = 'Module\Post\Http\Controllers';
+
+    protected $policies = [
+        Post::class => PostPolicy::class
+    ];
 
     /**
      * Bootstrap any application services.

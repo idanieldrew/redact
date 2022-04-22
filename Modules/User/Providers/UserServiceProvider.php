@@ -3,6 +3,7 @@
 namespace Module\User\Providers;
 
 use Carbon\Laravel\ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Module\User\Models\User;
 use Module\User\Policies\UserPolicy;
@@ -16,6 +17,15 @@ class UserServiceProvider extends ServiceProvider
         User::class => UserPolicy::class
     ];
 
+    public function register()
+    {
+        // super user
+        Gate::before(function ($user,$ability){
+            if ($user->isSuper()){
+                return true;
+            }
+        });
+    }
     /**
      * Bootstrap any application services.
      *

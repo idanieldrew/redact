@@ -9,12 +9,12 @@ class UserPolicy
 {
     use HandlesAuthorization;
 
-    public function before($user)
+/*    public function before($user)
     {
         if ($user->isSuper()){
             return true;
         }
-    }
+    }*/
 
     /**
      * Determine whether the user can view any models.
