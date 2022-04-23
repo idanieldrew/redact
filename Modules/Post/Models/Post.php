@@ -14,10 +14,14 @@ class Post extends Model
 
     protected $guarded = [];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'blue_tick' => 'boolean'
+    ];
 
     /**
      * Create a new factories instance for the model.
@@ -27,5 +31,11 @@ class Post extends Model
     protected static function newFactory()
     {
         return PostFactory::new();
+    }
+
+    /** Relations */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

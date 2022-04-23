@@ -22,6 +22,7 @@ class PostResource extends JsonResource
           'description' => $this->description,
 //          'user' => UserResource::collection($this->whenLoaded('user')),
           'user' => new UserResource($this->user),
+          'blue_tick' => $this->blue_tick,
           'created_at' => $this->created_at
         ];
     }

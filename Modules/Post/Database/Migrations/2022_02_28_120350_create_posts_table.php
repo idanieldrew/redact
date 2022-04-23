@@ -20,6 +20,7 @@ class CreatePostsTable extends Migration
             $table->string('details');
             $table->text('description');
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->boolean('blue_tick')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
