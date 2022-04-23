@@ -82,12 +82,14 @@ class PostController extends Controller implements ResponseGenerator
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Post  $post
+     * @param  \Module\Post\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
     public function destroy(Post $post)
     {
-        //
+        $this->repo()->destroy($post);
+
+        return $this->res('success',Response::HTTP_OK,'Successfully delete post',null);
     }
 
     // manage response

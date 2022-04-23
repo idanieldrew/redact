@@ -15,4 +15,7 @@ Route::middleware(['auth:sanctum'])->group(function (){
 
         // Update post
         Route::patch('update/{post:slug}',[PostController::class,'update'])->name('post.update');
+
+        // Destroy post
+        Route::delete('destroy/{post:slug}',[PostController::class,'destroy'])->name('post.destroy');
 });

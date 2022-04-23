@@ -4,8 +4,6 @@ namespace Module\Post\tests\Feature;
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
-use Module\Post\Models\Post;
-use Module\User\Models\User;
 use Tests\TestCase;
 
 class UpdatePostTest extends TestCase

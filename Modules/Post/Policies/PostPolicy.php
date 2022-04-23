@@ -47,8 +47,8 @@ class PostPolicy
     /**
      * Determine whether the user can update the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Post  $post
+     * @param  \Module\User\Models\User  $user
+     * @param  \Module\Post\Models\Post  $post
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function update(User $user, Post $post)
@@ -59,13 +59,14 @@ class PostPolicy
     /**
      * Determine whether the user can delete the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Post  $post
+     * @param  \Module\User\Models\User  $user
+     * @param  \Module\Post\Models\Post  $post
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function delete(User $user, Post $post)
     {
-        //
+        dd($user->id,84520,$post);
+        return $user->id == $post->user_id;
     }
 
     /**

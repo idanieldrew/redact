@@ -2,6 +2,7 @@
 
 namespace Module\Post\Services\v1;
 
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
 use Module\Post\Events\PostPublish;
 use Module\Post\Http\Resources\v1\PostResource;
@@ -38,7 +39,7 @@ class PostService extends Service
     {
         // Just user can edit our information
         if (Gate::denies('update',[Post::class,$post])){
-            abort(403);
+            abort(Response::HTTP_FORBIDDEN);
         }
 
         return $post->update($request->all());

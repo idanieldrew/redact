@@ -7,7 +7,6 @@ use Module\Post\Models\Post;
 
 class PostObserver
 {
-
     /**
      * Handle the Post "created" event.
      *

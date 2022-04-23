@@ -2,6 +2,7 @@
 
 namespace Module\Post\Repository\v1;
 
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
 use Module\Post\Models\Post;
 use Module\Share\Repository\Repository;
@@ -40,15 +41,15 @@ class PostRepository implements Repository
     /**
      * Destroy User model
      *
-     * @param  \Module\User\Models\User $user
+     * @param  \Module\Post\Models\Post $post
      * @return boolean
      */
-    public function destroy($user)
+    public function destroy($post)
     {
-        if (Gate::denies('delete', [Post::class, $user])) {
-            abort(403);
+        if (Gate::denies('delete', [Post::class, $post])) {
+            abort(Response::HTTP_FORBIDDEN);
         }
 
-        return $user->delete();
+        return $post->delete();
     }
 }
