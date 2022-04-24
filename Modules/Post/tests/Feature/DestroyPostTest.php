@@ -19,6 +19,7 @@ class DestroyPostTest extends TestCase
             'title' => $this->faker->title,
             'details' => $this->faker->paragraph(1),
             'description' => $this->faker->paragraph,
+            'banner' => $this->faker->imageUrl
         ]);
 
         $this->delete(route('post.destroy',$post->slug))

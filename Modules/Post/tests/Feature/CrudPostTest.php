@@ -17,16 +17,20 @@ class CrudPostTest extends TestCase
 {
     use DatabaseMigrations,WithFaker;
 
+    private function storePost()
+    {
+        $user = $this->CreateUser();
+        return $user->posts()->create([
+            'title' => $this->faker->name,
+            'details' => $this->faker->sentence,
+            'description' => $this->faker->paragraph,
+            'banner' => $this->faker->imageUrl
+        ]);
+    }
     /** @test */
     public function show_single_post()
     {
-        $user = $this->CreateUser();
-        $post = $user->posts()->create([
-            'title' => $this->faker->name,
-            'details' => $this->faker->sentence,
-            'description' => $this->faker->paragraph
-        ]);
-
+        $post = $this->storePost();
         $this->get(route('post.show',$post->slug))
             ->assertSee($post->title)
             ->assertOk();
@@ -35,12 +39,7 @@ class CrudPostTest extends TestCase
     /** @test */
     public function incorrect_path_post()
     {
-        $user = $this->CreateUser();
-        $user->posts()->create([
-            'title' => $this->faker->name,
-            'details' => $this->faker->sentence,
-            'description' => $this->faker->paragraph
-        ]);
+        $this->storePost();
 
         $this->get(route('post.show',"test"))
             ->assertNotFound();

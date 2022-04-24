@@ -20,6 +20,7 @@ class PostResource extends JsonResource
           'slug' => $this->slug,
           'details' => $this->details,
           'description' => $this->description,
+          'banner' => $this->banner,
 //          'user' => UserResource::collection($this->whenLoaded('user')),
           'user' => new UserResource($this->user),
           'blue_tick' => $this->blue_tick,

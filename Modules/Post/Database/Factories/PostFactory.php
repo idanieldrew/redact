@@ -28,6 +28,7 @@ class PostFactory extends Factory
             'title' => $faker->title,
             'details' =>  $faker->paragraph(1),
             'description' => $faker->paragraph(6),
+            'banner' => $faker->imageUrl
         ];
     }
 }

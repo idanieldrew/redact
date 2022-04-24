@@ -13,7 +13,7 @@ class PostService extends Service
 {
     /**
     * Create new post
-    * @param \Module\Post\Http\Requests\PostRequest $request
+    * @param \Module\Post\Http\Requests\v1\PostRequest $request
     * @return \Module\Post\Http\Resources\v1\PostResource
     */
     public function store($request)
@@ -21,7 +21,8 @@ class PostService extends Service
         $post =  auth()->user()->posts()->create([
             'title' => $request->title,
             'details' => $request->details,
-            'description' => $request->description
+            'description' => $request->description,
+            'banner' => $request->banner
         ]);
 
         PostPublish::dispatch($post->slug);

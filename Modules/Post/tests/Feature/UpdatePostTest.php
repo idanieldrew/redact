@@ -11,16 +11,15 @@ class UpdatePostTest extends TestCase
     use DatabaseMigrations,WithFaker;
 
     // store post
-    protected function store($title = null)
+    private function store($title = null)
     {
         $user = $this->CreateUser();
-        $post =  $user->posts()->create([
+        return $user->posts()->create([
             'title' => $title ? $title : $this->faker->title,
             'details' => $this->faker->paragraph(1),
             'description' => $this->faker->paragraph,
+            'banner' => $this->faker->imageUrl
         ]);
-
-        return $post;
     }
 
     /** @test */
