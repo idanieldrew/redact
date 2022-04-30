@@ -3,6 +3,8 @@
 namespace Module\Post\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Module\Post\Http\Requests\v1\PostRequest;
 use Module\Post\Http\Requests\v1\UpdateRequest;
@@ -90,6 +92,13 @@ class PostController extends Controller implements ResponseGenerator
         $this->repo()->destroy($post);
 
         return $this->res('success',Response::HTTP_OK,'Successfully delete post',null);
+    }
+
+    public function storeImages(Request $request,Filesystem $filesystem)
+    {
+        $this->service()->storeImages($request,$filesystem);
+
+        return $this->res('success',Response::HTTP_OK,'Successfully store images',null);
     }
 
     // manage response

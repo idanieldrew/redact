@@ -9,6 +9,9 @@ Route::get('all',[PostController::class,'index'])->name('post.index');
 // Single post
 Route::get('{post:slug}',[PostController::class,'show'])->name('post.show');
 
+// Store post
+Route::post('image',[PostController::class,'storeImages'])->name('store.images');
+
 Route::middleware(['auth:sanctum'])->group(function (){
         // Store post
         Route::post('store',[PostController::class,'store'])->name('post.store');

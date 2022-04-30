@@ -10,6 +10,7 @@ class Image extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
     /**
      * Create a new factories instance for the model.
      *
