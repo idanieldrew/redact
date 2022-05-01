@@ -1,10 +1,11 @@
 <?php
 
-namespace Module\Post\Models;
+namespace Module\Image\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Module\Post\Database\Factories\ImageFactory;
+use Module\Image\Database\Factories\ImageFactory;
+use Module\Post\Models\Post;
 
 class Image extends Model
 {

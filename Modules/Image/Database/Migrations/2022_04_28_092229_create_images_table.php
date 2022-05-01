@@ -3,10 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Module\Post\Models\Image;
-use Module\Post\Models\Post;
 
-class CreateImagesPostsTable extends Migration
+class CreateImagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,10 +13,10 @@ class CreateImagesPostsTable extends Migration
      */
     public function up()
     {
-        Schema::create('image_post', function (Blueprint $table) {
+        Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Image::class);
-            $table->foreignIdFor(Post::class);
+            $table->string('name');
+            $table->string('image');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateImagesPostsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('images__products');
+        Schema::dropIfExists('images');
     }
 }

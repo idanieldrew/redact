@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Module\Post\Models\Image;
+use Module\Image\Models\Image;
 use Module\Post\Models\Post;
 use Module\User\Models\User;
 

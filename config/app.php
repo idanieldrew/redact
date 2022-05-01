@@ -175,10 +175,14 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        // Share Module
+        \Module\Share\Providers\ShareServiceProvider::class,
         // User Module
         \Module\User\Providers\UserServiceProvider::class,
         // Post Module
-        \Module\Post\Providers\PostServiceProvider::class
+        \Module\Post\Providers\PostServiceProvider::class,
+        // Image Module
+        \Module\Image\Providers\ImageServiceProvider::class
     ],
 
     /*

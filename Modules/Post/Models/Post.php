@@ -5,6 +5,7 @@ namespace Module\Post\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Module\Image\Models\Image;
 use Module\Post\Database\Factories\PostFactory;
 use Module\User\Models\User;
 

@@ -1,11 +1,9 @@
 <?php
 
-namespace Module\Post\Database\Factories;
+namespace Module\Image\Database\Factories;
 
-use Illuminate\Support\Str;
-use Module\Post\Models\Image;
-use Module\Post\Models\Post;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Module\Image\Models\Image;
 
 class ImageFactory extends Factory
 {
@@ -27,7 +25,7 @@ class ImageFactory extends Factory
 
         return [
             'name' => $faker->word,
-            'address' =>  $faker->imageUrl
+            'image' =>  $faker->imageUrl
         ];
     }
 }

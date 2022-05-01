@@ -2,16 +2,12 @@
 
 namespace Module\Post\Services\v1;
 
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
 use Module\Post\Events\PostPublish;
 use Module\Post\Http\Resources\v1\PostResource;
-use Module\Post\Models\Image;
 use Module\Post\Models\Post;
 use Module\Post\Services\PostService as Service;
-use Illuminate\Support\Str;
-use function PHPSTORM_META\type;
 
 class PostService extends Service
 {
@@ -47,22 +43,5 @@ class PostService extends Service
         }
 
         return $post->update($request->all());
-    }
-
-    public function storeImages($request)
-    {
-        $path = "uploads/post";
-
-        foreach ($request->name as $key => $value) {
-            $name = $request->images[$key]->hashName();
-            $request->images[$key]->move(public_path($path), $name);
-
-            Image::query()->create([
-                'name' => $value,
-                'address' => $name
-            ]);
-        }
-
-        return;
     }
 }
