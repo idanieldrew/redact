@@ -5,6 +5,7 @@ namespace Module\Image\Http\Controllers\api\v1;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Module\Image\Http\Requests\v1\ImageRequest;
 use Module\Image\Services\v1\ImageService;
 use Module\Share\Contracts\Response\ResponseGenerator;
 
@@ -22,7 +23,7 @@ class ImageController extends Controller implements ResponseGenerator
      * @param  \Module\Image\Http\Requests\v1\ImageRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ImageRequest $request)
     {
         $this->service()->store($request);
 
