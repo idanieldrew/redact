@@ -3,7 +3,7 @@
 namespace Module\Image\Services\v1;
 
 use Module\Image\Models\Image;
-use Module\Post\Services\ImageService as Service;
+use Module\Image\Services\ImageService as Service;
 
 class ImageService extends Service
 {
@@ -12,12 +12,12 @@ class ImageService extends Service
         $path = "uploads/post";
 
         foreach ($request->name as $key => $value) {
-            $name = $request->images[$key]->hashName();
-            $request->images[$key]->move(public_path($path), $name);
+            $name = $request->image[$key]->hashName();
+            $request->image[$key]->move(public_path($path), $name);
 
             Image::query()->create([
                 'name' => $value,
-                'address' => $name
+                'image' => $name
             ]);
         }
 

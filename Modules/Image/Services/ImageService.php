@@ -1,6 +1,6 @@
 <?php
 
-namespace Module\Post\Services;
+namespace Module\Image\Services;
 
 use Module\Image\Models\Image;
 use Module\Share\Service\Service;

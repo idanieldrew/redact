@@ -4,4 +4,4 @@
 use Illuminate\Support\Facades\Route;
 use Module\Image\Http\Controllers\api\v1\ImageController;
 
-Route::post('image',[ImageController::class,'store'])->name('image.store');
+Route::post('store',[ImageController::class,'store'])->name('image.store');
