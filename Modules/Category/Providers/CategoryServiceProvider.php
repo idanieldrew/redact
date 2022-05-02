@@ -4,6 +4,8 @@ namespace Module\Category\Providers;
 
 use Carbon\Laravel\ServiceProvider;
 use Illuminate\Support\Facades\Route;
+use Module\Category\Models\Category;
+use Module\Category\Observers\CategoryObserver;
 
 class CategoryServiceProvider extends ServiceProvider
 {
@@ -25,5 +27,8 @@ class CategoryServiceProvider extends ServiceProvider
             ->middleware('api')
             ->namespace($this->namespace)
             ->group(__DIR__ . '/../Routes/category_route.php');
+
+        // Observer Category
+        Category::observe(CategoryObserver::class);
     }
 }
