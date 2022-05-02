@@ -179,6 +179,8 @@ return [
         \Module\Share\Providers\ShareServiceProvider::class,
         // User Module
         \Module\User\Providers\UserServiceProvider::class,
+        // Category Module
+        \Module\Category\Providers\CategoryServiceProvider::class,
         // Post Module
         \Module\Post\Providers\PostServiceProvider::class,
         // Image Module
