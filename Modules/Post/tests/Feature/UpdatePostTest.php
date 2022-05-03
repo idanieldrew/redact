@@ -33,6 +33,16 @@ class UpdatePostTest extends TestCase
     }
 
     /** @test */
+    public function when_title_update_slug_should_update()
+    {
+        $post = $this->store();
+
+        $this->patch(route('post.update',$post->slug),['title' => 'test']);
+
+        $this->assertDatabaseHas('posts',['slug' => 'test']);
+    }
+
+    /** @test */
     public function handle_length_title_update_post()
     {
         $post = $this->store();

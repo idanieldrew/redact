@@ -2,7 +2,6 @@
 
 namespace Module\Post\Database\Factories;
 
-use Illuminate\Support\Str;
 use Module\Post\Models\Post;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
