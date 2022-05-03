@@ -4,6 +4,7 @@ namespace Module\Image\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Module\Category\Models\Category;
 use Module\Image\Database\Factories\ImageFactory;
 use Module\Post\Models\Post;
 
@@ -23,8 +24,8 @@ class Image extends Model
     }
 
     /** Relations */
-    public function posts()
+    public function imageable()
     {
-        return $this->belongsToMany(Post::class);
+        return $this->morphTo();
     }
 }

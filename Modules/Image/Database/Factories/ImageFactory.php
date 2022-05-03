@@ -25,7 +25,7 @@ class ImageFactory extends Factory
 
         return [
             'name' => $faker->word,
-            'image' =>  $faker->imageUrl
+            'address' =>  $faker->imageUrl
         ];
     }
 }

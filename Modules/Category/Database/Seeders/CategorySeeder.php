@@ -4,6 +4,7 @@ namespace Module\Category\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Module\Category\Models\Category;
+use Module\Image\Models\Image;
 
 class CategorySeeder extends Seeder
 {
@@ -14,6 +15,9 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        Category::factory()->count(7)->create();
+        Category::factory()->count(7)->create()->each(function ($category){
+            $category->images()->save(Image::factory()->make());
+        });
+
     }
 }

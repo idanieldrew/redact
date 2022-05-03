@@ -25,7 +25,7 @@ class PostFactory extends Factory
         $faker = $this->faker;
 
         return [
-            'title' => $faker->title,
+            'title' => $faker->jobTitle,
             'details' =>  $faker->paragraph(1),
             'description' => $faker->paragraph(6),
             'banner' => $faker->imageUrl
