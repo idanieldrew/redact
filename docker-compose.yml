@@ -27,10 +27,9 @@ services:
     ports:
       - "80:80"
       - "443:443"
-
     volumes:
       - ./:/var/www/html
-
+      - ./docker/nginx.conf:/etc/nginx/conf.d/app.conf
     networks:
       - weblog-network
 
