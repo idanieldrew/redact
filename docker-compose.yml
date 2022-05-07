@@ -1,0 +1,60 @@
+version: '3.9'
+services:
+
+  app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    image: laravelapp
+    container_name: weblog
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME:   app
+      SERVICE_TAGS: dev
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+      - ./docker/php.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - weblog-network
+
+  webserver:
+    image: nginx:1.21.3
+    container_name: webserve
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "80:80"
+      - "443:443"
+
+    volumes:
+      - ./:/var/www/html
+
+    networks:
+      - weblog-network
+
+  database:
+    image: postgres:14.0-1
+    container_name: weblog_db
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: weblog
+      POSTGRES_PASSWORD: password
+        SERVICE_NAME:   app
+        SERVICE_TAGS: dev
+    volumes:
+      - dbdata:/var/www/html
+    networks:
+      - weblog-network
+
+networks:
+  weblog-network:
+    driver: bridge
+
+volumes:
+  dbdata:
+    driver: local
