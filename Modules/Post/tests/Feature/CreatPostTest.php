@@ -13,7 +13,7 @@ use Module\Post\Mail\PostPublishedPermission;
 use Module\Post\Models\Post;
 use Tests\TestCase;
 
-class CrudPostTest extends TestCase
+class CreatPostTest extends TestCase
 {
     use DatabaseMigrations,WithFaker;
 
