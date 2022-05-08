@@ -41,10 +41,10 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_DB: weblog
+      POSTGRES_DB: "weblog"
       POSTGRES_PASSWORD: password
-        SERVICE_NAME:   app
-        SERVICE_TAGS: dev
+      SERVICE_NAME: app
+      SERVICE_TAGS: dev
     volumes:
       - dbdata:/var/www/html
     networks:
