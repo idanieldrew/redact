@@ -4,20 +4,11 @@ namespace Module\User\Repository\v1;
 
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
-use Module\Share\Repository\Repository;
 use Module\User\Models\User;
+use Module\User\Repository\UserRepository as Repository;
 
-class UserRepository implements Repository
+class UserRepository extends Repository
 {
-    /**
-     * Specify Model
-     * Abstract function
-     */
-    public function model()
-    {
-        return User::query();
-    }
-
     /**
     * Paginate $this->model
     * @param int $number
