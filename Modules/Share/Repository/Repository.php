@@ -25,6 +25,6 @@ abstract  class  Repository
             }
          }
 
-        return $softDelete ? $query->withTrashed()->toBase()->take($number)->get() : $query->toBase()->take($number)->get();
+        return $softDelete ? $query->withTrashed()->paginate(): $query->paginate();
     }
 }
