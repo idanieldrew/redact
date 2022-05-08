@@ -10,7 +10,6 @@ use Module\User\Policies\UserPolicy;
 
 class UserServiceProvider extends ServiceProvider
 {
-
     private $namespace = 'Module\User\Http\Controllers';
 
     protected $policies = [
