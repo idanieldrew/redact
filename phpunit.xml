@@ -20,10 +20,16 @@
             <directory suffix="Test.php">./Modules/User/tests/Feature</directory>
         </testsuite>
 
+        <!--category tests-->
+        <testsuite name="Feature">
+            <directory suffix="Test.php">./Modules/Category/tests/Feature</directory>
+        </testsuite>
+
         <!--post tests-->
         <testsuite name="Feature">
             <directory suffix="Test.php">./Modules/Post/tests/Feature</directory>
         </testsuite>
+
 
     </testsuites>
 
