@@ -3,6 +3,7 @@
 namespace Module\Category\Http\Resources\v1;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Module\Image\Http\Resources\v1\ImageResource;
 
 class CategoryResource extends JsonResource
 {
@@ -15,7 +16,8 @@ class CategoryResource extends JsonResource
     public function toArray($request)
     {
         return [
-         //
+         'name' => $this->name,
+         'slug' => $this->slug
         ];
     }
 }

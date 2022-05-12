@@ -1,20 +1,37 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Module\Category\Http\Controllers\api\v1;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Module\Category\Http\Resources\v1\CategoryCollection;
 use Module\Category\Models\Category;
+use Module\Category\Repository\v1\CategoryRepository;
 
 class CategoryController extends Controller
 {
+    // resolve \Module\Post\Repository\v1\PostRepository
+    public function repo()
+    {
+        return resolve(CategoryRepository::class);
+    }
+
+    // resolve \Module\Post\Services\PostService
+    public function service()
+    {
+        //
+    }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Module\Category\Http\Resources\v1\CategoryCollection
      */
     public function index()
     {
-        //
+        $categories = $this->repo()->take(Category::query());
+
+        return new CategoryCollection($categories);
     }
 
     /**
