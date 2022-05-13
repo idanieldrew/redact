@@ -18,4 +18,14 @@ class ReadTest extends TestCase
         $this->get(route('category.index'))
             ->assertOk();
     }
+
+    /** @test */
+    public function see_single_category()
+    {
+        $category = Category::factory()->create();
+
+        $this->get(route('category.show',$category->slug))
+            ->assertSee([$category->name , $category->slug])
+            ->assertOk();
+    }
 }

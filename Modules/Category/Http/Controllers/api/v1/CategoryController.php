@@ -4,11 +4,14 @@ namespace Module\Category\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Module\Category\Http\Resources\v1\CategoryCollection;
+use Module\Category\Http\Resources\v1\CategoryResource;
 use Module\Category\Models\Category;
 use Module\Category\Repository\v1\CategoryRepository;
+use Module\Share\Contracts\Response\ResponseGenerator;
 
-class CategoryController extends Controller
+class CategoryController extends Controller implements ResponseGenerator
 {
     // resolve \Module\Post\Repository\v1\PostRepository
     public function repo()
@@ -35,16 +38,6 @@ class CategoryController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -58,12 +51,12 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \Module\Category\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
     public function show(Category $category)
     {
-        //
+        return $this->res('success',Response::HTTP_OK,null,new CategoryResource($category));
     }
 
     /**
@@ -98,5 +91,15 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         //
+    }
+
+    // manage response
+    public function res($success, $status, $message, $data)
+    {
+        return response()->json([
+            'success' => $success,
+            'message' => $message,
+            'data' => $data
+        ],$status);
     }
 }

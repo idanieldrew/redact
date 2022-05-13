@@ -6,5 +6,5 @@ use Module\Category\Repository\CategoryRepository as Repository;
 
 class CategoryRepository extends Repository
 {
-
+    //
 }
