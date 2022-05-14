@@ -7,7 +7,7 @@ COPY composer.json composer.lock /var/www/html/
 WORKDIR /var/www/html
 
 # Install dependencies
-RUN apt-get update && apt-insatll -y \
+RUN apt-get update && apt-get install -y \
                 build-essential \
                 libpng-dev \
                 zlib1g-dev \
@@ -28,7 +28,7 @@ RUN docker-php-ext-configure gd
 RUN docker-php-ext-install gd
 
 # Install composer
-RUN Curl -sS https://getcomposer.org/installer | php -- --install -dir=/usr/local/bin --filename=composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install -dir=/usr/local/bin --filename=composer
 
 # Create group for laravel app id=1000 nameGp=www
 RUN groupadd -g 1000 www

@@ -34,7 +34,7 @@ services:
       - weblog-network
 
   database:
-    image: postgres:14.0-1
+    image: postgres:14.2-alpine
     container_name: weblog_db
     restart: unless-stopped
     tty: true
