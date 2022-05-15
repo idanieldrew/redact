@@ -1,4 +1,4 @@
-FROM php:8.0.5
+FROM php:7.4-fpm
 
 # Copy composer.json & composer.lock
 COPY composer.json composer.lock /var/www/html/
@@ -45,6 +45,6 @@ COPY --chown=www:www . /var/www/html
 # Change cuurent usert to www
 USER www
 
-EXPOSE 9000
+#EXPOSE 9000
 
-CMD ["php"]
+CMD ["php-fpm"]
