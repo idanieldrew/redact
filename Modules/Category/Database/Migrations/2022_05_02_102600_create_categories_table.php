@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Module\User\Models\User;
 
 class CreateCategoriesTable extends Migration
 {
@@ -17,6 +18,7 @@ class CreateCategoriesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug');
+            $table->foreignIdFor(User::class);
             $table->timestamps();
             $table->softDeletesTz();
         });
