@@ -14,7 +14,7 @@ class StoreTest extends TestCase
     /** @test */
     public function store_category()
     {
-        $user = $this->CreateUser();
+        $user = $this->CreateUser('admin');
         $category = Category::factory()->raw(['user_id' => $user->id]);
 
         $this->post(route('category.store'),$category)
@@ -24,7 +24,7 @@ class StoreTest extends TestCase
     /** @test */
     public function handle_length_name_in_store_category()
     {
-        $user = $this->CreateUser();
+        $user = $this->CreateUser('admin');
         $category = Category::factory()->raw(['user_id' => $user->id,'name' => 'te']);
 
         $this->post(route('category.store'),$category)
@@ -34,7 +34,7 @@ class StoreTest extends TestCase
     /** @test */
     public function handle_unique_name_in_store_category()
     {
-        $user = $this->CreateUser();
+        $user = $this->CreateUser('admin');
         $categoryOne = Category::factory()->create(['user_id' => $user->id,'name' => 'test']);
 
         $categoryTwo = Category::factory()->raw(['user_id' => $user->id,'name' => 'test']);
