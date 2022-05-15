@@ -5,10 +5,12 @@ namespace Module\Category\Http\Controllers\api\v1;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Module\Category\Http\Requests\v1\CategoryRequest;
 use Module\Category\Http\Resources\v1\CategoryCollection;
 use Module\Category\Http\Resources\v1\CategoryResource;
 use Module\Category\Models\Category;
 use Module\Category\Repository\v1\CategoryRepository;
+use Module\Category\Services\v1\CategoryService;
 use Module\Share\Contracts\Response\ResponseGenerator;
 
 class CategoryController extends Controller implements ResponseGenerator
@@ -22,7 +24,7 @@ class CategoryController extends Controller implements ResponseGenerator
     // resolve \Module\Post\Services\PostService
     public function service()
     {
-        //
+        return resolve(CategoryService::class);
     }
 
     /**
@@ -40,12 +42,14 @@ class CategoryController extends Controller implements ResponseGenerator
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Module\Category\Http\Requests\v1\CategoryRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        //
+        $category = $this->service()->store($request);
+
+        return $this->res('success',Response::HTTP_CREATED,"Successfully create category",$category);
     }
 
     /**

@@ -8,3 +8,8 @@ Route::get('all',[CategoryController::class,'index'])->name('category.index');
 
 // Show category
 Route::get('{category:slug}',[CategoryController::class,'show'])->name('category.show');
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    // Show category
+    Route::post('store',[CategoryController::class,'store'])->name('category.store');
+});

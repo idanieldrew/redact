@@ -2,7 +2,9 @@
 
 namespace Module\Category\Http\Requests\v1;
 
-class CategoryRequest
+use Illuminate\Foundation\Http\FormRequest;
+
+class CategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

@@ -14,7 +14,9 @@ class CategoryService extends Service
      */
     public function store($request)
     {
-        $post =  auth()->user()->categories()->create([]);
+        $post =  auth()->user()->categories()->create([
+            'name' => $request->name
+        ]);
 
         return new CategoryResource($post);
     }

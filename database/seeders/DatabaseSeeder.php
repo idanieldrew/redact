@@ -18,12 +18,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // Category
-        $this->call([
-        CategorySeeder::class
-        ]);
-
         User::factory(5)->create()->each(function ($user){
+            $user->categories()->save(Category::factory()->make());
             $user->posts()->save(Post::factory()->make())->each(function ($post){
                 $post->images()->save(Image::factory()->make());
             });
