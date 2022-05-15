@@ -42,4 +42,24 @@ class StoreTest extends TestCase
         $this->post(route('category.store'),$categoryTwo)
             ->assertStatus(422);
     }
+
+    /** @test */
+    public function user_can_not_store_category()
+    {
+        $user = $this->CreateUser('user');
+        $category = Category::factory()->raw(['user_id' => $user->id]);
+
+        $this->post(route('category.store'),$category)
+            ->assertForbidden();
+    }
+
+    /** @test */
+    public function super_can_store_category()
+    {
+        $user = $this->CreateUser('super');
+        $category = Category::factory()->raw(['user_id' => $user->id]);
+
+        $this->post(route('category.store'),$category)
+            ->assertCreated();
+    }
 }
