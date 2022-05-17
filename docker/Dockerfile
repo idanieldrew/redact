@@ -10,6 +10,7 @@ WORKDIR /var/www/html
 RUN apt-get update && apt-get install -y \
                 build-essential \
                 libpng-dev \
+                libpq-dev \
                 zlib1g-dev \
                 libxml2-dev \
                 libzip-dev \
@@ -23,8 +24,8 @@ RUN apt-get update && apt-get install -y \
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install extensions
-RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl
-RUN docker-php-ext-configure gd
+RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql
+RUN docker-php-ext-install pdo pdo_pgsql
 RUN docker-php-ext-install gd
 
 # Install composer

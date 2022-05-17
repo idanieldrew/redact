@@ -15,13 +15,13 @@ services:
     working_dir: /var/www/html
     volumes:
       - ./:/var/www/html
-      - ./docker/php.ini:/usr/local/etc/php/conf.d/local.ini
+#      - ./docker/php.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
       - weblog-network
 
-  webse:
+  medium_webserver:
     image: nginx:1.21.3
-    container_name: custom-web-se
+    container_name: mdedium-web-server
     restart: always
     tty: true
     ports:
@@ -35,20 +35,21 @@ services:
     networks:
       - weblog-network
 
-  database:
+  medium_database:
     image: postgres:14.2-alpine
-    container_name: weblog_db
+    container_name: mediumdb
     restart: unless-stopped
     tty: true
     ports:
-      - "5432:5432"
+      - "54320:5432"
     environment:
-      POSTGRES_DB: "weblog"
+      POSTGRES_DB: "medium"
+      POSTGRES_USER: "dani"
       POSTGRES_PASSWORD: password
       SERVICE_NAME: app
       SERVICE_TAGS: dev
     volumes:
-      - dbdata:/var/www/html
+      - dbdata:/var/lib/postgresql/data
     networks:
       - weblog-network
 
