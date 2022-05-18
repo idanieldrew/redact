@@ -18,7 +18,7 @@ class CategoryService extends Service
     public function store($request)
     {
         //  just admin & super can store new category
-        if (Gate::denies('create',[Category::class])){
+        if (Gate::denies('createOrUpdate',[Category::class])){
             abort(Response::HTTP_FORBIDDEN);
         }
 
@@ -28,5 +28,23 @@ class CategoryService extends Service
         ]);
 
         return new CategoryResource($post);
+    }
+
+    /**
+     * Update category
+     * @param string $category
+     * @param \Module\User\Http\Requests\v1\UserRequest; $request
+     * @return null
+     */
+    public function update($category,$request)
+    {
+        // Just user can edit our information
+        /*if (Gate::denies('createOrUpdate',[Category::class])){
+            abort(Response::HTTP_FORBIDDEN);
+        }*/
+
+        return $category->update([
+            'name' => $request->name
+        ]);
     }
 }

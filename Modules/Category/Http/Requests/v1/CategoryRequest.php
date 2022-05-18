@@ -23,8 +23,14 @@ class CategoryRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name' => 'required|unique:categories|max:32|min:3'
+        $rules = [
+          'name' => ['required','string','unique:categories','max:32','min:3']
         ];
+
+        if (request()->method == 'PATCH'){
+            $rules['name'] = ['nullable','string','unique:categories','max:32','min:3'];
+        }
+
+        return [$rules];
     }
 }

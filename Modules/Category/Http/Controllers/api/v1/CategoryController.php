@@ -3,7 +3,6 @@
 namespace Module\Category\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Module\Category\Http\Requests\v1\CategoryRequest;
 use Module\Category\Http\Resources\v1\CategoryCollection;
@@ -77,13 +76,15 @@ class CategoryController extends Controller implements ResponseGenerator
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Category  $category
+     * @param  \Module\Category\Http\Requests\v1\CategoryRequest  $request
+     * @param  \Module\Category\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, Category $category)
     {
-        //
+        $this->service()->update($category,$request);
+
+        return $this->res('success',Response::HTTP_NO_CONTENT,null,null);
     }
 
     /**

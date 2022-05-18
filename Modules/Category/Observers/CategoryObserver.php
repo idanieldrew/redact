@@ -17,4 +17,15 @@ class CategoryObserver
     {
         $category->slug = Str::slug($category->name);
     }
+
+    /**
+     * Handle the Post "updating" event.
+     *
+     * @param  \Module\Category\Models\Category  $category
+     * @return void
+     */
+    public function updating(Category $category)
+    {
+        $category->slug = Str::slug($category->name);
+    }
 }

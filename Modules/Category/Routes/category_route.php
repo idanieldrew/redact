@@ -12,4 +12,7 @@ Route::get('{category:slug}',[CategoryController::class,'show'])->name('category
 Route::middleware(['auth:sanctum'])->group(function () {
     // Show category
     Route::post('store',[CategoryController::class,'store'])->name('category.store');
+
+    // Update category
+    Route::patch('update/{category:slug}',[CategoryController::class,'update'])->name('category.update');
 });

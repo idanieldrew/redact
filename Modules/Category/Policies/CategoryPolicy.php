@@ -25,24 +25,12 @@ class CategoryPolicy
     /**
      * Determine whether the user can create models.
      *
-     * @param  \App\Models\User  $user
+     * @param  \Module\User\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user)
+    public function createOrUpdate(User $user)
     {
         return $user->isAdmin();
-    }
-
-    /**
-     * Determine whether the user can update the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Categories  $categories
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function update(User $user, Categories $categories)
-    {
-        //
     }
 
     /**
