@@ -4,7 +4,8 @@ namespace Module\Category\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
-use Module\Category\Http\Requests\v1\CategoryRequest;
+use Module\Category\Http\Requests\v1\StoreRequest;
+use Module\Category\Http\Requests\v1\UpdateRequest;
 use Module\Category\Http\Resources\v1\CategoryCollection;
 use Module\Category\Http\Resources\v1\CategoryResource;
 use Module\Category\Models\Category;
@@ -41,10 +42,10 @@ class CategoryController extends Controller implements ResponseGenerator
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Module\Category\Http\Requests\v1\CategoryRequest  $request
+     * @param  \Module\Category\Http\Requests\v1\StoreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoryRequest $request)
+    public function store(StoreRequest $request)
     {
         $category = $this->service()->store($request);
 
@@ -76,11 +77,11 @@ class CategoryController extends Controller implements ResponseGenerator
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Module\Category\Http\Requests\v1\CategoryRequest  $request
+     * @param  \Module\Category\Http\Requests\v1\UpdateRequest  $request
      * @param  \Module\Category\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoryRequest $request, Category $category)
+    public function update(UpdateRequest $request, Category $category)
     {
         $this->service()->update($category,$request);
 

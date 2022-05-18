@@ -12,7 +12,7 @@ class CategoryService extends Service
 {
     /**
      * Create new category
-     * @param \Module\Category\Http\Requests\v1\CategoryRequest $request
+     * @param \Module\Category\Http\Requests\v1\StoreRequest $request
      * @return \Module\Category\Http\Resources\v1\CategoryResource
      */
     public function store($request)
