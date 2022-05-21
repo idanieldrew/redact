@@ -39,9 +39,9 @@ class CategoryService extends Service
     public function update($category,$request)
     {
         // Just user can edit our information
-        /*if (Gate::denies('createOrUpdate',[Category::class])){
+        if (Gate::denies('createOrUpdate',[Category::class])){
             abort(Response::HTTP_FORBIDDEN);
-        }*/
+        }
 
         return $category->update([
             'name' => $request->name
