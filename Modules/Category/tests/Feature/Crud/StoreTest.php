@@ -14,8 +14,8 @@ class StoreTest extends TestCase
     /** @test */
     public function store_category()
     {
-        $user = $this->CreateUser('admin');
-        $category = Category::factory()->raw(['user_id' => $user->id]);
+        $this->CreateUser('admin');
+        $category = Category::factory()->raw();
 
         $this->post(route('category.store'),$category)
             ->assertCreated();
@@ -24,8 +24,8 @@ class StoreTest extends TestCase
     /** @test */
     public function handle_length_name_in_store_category()
     {
-        $user = $this->CreateUser('admin');
-        $category = Category::factory()->raw(['user_id' => $user->id,'name' => 'te']);
+        $this->CreateUser('admin');
+        $category = Category::factory()->raw(['name' => 'te']);
 
         $this->post(route('category.store'),$category)
             ->assertStatus(422);
@@ -35,7 +35,7 @@ class StoreTest extends TestCase
     public function handle_unique_name_in_store_category()
     {
         $user = $this->CreateUser('admin');
-        $categoryOne = Category::factory()->create(['user_id' => $user->id,'name' => 'test']);
+        $categoryOne = Category::factory()->create(['name' => 'test','user_id' => $user->id]);
 
         $categoryTwo = Category::factory()->raw(['user_id' => $user->id,'name' => 'test']);
 
@@ -46,8 +46,8 @@ class StoreTest extends TestCase
     /** @test */
     public function user_can_not_store_category()
     {
-        $user = $this->CreateUser('user');
-        $category = Category::factory()->raw(['user_id' => $user->id]);
+        $this->CreateUser('user');
+        $category = Category::factory()->raw();
 
         $this->post(route('category.store'),$category)
             ->assertForbidden();
@@ -56,8 +56,8 @@ class StoreTest extends TestCase
     /** @test */
     public function super_can_store_category()
     {
-        $user = $this->CreateUser('super');
-        $category = Category::factory()->raw(['user_id' => $user->id]);
+        $this->CreateUser('super');
+        $category = Category::factory()->raw();
 
         $this->post(route('category.store'),$category)
             ->assertCreated();
