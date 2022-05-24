@@ -36,9 +36,7 @@ class PostController extends Controller implements ResponseGenerator
      */
     public function index()
     {
-        $posts = $this->repo()->take(Post::query());
-
-        return new PostCollection($posts);
+        return $this->repo()->paginate();
     }
 
     /**
