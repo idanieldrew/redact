@@ -15,7 +15,7 @@ services:
     working_dir: /var/www/html
     volumes:
       - ./:/var/www/html
-#      - ./docker/php.ini:/usr/local/etc/php/conf.d/local.ini
+    #      - ./docker/php.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
       - weblog-network
 
@@ -26,7 +26,7 @@ services:
     tty: true
     ports:
       - "80:80"
-#      - "443:443"
+    #      - "443:443"
     volumes:
       - ./:/var/www/html
       - ./docker/default.conf:/etc/nginx/conf.d/default.conf
@@ -53,10 +53,21 @@ services:
     networks:
       - weblog-network
 
+  medium_cache:
+    image: redis:7-alpine
+    container_name: mediumCache
+    restart: unless-stoped
+    ports:
+      - 6379:6379
+    volumes:
+      - cache-data:/data
+
 networks:
   weblog-network:
     driver: bridge
 
 volumes:
   dbdata:
+    driver: local
+  cache-data:
     driver: local
