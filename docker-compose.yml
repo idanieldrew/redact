@@ -61,6 +61,7 @@ services:
       - 6379:6379
     volumes:
       - cache-data:/data
+      - ./docker/redis.conf:/redis.conf
 
 networks:
   weblog-network:
