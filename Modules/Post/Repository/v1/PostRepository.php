@@ -5,7 +5,6 @@ namespace Module\Post\Repository\v1;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Redis;
 use Module\Post\Http\Resources\v1\PostCollection;
 use Module\Post\Models\Post;
 use Module\Post\Repository\PostRepository as Repository;

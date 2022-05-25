@@ -60,8 +60,6 @@ class PostController extends Controller implements ResponseGenerator
      */
     public function show(Post $post)
     {
-        $post = $this->repo()->show($post);
-
         return $this->res('success',Response::HTTP_OK,null,new PostResource($post));
     }
 
