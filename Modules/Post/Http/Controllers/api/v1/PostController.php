@@ -90,6 +90,19 @@ class PostController extends Controller implements ResponseGenerator
         return $this->res('success',Response::HTTP_OK,'Successfully delete post',null);
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $response = $this->repo()->search($request->keyword);
+
+        return $this->res('success',Response::HTTP_OK,null,new PostCollection($response));
+    }
+
     public function storeImages(Request $request,Filesystem $filesystem)
     {
         $this->service()->storeImages($request,$filesystem);

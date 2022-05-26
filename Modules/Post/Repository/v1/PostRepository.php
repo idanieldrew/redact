@@ -25,13 +25,16 @@ class PostRepository extends Repository
     }
 
     /**
-     * Show $this->model
-     * @param string $post
+     * Search in Module\Post\Models\Post
+     * @param string $keyword
      * @return object
      */
-    public function show($post)
+    public function search($keyword)
     {
-        return $this->model()->firstOrFail();
+        return Post::query()
+            ->where('title','LIKE',"%" . $keyword . "%")
+            ->orWhere('slug','LIKE',"%" . $keyword . "%")
+            ->paginate();
     }
 
     /**
