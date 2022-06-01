@@ -1,1 +1,1 @@
-- 
+Modular blog
