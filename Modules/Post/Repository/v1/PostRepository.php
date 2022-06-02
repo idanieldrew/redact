@@ -6,6 +6,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Gate;
 use Module\Post\Http\Resources\v1\PostCollection;
+use Module\Post\Http\Resources\v1\PostResource;
 use Module\Post\Models\Post;
 use Module\Post\Repository\PostRepository as Repository;
 
@@ -25,6 +26,19 @@ class PostRepository extends Repository
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  \Module\Post\Models\Post $post
+     * @return \Illuminate\Http\Response
+     */
+    public function show($post)
+    {
+        return Cache::remember("post {$post->slug}", 900, function () use ($post) {
+            return new PostResource($post);
+        });
+    }
+
+    /**
      * Search in Module\Post\Models\Post
      * @param string $keyword
      * @return object
@@ -32,8 +46,8 @@ class PostRepository extends Repository
     public function search($keyword)
     {
         return Post::query()
-            ->where('title','LIKE',"%" . $keyword . "%")
-            ->orWhere('slug','LIKE',"%" . $keyword . "%")
+            ->where('title', 'LIKE', "%" . $keyword . "%")
+            ->orWhere('slug', 'LIKE', "%" . $keyword . "%")
             ->paginate();
     }
 

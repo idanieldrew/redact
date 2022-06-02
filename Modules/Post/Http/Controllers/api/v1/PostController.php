@@ -36,7 +36,7 @@ class PostController extends Controller implements ResponseGenerator
      */
     public function index()
     {
-        return $this->repo()->paginate();
+        return $this->repo()->paginate(10);
     }
 
     /**
@@ -60,6 +60,7 @@ class PostController extends Controller implements ResponseGenerator
      */
     public function show(Post $post)
     {
+        $posts = $this->repo()->show($post);
         return $this->res('success',Response::HTTP_OK,null,new PostResource($post));
     }
 
