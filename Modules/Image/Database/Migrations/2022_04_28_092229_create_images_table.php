@@ -18,6 +18,7 @@ class CreateImagesTable extends Migration
             $table->json('image');
             $table->string('address', 255);
             $table->string('imageable_type');
+            $table->boolean('isPrivate');
             $table->unsignedBigInteger('imageable_id');
             $table->timestamps();
         });
