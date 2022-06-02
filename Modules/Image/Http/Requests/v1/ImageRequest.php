@@ -25,7 +25,7 @@ class ImageRequest extends FormRequest
     {
         return [
             'name' => 'required|array|unique:images',
-            'image' => 'required'
+            'image' => 'required | image | mimes: jpg,png | max: 1024'
         ];
     }
 }
