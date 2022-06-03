@@ -27,14 +27,14 @@ class UserController extends Controller implements ResponseGenerator
         return resolve(UserService::class);
     }
 
-     /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Module\User\Http\Resources\v1\UserCollection
      */
     public function index()
     {
-        $users = $this->repo()->take(User::query(),User::class);
+        $users = $this->repo()->take(User::query(), User::class);
 
         return new UserCollection($users);
     }
@@ -56,14 +56,14 @@ class UserController extends Controller implements ResponseGenerator
      * Update the specified resource in storage.
      *
      * @param  int $user
-     * @param  \Module\User\Http\Requests\v1\UserRequest  $request
+     * @param  \Module\User\Http\Requests\v1\UserRequest $request
      * @return \Module\User\Http\Resources\v1\UserResource
      */
-    public function update($user,UserRequest $request)
+    public function update($user, UserRequest $request)
     {
-        $this->service()->update($user,$request);
+        $this->service()->update($user, $request);
 
-        return $this->res('success',null,'Successfully update user',Response::HTTP_NO_CONTENT);
+        return $this->res('success', null, 'Successfully update user', Response::HTTP_NO_CONTENT);
     }
 
     /**
@@ -76,16 +76,16 @@ class UserController extends Controller implements ResponseGenerator
     {
         $this->repo()->destroy($user);
 
-        return $this->res('success','Successfully delete user',null,Response::HTTP_OK);
+        return $this->res('success', 'Successfully delete user', null, Response::HTTP_OK);
     }
 
-    public function res($status,$message,$data,$code)
+    public function res($status, $code, $message, $data)
     {
         return response()->json([
             'status' => $status,
             'message' => $message,
-            'data' => $data,
-        ],$code);
+            'data' => $data
+        ], $code);
     }
 
     public function sendSms()

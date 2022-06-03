@@ -100,12 +100,12 @@ class CategoryController extends Controller implements ResponseGenerator
     }
 
     // manage response
-    public function res($success, $status, $message, $data)
+    public function res($status, $code, $message, $data)
     {
         return response()->json([
-            'success' => $success,
+            'status' => $status,
             'message' => $message,
             'data' => $data
-        ],$status);
+        ], $code);
     }
 }

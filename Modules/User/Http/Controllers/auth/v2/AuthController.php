@@ -4,6 +4,8 @@ namespace Module\User\Http\Controllers\auth\v2;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Module\Share\Contracts\Response\ResponseGenerator;
 use Module\User\Http\Requests\v2\LoginRequest;
 use Module\User\Http\Requests\v2\RegisterRequest;
@@ -19,7 +21,7 @@ class AuthController extends Controller implements ResponseGenerator
         $this->service = resolve(UserService::class);
     }
 
-     /**
+    /**
      * Register user
      * @param \Module\User\Http\Requests\v2\RegisterRequest $request
      * @return $this->response($status,$message,$data)
@@ -30,29 +32,30 @@ class AuthController extends Controller implements ResponseGenerator
 
         event(new Registered($store['data']['user']));
 
-        return $this->res($store['success'],$store['status'],$store['message'],$store['data']);
+        return $this->res($store['status'], $store['code'], $store['message'], $store['data']);
     }
 
-     /**
+    /**
      * Login user
      * @param \Module\User\Http\Requests\v2\LoginRequest $request
      * @return $this->response($status,$message,$data)
      */
-    public function login(LoginRequest$request)
+    public function login(LoginRequest $request)
     {
         $login = $this->service->login($request);
 
-        return $this->res($login['success'],$login['status'],$login['message'],$login['data']);
+        return $this->res($login['status'], $login['code'], $login['message'], $login['data']);
     }
 
-    // manage response
-    public function res($success, $status, $message, $data)
+    public function res($status, $code, $message, $data)
     {
         return response()->json([
-            'success' => $success,
+            'status' => $status,
             'message' => $message,
-            'user' => $data['user'] ? new UserResource($data['user']) : null,
-            'token' => $data['token']
-        ],$status);
+            'data' => [
+                'user' => $data['user'] ? new UserResource($data['user']) : null,
+                'token' => $data['token']
+            ]
+        ], $code);
     }
 }

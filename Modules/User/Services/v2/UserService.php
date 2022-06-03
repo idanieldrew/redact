@@ -11,7 +11,7 @@ use Module\User\Services\UserService as Service;
 
 class UserService extends Service
 {
-     /**
+    /**
      *Create new user
      * @param \Module\User\Http\Requests\v2\RegisterRequest $request
      * @return array
@@ -28,8 +28,8 @@ class UserService extends Service
         $token = $user->createToken('token')->plainTextToken;
 
         return [
-            'success' => true,
-            'status' => Response::HTTP_CREATED,
+            'status' => 'success',
+            'code' => Response::HTTP_CREATED,
             'message' => 'Successfully registered',
             'data' => [
                 'user' => $user,
@@ -39,24 +39,21 @@ class UserService extends Service
     }
 
     /**
-    * try to login
-    * @param \Module\User\Http\Requests\v2\RegisterRequest $request
-    * @return array
-    */
+     * try to login
+     * @param \Module\User\Http\Requests\v2\RegisterRequest $request
+     * @return array
+     */
     public function login($request)
     {
         $user = User::whereEmail($request->email)->first();
 
         // Check exist user
-        if (!$user || Hash::check($request->password,$user->password)){
+        if (!$user || Hash::check($request->password, $user->password)) {
             return [
-                'success' => false,
-                'status' => 401,
+                'status' => 'fail',
+                'code' => Response::HTTP_UNAUTHORIZED,
                 'message' => 'invalid email or password',
-                'data' => [
-                    'user' => null,
-                    'token' => null
-                ]
+                'data' => null
             ];
         }
 
@@ -67,9 +64,9 @@ class UserService extends Service
         $token = $user->createToken('test')->plainTextToken;
 
         return [
-            'success' => true,
-            'status' => 200,
-            'message' => null,
+            'status' => 'success',
+            'code' => Response::HTTP_OK,
+            'message' => 'Successfully login',
             'data' => [
                 'user' => $user,
                 'token' => $token
@@ -79,21 +76,21 @@ class UserService extends Service
 
     public function otp($user)
     {
-            $token = Token::query()->create([
-                'user_id' => $user->id
-            ]);
+        $token = Token::query()->create([
+            'user_id' => $user->id
+        ]);
 
-            if ($token->send()){
-                echo "send it.";
-            }
-            $token->delete();
-        return ;
+        if ($token->send()) {
+            echo "send it.";
+        }
+        $token->delete();
+        return;
     }
 
     public function storeCode(Request $request)
     {
         $token = Token::query()->find($request->id);
-        if (! $token || $token->isValid() || $request->code !== $token->code){
+        if (!$token || $token->isValid() || $request->code !== $token->code) {
             return 'error';
         }
     }

@@ -20,38 +20,40 @@ class AuthController extends Controller implements ResponseGenerator
     }
 
     /**
-    * Register user
-    * @param \Module\User\Http\Requests\v1\RegisterRequest $request
-    * @return $this->response($status,$message,$data)
-    */
+     * Register user
+     * @param \Module\User\Http\Requests\v1\RegisterRequest $request
+     * @return $this->response($status,$message,$data)
+     */
     public function register(RegisterRequest $request)
     {
         $store = $this->service->store($request);
 
         event(new Registered($store['data']['user']));
 
-        return $this->res($store['success'],$store['status'],$store['message'],$store['data']);
+        return $this->res($store['success'], $store['status'], $store['message'], $store['data']);
     }
 
     /**
-    * Login user
-    * @param \Module\User\Http\Requests\v1\LoginRequest $request
-    * @return $this->response($status,$message,$data)
-    */
-    public function login(LoginRequest$request)
+     * Login user
+     * @param \Module\User\Http\Requests\v1\LoginRequest $request
+     * @return $this->response($status,$message,$data)
+     */
+    public function login(LoginRequest $request)
     {
         $login = $this->service->login($request);
 
-        return $this->res($login['success'],$login['status'],$login['message'],$login['data']);
+        return $this->res($login['success'], $login['status'], $login['message'], $login['data']);
     }
 
-    // manage response
-    public function res($success, $status, $message, $data)
+    public function res($status, $code, $message, $data)
     {
         return response()->json([
-            'success' => $success,
+            'status' => $status,
             'message' => $message,
-            'user' => $data['user'] ? new UserResource($data['user']) : null,
-            'token' => $data['token']
-        ],$status);    }
+            'data' => [
+                'user' => $data['user'] ? new UserResource($data['user']) : null,
+                'token' => $data['token']
+            ]
+        ], $code);
+    }
 }

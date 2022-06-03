@@ -20,22 +20,22 @@ class ImageController extends Controller implements ResponseGenerator
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Module\Image\Http\Requests\v1\ImageRequest  $request
+     * @param  \Module\Image\Http\Requests\v1\ImageRequest $request
      * @return \Illuminate\Http\Response
      */
     public function store(ImageRequest $request)
     {
         $this->service()->store($request);
 
-        return $this->res('success',Response::HTTP_CREATED,null,null);
+        return $this->res('success', Response::HTTP_CREATED, null, null);
     }
 
-    public function res($success, $status, $message, $data)
+    public function res($status, $code, $message, $data)
     {
         return response()->json([
-            'success' => $success,
+            'status' => $status,
             'message' => $message,
             'data' => $data
-        ],$status);
+        ], $code);
     }
 }

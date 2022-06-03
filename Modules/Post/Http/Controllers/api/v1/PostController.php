@@ -42,82 +42,82 @@ class PostController extends Controller implements ResponseGenerator
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Module\Post\Http\Requests\v1\PostRequest  $request
+     * @param  \Module\Post\Http\Requests\v1\PostRequest $request
      * @return \Illuminate\Http\Response
      */
     public function store(PostRequest $request)
     {
         $post = $this->service()->store($request);
 
-        return $this->res('success',Response::HTTP_CREATED,null,new PostResource($post));
+        return $this->res('success', Response::HTTP_CREATED, null, new PostResource($post));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \Module\Post\Models\Post  $post
+     * @param  \Module\Post\Models\Post $post
      * @return \Illuminate\Http\Response
      */
     public function show(Post $post)
     {
-        $posts = $this->repo()->show($post);
-        return $this->res('success',Response::HTTP_OK,null,new PostResource($post));
+        $post = $this->repo()->show($post);
+        return $this->res('success', Response::HTTP_OK, null, new PostResource($post));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Module\Post\Http\Requests\v1\UpdateRequest $request
-     * @param  \Module\Post\Models\Post  $post
+     * @param  \Module\Post\Models\Post $post
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateRequest $request, Post $post)
     {
-        $this->service()->update($post,$request);
+        $this->service()->update($post, $request);
 
-        return $this->res('success',Response::HTTP_NO_CONTENT,null,null);
+        return $this->res('success', Response::HTTP_NO_CONTENT, null, null);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Module\Post\Models\Post  $post
+     * @param  \Module\Post\Models\Post $post
      * @return \Illuminate\Http\Response
      */
     public function destroy(Post $post)
     {
         $this->repo()->destroy($post);
 
-        return $this->res('success',Response::HTTP_OK,'Successfully delete post',null);
+        return $this->res('success', Response::HTTP_OK, 'Successfully delete post', null);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function search(Request $request)
     {
         $response = $this->repo()->search($request->keyword);
 
-        return $this->res('success',Response::HTTP_OK,null,new PostCollection($response));
+        return $this->res('success', Response::HTTP_OK, null, new PostCollection($response));
     }
 
-    public function storeImages(Request $request,Filesystem $filesystem)
+    public function storeImages(Request $request, Filesystem $filesystem)
     {
-        $this->service()->storeImages($request,$filesystem);
+        $this->service()->storeImages($request, $filesystem);
 
-        return $this->res('success',Response::HTTP_OK,'Successfully store images',null);
+        return $this->res('success', Response::HTTP_OK, 'Successfully store images', null);
     }
 
     // manage response
-    public function res($success, $status, $message, $data)
+    public function res($status, $code, $message, $data)
     {
         return response()->json([
-            'success' => $success,
+            'status' => $status,
             'message' => $message,
             'data' => $data
-        ],$status);
+        ], $code);
     }
 }
