@@ -179,6 +179,8 @@ return [
         \Module\Share\Providers\ShareServiceProvider::class,
         // User Module
         \Module\User\Providers\UserServiceProvider::class,
+        // Token module
+        \Module\Token\Providers\TokenServiceProvider::class,
         // Category Module
         \Module\Category\Providers\CategoryServiceProvider::class,
         // Post Module

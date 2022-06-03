@@ -4,7 +4,9 @@ namespace Module\User\Services\v2;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
+use Module\Token\Repository\v1\TokenRepository;
 use Module\User\Models\Token;
 use Module\User\Models\User;
 use Module\User\Services\UserService as Service;
@@ -45,6 +47,8 @@ class UserService extends Service
      */
     public function login($request)
     {
+        $this->otp();
+
         $user = User::whereEmail($request->email)->first();
 
         // Check exist user
@@ -57,9 +61,7 @@ class UserService extends Service
             ];
         }
 
-        /*if ($user->two){
-            $this->otp($user);
-        }*/
+//        $this->otp($user);
 
         $token = $user->createToken('test')->plainTextToken;
 
@@ -74,17 +76,10 @@ class UserService extends Service
         ];
     }
 
-    public function otp($user)
+    public function otp($user = null)
     {
-        $token = Token::query()->create([
-            'user_id' => $user->id
-        ]);
-
-        if ($token->send()) {
-            echo "send it.";
-        }
-        $token->delete();
-        return;
+        $x = new TokenRepository();
+        $x->build();
     }
 
     public function storeCode(Request $request)

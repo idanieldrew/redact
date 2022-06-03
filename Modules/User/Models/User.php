@@ -10,6 +10,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Module\Category\Models\Category;
 use Module\Post\Models\Post;
+use Module\Token\Models\Token;
 use Module\User\Database\Factories\UserFactory;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -95,6 +96,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function tokenize()
     {
+        dd(10);
         return $this->hasMany(Token::class);
     }
     /** End */
