@@ -3,21 +3,24 @@
 namespace Module\Token\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
-use Module\Share\Contracts\Response\ResponseGenerator;
-use Module\Token\Repository\v1\TokenRepository;
-use Module\Token\Services\v1\TokenService;
+use Module\Token\Models\Token;
+use Module\User\Services\v2\UserService;
 
-class TokenController
+
+class TokenController extends Controller
 {
-    // resolve Module\User\Repository\UserRepository
-    public function repo()
+    public function otp()
     {
-        return resolve(TokenRepository::class);
-    }
+        $repo = resolve(UserService::class);
+        return $repo->checkOtp();
+        /*$token = Token::query()->create([
+            'user_id' => $user->id
+        ]);
 
-    // resolve Module\User\Services\UserService
-    public function service()
-    {
-        return resolve(TokenService::class);
+        if ($token->send()) {
+            return;
+        }
+        $token->delete();
+        return;*/
     }
 }

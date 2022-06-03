@@ -6,13 +6,14 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
-use Module\Token\Repository\v1\TokenRepository;
-use Module\User\Models\Token;
+use Module\Token\Models\Token;
 use Module\User\Models\User;
 use Module\User\Services\UserService as Service;
 
 class UserService extends Service
 {
+    private $c;
+
     /**
      *Create new user
      * @param \Module\User\Http\Requests\v2\RegisterRequest $request
@@ -43,12 +44,10 @@ class UserService extends Service
     /**
      * try to login
      * @param \Module\User\Http\Requests\v2\RegisterRequest $request
-     * @return array
+     * @return null
      */
     public function login($request)
     {
-        $this->otp();
-
         $user = User::whereEmail($request->email)->first();
 
         // Check exist user
@@ -61,9 +60,10 @@ class UserService extends Service
             ];
         }
 
-//        $this->otp($user);
+        $this->otp($user);
 
-        $token = $user->createToken('test')->plainTextToken;
+        return 'OTP';
+        /*$token = $user->createToken('test')->plainTextToken;
 
         return [
             'status' => 'success',
@@ -73,13 +73,46 @@ class UserService extends Service
                 'user' => $user,
                 'token' => $token
             ]
-        ];
+        ];*/
     }
 
-    public function otp($user = null)
+    public function otp($user)
     {
-        $x = new TokenRepository();
-        $x->build();
+        $token = Token::query()->create([
+            'user_id' => $user->id
+        ]);
+
+        if ($code = $token->send()) {
+            return Crypt::decrypt($code);
+        }
+
+        $token->delete();
+
+        return 'NOOO';
+    }
+
+    public function checkOtp()
+    {
+//        dd($this->otp(auth()->user()) != request('code'));
+        if ($this->otp(auth()->user()) != request('code')) {
+            return [
+                'status' => 'fail',
+                'code' => Response::HTTP_UNAUTHORIZED,
+                'message' => 'invalid code',
+                'data' => null
+            ];
+        }
+        $token = auth()->user()->createToken('test')->plainTextToken;
+
+        return [
+            'status' => 'success',
+            'code' => Response::HTTP_OK,
+            'message' => 'Successfully login',
+            'data' => [
+                'user' => auth()->user(),
+                'token' => $token
+            ]
+        ];
     }
 
     public function storeCode(Request $request)

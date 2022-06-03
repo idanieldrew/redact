@@ -5,6 +5,7 @@ namespace Module\Token\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Http;
 use Module\User\Models\User;
 
@@ -54,9 +55,9 @@ class Token extends Model
 
     public function send()
     {
-        if (!$this->user()) {
+        /*if (!$this->user()) {
             throw new \Exception("no user");
-        }
+        }*/
         if (!$this->code) {
             $this->code = $this->generateCode();
         }
@@ -68,11 +69,11 @@ class Token extends Model
             'linenumber' =>"092123456"
         ]);*/
         try {
-            echo "ok";
-
+//            echo "ok";
         } catch (\Exception $e) {
             return false;
         }
-        return true;
+
+        return Crypt::encrypt(1234);
     }
 }
