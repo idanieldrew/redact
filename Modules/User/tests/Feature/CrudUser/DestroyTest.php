@@ -13,6 +13,7 @@ class DestroyTest extends TestCase
     /** @test */
     public function super_can_destroy_user()
     {
+        $this->withoutExceptionHandling();
         $this->CreateUser('super');
         $user = User::factory()->create();
 

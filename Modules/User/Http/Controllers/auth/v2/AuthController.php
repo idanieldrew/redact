@@ -44,6 +44,7 @@ class AuthController extends Controller implements ResponseGenerator
     {
         $login = $this->service->login($request);
 
+//        dd($login);
         return $this->res($login['status'], $login['code'], $login['message'], $login['data']);
     }
 

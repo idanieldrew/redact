@@ -12,8 +12,6 @@ use Module\User\Services\UserService as Service;
 
 class UserService extends Service
 {
-    private $c;
-
     /**
      *Create new user
      * @param \Module\User\Http\Requests\v2\RegisterRequest $request
@@ -56,14 +54,14 @@ class UserService extends Service
                 'status' => 'fail',
                 'code' => Response::HTTP_UNAUTHORIZED,
                 'message' => 'invalid email or password',
-                'data' => null
+                'data' => [
+                    'user' => null,
+                    'token' => null
+                ]
             ];
         }
 
-        $this->otp($user);
-
-        return 'OTP';
-        /*$token = $user->createToken('test')->plainTextToken;
+        $token = $user->createToken('test')->plainTextToken;
 
         return [
             'status' => 'success',
@@ -73,53 +71,6 @@ class UserService extends Service
                 'user' => $user,
                 'token' => $token
             ]
-        ];*/
-    }
-
-    public function otp($user)
-    {
-        $token = Token::query()->create([
-            'user_id' => $user->id
-        ]);
-
-        if ($code = $token->send()) {
-            return Crypt::decrypt($code);
-        }
-
-        $token->delete();
-
-        return 'NOOO';
-    }
-
-    public function checkOtp()
-    {
-//        dd($this->otp(auth()->user()) != request('code'));
-        if ($this->otp(auth()->user()) != request('code')) {
-            return [
-                'status' => 'fail',
-                'code' => Response::HTTP_UNAUTHORIZED,
-                'message' => 'invalid code',
-                'data' => null
-            ];
-        }
-        $token = auth()->user()->createToken('test')->plainTextToken;
-
-        return [
-            'status' => 'success',
-            'code' => Response::HTTP_OK,
-            'message' => 'Successfully login',
-            'data' => [
-                'user' => auth()->user(),
-                'token' => $token
-            ]
         ];
-    }
-
-    public function storeCode(Request $request)
-    {
-        $token = Token::query()->find($request->id);
-        if (!$token || $token->isValid() || $request->code !== $token->code) {
-            return 'error';
-        }
     }
 }

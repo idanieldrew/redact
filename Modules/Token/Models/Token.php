@@ -74,6 +74,6 @@ class Token extends Model
             return false;
         }
 
-        return Crypt::encrypt(1234);
+        return 1234;
     }
 }

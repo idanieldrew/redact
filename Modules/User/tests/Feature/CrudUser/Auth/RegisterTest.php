@@ -21,7 +21,7 @@ class RegisterTest extends TestCase
         $res = $this->post(route('register.v2'),$data)
             ->assertCreated();
 
-        $this->assertArrayHasKey('token',$res);
+        $this->assertArrayHasKey('status',$res);
     }
 
     /** @test */

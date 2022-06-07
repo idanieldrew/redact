@@ -33,12 +33,13 @@ class LoginTest extends TestCase
             'phone' => "09121234567"
         ])->assertOk();
 
-        $this->assertArrayHasKey('token',$res);
+        $this->assertArrayHasKey('status',$res);
     }
 
     /** @test */
     public function login_with_wrong_email()
     {
+        $this->withoutExceptionHandling();
         $this->register();
 
         $this->post(route('login.v2'),[

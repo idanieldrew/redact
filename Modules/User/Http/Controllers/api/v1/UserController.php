@@ -63,7 +63,7 @@ class UserController extends Controller implements ResponseGenerator
     {
         $this->service()->update($user, $request);
 
-        return $this->res('success', null, 'Successfully update user', Response::HTTP_NO_CONTENT);
+        return $this->res('success', Response::HTTP_OK, 'Successfully update user', null);
     }
 
     /**
@@ -76,7 +76,7 @@ class UserController extends Controller implements ResponseGenerator
     {
         $this->repo()->destroy($user);
 
-        return $this->res('success', 'Successfully delete user', null, Response::HTTP_OK);
+        return $this->res('success', Response::HTTP_OK, 'Successfully delete user', null);
     }
 
     public function res($status, $code, $message, $data)

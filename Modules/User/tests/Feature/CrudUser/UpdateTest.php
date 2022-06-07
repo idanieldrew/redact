@@ -19,7 +19,7 @@ class UpdateTest extends TestCase
         $this->patch(
             route('user.update',$user->id),
             ['email' => 'test@test.co'])
-            ->assertStatus(204);
+            ->assertStatus(200);
 
         $this->assertDatabaseHas('users',['email' => 'test@test.co']);
     }
@@ -44,7 +44,7 @@ class UpdateTest extends TestCase
         $this->patch(
             route('user.update',$user->id),
             ['email' => 'test@test.co'])
-            ->assertStatus(204);
+            ->assertStatus(200);
 
         $this->assertDatabaseHas('users',['email' => 'test@test.co']);
     }
