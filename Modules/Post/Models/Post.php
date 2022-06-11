@@ -7,11 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Module\Image\Models\Image;
 use Module\Post\Database\Factories\PostFactory;
+use Module\Tag\Models\Tag;
 use Module\User\Models\User;
 
 class Post extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $guarded = [];
 
@@ -42,6 +43,11 @@ class Post extends Model
 
     public function images()
     {
-        return $this->morphMany(Image::class,'imageable');
+        return $this->morphMany(Image::class, 'imageable');
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
     }
 }

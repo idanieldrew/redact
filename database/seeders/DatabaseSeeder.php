@@ -7,6 +7,7 @@ use Module\Category\Database\Seeders\CategorySeeder;
 use Module\Category\Models\Category;
 use Module\Image\Models\Image;
 use Module\Post\Models\Post;
+use Module\Tag\Models\Tag;
 use Module\User\Models\User;
 
 class DatabaseSeeder extends Seeder
@@ -18,10 +19,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::factory(5)->create()->each(function ($user){
+        User::factory(5)->create()->each(function ($user) {
             $user->categories()->save(Category::factory()->make());
-            $user->posts()->save(Post::factory()->make())->each(function ($post){
-                $post->images()->save(Image::factory()->make());
+            $user->posts()->save(Post::factory()->make())->each(function ($post) {
+                $post->tags()->save(Tag::factory()->make());
+//                $post->images()->save(Image::factory()->make());
             });
         });
     }
