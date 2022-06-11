@@ -185,6 +185,8 @@ return [
         \Module\Category\Providers\CategoryServiceProvider::class,
         // Post Module
         \Module\Post\Providers\PostServiceProvider::class,
+        // Tag Module
+        \Module\Tag\Providers\TagServiceProvider::class,
         // Image Module
         \Module\Image\Providers\ImageServiceProvider::class
     ],

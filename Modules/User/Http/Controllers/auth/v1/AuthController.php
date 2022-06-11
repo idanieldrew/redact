@@ -7,7 +7,6 @@ use Illuminate\Auth\Events\Registered;
 use Module\Share\Contracts\Response\ResponseGenerator;
 use Module\User\Http\Requests\v1\LoginRequest;
 use Module\User\Http\Requests\v1\RegisterRequest;
-use Module\User\Http\Resources\v1\UserResource;
 use Module\User\Services\v1\UserService;
 
 class AuthController extends Controller implements ResponseGenerator
@@ -51,7 +50,7 @@ class AuthController extends Controller implements ResponseGenerator
             'status' => $status,
             'message' => $message,
             'data' => [
-                'user' => $data['user'] ? new UserResource($data['user']) : null,
+                'user' => $data['user'] ?? null,
                 'token' => $data['token']
             ]
         ], $code);
