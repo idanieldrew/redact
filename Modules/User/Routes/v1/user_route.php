@@ -18,5 +18,5 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::delete('destroy/{user}',[UserController::class,'destroy'])->name('user.destroy');
 
     // Send Sms
-    Route::get('send-sms',[UserController::class,'sendSms']);
+    Route::get('send/sms',[UserController::class,'sendSms'])->name('send-sms');
 });

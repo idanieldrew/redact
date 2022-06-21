@@ -32,8 +32,8 @@ class CeremonyMessage extends Notification implements ShouldQueue
     public function toSms($notifiable)
     {
         return (new SmsMessage)
-            ->to('123')
-            ->from("laravel")
-            ->line(4552);
+            ->to($notifiable->name)
+            ->from("idanieldrew")
+            ->line($notifiable->phone);
     }
 }
