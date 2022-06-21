@@ -9,7 +9,7 @@ class PostPublish
 {
     use Dispatchable, SerializesModels;
 
-    protected $post;
+    public $post;
 
     /**
      * Create a new event instance.

@@ -19,7 +19,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::factory(5)->create()->each(function ($user) {
+        $super = User::factory()->create(['type' => 'super']);
+
+        User::factory(4)->create()->each(function ($user) {
             $user->categories()->save(Category::factory()->make());
             $user->posts()->save(Post::factory()->make())->each(function ($post) {
                 $post->tags()->save(Tag::factory()->make());

@@ -15,28 +15,29 @@ class SendNotificationAdmin implements ShouldQueue
      *
      * @var string|null
      */
-      public $queue = 'admin';
+    public $queue = 'admin';
 
     /**
      * The time (seconds) before the job should be processed.
      *
      * @var int
      */
-      public $delay = 90;
+    public $delay = 90;
 
     /**
      * Handle the event.
      *
-     * @param  PostPublish  $event
+     * @param  PostPublish $event
      * @return void
      */
     public function handle(PostPublish $event)
     {
         $repo = resolve(UserRepository::class);
 
-        $mail = new PostPublishedPermission($event);
+        $mail = new PostPublishedPermission($event->post);
 
-        foreach ($repo->admins() as $user){
+        // Send mail
+        foreach ($repo->admins() as $user) {
             Mail::to($user->email)->send($mail);
         }
     }

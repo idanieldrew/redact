@@ -10,13 +10,13 @@ use Module\User\Repository\UserRepository as Repository;
 class UserRepository extends Repository
 {
     /**
-    * Paginate $this->model
-    * @param int $number
-    * @return \Illuminate\Database\Eloquent\Model
-    */
+     * Paginate $this->model
+     * @param int $number
+     * @return \Illuminate\Database\Eloquent\Model
+     */
     public function paginate($number = 10)
     {
-        if (Gate::denies('viewAny',User::class)){
+        if (Gate::denies('viewAny', User::class)) {
             abort(403);
         }
 
@@ -26,10 +26,10 @@ class UserRepository extends Repository
     }
 
     /**
-    * Show $this->model
-    * @param int $id
-    * @return \Module\User\Models\User
-    */
+     * Show $this->model
+     * @param int $id
+     * @return \Module\User\Models\User
+     */
     public function show($id)
     {
         if (Gate::denies('view', [User::class, $id])) {
@@ -55,13 +55,13 @@ class UserRepository extends Repository
     }
 
     /**
-     * Find Admin & Super users
+     * Get Admin & Super users
      */
     public function admins()
     {
         return User::query()
-            ->where('type','admin')
-            ->orWhere('type','super')
-            ->get();
+            ->where('type', 'admin')
+            ->orWhere('type', 'super')
+            ->get(['email']);
     }
 }

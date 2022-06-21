@@ -34,6 +34,7 @@ class PostService extends Service
         // Sync post and tag(s)
         $post->tags()->sync($tags);
 
+        // Report to admins
         PostPublish::dispatch($post->slug);
 
         return new PostResource($post);

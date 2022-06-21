@@ -11,6 +11,7 @@ class PostPublishedPermission extends Mailable
     use Queueable, SerializesModels;
 
     protected $slug;
+
     /**
      * Create a new message instance.
      *
