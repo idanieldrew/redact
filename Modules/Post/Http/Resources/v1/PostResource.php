@@ -27,6 +27,7 @@ class PostResource extends JsonResource
             'user' => new UserResource($this->user),
             'tags' => new TagCollection($this->tags),
             'blue_tick' => $this->blue_tick,
+            'published' => $this->published,
             'created_at' => $this->created_at
         ];
     }

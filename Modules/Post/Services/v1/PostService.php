@@ -53,6 +53,11 @@ class PostService extends Service
             abort(Response::HTTP_FORBIDDEN);
         }
 
-        return $post->update($request->all());
+        return $post->update([
+            'title' => $request->title,
+            'details' => $request->details,
+            'description' => $request->description,
+            'published' => $request->published,
+        ]);
     }
 }

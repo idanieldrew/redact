@@ -33,7 +33,7 @@ class PostRepository extends Repository
      */
     public function show($post)
     {
-        return Cache::remember("post {$post->slug}", 900, function () use ($post) {
+        return Cache::remember("post/{$post->slug}", 900, function () use ($post) {
             return new PostResource($post);
         });
     }
