@@ -188,7 +188,9 @@ return [
         // Tag Module
         \Module\Tag\Providers\TagServiceProvider::class,
         // Image Module
-        \Module\Image\Providers\ImageServiceProvider::class
+        \Module\Image\Providers\ImageServiceProvider::class,
+        // Panel Module
+        \Module\Panel\Providers\PanelServiceProvider::class
     ],
 
     /*
