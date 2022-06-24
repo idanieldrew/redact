@@ -3,6 +3,7 @@
 namespace Module\User\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -56,47 +57,47 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Create a new factories instance for the model.
      *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     * @return Factory
      */
-    protected static function newFactory()
+    protected static function newFactory(): Factory
     {
         return UserFactory::new();
     }
 
-    public function isSuper()
+    public function isSuper(): bool
     {
         return $this->type == self::TYPE_SUPER;
     }
 
-    public function isAdmin()
+    public function isAdmin(): bool
     {
         return $this->type == self::TYPE_ADMIN;
     }
 
-    public function isAuthor()
+    public function isAuthor(): bool
     {
         return $this->type == self::TYPE_AUTHOR;
     }
 
-    public function isUser()
+    public function isUser(): bool
     {
         return $this->type == self::TYPE_USER;
     }
 
     /** Relations */
-    public function posts()
+    public function posts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Post::class);
     }
 
-    public function categories()
+    public function categories(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Category::class);
     }
 
-    public function tokenize()
+    public function tokenize(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        dd(10);
+//        dd(10);
         return $this->hasMany(Token::class);
     }
     /** End */
