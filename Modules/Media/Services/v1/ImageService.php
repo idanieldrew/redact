@@ -1,35 +1,39 @@
 <?php
 
-namespace Module\Image\Services\v1;
+namespace Module\Media\Services\v1;
 
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image as Intervention;
-use Module\Image\Services\ImageService as Service;
+use Module\Media\Contracts\FileContract;
+use Module\Media\Services\MediaService as Service;
 
-class ImageService extends Service
+class ImageService extends Service implements FileContract
 {
     use DefaultService;
 
-    private $sizes = [300, 600];
+//    const sizes = [300, 600];
 
-    public function upload(UploadedFile $file, $name, $dir)
+    private static $sizes = [300, 600];
+
+    public static function upload(UploadedFile $file, $name, $dir)
     {
         $extension = $file->getClientOriginalExtension();
-        $path = $dir . $name . '.' . $extension();
+
+        $path = $dir . $name . '.' . $extension;
 
         Storage::putFileAs($dir, $file, $name . '.' . $extension);
 
-        return $this->resize(Storage::path($path), $dir, $name, $extension);
+        return self::resize(Storage::path($path), $dir, $name, $extension);
     }
 
-    private function resize($img, $dir, $name, $extension)
+    private static function resize($img, $dir, $name, $extension)
     {
         $img = Intervention::make($img);
 
         $images['original'] = $name . '.' . $extension;
 
-        foreach ($this->sizes as $size) {
+        foreach (self::$sizes as $size) {
             $images[$size] = $name . '_' . $size . '.' . $extension;
             $img->resize($size, null, function ($aspect) {
                 $aspect->aspectRatio();
@@ -47,7 +51,7 @@ class ImageService extends Service
             $name = $request->image[$key]->hashName();
             $request->image[$key]->move(public_path($path), $name);
 
-            Image::query()->create([
+            Media::query()->create([
                 'name' => $value,
                 'image' => $name
             ]);

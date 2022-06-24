@@ -187,8 +187,8 @@ return [
         \Module\Post\Providers\PostServiceProvider::class,
         // Tag Module
         \Module\Tag\Providers\TagServiceProvider::class,
-        // Image Module
-        \Module\Image\Providers\ImageServiceProvider::class,
+        // Media Module
+        \Module\Media\Providers\MediaServiceProvider::class,
         // Panel Module
         \Module\Panel\Providers\PanelServiceProvider::class
     ],

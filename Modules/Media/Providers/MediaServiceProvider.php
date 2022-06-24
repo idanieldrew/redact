@@ -1,14 +1,14 @@
 <?php
 
-namespace Module\Image\Providers;
+namespace Module\Media\Providers;
 
 use Carbon\Laravel\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
-class ImageServiceProvider extends ServiceProvider
+class MediaServiceProvider extends ServiceProvider
 {
 
-    private $namespace = 'Module\Image\Http\Controllers';
+    private $namespace = 'Module\Media\Http\Controllers';
 
     /**
      * Bootstrap any application services.
@@ -24,6 +24,6 @@ class ImageServiceProvider extends ServiceProvider
         Route::prefix('api/image')
             ->middleware('api')
             ->namespace($this->namespace)
-            ->group(__DIR__ . '/../Routes/image_route.php');
+            ->group(__DIR__ . '/../Routes/media_route.php');
     }
 }

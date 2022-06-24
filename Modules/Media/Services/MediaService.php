@@ -1,11 +1,12 @@
 <?php
 
-namespace Module\Image\Services;
+namespace Module\Media\Services;
 
 use Module\Image\Models\Image;
+use Module\Media\Models\Media;
 use Module\Share\Service\Service;
 
-class ImageService implements Service
+class MediaService implements Service
 {
     protected $model;
 
@@ -16,6 +17,6 @@ class ImageService implements Service
 
     public function model()
     {
-        return Image::query();
+        return Media::query();
     }
 }

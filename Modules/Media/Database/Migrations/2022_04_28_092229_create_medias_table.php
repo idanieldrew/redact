@@ -3,8 +3,9 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Module\User\Models\User;
 
-class CreateImagesTable extends Migration
+class CreateMediasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +14,14 @@ class CreateImagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('images', function (Blueprint $table) {
+        Schema::create('media', function (Blueprint $table) {
             $table->id();
-            $table->json('image');
-            $table->string('address', 255);
-            $table->string('imageable_type');
+            $table->json('files');
+            $table->string('name', 255);
+            $table->enum('type', ['image', 'video', 'audio', 'zip', 'doc']);
             $table->boolean('isPrivate');
-            $table->unsignedBigInteger('imageable_id');
+            $table->foreignIdFor(User::class);
+            $table->morphs('mediaable');
             $table->timestamps();
         });
     }

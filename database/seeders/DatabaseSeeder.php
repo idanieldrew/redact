@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
             $user->categories()->save(Category::factory()->make());
             $user->posts()->save(Post::factory()->make())->each(function ($post) {
                 $post->tags()->save(Tag::factory()->make());
-//                $post->images()->save(Image::factory()->make());
+//                $post->images()->save(Media::factory()->make());
             });
         });
     }

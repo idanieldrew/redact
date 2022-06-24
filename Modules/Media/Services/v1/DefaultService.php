@@ -1,12 +1,10 @@
 <?php
 
-namespace Module\Image\Services\v1;
-
-use Illuminate\Support\Facades\Storage;
+namespace Module\Media\Services\v1;
 
 trait DefaultService
 {
-    public function delete($image)
+/*    public function delete($image)
     {
         foreach ($image->image as $img) {
             if ($image->isPrivate) {
@@ -15,5 +13,5 @@ trait DefaultService
                 Storage::delete('public//' . $img);
             }
         }
-    }
+    }*/
 }

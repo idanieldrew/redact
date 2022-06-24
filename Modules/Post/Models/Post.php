@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Module\Image\Models\Image;
+use Module\Media\Models\Media;
 use Module\Post\Casts\Published;
 use Module\Post\Database\Factories\PostFactory;
 use Module\Tag\Models\Tag;
@@ -43,9 +44,9 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function images()
+    public function medias(): \Illuminate\Database\Eloquent\Relations\MorphMany
     {
-        return $this->morphMany(Image::class, 'imageable');
+        return $this->morphMany(Media::class, 'mediaable');
     }
 
     public function tags()

@@ -11,7 +11,7 @@ use Module\Share\Contracts\Response\ResponseGenerator;
 
 class ImageController extends Controller implements ResponseGenerator
 {
-    // resolve \Module\Image\Services\ImageService
+    // resolve \Module\Media\Services\ImageService
     public function service()
     {
         return resolve(ImageService::class);
