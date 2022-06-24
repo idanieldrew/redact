@@ -32,7 +32,7 @@ class PostController extends Controller implements ResponseGenerator
     /**
      * Display a listing of the resource.
      *
-     * @return \Module\Post\Http\Resources\v1\PostCollection
+     * @return PostCollection
      */
     public function index()
     {

@@ -16,19 +16,19 @@ class PostRepository extends Repository
      * Paginate $this->model
      *
      * @param int $number
-     * @return Post
+     * //     * @return Post
      */
     public function paginate($number = 10)
     {
         return Cache::remember('posts.all', 900, function () use ($number) {
-            return new PostCollection(Post::query()->paginate($number));
+            return new PostCollection(Post::query()->with(['user', 'tags:name'])->paginate($number));
         });
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \Module\Post\Models\Post $post
+     * @param \Module\Post\Models\Post $post
      * @return \Illuminate\Http\Response
      */
     public function show($post)
@@ -54,7 +54,7 @@ class PostRepository extends Repository
     /**
      * Destroy User model
      *
-     * @param  \Module\Post\Models\Post $post
+     * @param \Module\Post\Models\Post $post
      * @return boolean
      */
     public function destroy($post)

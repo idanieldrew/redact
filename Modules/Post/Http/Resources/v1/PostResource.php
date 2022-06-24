@@ -12,7 +12,7 @@ class PostResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
     public function toArray($request)
@@ -23,9 +23,15 @@ class PostResource extends JsonResource
             'details' => $this->details,
             'description' => $this->description,
             'banner' => $this->banner,
-//          'user' => UserResource::collection($this->whenLoaded('user')),
-            'user' => new UserResource($this->user),
-            'tags' => new TagCollection($this->tags),
+
+            'user' => $this->whenLoaded('user', function () {
+                return new UserResource($this->user);
+            }),
+
+            'tags' => $this->whenLoaded('tags', function () {
+                return new TagCollection($this->tags);
+            }),
+
             'blue_tick' => $this->blue_tick,
             'published' => $this->published,
             'created_at' => $this->created_at
