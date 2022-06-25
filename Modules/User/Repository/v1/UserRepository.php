@@ -3,6 +3,7 @@
 namespace Module\User\Repository\v1;
 
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Gate;
 use Module\User\Models\User;
 use Module\User\Repository\UserRepository as Repository;
@@ -42,7 +43,7 @@ class UserRepository extends Repository
     /**
      * Destroy User model
      *
-     * @param  \Module\User\Models\User $user
+     * @param \Module\User\Models\User $user
      * @return boolean
      */
     public function destroy($user)
@@ -55,13 +56,16 @@ class UserRepository extends Repository
     }
 
     /**
-     * Get Admin & Super users
+     * Get Admin & superusers
+     *
      */
     public function admins()
     {
-        return User::query()
-            ->where('type', 'admin')
-            ->orWhere('type', 'super')
-            ->get(['email']);
+        return Cache::remember('user.admins', 9000, function () {
+            return User::query()
+                ->where('type', 'admin')
+                ->orWhere('type', 'super')
+                ->get(['email']);
+        });
     }
 }

@@ -41,19 +41,6 @@ class PostController extends Controller implements ResponseGenerator
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Module\Post\Http\Requests\v1\PostRequest $request
-     * @return Response
-     */
-    public function store(PostRequest $request)
-    {
-        $post = $this->service()->store($request);
-
-        return $this->res('success', Response::HTTP_CREATED, null, new PostResource($post));
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param string $post
@@ -64,6 +51,19 @@ class PostController extends Controller implements ResponseGenerator
         $post = $this->repo()->show($post);
 
         return $this->res('success', Response::HTTP_OK, null, $post);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param PostRequest $request
+     * @return JsonResponse
+     */
+    public function store(PostRequest $request): JsonResponse
+    {
+        $post = $this->service()->store($request);
+
+        return $this->res('success', Response::HTTP_CREATED, null, new PostResource($post));
     }
 
     /**

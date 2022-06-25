@@ -21,7 +21,7 @@ class PostService extends Service
      * @param PostRequest $request
      * @return PostResource
      */
-    public function store($request): PostResource
+    public function store(PostRequest $request): PostResource
     {
         // Create post
         $post = auth()->user()->posts()->create([
@@ -31,6 +31,7 @@ class PostService extends Service
             'banner' => $request->banner
         ]);
 
+        // Upload media(s)
         if ($request->attachment && ($request->attachment instanceof UploadedFile)) {
             $media = MediaService::privateUpload($request->attachment);
             $post->medias()->create([
@@ -42,11 +43,11 @@ class PostService extends Service
             ]);
         }
 
-        // Create Tags or tag
+        // Create Tag(s)
         $tagService = resolve(TagService::class);
         $tags = $tagService->store($request->tag_request);
 
-        // Sync post and tag(s)
+        // Sync post & tag(s)
         $post->tags()->sync($tags);
 
         // Report to admins
