@@ -4,6 +4,7 @@ namespace Module\Post\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Module\Post\Http\Requests\v1\PostRequest;
@@ -34,7 +35,7 @@ class PostController extends Controller implements ResponseGenerator
      *
      * @return PostCollection
      */
-    public function index()
+    public function index(): PostCollection
     {
         return $this->repo()->paginate(10);
     }
@@ -42,8 +43,8 @@ class PostController extends Controller implements ResponseGenerator
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Module\Post\Http\Requests\v1\PostRequest $request
-     * @return \Illuminate\Http\Response
+     * @param \Module\Post\Http\Requests\v1\PostRequest $request
+     * @return Response
      */
     public function store(PostRequest $request)
     {
@@ -55,20 +56,22 @@ class PostController extends Controller implements ResponseGenerator
     /**
      * Display the specified resource.
      *
-     * @param  \Module\Post\Models\Post $post
-     * @return \Illuminate\Http\Response
+     * @param string $post
+     * @return JsonResponse
      */
-    public function show(Post $post)
+    public function show(string $post): JsonResponse
     {
-        return $this->res('success', Response::HTTP_OK, null, new PostResource($post));
+        $post = $this->repo()->show($post);
+
+        return $this->res('success', Response::HTTP_OK, null, $post);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Module\Post\Http\Requests\v1\UpdateRequest $request
-     * @param  \Module\Post\Models\Post $post
-     * @return \Illuminate\Http\Response
+     * @param \Module\Post\Http\Requests\v1\UpdateRequest $request
+     * @param Post $post
+     * @return Response
      */
     public function update(UpdateRequest $request, Post $post)
     {
@@ -80,8 +83,8 @@ class PostController extends Controller implements ResponseGenerator
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Module\Post\Models\Post $post
-     * @return \Illuminate\Http\Response
+     * @param Post $post
+     * @return Response
      */
     public function destroy(Post $post)
     {
@@ -93,8 +96,8 @@ class PostController extends Controller implements ResponseGenerator
     /**
      * Display the specified resource.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @return Response
      */
     public function search(Request $request)
     {

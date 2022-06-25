@@ -4,13 +4,13 @@ use Illuminate\Support\Facades\Route;
 use Module\Post\Http\Controllers\api\v1\PostController;
 
 // All posts
-Route::get('all', [PostController::class, 'index'])->name('post.index');
+Route::get('/', [PostController::class, 'index'])->name('post.index');
 
 // Search posts
 Route::get('search', [PostController::class, 'search'])->name('post.search');
 
 // Single post
-Route::get('special/{post:slug}', [PostController::class, 'show'])->name('post.show');
+Route::get('{post:slug}', [PostController::class, 'show'])->name('post.show');
 
 Route::middleware(['auth:sanctum'])->group(function () {
     // Store post

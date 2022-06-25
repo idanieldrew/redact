@@ -27,13 +27,13 @@ class PostServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
 
         // Routes
-        Route::prefix('api/post')
+        Route::prefix('api/posts')
             ->middleware('api')
             ->namespace($this->namespace)
             ->group(__DIR__ . '/../Routes/post_route.php');
 
         // View
-        $this->loadViewsFrom(__DIR__ . "/../Resources/views/Post","post");
+        $this->loadViewsFrom(__DIR__ . "/../Resources/views/Post", "post");
 
         // Observer Post
         Post::observe(PostObserver::class);

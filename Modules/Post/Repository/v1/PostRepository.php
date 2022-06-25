@@ -16,9 +16,9 @@ class PostRepository extends Repository
      * Paginate $this->model
      *
      * @param int $number
-     * //     * @return Post
+     * @return PostCollection
      */
-    public function paginate($number = 10)
+    public function paginate(int $number = 10): PostCollection
     {
         return Cache::remember('posts.all', 900, function () use ($number) {
             return new PostCollection(Post::query()->with(['user', 'tags:name'])->paginate($number));
@@ -28,13 +28,15 @@ class PostRepository extends Repository
     /**
      * Display the specified resource.
      *
-     * @param \Module\Post\Models\Post $post
-     * @return \Illuminate\Http\Response
+     * @param string $post
+     * @return PostResource
      */
-    public function show($post)
+    public function show(string $post): PostResource
     {
-        return Cache::remember("post/{$post->slug}", 900, function () use ($post) {
-            return new PostResource($post);
+        return Cache::remember("post/{$post}", 900, function () use ($post) {
+            return new PostResource(
+                $this->model()->where('slug', $post)->with(['user', 'tags'])->firstOrFail()
+            );
         });
     }
 
