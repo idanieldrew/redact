@@ -33,14 +33,7 @@ class PostService extends Service
 
         // Upload media(s)
         if ($request->attachment && ($request->attachment instanceof UploadedFile)) {
-            $media = MediaService::privateUpload($request->attachment);
-            $post->medias()->create([
-                'files' => $media->files,
-                'type' => $media->type,
-                'name' => $media->name,
-                'isPrivate' => $media->isPrivate,
-                'user_id' => $media->user_id
-            ]);
+            $this->uploadMedia($post, $request->attachment);
         }
 
         // Create Tag(s)
@@ -54,6 +47,23 @@ class PostService extends Service
         PostPublish::dispatch($post->slug);
 
         return new PostResource($post);
+    }
+
+    /**
+     * Create media(s) for post
+     * @param $post
+     * @param $request
+     */
+    public function uploadMedia($post, $request)
+    {
+        $media = MediaService::privateUpload($request);
+        $post->medias()->create([
+            'files' => $media->files,
+            'type' => $media->type,
+            'name' => $media->name,
+            'isPrivate' => $media->isPrivate,
+            'user_id' => $media->user_id
+        ]);
     }
 
     /**
