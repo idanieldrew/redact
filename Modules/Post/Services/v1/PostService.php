@@ -32,8 +32,10 @@ class PostService extends Service
         ]);
 
         // Upload media(s)
-        if ($request->attachment && ($request->attachment instanceof UploadedFile)) {
-            $this->uploadMedia($post, $request->attachment);
+        if ($request->attachment) {
+            foreach ($request->attachment as $attachment) {
+                $this->uploadMedia($post, $attachment);
+            }
         }
 
         // Create Tag(s)
