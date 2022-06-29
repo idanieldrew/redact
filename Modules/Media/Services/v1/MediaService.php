@@ -12,6 +12,11 @@ class MediaService
     private static $dir;
     private static $isPrivate;
 
+    /**
+     * Private upload
+     * @param UploadedFile $file
+     * @return Media|void
+     */
     public static function privateUpload(UploadedFile $file)
     {
         self::$file = $file;
@@ -20,6 +25,11 @@ class MediaService
         return self::upload();
     }
 
+    /**
+     * Public upload
+     * @param UploadedFile $file
+     * @return Media|void
+     */
     public static function publicUpload(UploadedFile $file)
     {
         self::$file = $file;
@@ -28,6 +38,10 @@ class MediaService
         return self::upload();
     }
 
+    /**
+     * Upload
+     * @return Media|void
+     */
     private static function upload()
     {
         $extension = self::normalizeExtension(self::$file);
@@ -38,17 +52,32 @@ class MediaService
         }
     }
 
+    /**
+     * To lower extension
+     * @param $file
+     * @return string
+     */
     private static function normalizeExtension($file): string
     {
         return strtolower($file->getClientOriginalExtension());
     }
 
+    /**
+     * To lower extension
+     * @return string
+     */
     private static function filenameGenerator(): string
     {
         return uniqid();
     }
 
-    private static function uploadByHandler(FileContract $service, $key)
+    /**
+     * To lower extension
+     * @param FileContract $service
+     * @param $key
+     * @return Media
+     */
+    private static function uploadByHandler(FileContract $service, $key): Media
     {
         $media = new Media();
 

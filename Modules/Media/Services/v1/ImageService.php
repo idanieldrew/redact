@@ -12,22 +12,35 @@ class ImageService extends Service implements FileContract
 {
     use DefaultService;
 
-//    const sizes = [300, 600];
-
     private static $sizes = [300, 600];
 
-    public static function upload(UploadedFile $file, $name, $dir)
+    /**
+     * Upload media
+     * @param UploadedFile $file
+     * @param $filename
+     * @param $dir
+     * @return array
+     */
+    public static function upload(UploadedFile $file, $filename, $dir): array
     {
         $extension = $file->getClientOriginalExtension();
 
-        $path = $dir . $name . '.' . $extension;
+        $path = $dir . $filename . '.' . $extension;
 
-        Storage::putFileAs($dir, $file, $name . '.' . $extension);
+        Storage::putFileAs($dir, $file, $filename . '.' . $extension);
 
-        return self::resize(Storage::path($path), $dir, $name, $extension);
+        return self::resize(Storage::path($path), $dir, $filename, $extension);
     }
 
-    private static function resize($img, $dir, $name, $extension)
+    /**
+     * Resize media with Intervention package
+     * @param $img
+     * @param $dir
+     * @param $name
+     * @param $extension
+     * @return array
+     */
+    private static function resize($img, $dir, $name, $extension): array
     {
         $img = Intervention::make($img);
 
@@ -42,21 +55,4 @@ class ImageService extends Service implements FileContract
         }
         return $images;
     }
-
-    /* public function store($request)
-    {
-        $path = "uploads/post";
-
-        foreach ($request->name as $key => $value) {
-            $name = $request->image[$key]->hashName();
-            $request->image[$key]->move(public_path($path), $name);
-
-            Media::query()->create([
-                'name' => $value,
-                'image' => $name
-            ]);
-        }
-
-        return;
-    } */
 }
