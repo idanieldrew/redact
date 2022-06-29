@@ -3,6 +3,7 @@
 namespace Module\Post\Http\Resources\v1;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Module\Media\Http\Resources\v1\MediaCollection;
 use Module\Tag\Http\Resources\v1\TagCollection;
 use Module\Tag\Http\Resources\v1\TagResource;
 use Module\User\Http\Resources\v1\UserResource;
@@ -30,6 +31,10 @@ class PostResource extends JsonResource
 
             'tags' => $this->whenLoaded('tags', function () {
                 return new TagCollection($this->tags);
+            }),
+
+            'media' => $this->whenLoaded('media', function () {
+                return new MediaCollection($this->media);
             }),
 
             'blue_tick' => $this->blue_tick,

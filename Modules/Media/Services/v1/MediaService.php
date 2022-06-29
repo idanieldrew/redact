@@ -81,6 +81,8 @@ class MediaService
     {
         $media = new Media();
 
+        // Upload images & zip & others
+        // Image:  \Module\Media\Services\v1\ImageService::upload
         $media->files = $service::upload(self::$file, self::filenameGenerator(), self::$dir);
         $media->type = $key;
         $media->user_id = auth()->id();

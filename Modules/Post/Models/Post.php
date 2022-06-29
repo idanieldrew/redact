@@ -44,7 +44,7 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function medias(): \Illuminate\Database\Eloquent\Relations\MorphMany
+    public function media(): \Illuminate\Database\Eloquent\Relations\MorphMany
     {
         return $this->morphMany(Media::class, 'mediaable');
     }

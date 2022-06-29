@@ -42,13 +42,13 @@ class PostService extends Service
         $tagService = resolve(TagService::class);
         $tags = $tagService->store($request->tag_request);
 
-        // Sync post & tag(s)
+        // Stest 1test 1test 1test 12ync post & tag(s)
         $post->tags()->sync($tags);
 
         // Report to admins
         PostPublish::dispatch($post->slug);
 
-        return new PostResource($post);
+        return new PostResource($post->load('media'));
     }
 
     /**
@@ -60,7 +60,7 @@ class PostService extends Service
     public function uploadMedia($post, $request)
     {
         $media = MediaService::privateUpload($request);
-        $post->medias()->create([
+        $post->media()->create([
             'files' => $media->files,
             'type' => $media->type,
             'name' => $media->name,

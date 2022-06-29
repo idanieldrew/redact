@@ -21,7 +21,7 @@ class PostRepository extends Repository
     public function paginate(int $number = 10): PostCollection
     {
         return Cache::remember('posts.all', 900, function () use ($number) {
-            return new PostCollection(Post::query()->with(['user', 'tags:name'])->paginate($number));
+            return new PostCollection($this->model()->with(['user', 'tags:name', 'media'])->paginate($number));
         });
     }
 
@@ -35,7 +35,7 @@ class PostRepository extends Repository
     {
         return Cache::remember("post/{$post}", 900, function () use ($post) {
             return new PostResource(
-                $this->model()->where('slug', $post)->with(['user', 'tags'])->firstOrFail()
+                $this->model()->where('slug', $post)->with(['user', 'tags', 'media'])->firstOrFail()
             );
         });
     }
@@ -45,7 +45,7 @@ class PostRepository extends Repository
      * @param string $keyword
      * @return object
      */
-    public function search($keyword)
+    public function search(string $keyword): object
     {
         return Post::query()
             ->where('title', 'LIKE', "%" . $keyword . "%")
@@ -56,10 +56,10 @@ class PostRepository extends Repository
     /**
      * Destroy User model
      *
-     * @param \Module\Post\Models\Post $post
+     * @param Post $post
      * @return boolean
      */
-    public function destroy($post)
+    public function destroy($post): bool
     {
         if (Gate::denies('delete', [Post::class, $post])) {
             abort(Response::HTTP_FORBIDDEN);
