@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Module\Category\Models\Category;
 use Module\Media\Models\Media;
 use Module\Post\Casts\Published;
 use Module\Post\Database\Factories\PostFactory;
@@ -52,5 +53,10 @@ class Post extends Model
     public function tags(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Tag::class);
+    }
+
+    public function categories(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Category::class, Post::class, 'category_id', 'id');
     }
 }

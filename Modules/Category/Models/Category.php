@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Module\Category\Database\Factories\CategoryFactory;
 use Module\Media\Models\Media;
+use Module\Post\Models\Post;
 
 class Category extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $guarded = [];
 
@@ -28,6 +29,11 @@ class Category extends Model
     /*** Relation ***/
     public function images(): \Illuminate\Database\Eloquent\Relations\MorphMany
     {
-        return $this->morphMany(Media::class,'mediaable');
+        return $this->morphMany(Media::class, 'mediaable');
+    }
+
+    public function posts(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Post::class);
     }
 }

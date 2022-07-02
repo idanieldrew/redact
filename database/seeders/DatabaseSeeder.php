@@ -22,10 +22,11 @@ class DatabaseSeeder extends Seeder
         $super = User::factory()->create(['type' => 'super']);
 
         User::factory(4)->create()->each(function ($user) {
-            $user->categories()->save(Category::factory()->make());
-            $user->posts()->save(Post::factory()->make())->each(function ($post) {
-                $post->tags()->save(Tag::factory()->make());
+            $user->categories()->save(Category::factory()->make())->each(function ($category) use ($user) {
+                $category->posts()->save(Post::factory()->make(['user_id' => $user->id]))->each(function ($post) {
+                    $post->tags()->save(Tag::factory()->make());
 //                $post->images()->save(Media::factory()->make());
+                });
             });
         });
     }
