@@ -20,7 +20,7 @@ class CreateMediasTable extends Migration
             $table->string('name', 255);
             $table->enum('type', ['image', 'video', 'audio', 'zip', 'doc']);
             $table->boolean('isPrivate');
-            $table->foreignIdFor(User::class);
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->morphs('mediaable');
             $table->timestamps();
         });
