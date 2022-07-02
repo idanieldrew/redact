@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Module\User\Models\User;
 
-class CreateMediasTable extends Migration
+class CreateMediaTable extends Migration
 {
     /**
      * Run the migrations.
