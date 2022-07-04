@@ -5,7 +5,7 @@ namespace Module\Share\Repository;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
 
-abstract  class  Repository
+abstract class Repository
 {
     public abstract function model();
 

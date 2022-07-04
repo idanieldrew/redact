@@ -7,14 +7,7 @@ use Module\Share\Repository\Repository;
 
 class CategoryRepository extends Repository
 {
-    protected $model;
-
-    public function __construct()
-    {
-        $this->model = $this->model();
-    }
-
-    public function model()
+    public function model(): \Illuminate\Database\Eloquent\Builder
     {
         return Category::query();
     }

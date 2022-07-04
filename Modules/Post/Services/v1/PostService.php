@@ -5,6 +5,7 @@ namespace Module\Post\Services\v1;
 use Illuminate\Http\Response;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Gate;
+use Module\Category\Repository\v1\CategoryRepository;
 use Module\Media\Services\v1\MediaService;
 use Module\Post\Events\PostPublish;
 use Module\Post\Http\Requests\v1\PostRequest;
@@ -42,13 +43,18 @@ class PostService extends Service
         $tagService = resolve(TagService::class);
         $tags = $tagService->store($request->tag_request);
 
-        // Stest 1test 1test 1test 12ync post & tag(s)
+        // Sync post & tag(s)
         $post->tags()->sync($tags);
+
+        // Sync post with category(s)
+        $categoryRepository = resolve(CategoryRepository::class);
+        $categories = $categoryRepository->getCategories($request->category);
+        $post->categories()->syncWithPivotValues($categories, []);
 
         // Report to admins
         PostPublish::dispatch($post->slug);
 
-        return new PostResource($post->load('media'));
+        return new PostResource($post->load(['media', 'categories']));
     }
 
     /**
