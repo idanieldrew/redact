@@ -11,7 +11,7 @@ class UserRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -21,19 +21,19 @@ class UserRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         $rules = [
-            'name' => ['required','string'],
-            'email' => ['required','email','digits:11','unique:users,email']
+            'name' => ['required', 'string'],
+            'email' => ['required', 'email', 'digits:11', 'unique:users,email']
         ];
-        if (request()->method === 'PATCH'){
-                $rules['name'] = ['nullable','string','min:3','max:16'. request()->id];
-                $rules['email'] = ['nullable','email','digits:11','unique:users,email' . request()->id];
+        if (request()->method === 'PATCH') {
+            $rules['name'] = ['nullable', 'string', 'min:3', 'max:16' . request()->id];
+            $rules['email'] = ['nullable', 'email', 'digits:11', 'unique:users,email' . request()->id];
         }
 
         return [
-           $rules
+            $rules
         ];
     }
 }
