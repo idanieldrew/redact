@@ -2,12 +2,13 @@
 
 namespace Module\Share\Repository;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
 
 abstract class Repository
 {
-    public abstract function model();
+    abstract public function model();
 
     /**
      * Paginate model
@@ -15,16 +16,16 @@ abstract class Repository
      * @param $query
      * @param int $number
      * @param boolean $softDelete
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return Model
      */
-    public function take($query,$class = null,$number = 10,$softDelete = false)
+    public function take($query, $class = null, int $number = 10, bool $softDelete = false): Model
     {
-         if ($class) {
+        if ($class) {
             if (Gate::denies('viewAny', $class)) {
                 abort(Response::HTTP_FORBIDDEN);
             }
-         }
+        }
 
-        return $softDelete ? $query->withTrashed()->paginate($number): $query->paginate($number);
+        return $softDelete ? $query->withTrashed()->paginate($number) : $query->paginate($number);
     }
 }
