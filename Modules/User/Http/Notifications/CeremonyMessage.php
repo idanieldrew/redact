@@ -18,7 +18,7 @@ class CeremonyMessage extends Notification implements ShouldQueue
      * @param  mixed  $notifiable
      * @return array
      */
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return [SmsChannel::class];
     }
@@ -29,7 +29,7 @@ class CeremonyMessage extends Notification implements ShouldQueue
      * @param  mixed  $notifiable
      * @return SmsMessage
      */
-    public function toSms($notifiable)
+    public function toSms($notifiable): SmsMessage
     {
         return (new SmsMessage)
             ->to($notifiable->name)

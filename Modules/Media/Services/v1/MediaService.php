@@ -47,7 +47,7 @@ class MediaService
         $extension = self::normalizeExtension(self::$file);
         foreach (config('media.media.types') as $type => $service) {
             if (in_array($extension, $service['extensions'])) {
-                return self::uploadByHandler(new $service['handler'], $type);
+                return self::uploadByHandler(new $service['handler'](), $type);
             }
         }
     }
