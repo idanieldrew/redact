@@ -16,7 +16,7 @@ use Module\User\Database\Factories\UserFactory;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable,SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -49,11 +49,15 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    const TYPE_ADMIN = 'admin';
-    const TYPE_USER= 'user';
-    const TYPE_AUTHOR = 'author';
-    const TYPE_SUPER = 'super';
+    private const TYPE_USER = 'user';
+    private const TYPE_ADMIN = 'admin';
+    private const TYPE_AUTHOR = 'author';
+    private const TYPE_SUPER = 'super';
 
+    public static function type_user(): string
+    {
+        return self::TYPE_USER;
+    }
     /**
      * Create a new factories instance for the model.
      *
@@ -100,6 +104,7 @@ class User extends Authenticatable implements MustVerifyEmail
 //        dd(10);
         return $this->hasMany(Token::class);
     }
+
     /** End */
 
     public function getPhoneNumber()

@@ -28,7 +28,7 @@ class PostPublishedPermission extends Mailable
      *
      * @return $this
      */
-    public function build()
+    public function build(): PostPublishedPermission
     {
         return $this->view('post::Mail/PostPublishedPermission')
             ->with(['slug' => $this->slug]);
