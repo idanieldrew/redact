@@ -9,13 +9,13 @@ class TagService extends Service
 {
     /**
      * Create new tag
-     * @param \Module\Tag\Http\Requests\v1\TagRequest $request
+     * @param $request
      * @return array
      */
-    public function store($request)
+    public function store($request): array
     {
         foreach ($request as $tags) {
-            $model = $this->model()->firstWhere('name', '=', $tags) ??
+            $this->model()->firstWhere('name', '=', $tags) ??
                 $this->model()->create([
                     'name' => $tags
                 ]);

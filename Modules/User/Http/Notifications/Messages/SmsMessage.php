@@ -2,6 +2,7 @@
 
 namespace Module\User\Http\Notifications\Messages;
 
+use Exception;
 use Illuminate\Support\Facades\Http;
 
 class SmsMessage
@@ -37,18 +38,19 @@ class SmsMessage
 
     /**
      * Send
+     * @throws Exception
      */
     public function send()
     {
-        if (!$this->from || $this->to || !count($this->liens)){
-            throw new \Exception("not correct");
+        if (!$this->from || $this->to || !count($this->liens)) {
+            throw new Exception("not correct");
         }
 
-        $sendSms = Http::withHeaders([
+        Http::withHeaders([
             'apikey' => config('sms.ghasedak.apikey')
-        ])->asForm()->post('https://api.ghasedak.me/v2/sms/send/simple',[
-            'message' =>$this->lines[0],
-            'receptor' =>$this->to,
+        ])->asForm()->post('https://api.ghasedak.me/v2/sms/send/simple', [
+            'message' => $this->lines[0],
+            'receptor' => $this->to,
             'linenumber' => config('sms.ghasedak.linenumber')
         ]);
     }
