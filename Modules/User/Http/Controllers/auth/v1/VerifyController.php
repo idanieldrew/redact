@@ -8,10 +8,10 @@ use Illuminate\Http\Request;
 
 class VerifyController extends Controller
 {
-    public function notice()
+/*    public function notice()
     {
         dd("first verify");
-    }
+    }*/
 
     public function verify(EmailVerificationRequest $request)
     {
@@ -24,6 +24,6 @@ class VerifyController extends Controller
     {
         $request->user()->sendEmailVerificationNotification();
 
-        dd('ok');
+        return;
     }
 }
