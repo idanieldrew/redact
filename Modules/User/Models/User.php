@@ -70,22 +70,22 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function isSuper(): bool
     {
-        return $this->type == self::TYPE_SUPER;
+        return $this->type === self::TYPE_SUPER;
     }
 
     public function isAdmin(): bool
     {
-        return $this->type == self::TYPE_ADMIN;
+        return $this->type === self::TYPE_ADMIN;
     }
 
     public function isAuthor(): bool
     {
-        return $this->type == self::TYPE_AUTHOR;
+        return $this->type === self::TYPE_AUTHOR;
     }
 
     public function isUser(): bool
     {
-        return $this->type == self::TYPE_USER;
+        return $this->type === self::TYPE_USER;
     }
 
     /** Relations */

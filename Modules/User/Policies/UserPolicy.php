@@ -3,6 +3,7 @@
 namespace Module\User\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 use Module\User\Models\User;
 
 class UserPolicy
@@ -12,10 +13,10 @@ class UserPolicy
     /**
      * Determine whether the user can view any models.
      *
-     * @param  \Module\User\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param User $user
+     * @return bool
      */
-    public function viewAny(User $user)
+    public function viewAny(User $user): bool
     {
         return $user->isAdmin();
     }
@@ -23,45 +24,45 @@ class UserPolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @param  \Module\User\Models\User  $user
-     * @param  int  $author
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param User $user
+     * @param int $author
+     * @return Response|bool
      */
-    public function view(User $user,$author)
+    public function view(User $user, int $author)
     {
-        return $user->id == $author;
+        return $user->id === $author;
     }
 
     /**
      * Determine whether the user can update the model.
      *
-     * @param  \Module\User\Models\User $user
+     * @param User $user
      * @param  int $model
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return bool
      */
-    public function update(User $user,$model)
+    public function update(User $user,$model): bool
     {
-        return $user->id == $model;
+        return $user->id === $model;
     }
 
     /**
      * Determine whether the user can delete the model.
      *
-     * @param  \Module\User\Models\User  $user
-     * @param  \Module\User\Models\User  $model
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param User $user
+     * @param User $model
+     * @return bool
      */
-    public function delete(User $user, User $model)
+    public function delete(User $user, User $model): bool
     {
-        return $user->id == $model->id;
+        return $user->id === $model->id;
     }
 
     /**
      * Determine whether the user can restore the model.
      *
-     * @param  \Module\User\Models\User  $user
-     * @param  \Module\User\Models\User  $model
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param User $user
+     * @param User $model
+     * @return Response|bool
      */
     public function restore(User $user, User $model)
     {
@@ -71,9 +72,9 @@ class UserPolicy
     /**
      * Determine whether the user can permanently delete the model.
      *
-     * @param  \Module\User\Models\User  $user
-     * @param  \Module\User\Models\User  $model
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param User $user
+     * @param User $model
+     * @return Response|bool
      */
     public function forceDelete(User $user, User $model)
     {
