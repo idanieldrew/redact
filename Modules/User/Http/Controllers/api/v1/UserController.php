@@ -4,6 +4,7 @@ namespace Module\User\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 use Module\Share\Contracts\Response\ResponseGenerator;
 use Module\User\Http\Notifications\CeremonyMessage;
 use Module\User\Http\Requests\v1\UserRequest;
@@ -55,8 +56,8 @@ class UserController extends Controller implements ResponseGenerator
     /**
      * Update the specified resource in storage.
      *
-     * @param  int $user
-     * @param  \Module\User\Http\Requests\v1\UserRequest $request
+     * @param int $user
+     * @param \Module\User\Http\Requests\v1\UserRequest $request
      * @return UserResource
      */
     public function update($user, UserRequest $request)
@@ -69,7 +70,7 @@ class UserController extends Controller implements ResponseGenerator
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Module\User\Models\User $user
+     * @param \Module\User\Models\User $user
      * @return UserResource
      */
     public function destroy(User $user)
@@ -92,6 +93,6 @@ class UserController extends Controller implements ResponseGenerator
     {
         auth()->user()->notify(new CeremonyMessage());
 
-        dd('finish');
+        Log::info("send it");
     }
 }

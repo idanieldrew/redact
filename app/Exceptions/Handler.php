@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\UnauthorizedException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Throwable;
@@ -17,7 +18,6 @@ class Handler extends ExceptionHandler
      * @var array<int, class-string<Throwable>>
      */
     protected $dontReport = [
-        //
     ];
 
     /**
@@ -39,7 +39,7 @@ class Handler extends ExceptionHandler
     public function register()
     {
         $this->reportable(function (Throwable $e) {
-            //
+            Log::error($e);
         });
     }
 
@@ -50,33 +50,39 @@ class Handler extends ExceptionHandler
                 'status' => 'fail',
                 'message' => 'Not Found',
             ], Response::HTTP_NOT_FOUND, $e->getHeaders());
-        } if ($e instanceof \Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException) {
+        }
+        if ($e instanceof \Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException) {
             return response()->json([
                 'status' => 'fail',
                 'message' => $e->getMessage(),
             ], Response::HTTP_METHOD_NOT_ALLOWED, $e->getHeaders());
-        } if ($e instanceof \Illuminate\Validation\ValidationException) {
+        }
+        if ($e instanceof \Illuminate\Validation\ValidationException) {
             return response()->json([
                 'status' => 'fail',
                 'message' => $e->getMessage(),
                 'errors' => $e->errors(),
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
-        } if ($e instanceof \Illuminate\Auth\AuthenticationException) {
+        }
+        if ($e instanceof \Illuminate\Auth\AuthenticationException) {
             return response()->json([
                 'status' => 'fail',
                 'message' => $e->getMessage(),
             ], Response::HTTP_UNAUTHORIZED);
-        } if ($e instanceof \Illuminate\Http\Exceptions\ThrottleRequestsException) {
+        }
+        if ($e instanceof \Illuminate\Http\Exceptions\ThrottleRequestsException) {
             return response()->json([
                 'status' => 'fail',
                 'message' => $e->getMessage(),
             ], Response::HTTP_TOO_MANY_REQUESTS, $e->getHeaders());
-        } if ($e instanceof \Symfony\Component\Routing\Exception\RouteNotFoundException) {
+        }
+        if ($e instanceof \Symfony\Component\Routing\Exception\RouteNotFoundException) {
             return response()->json([
                 'status' => 'error',
                 'message' => $this->isDebugMode() ? $e->getMessage() : 'Internal Server Error',
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
-        } if ($e instanceof \Symfony\Component\HttpKernel\Exception\HttpException){
+        }
+        if ($e instanceof \Symfony\Component\HttpKernel\Exception\HttpException) {
             return response()->json([
                 'status' => 'error',
                 'message' => $this->isDebugMode() ? "forbidden" : 'forbidden',
@@ -87,7 +93,8 @@ class Handler extends ExceptionHandler
         return parent::render($request, $e);
     }
 
-    protected function isDebugMode() {
+    protected function isDebugMode()
+    {
         return config('app.debug');
     }
 }

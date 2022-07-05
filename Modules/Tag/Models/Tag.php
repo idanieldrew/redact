@@ -23,7 +23,7 @@ class Tag extends Model
         return TagFactory::new();
     }
 
-    /*** Relations */
+    /* Relations */
     public function posts(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Tag::class);

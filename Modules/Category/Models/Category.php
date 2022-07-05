@@ -26,12 +26,13 @@ class Category extends Model
         return CategoryFactory::new();
     }
 
-    /*** Relation ***/
+    /* Relations */
     public function images(): \Illuminate\Database\Eloquent\Relations\MorphMany
     {
         return $this->morphMany(Media::class, 'mediaable');
     }
 
+    /* Relations */
     public function posts(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Post::class);

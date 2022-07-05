@@ -71,7 +71,6 @@ class CategoryController extends Controller implements ResponseGenerator
      */
     public function edit(Category $category)
     {
-        //
     }
 
     /**
@@ -96,7 +95,6 @@ class CategoryController extends Controller implements ResponseGenerator
      */
     public function destroy(Category $category)
     {
-        //
     }
 
     // manage response
