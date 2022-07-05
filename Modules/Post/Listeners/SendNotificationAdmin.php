@@ -27,14 +27,14 @@ class SendNotificationAdmin implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  PostPublish $event
+     * @param PostPublish $event
      * @return void
      */
     public function handle(PostPublish $event)
     {
         $repo = resolve(UserRepository::class);
 
-        $mail = new PostPublishedPermission($event->post);
+        $mail = new PostPublishedPermission($event->getPost());
 
         // Send mail
         foreach ($repo->admins() as $user) {

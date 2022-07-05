@@ -4,18 +4,24 @@ namespace Module\Post\Events;
 
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Module\Post\Models\Post;
 
 class PostPublish
 {
     use Dispatchable, SerializesModels;
 
-    public $post;
+    private $post;
+
+    public function getPost()
+    {
+        return $this->post;
+    }
 
     /**
      * Create a new event instance.
      *
-     * @var \Module\Post\Models\Post
      * @return void
+     * @var Post
      */
     public function __construct($post)
     {

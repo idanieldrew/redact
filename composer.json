@@ -24,6 +24,7 @@
         "laravel/telescope": "^4.9",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^5.10",
+        "nunomaduro/phpinsights": "^2.4",
         "phpunit/phpunit": "^9.5.8"
     },
     "autoload": {
