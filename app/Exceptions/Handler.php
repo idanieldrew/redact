@@ -50,33 +50,33 @@ class Handler extends ExceptionHandler
                 'status' => 'fail',
                 'message' => 'Not Found',
             ], Response::HTTP_NOT_FOUND, $e->getHeaders());
-        } elseif ($e instanceof \Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException) {
+        } if ($e instanceof \Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException) {
             return response()->json([
                 'status' => 'fail',
                 'message' => $e->getMessage(),
             ], Response::HTTP_METHOD_NOT_ALLOWED, $e->getHeaders());
-        } elseif ($e instanceof \Illuminate\Validation\ValidationException) {
+        } if ($e instanceof \Illuminate\Validation\ValidationException) {
             return response()->json([
                 'status' => 'fail',
                 'message' => $e->getMessage(),
                 'errors' => $e->errors(),
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
-        } elseif ($e instanceof \Illuminate\Auth\AuthenticationException) {
+        } if ($e instanceof \Illuminate\Auth\AuthenticationException) {
             return response()->json([
                 'status' => 'fail',
                 'message' => $e->getMessage(),
             ], Response::HTTP_UNAUTHORIZED);
-        } elseif ($e instanceof \Illuminate\Http\Exceptions\ThrottleRequestsException) {
+        } if ($e instanceof \Illuminate\Http\Exceptions\ThrottleRequestsException) {
             return response()->json([
                 'status' => 'fail',
                 'message' => $e->getMessage(),
             ], Response::HTTP_TOO_MANY_REQUESTS, $e->getHeaders());
-        } elseif ($e instanceof \Symfony\Component\Routing\Exception\RouteNotFoundException) {
+        } if ($e instanceof \Symfony\Component\Routing\Exception\RouteNotFoundException) {
             return response()->json([
                 'status' => 'error',
                 'message' => $this->isDebugMode() ? $e->getMessage() : 'Internal Server Error',
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
-        } elseif ($e instanceof \Symfony\Component\HttpKernel\Exception\HttpException){
+        } if ($e instanceof \Symfony\Component\HttpKernel\Exception\HttpException){
             return response()->json([
                 'status' => 'error',
                 'message' => $this->isDebugMode() ? "forbidden" : 'forbidden',
