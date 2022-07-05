@@ -2,7 +2,6 @@
 
 namespace Module\Share\Repository;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
 
@@ -12,13 +11,13 @@ abstract class Repository
 
     /**
      * Paginate model
-     * @param $class
-     * @param $query
+     * @param
+     * @param null $class
      * @param int $number
-     * @param boolean $softDelete
-     * @return Model
+     * @param bool $softDelete
+     * @return mixed
      */
-    public function take($query, $class = null, int $number = 10, bool $softDelete = false): Model
+    public function take($query, $class = null, int $number = 10, bool $softDelete = false)
     {
         if ($class) {
             if (Gate::denies('viewAny', $class)) {

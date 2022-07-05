@@ -58,10 +58,9 @@ class PostService extends Service
     }
 
     /**
-     * Create media(s) for post
+     * Make media(s) for post
      * @param $post
      * @param $request
-     * @return void
      */
     public function uploadMedia($post, $request)
     {

@@ -9,7 +9,7 @@ use Module\Media\Models\Media;
 class MediaService
 {
     private static $file;
-    private static $dir;
+    private static  $dir;
     private static $isPrivate;
 
     /**
@@ -54,10 +54,10 @@ class MediaService
 
     /**
      * To lower extension
-     * @param $file
+     * @param UploadedFile $file
      * @return string
      */
-    private static function normalizeExtension($file): string
+    private static function normalizeExtension(UploadedFile $file): string
     {
         return strtolower($file->getClientOriginalExtension());
     }
@@ -74,10 +74,10 @@ class MediaService
     /**
      * To lower extension
      * @param FileContract $service
-     * @param $key
+     * @param string $key
      * @return Media
      */
-    private static function uploadByHandler(FileContract $service, $key): Media
+    private static function uploadByHandler(FileContract $service, string $key): Media
     {
         $media = new Media();
 

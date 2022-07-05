@@ -42,10 +42,10 @@ class UserController extends Controller implements ResponseGenerator
     /**
      * Display the specified resource.
      *
-     * @param  $user
-     * @return \Module\User\Http\Resources\v1\UserResource
+     * @param User $user
+     * @return UserResource
      */
-    public function show(User $user)
+    public function show(User $user): UserResource
     {
         $user = $this->repo()->show($user);
 
@@ -57,7 +57,7 @@ class UserController extends Controller implements ResponseGenerator
      *
      * @param  int $user
      * @param  \Module\User\Http\Requests\v1\UserRequest $request
-     * @return \Module\User\Http\Resources\v1\UserResource
+     * @return UserResource
      */
     public function update($user, UserRequest $request)
     {
@@ -70,7 +70,7 @@ class UserController extends Controller implements ResponseGenerator
      * Update the specified resource in storage.
      *
      * @param  \Module\User\Models\User $user
-     * @return \Module\User\Http\Resources\v1\UserResource
+     * @return UserResource
      */
     public function destroy(User $user)
     {

@@ -6,5 +6,12 @@ use Illuminate\Http\UploadedFile;
 
 interface FileContract
 {
-    public static function upload(UploadedFile $file, string $filename, string $dir);
+    /**
+     * Upload media
+     * @param UploadedFile $file
+     * @param $filename string
+     * @param $dir string
+     * @return array
+     */
+    public static function upload(UploadedFile $file, string $filename, string $dir): array;
 }

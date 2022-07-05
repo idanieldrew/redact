@@ -29,7 +29,7 @@ class UserRepository extends Repository
     /**
      * Show $this->model
      * @param int $id
-     * @return \Module\User\Models\User
+     * @return User
      */
     public function show($id)
     {
@@ -43,10 +43,10 @@ class UserRepository extends Repository
     /**
      * Destroy User model
      *
-     * @param \Module\User\Models\User $user
-     * @return boolean
+     * @param User $user
+     * @return bool
      */
-    public function destroy($user)
+    public function destroy(User $user): bool
     {
         if (Gate::denies('delete', [User::class, $user])) {
             abort(Response::HTTP_FORBIDDEN);

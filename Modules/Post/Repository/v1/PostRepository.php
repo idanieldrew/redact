@@ -57,9 +57,9 @@ class PostRepository extends Repository
      * Destroy User model
      *
      * @param Post $post
-     * @return boolean
+     * @return bool
      */
-    public function destroy($post): bool
+    public function destroy(Post $post): bool
     {
         if (Gate::denies('delete', [Post::class, $post])) {
             abort(Response::HTTP_FORBIDDEN);

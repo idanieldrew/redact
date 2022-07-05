@@ -17,11 +17,11 @@ class ImageService extends Service implements FileContract
     /**
      * Upload media
      * @param UploadedFile $file
-     * @param $filename
-     * @param $dir
+     * @param $filename string
+     * @param $dir string
      * @return array
      */
-    public static function upload(UploadedFile $file, $filename, $dir): array
+    public static function upload(UploadedFile $file, string $filename, string $dir): array
     {
         $extension = $file->getClientOriginalExtension();
 
@@ -34,13 +34,13 @@ class ImageService extends Service implements FileContract
 
     /**
      * Resize media with Intervention package
-     * @param $img
-     * @param $dir
-     * @param $name
-     * @param $extension
+     * @param $img string
+     * @param $dir string
+     * @param $name string
+     * @param $extension string
      * @return array
      */
-    private static function resize($img, $dir, $name, $extension): array
+    private static function resize(string $img, string $dir, string $name, string $extension): array
     {
         $img = Intervention::make($img);
 
