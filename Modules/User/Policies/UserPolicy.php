@@ -56,26 +56,4 @@ class UserPolicy
     {
         return $user->id === $model->id;
     }
-
-    /**
-     * Determine whether the user can restore the model.
-     *
-     * @param User $user
-     * @param User $model
-     * @return Response|bool
-     */
-    public function restore(User $user, User $model)
-    {
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     *
-     * @param User $user
-     * @param User $model
-     * @return Response|bool
-     */
-    public function forceDelete(User $user, User $model)
-    {
-    }
 }
