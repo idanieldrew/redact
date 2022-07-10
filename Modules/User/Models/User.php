@@ -2,6 +2,7 @@
 
 namespace Module\User\Models;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,6 +15,13 @@ use Module\Post\Models\Post;
 use Module\Token\Models\Token;
 use Module\User\Database\Factories\UserFactory;
 
+/**
+ * @property Carbon $created_at
+ * @property string $name
+ * @property string $email
+ * @property string $phone
+ * @property int $type
+ */
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;

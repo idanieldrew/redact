@@ -9,7 +9,7 @@ use Module\Media\Models\Media;
 class MediaService
 {
     private static $file;
-    private static  $dir;
+    private static $dir;
     private static $isPrivate;
 
     /**
