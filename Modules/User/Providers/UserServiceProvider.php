@@ -38,7 +38,7 @@ class UserServiceProvider extends ServiceProvider
         // Routes
 
         /* v1 */
-        Route::prefix('api/user')
+        Route::prefix('api/users')
             ->middleware('api')
             ->namespace($this->namespace)
             ->group(__DIR__ . '/../Routes/v1/user_route.php');

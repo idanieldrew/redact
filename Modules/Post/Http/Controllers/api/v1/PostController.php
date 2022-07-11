@@ -71,7 +71,7 @@ class PostController extends Controller implements ResponseGenerator
      *
      * @param \Module\Post\Http\Requests\v1\UpdateRequest $request
      * @param Post $post
-     * @return Response
+     * @return JsonResponse
      */
     public function update(UpdateRequest $request, Post $post)
     {
@@ -97,7 +97,7 @@ class PostController extends Controller implements ResponseGenerator
      * Display the specified resource.
      *
      * @param \Illuminate\Http\Request $request
-     * @return Response
+     * @return JsonResponse
      */
     public function search(Request $request)
     {
