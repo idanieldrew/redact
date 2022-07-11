@@ -37,10 +37,10 @@ class UserPolicy
      * Determine whether the user can update the model.
      *
      * @param User $user
-     * @param  int $model
+     * @param int $model
      * @return bool
      */
-    public function update(User $user,$model): bool
+    public function update(User $user, int $model): bool
     {
         return $user->id === $model;
     }

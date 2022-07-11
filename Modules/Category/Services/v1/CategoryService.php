@@ -18,12 +18,12 @@ class CategoryService extends Service
     public function store($request)
     {
         //  just admin & super can store new category
-        if (Gate::denies('createOrUpdate',[Category::class])){
+        if (Gate::denies('createOrUpdate', [Category::class])) {
             abort(Response::HTTP_FORBIDDEN);
         }
 
         // Store category
-        $post =  auth()->user()->categories()->create([
+        $post = auth()->user()->categories()->create([
             'name' => $request->name
         ]);
 
@@ -36,10 +36,10 @@ class CategoryService extends Service
      * @param \Module\User\Http\Requests\v1\UserRequest; $request
      * @return null
      */
-    public function update($category,$request)
+    public function update($category, $request)
     {
         // Just user can edit our information
-        if (Gate::denies('createOrUpdate',[Category::class])){
+        if (Gate::denies('createOrUpdate', [Category::class])) {
             abort(Response::HTTP_FORBIDDEN);
         }
 

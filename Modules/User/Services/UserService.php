@@ -7,14 +7,7 @@ use Module\User\Models\User;
 
 class UserService implements Service
 {
-    protected $model;
-
-    public function __construct()
-    {
-        $this->model = $this->model();
-    }
-
-    public function model()
+    public function model(): \Illuminate\Database\Eloquent\Builder
     {
         return User::query();
     }

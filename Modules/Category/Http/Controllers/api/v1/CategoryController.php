@@ -42,31 +42,31 @@ class CategoryController extends Controller implements ResponseGenerator
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Module\Category\Http\Requests\v1\StoreRequest  $request
+     * @param \Module\Category\Http\Requests\v1\StoreRequest $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreRequest $request)
     {
         $category = $this->service()->store($request);
 
-        return $this->res('success',Response::HTTP_CREATED,"Successfully create category",$category);
+        return $this->res('success', Response::HTTP_CREATED, "Successfully create category", $category);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \Module\Category\Models\Category  $category
+     * @param \Module\Category\Models\Category $category
      * @return \Illuminate\Http\Response
      */
     public function show(Category $category)
     {
-        return $this->res('success',Response::HTTP_OK,null,new CategoryResource($category));
+        return $this->res('success', Response::HTTP_OK, null, new CategoryResource($category));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param \App\Models\Category $category
      * @return \Illuminate\Http\Response
      */
     public function edit(Category $category)
@@ -76,21 +76,21 @@ class CategoryController extends Controller implements ResponseGenerator
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Module\Category\Http\Requests\v1\UpdateRequest  $request
-     * @param  \Module\Category\Models\Category  $category
+     * @param \Module\Category\Http\Requests\v1\UpdateRequest $request
+     * @param \Module\Category\Models\Category $category
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateRequest $request, Category $category)
     {
-        $this->service()->update($category,$request);
+        $this->service()->update($category, $request);
 
-        return $this->res('success',Response::HTTP_NO_CONTENT,null,null);
+        return $this->res('success', Response::HTTP_NO_CONTENT, null, null);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Category  $category
+     * @param \App\Models\Category $category
      * @return \Illuminate\Http\Response
      */
     public function destroy(Category $category)

@@ -5,34 +5,35 @@ namespace Module\User\Services\v1;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
+use Module\User\Http\Requests\v1\RegisterRequest;
 use Module\User\Models\User;
 use Module\User\Services\UserService as Service;
 
 class UserService extends Service
 {
     /**
-   * Update $this->model
-   * @param string $param
-   * @param \Module\User\Http\Requests\v1\UserRequest; $request
-   * @return \Module\User\Models\User
-   */
-    public function update($param,$request)
+     * Update $this->model
+     * @param string $param
+     * @param \Module\User\Http\Requests\v1\UserRequest; $request
+     * @return \Module\User\Models\User
+     */
+    public function update($param, $request)
     {
         // Just user can edit our information
-       if (Gate::denies('update',[User::class,$param])){
+        if (Gate::denies('update', [User::class, $param])) {
             abort(403);
         }
 
-        return $this->model
+        return $this->model()
             ->whereId($param)
             ->update($request->all());
     }
 
-   /**
-  *Create new user
-  * @param \Module\User\Http\Requests\v1\RegisterRequest $request
-  * @return array
-  */
+    /**
+     *Create new user
+     * @param RegisterRequest $request
+     * @return array
+     */
     public function store($request)
     {
         $user = $this->model->create([
@@ -55,37 +56,38 @@ class UserService extends Service
     }
 
     /**
-    * try to login
-    * @param \Module\User\Http\Requests\v1\RegisterRequest $request
-    * @return array
-    */
-    public function login($request)
+     * try to log in
+     * @param RegisterRequest $request
+     * @return array
+     */
+    public function login(RegisterRequest $request): array
     {
-        $user = User::whereEmail($request->email)->first();
+        $user = $this->model()->whereEmail($request->email)->first();
 
         // Check exist user
-        if (!$user || Hash::check($request->password,$user->password)){
-            return [
-                'success' => false,
-                'status' => 401,
-                'message' => 'invalid email or password',
-                'data' => [
-                    'user' => null,
-                    'token' => null
-                ]
-            ];
+        if (!$user || Hash::check($request->password, $user->password)) {
+            return $this->response('fail', Response::HTTP_UNAUTHORIZED, 'invalid email or password');
         }
 
         $token = $user->createToken('token')->plainTextToken;
+        return $this->response('success', Response::HTTP_OK, 'success login', [$user, $token]);
+    }
 
+    /**
+     * Return array
+     * @param string $status
+     * @param int $code
+     * @param string $message
+     * @param null $data
+     * @return array
+     */
+    private function response(string $status, int $code, string $message, $data = null): array
+    {
         return [
-            'success' => true,
-            'status' => 200,
-            'message' => 'invalid email or password',
-            'data' => [
-                'user' => $user,
-                'token' => $token
-            ]
+            $status,
+            $code,
+            $message,
+            $data
         ];
     }
 }

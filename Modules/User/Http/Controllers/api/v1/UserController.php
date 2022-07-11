@@ -80,7 +80,7 @@ class UserController extends Controller implements ResponseGenerator
         return $this->res('success', Response::HTTP_OK, 'Successfully delete user', null);
     }
 
-    public function res($status, $code, $message, $data)
+    public function res($status, $code, $message, $data = null)
     {
         return response()->json([
             'status' => $status,

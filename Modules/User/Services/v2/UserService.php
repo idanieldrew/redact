@@ -50,27 +50,30 @@ class UserService extends Service
 
         // Check exist user
         if (!$user || Hash::check($request->password, $user->password)) {
-            return [
-                'status' => 'fail',
-                'code' => Response::HTTP_UNAUTHORIZED,
-                'message' => 'invalid email or password',
-                'data' => [
-                    'user' => null,
-                    'token' => null
-                ]
-            ];
+            return $this->response('error', Response::HTTP_UNAUTHORIZED, 'invalid email or password');
         }
 
         $token = $user->createToken('test')->plainTextToken;
 
+        return $this->response('success', Response::HTTP_OK, 'Successfully login', [$user, $token]);
+    }
+
+    /**
+     * Return array
+     * @param string $status
+     * @param int $code
+     * @param string $message
+     * @param null $data
+     * @return array
+     */
+    private
+    function response(string $status, int $code, string $message, $data = null): array
+    {
         return [
-            'status' => 'success',
-            'code' => Response::HTTP_OK,
-            'message' => 'Successfully login',
-            'data' => [
-                'user' => $user,
-                'token' => $token
-            ]
+            $status,
+            $code,
+            $message,
+            $data
         ];
     }
 }

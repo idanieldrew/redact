@@ -1,3 +1,4 @@
+// phpcs:disable PSR1.Classes.ClassDeclaration.MissingNamespace
 <?php
 
 use Illuminate\Database\Migrations\Migration;

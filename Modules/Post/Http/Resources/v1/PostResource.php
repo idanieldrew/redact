@@ -24,23 +24,18 @@ class PostResource extends JsonResource
             'details' => $this->details,
             'description' => $this->description,
             'banner' => $this->banner,
-
             'user' => $this->whenLoaded('user', function () {
                 return new UserResource($this->user);
             }),
-
             'tags' => $this->whenLoaded('tags', function () {
                 return new TagCollection($this->tags);
             }),
-
             'media' => $this->whenLoaded('media', function () {
                 return new MediaCollection($this->media);
             }),
-
             'categories' => $this->whenLoaded('categories', function () {
                 return new CategoryCollection($this->categories);
             }),
-
             'blue_tick' => $this->blue_tick,
             'published' => $this->published,
             'created_at' => $this->created_at
