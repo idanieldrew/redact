@@ -41,7 +41,6 @@ class LoginTest extends TestCase
     /** @test */
     public function login_with_wrong_email()
     {
-        $this->withoutExceptionHandling();
         $this->register();
 
         $this->post(route('login.v2'), [
