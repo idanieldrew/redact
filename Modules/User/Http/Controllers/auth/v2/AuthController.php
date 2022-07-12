@@ -24,7 +24,7 @@ class AuthController extends Controller implements ResponseGenerator
     /**
      * Register user
      * @param \Module\User\Http\Requests\v2\RegisterRequest $request
-     * @return $this->response($status,$message,$data)
+     * @return \Illuminate\Http\JsonResponse $this->response($status,$message,$data)
      */
     public function register(RegisterRequest $request)
     {
@@ -38,23 +38,22 @@ class AuthController extends Controller implements ResponseGenerator
     /**
      * Login user
      * @param \Module\User\Http\Requests\v2\LoginRequest $request
-     * @return $this->response($status,$message,$data)
+     * @return \Illuminate\Http\JsonResponse $this->response($status,$message,$data)
      */
-    public function login(LoginRequest $request)
+    public function login(LoginRequest $request): \Illuminate\Http\JsonResponse
     {
         $login = $this->service->login($request);
 
-//        dd($login);
         return $this->res($login['status'], $login['code'], $login['message'], $login['data']);
     }
 
-    public function res($status, $code, $message, $data)
+    public function res($status, $code, $message, $data = null): \Illuminate\Http\JsonResponse
     {
         return response()->json([
             'status' => $status,
             'message' => $message,
-            'data' => [
-                'user' => $data['user'] ? new UserResource($data['user']) : null,
+            'data' => !$data ? null : [
+                'user' => new UserResource($data['user']),
                 'token' => $data['token']
             ]
         ], $code);

@@ -4,14 +4,16 @@ namespace Module\User\tests\Feature\CrudUser\Auth;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\WithoutEvents;
 use Tests\TestCase;
 
 class LoginTest extends TestCase
 {
-    use RefreshDatabase,WithFaker;
+    use RefreshDatabase, WithFaker, WithoutEvents;
 
     public function register()
     {
+        $this->WithoutEvents();
         $data = [
             'name' => 'test',
             'email' => 'test@test.com',
@@ -19,7 +21,7 @@ class LoginTest extends TestCase
             'password' => 'password'
         ];
 
-        $this->post(route('register.v2'),$data);
+        $this->post(route('register.v2'), $data);
     }
 
     /** @test */
@@ -27,13 +29,13 @@ class LoginTest extends TestCase
     {
         $this->register();
 
-        $res = $this->post(route('login.v2'),[
+        $res = $this->post(route('login.v2'), [
             'email' => "test@test.com",
             'password' => "password",
             'phone' => "09121234567"
         ])->assertOk();
 
-        $this->assertArrayHasKey('status',$res);
+        $res->assertJsonFragment(['status' => "success"]);
     }
 
     /** @test */
@@ -42,7 +44,7 @@ class LoginTest extends TestCase
         $this->withoutExceptionHandling();
         $this->register();
 
-        $this->post(route('login.v2'),[
+        $this->post(route('login.v2'), [
             'email' => 'wrong@wrong.com',
             'password' => 'password'
         ])->assertUnauthorized();
@@ -53,7 +55,7 @@ class LoginTest extends TestCase
     {
         $this->register();
 
-        $this->post(route('login.v2'),[
+        $this->post(route('login.v2'), [
             'email' => 'test@test.com',
             'password' => 'wrong'
         ])->assertStatus(422);

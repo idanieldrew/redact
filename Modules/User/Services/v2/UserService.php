@@ -17,9 +17,9 @@ class UserService extends Service
      * @param \Module\User\Http\Requests\v2\RegisterRequest $request
      * @return array
      */
-    public function store($request)
+    public function store($request): array
     {
-        $user = $this->model->create([
+        $user = $this->model()->create([
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
@@ -44,18 +44,28 @@ class UserService extends Service
      * @param \Module\User\Http\Requests\v2\RegisterRequest $request
      * @return null
      */
-    public function login($request)
+    public function login($request): array
     {
         $user = User::whereEmail($request->email)->first();
 
         // Check exist user
         if (!$user || Hash::check($request->password, $user->password)) {
-            return $this->response('error', Response::HTTP_UNAUTHORIZED, 'invalid email or password');
+            return $this->response(
+                'error',
+                Response::HTTP_UNAUTHORIZED,
+                'invalid email or password',
+                null
+            );
         }
 
         $token = $user->createToken('test')->plainTextToken;
 
-        return $this->response('success', Response::HTTP_OK, 'Successfully login', [$user, $token]);
+        return $this->response(
+            'success',
+            Response::HTTP_OK,
+            'Successfully login',
+            ['user' => $user, 'token' => $token]
+        );
     }
 
     /**
@@ -63,17 +73,16 @@ class UserService extends Service
      * @param string $status
      * @param int $code
      * @param string $message
-     * @param null $data
+     * @param $data
      * @return array
      */
-    private
-    function response(string $status, int $code, string $message, $data = null): array
+    private function response(string $status, int $code, string $message, $data): array
     {
         return [
-            $status,
-            $code,
-            $message,
-            $data
+            'status' => $status,
+            'code' => $code,
+            'message' => $message,
+            'data' => $data ?: null
         ];
     }
 }
