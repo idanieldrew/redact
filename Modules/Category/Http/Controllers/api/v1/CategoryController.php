@@ -78,7 +78,7 @@ class CategoryController extends Controller implements ResponseGenerator
      *
      * @param \Module\Category\Http\Requests\v1\UpdateRequest $request
      * @param \Module\Category\Models\Category $category
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(UpdateRequest $request, Category $category)
     {
@@ -98,12 +98,12 @@ class CategoryController extends Controller implements ResponseGenerator
     }
 
     // manage response
-    public function res($status, $code, $message, $data)
+    public function res($status, $code, $message, $data = null): \Illuminate\Http\JsonResponse
     {
         return response()->json([
             'status' => $status,
             'message' => $message,
-            'data' => $data
+            'data' => $data ?? null
         ], $code);
     }
 }

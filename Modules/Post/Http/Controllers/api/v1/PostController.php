@@ -84,7 +84,7 @@ class PostController extends Controller implements ResponseGenerator
      * Remove the specified resource from storage.
      *
      * @param Post $post
-     * @return Response
+     * @return JsonResponse
      */
     public function destroy(Post $post)
     {
@@ -114,7 +114,7 @@ class PostController extends Controller implements ResponseGenerator
     }
 
     // manage response
-    public function res($status, $code, $message, $data)
+    public function res($status, $code, $message, $data = null)
     {
         return response()->json([
             'status' => $status,

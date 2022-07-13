@@ -13,26 +13,25 @@ class DestroyTest extends TestCase
     /** @test */
     public function super_can_destroy_user()
     {
-        $this->withoutExceptionHandling();
         $this->CreateUser('super');
         $user = User::factory()->create();
 
         $this->delete(
-            route('user.destroy',$user->id))
+            route('user.destroy', $user->id))
             ->assertOk();
 
 //        $this->assertDatabaseMissing('users',['email' => $user->email]);
-        $this->assertSoftDeleted('users',['email' => $user->email]);
+        $this->assertSoftDeleted('users', ['email' => $user->email]);
     }
 
     /** @test */
     public function user_can_not_destroy_other_user()
     {
-        $this->CreateUser('user');
+        $this->CreateUser();
         $secondUser = User::factory()->create();
 
         $this->delete(
-            route('user.destroy',$secondUser->id))
+            route('user.destroy', $secondUser->id))
             ->assertForbidden();
     }
 
@@ -42,9 +41,9 @@ class DestroyTest extends TestCase
         $user = $this->CreateUser('user');
 
         $this->delete(
-            route('user.destroy',$user->id))
+            route('user.destroy', $user->id))
             ->assertOk();
 
-        $this->assertSoftDeleted('users',['email' => $user->email]);
+        $this->assertSoftDeleted('users', ['email' => $user->email]);
     }
 }
