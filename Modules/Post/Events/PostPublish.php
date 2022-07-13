@@ -12,6 +12,11 @@ class PostPublish
 
     private $post;
 
+    /**
+     * Get slug($post)
+     *
+     * @return mixed $post
+     */
     public function getPost()
     {
         return $this->post;

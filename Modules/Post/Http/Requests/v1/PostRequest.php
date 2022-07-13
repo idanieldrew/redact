@@ -29,7 +29,9 @@ class PostRequest extends FormRequest
             'details' => 'required|unique:posts|min:10',
             'description' => 'required',
             'banner' => 'required',
-            'attachment' => 'array'
+            'attachment' => 'nullable|array',
+            'tag_request' => 'required|array',
+            'category' => 'required|array'
         ];
     }
 }

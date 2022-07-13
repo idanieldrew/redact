@@ -10,10 +10,10 @@ class TagService extends Service
 {
     /**
      * Create new tag
-     * @param Request $request
+     * @param $request
      * @return array
      */
-    public function store(Request $request): array
+    public function store($request): array
     {
         foreach ($request as $tags) {
             $this->model()->firstWhere('name', '=', $tags) ??

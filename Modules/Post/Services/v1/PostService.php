@@ -19,10 +19,10 @@ class PostService extends Service
 {
     /**
      * Create new post
-     * @param PostRequest $request
+     * @param $request
      * @return PostResource
      */
-    public function store(PostRequest $request): PostResource
+    public function store($request): PostResource
     {
         // Create post
         $post = auth()->user()->posts()->create([
