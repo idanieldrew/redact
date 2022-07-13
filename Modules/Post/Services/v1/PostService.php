@@ -76,22 +76,17 @@ class PostService extends Service
 
     /**
      * Update post
-     * @param string $post
+     * @param $post
      * @param UserRequest; $request
      * @return null
      */
-    public function update(string $post, $request)
+    public function update($post, $request)
     {
         // Just user can edit our information
         if (Gate::denies('update', [Post::class, $post])) {
             abort(Response::HTTP_FORBIDDEN);
         }
 
-        return $post->update([
-            'title' => $request->title,
-            'details' => $request->details,
-            'description' => $request->description,
-            'published' => $request->published,
-        ]);
+        return $post->update($request->validated());
     }
 }

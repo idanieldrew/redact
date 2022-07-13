@@ -24,16 +24,11 @@ class PostFactory extends Factory
     {
         $faker = $this->faker;
 
-        $category_number = 2;
-        $categories = Category::factory()->count($category_number)->create(['user_id' => auth()->user()]);
-
         return [
             'title' => $faker->jobTitle,
             'details' => $faker->paragraph(1),
             'description' => $faker->paragraph(6),
-            'banner' => $faker->imageUrl,
-//            'tag_request' => array('tag1'),
-//            'category' => $categories->pluck('name')->toArray(),
+            'banner' => $faker->imageUrl
         ];
     }
 }

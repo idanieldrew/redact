@@ -23,7 +23,7 @@ class UpdatePostTest extends TestCase
     }
 
     /** @test */
-    public function update_post()
+    public function updating_post()
     {
         $post = $this->store();
 
