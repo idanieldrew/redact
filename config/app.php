@@ -175,10 +175,12 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        // Share Module
+        // Share module
         \Module\Share\Providers\ShareServiceProvider::class,
-        // User Module
+        // User module
         \Module\User\Providers\UserServiceProvider::class,
+        // Role & Permission module
+        \Module\Role\Providers\RoleServiceProvider::class,
         // Token module
         \Module\Token\Providers\TokenServiceProvider::class,
         // Category Module
