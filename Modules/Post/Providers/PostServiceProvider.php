@@ -2,7 +2,7 @@
 
 namespace Module\Post\Providers;
 
-use Carbon\Laravel\ServiceProvider;
+use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 use Module\Post\Models\Post;
 use Module\Post\Observers\PostObserver;
