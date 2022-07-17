@@ -42,7 +42,6 @@ class PostService extends Service
         // Create Tag(s)
         $tagService = resolve(TagService::class);
         $tags = $tagService->store($request->tag_request);
-
         // Sync post & tag(s)
         $post->tags()->sync($tags);
 

@@ -12,6 +12,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Module\Category\Models\Category;
 use Module\Post\Models\Post;
+use Module\Role\Models\Role;
 use Module\Token\Models\Token;
 use Module\User\Database\Factories\UserFactory;
 
@@ -66,6 +67,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return self::TYPE_USER;
     }
+
     /**
      * Create a new factories instance for the model.
      *
@@ -97,6 +99,11 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /** Relations */
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'user_has_roles');
+    }
+
     public function posts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Post::class);
@@ -109,11 +116,10 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function tokenize(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-//        dd(10);
         return $this->hasMany(Token::class);
     }
 
-    /** End */
+    /** End Relations */
 
     public function getPhoneNumber()
     {
