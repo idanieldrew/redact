@@ -15,11 +15,11 @@ class UserPolicy
      * Determine whether the user can view any models.
      *
      * @param User $user
-     * @return
+     * @return bool
      */
-    public function viewAny(User $user)
+    public function viewAny(User $user): bool
     {
-        return $user->hasRole('writer');
+        return $user->hasRole('admin');
     }
 
     /**
