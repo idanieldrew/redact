@@ -12,7 +12,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Module\Category\Models\Category;
 use Module\Post\Models\Post;
-use Module\Role\Models\Role;
+use Module\Role\Traits\HasRole;
 use Module\Token\Models\Token;
 use Module\User\Database\Factories\UserFactory;
 
@@ -25,7 +25,7 @@ use Module\User\Database\Factories\UserFactory;
  */
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, HasRole;
 
     /**
      * The attributes that are mass assignable.
@@ -69,11 +69,6 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /** Relations */
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class, 'user_has_roles');
-    }
-
     public function posts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Post::class);

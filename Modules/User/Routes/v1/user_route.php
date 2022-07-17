@@ -5,7 +5,7 @@ use Module\User\Http\Controllers\api\v1\UserController;
 
 Route::middleware(['auth:sanctum'])->group(function () {
     // Paginate Users
-    Route::get('all', [UserController::class, 'index'])->name('user.index');
+    Route::get('/', [UserController::class, 'index'])->name('user.index');
     // Show User
     Route::get('{user}', [UserController::class, 'show'])->name('user.show');
     // Update User

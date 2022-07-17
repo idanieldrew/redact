@@ -4,6 +4,7 @@ namespace Module\User\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
+use Module\Role\Models\Role;
 use Module\User\Models\User;
 
 class UserPolicy
@@ -14,11 +15,11 @@ class UserPolicy
      * Determine whether the user can view any models.
      *
      * @param User $user
-     * @return bool
+     * @return
      */
-    public function viewAny(User $user): bool
+    public function viewAny(User $user)
     {
-        return $user->isAdmin();
+        return $user->hasRole('writer');
     }
 
     /**

@@ -18,13 +18,9 @@ class UserServiceProvider extends ServiceProvider
 
     public function register()
     {
-        // super user
-        Gate::before(function ($user){
-            if ($user->isSuper()){
-                return true;
-            }
-        });
+        //
     }
+
     /**
      * Bootstrap any application services.
      *
@@ -32,12 +28,20 @@ class UserServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // super user
+        Gate::before(function ($user) {
+            if ($user->hasRole('Super-Admin')) {
+                return true;
+            }
+        });
+
+
         // Migrations
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
 
         // Routes
 
-        /* v1 */
+        /** v1 */
         Route::prefix('api/users')
             ->middleware('api')
             ->namespace($this->namespace)
@@ -48,7 +52,7 @@ class UserServiceProvider extends ServiceProvider
             ->namespace($this->namespace)
             ->group(__DIR__ . '/../Routes/v1/auth_route.php');
 
-        /* v2 */
+        /** v2 */
         Route::prefix('api/auth')
             ->middleware('api')
             ->namespace($this->namespace)

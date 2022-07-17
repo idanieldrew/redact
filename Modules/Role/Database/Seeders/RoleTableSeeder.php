@@ -32,7 +32,13 @@ class RoleTableSeeder extends Seeder
 
         $role3 = Role::create(['name' => 'Super-Admin']);
 
-        $user = User::factory()->create();
-        $user->roles()->sync($role3);
+        $user1 = User::factory()->create();
+        $user1->roles()->sync($role3);
+
+        $user2 = User::factory()->create();
+        $user2->roles()->sync($role2);
+
+        $user3 = User::factory()->create();
+        $user3->roles()->sync($role1);
     }
 }
