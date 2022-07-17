@@ -58,16 +58,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    private const TYPE_USER = 'user';
-    private const TYPE_ADMIN = 'admin';
-    private const TYPE_AUTHOR = 'author';
-    private const TYPE_SUPER = 'super';
-
-    public static function type_user(): string
-    {
-        return self::TYPE_USER;
-    }
-
     /**
      * Create a new factories instance for the model.
      *
@@ -76,26 +66,6 @@ class User extends Authenticatable implements MustVerifyEmail
     protected static function newFactory(): Factory
     {
         return UserFactory::new();
-    }
-
-    public function isSuper(): bool
-    {
-        return $this->type === self::TYPE_SUPER;
-    }
-
-    public function isAdmin(): bool
-    {
-        return $this->type === self::TYPE_ADMIN;
-    }
-
-    public function isAuthor(): bool
-    {
-        return $this->type === self::TYPE_AUTHOR;
-    }
-
-    public function isUser(): bool
-    {
-        return $this->type === self::TYPE_USER;
     }
 
     /** Relations */
