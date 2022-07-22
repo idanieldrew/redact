@@ -13,15 +13,13 @@ class UserRepository extends Repository
     /**
      * Paginate $this->model
      * @param int $number
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function paginate($number = 10)
+    public function paginate(int $number = 10): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         if (Gate::denies('viewAny', User::class)) {
             abort(403);
         }
-
-//        return $this->model()->paginate($number);
 
         return $this->model()->withTrashed()->paginate($number);
     }
@@ -29,9 +27,9 @@ class UserRepository extends Repository
     /**
      * Show $this->model
      * @param int $id
-     * @return User
+     * @return array|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|User
      */
-    public function show($id)
+    public function show(int $id)
     {
         if (Gate::denies('view', [User::class, $id])) {
             abort(403);

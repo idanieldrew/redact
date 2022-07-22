@@ -5,7 +5,6 @@ namespace Module\Role\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Module\Role\Models\Permission;
 use Module\Role\Models\Role;
-use Module\User\Models\User;
 
 class RoleTableSeeder extends Seeder
 {

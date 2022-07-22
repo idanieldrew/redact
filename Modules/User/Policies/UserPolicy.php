@@ -4,6 +4,7 @@ namespace Module\User\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
+use Module\Role\Models\Permission;
 use Module\Role\Models\Role;
 use Module\User\Models\User;
 
@@ -19,7 +20,9 @@ class UserPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasRole('admin');
+        $permission = Permission::where('name', 'users-view')->first();
+
+        return $user->hasRole($permission->roles);
     }
 
     /**
@@ -27,9 +30,9 @@ class UserPolicy
      *
      * @param User $user
      * @param int $author
-     * @return Response|bool
+     * @return bool
      */
-    public function view(User $user, int $author)
+    public function view(User $user, int $author): bool
     {
         return $user->id === $author;
     }

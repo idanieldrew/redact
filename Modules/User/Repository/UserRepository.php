@@ -7,7 +7,7 @@ use Module\User\Models\User;
 
 class UserRepository extends Repository
 {
-    public function model()
+    public function model(): \Illuminate\Database\Eloquent\Builder
     {
         return User::query();
     }

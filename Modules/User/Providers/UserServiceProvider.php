@@ -36,7 +36,6 @@ class UserServiceProvider extends ServiceProvider
             }
         });
 
-
         // Migrations
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
 

@@ -3,10 +3,11 @@
 namespace Module\Role\Traits;
 
 use Module\Role\Models\Role;
-use Module\User\Models\User;
 
 trait HasRole
 {
+    use HasPermission;
+
     /**
      * Relation with user model
      *
@@ -20,12 +21,20 @@ trait HasRole
     /**
      * Check what's role
      *
-     * @param string $role
+     * @param mixed $role
      * @return bool
      */
-    public function hasRole(string $role): bool
+    public function hasRole($role): bool
     {
-        return $this->roles->contains('name', $role);
+        if (is_string($role)) {
+            return $this->roles->contains('name', $role);
+        }
+        return !!$role->intersect($this->roles)->count();
+    }
+
+    public function hasRolez($role): bool
+    {
+        return !!$role->intersect($this->roles)->count();
     }
 
     /**
@@ -41,4 +50,15 @@ trait HasRole
         $this->roles()->sync($role);
         $this->getModel()->load('roles');
     }
+
+    /**
+     * Relation with user model
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    /*    public function roles(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+        {
+            dd(88);
+            return $this->belongsToMany(Role::class, 'role_has_permissions');
+        }*/
 }
