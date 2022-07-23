@@ -3,7 +3,6 @@
 namespace Module\Role\Traits;
 
 use Module\Role\Models\Permission;
-use Module\Role\Models\Role;
 
 trait HasPermission
 {
@@ -14,8 +13,14 @@ trait HasPermission
 
     public function givePermissionTo(string $permission)
     {
-        /*$permission = Permission::query()->where('name', $permission)->first();
+        $permission = Permission::query()->where('name', $permission)->first();
 
-        $this->roles()->syncWithPivotValues(get_class(), ['permission_id' => $permission->id]);*/
+        $this->permissions()->sync($permission);
+        $this->getModel()->load('permissions');
+    }
+
+    public function permissions(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Permission::class, 'role_has_permissions');
     }
 }

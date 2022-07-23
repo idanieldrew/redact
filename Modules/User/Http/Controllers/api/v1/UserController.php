@@ -58,13 +58,13 @@ class UserController extends Controller implements ResponseGenerator
      *
      * @param int $user
      * @param \Module\User\Http\Requests\v1\UserRequest $request
-     * @return UserResource
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update($user, UserRequest $request)
     {
         $this->service()->update($user, $request);
 
-        return $this->res('success', Response::HTTP_OK, 'Successfully update user', null);
+        return $this->res('success', Response::HTTP_OK, 'Successfully update user');
     }
 
     /**

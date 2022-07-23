@@ -32,11 +32,6 @@ trait HasRole
         return !!$role->intersect($this->roles)->count();
     }
 
-    public function hasRolez($role): bool
-    {
-        return !!$role->intersect($this->roles)->count();
-    }
-
     /**
      * Assign role for user
      *
@@ -50,15 +45,4 @@ trait HasRole
         $this->roles()->sync($role);
         $this->getModel()->load('roles');
     }
-
-    /**
-     * Relation with user model
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    /*    public function roles(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
-        {
-            dd(88);
-            return $this->belongsToMany(Role::class, 'role_has_permissions');
-        }*/
 }

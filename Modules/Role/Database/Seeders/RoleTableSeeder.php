@@ -16,10 +16,10 @@ class RoleTableSeeder extends Seeder
     public function run()
     {
         // create permissions
-        $p1 = Permission::create(['name' => 'edit articles']);
-        $p2 = Permission::create(['name' => 'delete articles']);
-        $p3 = Permission::create(['name' => 'publish articles']);
-        $p4 = Permission::create(['name' => 'unpublish articles']);
+        $p1 = Permission::create(['name' => 'edit post']);
+        $p2 = Permission::create(['name' => 'delete post']);
+        $p3 = Permission::create(['name' => 'publish post']);
+        $p4 = Permission::create(['name' => 'unpublished post']);
 
         // create roles and assign existing permissions
         $role1 = Role::create(['name' => 'writer']);
