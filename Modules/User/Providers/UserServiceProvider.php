@@ -31,7 +31,7 @@ class UserServiceProvider extends ServiceProvider
     {
         // super user
         Gate::before(function ($user) {
-            if ($user->hasRole('Super-Admin')) {
+            if ($user->hasRole('super')) {
                 return true;
             }
         });

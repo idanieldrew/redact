@@ -13,6 +13,7 @@ class UpdateTest extends TestCase
     /** @test */
     public function super_can_update_user()
     {
+        $this->withoutExceptionHandling();
         $this->CreateUser('super');
         $user = User::factory()->create();
 

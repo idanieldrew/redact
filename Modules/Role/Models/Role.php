@@ -9,4 +9,6 @@ use Module\Role\Traits\HasPermission;
 class Role extends Model
 {
     use HasFactory, HasPermission;
+
+    protected $guarded = [];
 }
