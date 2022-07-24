@@ -6,14 +6,13 @@ use Module\Role\Models\Permission;
 
 trait HasPermission
 {
-    public function permission(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function givePermissionTo($permission)
     {
-        return $this->belongsToMany(Permission::class, 'role_has_permissions');
-    }
-
-    public function givePermissionTo(string $permission)
-    {
-        $permission = Permission::query()->where('name', $permission)->first();
+        if (is_object($permission)) {
+            Permission::getName($permission->name)->first();
+        } elseif (is_string($permission)) {
+            Permission::getName($permission)->first();
+        }
 
         $this->permissions()->sync($permission);
         $this->getModel()->load('permissions');

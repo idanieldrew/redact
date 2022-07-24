@@ -3,11 +3,12 @@
 namespace Module\User\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 use Module\Share\Contracts\Response\ResponseGenerator;
 use Module\User\Http\Notifications\CeremonyMessage;
-use Module\User\Http\Requests\v1\UserRequest;
+use Module\User\Http\Requests\v1\UpdateRequest;
 use Module\User\Http\Resources\v1\UserCollection;
 use Module\User\Http\Resources\v1\UserResource;
 use Module\User\Models\User;
@@ -57,10 +58,10 @@ class UserController extends Controller implements ResponseGenerator
      * Update the specified resource in storage.
      *
      * @param int $user
-     * @param \Module\User\Http\Requests\v1\UserRequest $request
+     * @param UpdateRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update($user, UserRequest $request)
+    public function update(int $user, UpdateRequest $request): \Illuminate\Http\JsonResponse
     {
         $this->service()->update($user, $request);
 

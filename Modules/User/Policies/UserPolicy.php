@@ -3,9 +3,8 @@
 namespace Module\User\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Illuminate\Auth\Access\Response;
+use Illuminate\Database\Eloquent\Builder;
 use Module\Role\Models\Permission;
-use Module\Role\Models\Role;
 use Module\User\Models\User;
 
 class UserPolicy
@@ -46,6 +45,14 @@ class UserPolicy
      */
     public function update(User $user, int $model): bool
     {
+        if (request()->has('role')) {
+            $role = $user->whereHas('roles', function (Builder $query) {
+                $query->where('name', 'super-admin');
+            })->get();
+
+            return (bool)$role->count();
+        }
+
         return $user->id === $model;
     }
 

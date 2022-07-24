@@ -2,6 +2,7 @@
 
 namespace Module\User\Services\v1;
 
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
@@ -13,20 +14,25 @@ class UserService extends Service
 {
     /**
      * Update $this->model
-     * @param string $param
-     * @param \Module\User\Http\Requests\v1\UserRequest; $request
-     * @return \Module\User\Models\User
+     * @param int $param
+     * @param Request; $request
+     * @return mixed
      */
-    public function update($param, $request)
+    public function update(int $param, $request)
     {
         // Just user can edit our information
         if (Gate::denies('update', [User::class, $param])) {
             abort(403);
         }
+        if ($request->role) {
+            $user = $this->model()->findOrFail($param);
+            $user->assignRole($request->role);
+            return;
+        }
 
         return $this->model()
             ->whereId($param)
-            ->update($request->all());
+            ->update($request->validated());
     }
 
     /**

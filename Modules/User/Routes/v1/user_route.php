@@ -9,7 +9,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     // Show User
     Route::get('{user}', [UserController::class, 'show'])->name('user.show');
     // Update User
-    Route::patch('update/{user}', [UserController::class, 'update'])->name('user.update');
+    Route::patch('{user}', [UserController::class, 'update'])->name('user.update');
     // Destroy User
     Route::delete('destroy/{user}', [UserController::class, 'destroy'])->name('user.destroy');
     // Send Sms
