@@ -38,12 +38,12 @@ class DestroyTest extends TestCase
     /** @test */
     public function user_can_destroy_own_information()
     {
-        $user = $this->CreateUser('user');
+        $res = $this->CreateUser();
 
         $this->delete(
-            route('user.destroy', $user->id))
+            route('user.destroy', $res[0]->id))
             ->assertOk();
 
-        $this->assertSoftDeleted('users', ['email' => $user->email]);
+        $this->assertSoftDeleted('users', ['email' => $res[0]->email]);
     }
 }

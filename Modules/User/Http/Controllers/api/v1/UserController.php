@@ -3,7 +3,6 @@
 namespace Module\User\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 use Module\Share\Contracts\Response\ResponseGenerator;
@@ -72,7 +71,7 @@ class UserController extends Controller implements ResponseGenerator
      * Update the specified resource in storage.
      *
      * @param \Module\User\Models\User $user
-     * @return UserResource
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(User $user)
     {
