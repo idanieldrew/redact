@@ -13,6 +13,16 @@ class Permission extends Model
     protected $guarded = [];
 
     /**
+     * Relation with user model
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function role_permissions(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Role::class, 'role_has_permissions');
+    }
+
+    /**
      * Scope a query to first permission of a given name.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query

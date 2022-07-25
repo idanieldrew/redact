@@ -3,7 +3,6 @@
 namespace Module\User\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Illuminate\Database\Eloquent\Builder;
 use Module\Role\Models\Permission;
 use Module\User\Models\User;
 
@@ -19,9 +18,9 @@ class UserPolicy
      */
     public function viewAny(User $user): bool
     {
-        $permission = Permission::where('name', 'users-view')->first();
+        $permission = Permission::where('name', 'view-users')->first();
 
-        return $user->hasRole($permission->roles);
+        return $user->hasRole($permission->role_permissions);
     }
 
     /**

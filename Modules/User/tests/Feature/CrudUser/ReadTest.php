@@ -3,6 +3,7 @@
 namespace Module\User\tests\Feature\CrudUser;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Module\User\Models\User;
 use Tests\TestCase;
 
 class ReadTest extends TestCase
@@ -10,40 +11,39 @@ class ReadTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function super_can_see_users()
+    public function super_can_see_all_users()
     {
-        $user = $this->CreateUser('super');
+        $res = $this->CreateUser('super');
 
         // Verified email
-        $this->assertNotNull($user->email_verified_at);
+        $this->assertNotNull($res[0]->email_verified_at);
 
-        $this->assertDatabaseHas('users',['name' => $user->name]);
+        $this->assertDatabaseHas('users', ['name' => $res[0]->name]);
 
-        $this->get(route('user.index'))->assertSee($user->email);
+        $this->get(route('user.index'))->assertSee($res[0]->email);
     }
 
     /** @test */
-    public function admin_can_see_users()
+    public function admin_can_see_all_users()
     {
-        $user = $this->CreateUser('admin');
+        $res = $this->CreateUser('admin');
         // Verify email
-        $this->assertNotNull($user->email_verified_at);
+        $this->assertNotNull($res[0]->email_verified_at);
 
-        $this->assertDatabaseHas('users',['name' => $user->name]);
+        $this->assertDatabaseHas('users', ['name' => $res[0]->name]);
 
-        $this->get(route('user.index'))->assertSee($user->email);
+        $this->get(route('user.index'))->assertSee($res[0]->email);
     }
 
     /** @test */
-    public function user_can_not_see_users()
+    public function user_can_not_see_all_users()
     {
-        $user = $this->CreateUser();
+        $res = $this->CreateUser();
+        User::factory()->create();
 
-        // Verify email
-        $this->assertNotNull($user->email_verified_at);
+        $this->assertDatabaseHas('users', ['name' => $res[0]->name]);
 
-        $this->assertDatabaseHas('users',['name' => $user->name]);
-
-        $this->get(route('user.index'))->assertForbidden();
+        $this->get(route('user.index'))
+            ->assertForbidden();
     }
 }

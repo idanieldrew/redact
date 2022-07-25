@@ -28,6 +28,8 @@ trait HasRole
     {
         if (is_string($role)) {
             return $this->roles->contains('name', $role);
+        } elseif (is_null($role)) {
+            return false;
         }
         return !!$role->intersect($this->roles)->count();
     }
