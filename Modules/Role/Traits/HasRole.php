@@ -47,4 +47,14 @@ trait HasRole
         $this->roles()->sync($role);
         $this->getModel()->load('roles');
     }
+
+    /**
+     * Relation with user model
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function role_permissions(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Role::class, 'role_has_permissions');
+    }
 }

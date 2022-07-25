@@ -9,6 +9,7 @@ Route::get('/', [PostController::class, 'index'])->name('post.index');
 Route::get('search', [PostController::class, 'search'])->name('post.search');
 // Post
 Route::get('{post:slug}', [PostController::class, 'show'])->name('post.show');
+
 Route::middleware(['auth:sanctum'])->group(function () {
     // Store post
     Route::post('/', [PostController::class, 'store'])->name('post.store');

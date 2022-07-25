@@ -2,6 +2,7 @@
 
 namespace Module\User\Repository\v1;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Gate;
@@ -10,6 +11,8 @@ use Module\User\Repository\UserRepository as Repository;
 
 class UserRepository extends Repository
 {
+    private const TIME = 9000;
+
     /**
      * Paginate $this->model
      * @param int $number
@@ -59,11 +62,10 @@ class UserRepository extends Repository
      */
     public function admins()
     {
-        return Cache::remember('user.admins', 9000, function () {
-            return User::query()
-                ->where('type', 'admin')
-                ->orWhere('type', 'super')
-                ->get(['email']);
+        return Cache::remember('users.admins', self::TIME, function () {
+            return User::query()->whereHas('roles', function (Builder $builder) {
+                $builder->where('name', 'writer')->orWhere('name', 'super');
+            })->get(['email']);
         });
     }
 }
