@@ -19,25 +19,23 @@ class RoleTableSeeder extends Seeder
         // create permissions
 
         // post
-        $p1 = Permission::create(['name' => 'edit post']);
-        $p2 = Permission::create(['name' => 'delete post']);
-        $p3 = Permission::create(['name' => 'publish post']);
-        $p4 = Permission::create(['name' => 'unpublished post']);
-        $p6 = Permission::create(['name' => 'create-post']);
-
+        $p1 = Permission::create(['name' => 'edit-post']);
+        $p2 = Permission::create(['name' => 'delete-post']);
+        $p3 = Permission::create(['name' => 'publish-post']);
+        $p4 = Permission::create(['name' => 'unpublished-post']);
+        $p5 = Permission::create(['name' => 'create-post']);
         // user
-        $p5 = Permission::create(['name' => 'delete user']);
+        $p6 = Permission::create(['name' => 'delete user']);
 
         // create roles and assign existing permissions
         $role1 = Role::create(['name' => 'writer']);
-
-        $role1->permissions()->attach([$p6->id]);
+        $role1->givePermissionTo($p4, $p5);
 
         $role2 = Role::create(['name' => 'admin']);
-        $role2->permissions()->sync([$p3->id, $p4->id]);
+        $role2->givePermissionTo($p1, $p2, $p3, $p5);
 
         $role3 = Role::create(['name' => 'super']);
-        $role3->givePermissionTo($p5);
+        $role3->givePermissionTo($p1, $p2, $p3, $p5, $p6);
 
         $super = User::factory(['name' => 'super'])->create();
         $super->assignRole($role3->name);

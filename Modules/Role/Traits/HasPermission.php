@@ -6,16 +6,18 @@ use Module\Role\Models\Permission;
 
 trait HasPermission
 {
-    public function givePermissionTo($permission)
+    public function givePermissionTo(...$permissions)
     {
-        if (is_object($permission)) {
-            Permission::getName($permission->name)->first();
-        } elseif (is_string($permission)) {
-            Permission::getName($permission)->first();
+        foreach ($permissions as $permission) {
+            if (is_object($permission)) {
+                Permission::getName($permission->name)->first();
+            } elseif (is_string($permission)) {
+                $permission = Permission::getName($permission)->first();
+            }
+            // Attaching
+            $this->permissions()->attach($permission);
+            $this->getModel()->load('permissions');
         }
-
-        $this->permissions()->sync($permission);
-        $this->getModel()->load('permissions');
     }
 
     public function permissions(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
