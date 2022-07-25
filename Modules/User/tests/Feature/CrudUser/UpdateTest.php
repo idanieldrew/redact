@@ -13,26 +13,25 @@ class UpdateTest extends TestCase
     /** @test */
     public function super_can_update_user()
     {
-        $this->withoutExceptionHandling();
         $this->CreateUser('super');
         $user = User::factory()->create();
 
         $this->patch(
-            route('user.update',$user->id),
+            route('user.update', $user->id),
             ['email' => 'test@test.co'])
             ->assertStatus(200);
 
-        $this->assertDatabaseHas('users',['email' => 'test@test.co']);
+        $this->assertDatabaseHas('users', ['email' => 'test@test.co']);
     }
 
     /** @test */
     public function user_can_not_update_other_user()
     {
-        $firstUser = $this->CreateUser('user');
+        $firstUser = $this->CreateUser();
         $secondUser = User::factory()->create();
 
         $this->patch(
-            route('user.update',$secondUser->id),
+            route('user.update', $secondUser->id),
             ['email' => 'test@test.co'])
             ->assertStatus(403);
     }
@@ -40,13 +39,27 @@ class UpdateTest extends TestCase
     /** @test */
     public function user_can_update_own_information()
     {
-        $user = $this->CreateUser('user');
+        $user = $this->CreateUser();
 
         $this->patch(
-            route('user.update',$user->id),
+            route('user.update', $user->id),
             ['email' => 'test@test.co'])
             ->assertStatus(200);
 
-        $this->assertDatabaseHas('users',['email' => 'test@test.co']);
+        $this->assertDatabaseHas('users', ['email' => 'test@test.co']);
+    }
+
+    /** @test */
+    public function admin_can_not_update_user()
+    {
+        $this->CreateUser('admin');
+        $user = User::factory()->create();
+
+        $this->patch(
+            route('user.update', $user->id),
+            ['email' => 'test@test.co'])
+            ->assertForbidden();
+
+        $this->assertDatabaseMissing('users', ['email' => 'test@test.co']);
     }
 }

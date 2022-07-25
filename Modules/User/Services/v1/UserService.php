@@ -24,7 +24,8 @@ class UserService extends Service
         if (Gate::denies('update', [User::class, $param])) {
             abort(403);
         }
-        if ($request->role) {
+        
+        if ($request->only('role')) {
             $user = $this->model()->findOrFail($param);
             $user->assignRole($request->role);
             return;
