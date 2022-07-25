@@ -39,10 +39,10 @@ class UpdateTest extends TestCase
     /** @test */
     public function user_can_update_own_information()
     {
-        $user = $this->CreateUser();
+        $res = $this->CreateUser();
 
         $this->patch(
-            route('user.update', $user->id),
+            route('user.update', $res[0]->id),
             ['email' => 'test@test.co'])
             ->assertStatus(200);
 
@@ -66,7 +66,6 @@ class UpdateTest extends TestCase
     /** @test */
     public function admin_can_update_user_role()
     {
-//        $this->withoutExceptionHandling();
         $res = $this->CreateUser('admin');
         $user = User::factory()->create();
 
@@ -76,8 +75,19 @@ class UpdateTest extends TestCase
             ->assertOk();
 
         $this->assertDatabaseHas('user_has_roles', [
-            'user_id' => $res[0],
+            'user_id' => $res[0]->id,
             'role_id' => $res[1]
         ]);
+    }
+
+    /** @test */
+    public function user_can_not_update_own_role()
+    {
+        $res = $this->CreateUser();
+
+        $this->patch(
+            route('user.update', $res[0]->id),
+            ['role' => 'admin'])
+            ->assertForbidden();
     }
 }
