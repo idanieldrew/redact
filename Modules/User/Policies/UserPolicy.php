@@ -46,11 +46,7 @@ class UserPolicy
     public function update(User $user, int $model): bool
     {
         if (request()->has('role')) {
-            $role = $user->whereHas('roles', function (Builder $query) {
-                $query->where('name', 'super-admin');
-            })->get();
-
-            return (bool)$role->count();
+            return $user->roles->contains('name', 'admin');
         }
 
         return $user->id === $model;

@@ -36,7 +36,7 @@ class RoleTableSeeder extends Seeder
         $role2 = Role::create(['name' => 'admin']);
         $role2->permissions()->sync([$p3->id, $p4->id]);
 
-        $role3 = Role::create(['name' => 'Super-Admin']);
+        $role3 = Role::create(['name' => 'super']);
         $role3->givePermissionTo($p5);
 
         $super = User::factory(['name' => 'super'])->create();

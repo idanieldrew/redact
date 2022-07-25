@@ -62,4 +62,22 @@ class UpdateTest extends TestCase
 
         $this->assertDatabaseMissing('users', ['email' => 'test@test.co']);
     }
+
+    /** @test */
+    public function admin_can_update_user_role()
+    {
+//        $this->withoutExceptionHandling();
+        $res = $this->CreateUser('admin');
+        $user = User::factory()->create();
+
+        $this->patch(
+            route('user.update', $user->id),
+            ['role' => 'admin'])
+            ->assertOk();
+
+        $this->assertDatabaseHas('user_has_roles', [
+            'user_id' => $res[0],
+            'role_id' => $res[1]
+        ]);
+    }
 }

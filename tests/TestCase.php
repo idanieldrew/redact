@@ -14,7 +14,7 @@ abstract class TestCase extends BaseTestCase
     public function CreateUser($type = 'writer')
     {
         // Create role
-        Role::create(['name' => $type]);
+        $role = Role::create(['name' => $type]);
         // Create new user with type admin
         $user = User::factory()->create();
 
@@ -22,6 +22,6 @@ abstract class TestCase extends BaseTestCase
         // actingAs
         Sanctum::actingAs($user);
 
-        return $user;
+        return [$user->id, $role->id];
     }
 }
