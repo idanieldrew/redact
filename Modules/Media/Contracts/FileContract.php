@@ -11,7 +11,7 @@ interface FileContract
      * @param UploadedFile $file
      * @param $filename string
      * @param $dir string
-     * @return array
+     * @return array | string
      */
-    public static function upload(UploadedFile $file, string $filename, string $dir): array;
+    public static function upload(UploadedFile $file, string $filename, string $dir);
 }

@@ -28,7 +28,7 @@ class UserRepository extends Repository
     }
 
     /**
-     * Show $this->model
+     * Show User model
      * @param int $id
      * @return array|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|User
      */
@@ -57,8 +57,9 @@ class UserRepository extends Repository
     }
 
     /**
-     * Get Admin & superusers
+     * Get Admin & super users
      *
+     * @return mixed
      */
     public function admins()
     {

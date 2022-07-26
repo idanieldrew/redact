@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image as Intervention;
 use Module\Media\Contracts\FileContract;
 use Module\Media\Services\MediaService as Service;
+use Str;
 
 class ImageService extends Service implements FileContract
 {
@@ -19,17 +20,21 @@ class ImageService extends Service implements FileContract
      * @param UploadedFile $file
      * @param $filename string
      * @param $dir string
-     * @return array
+     * @param bool $resize
+     * @return array | string
      */
-    public static function upload(UploadedFile $file, string $filename, string $dir): array
+    public static function upload(UploadedFile $file, string $filename, string $dir, bool $resize = true)
     {
         $extension = $file->getClientOriginalExtension();
 
-        $path = $dir . $filename . '.' . $extension;
+        $filename = Str::slug($filename);
+        $path = "$dir/$filename.$extension";
 
         Storage::putFileAs($dir, $file, $filename . '.' . $extension);
 
-        return self::resize(Storage::path($path), $dir, $filename, $extension);
+        return $resize ?
+            self::resize(Storage::path($path), $dir, $filename, $extension) :
+            $path;
     }
 
     /**

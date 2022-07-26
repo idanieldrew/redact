@@ -4,6 +4,7 @@ namespace Module\Post\Policies;
 
 use Illuminate\Auth\Access\Response;
 use Module\Post\Models\Post;
+use Module\Role\Models\Permission;
 use Module\User\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -24,6 +25,19 @@ class PostPolicy
     }
 
     /**
+     * Determine whether the user can create models.
+     *
+     * @param \Module\User\Models\User $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function create(User $user)
+    {
+        $permission = Permission::getName('create-post')->firstOrFail();
+
+        return $user->hasRole($permission->role_permissions);
+    }
+
+    /**
      * Determine whether the user can delete the model.
      *
      * @param User $user
@@ -38,8 +52,8 @@ class PostPolicy
     /**
      * Determine whether the user can restore the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Post  $post
+     * @param \App\Models\User $user
+     * @param \App\Models\Post $post
      * @return Response|bool
      */
     public function restore(User $user, Post $post)
@@ -49,8 +63,8 @@ class PostPolicy
     /**
      * Determine whether the user can permanently delete the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Post  $post
+     * @param \App\Models\User $user
+     * @param \App\Models\Post $post
      * @return Response|bool
      */
     public function forceDelete(User $user, Post $post)

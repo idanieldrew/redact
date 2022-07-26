@@ -21,17 +21,16 @@ class PostRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
-
+    public function rules(): array
     {
         return [
             'title' => 'required|unique:posts|max:32|min:3',
             'details' => 'required|unique:posts|min:10',
             'description' => 'required',
-            'banner' => 'required',
+            'banner' => 'required|mimes:png,jpg',
             'attachment' => 'nullable|array',
-            'tag_request' => 'required|array',
-            'category' => 'required|array'
+            'tag' => 'required|array',
+            'category' => 'required|array|exists:categories,name'
         ];
     }
 }

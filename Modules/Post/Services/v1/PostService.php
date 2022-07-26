@@ -6,6 +6,7 @@ use Illuminate\Http\Response;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Gate;
 use Module\Category\Repository\v1\CategoryRepository;
+use Module\Media\Services\v1\ImageService;
 use Module\Media\Services\v1\MediaService;
 use Module\Post\Events\PostPublish;
 use Module\Post\Http\Requests\v1\PostRequest;
@@ -24,12 +25,16 @@ class PostService extends Service
      */
     public function store($request): PostResource
     {
+        if (Gate::denies('create', [Post::class])) {
+            abort(Response::HTTP_FORBIDDEN);
+        }
+
         // Create post
         $post = auth()->user()->posts()->create([
-            'title' => $request->title,
+            'title' => $title = $request->title,
             'details' => $request->details,
             'description' => $request->description,
-            'banner' => $request->banner
+            'banner' => $this->uploadBanner($request->banner, $title)
         ]);
 
         // Upload media(s)
@@ -41,7 +46,7 @@ class PostService extends Service
 
         // Create Tag(s)
         $tagService = resolve(TagService::class);
-        $tags = $tagService->store($request->tag_request);
+        $tags = $tagService->store($request->tag);
         // Sync post & tag(s)
         $post->tags()->sync($tags);
 
@@ -53,24 +58,7 @@ class PostService extends Service
         // Report to admins
         PostPublish::dispatch($post->slug);
 
-        return new PostResource($post->load(['media', 'categories']));
-    }
-
-    /**
-     * Make media(s) for post
-     * @param $post
-     * @param $request
-     */
-    public function uploadMedia($post, $request)
-    {
-        $media = MediaService::privateUpload($request);
-        $post->media()->create([
-            'files' => $media->files,
-            'type' => $media->type,
-            'name' => $media->name,
-            'isPrivate' => $media->isPrivate,
-            'user_id' => $media->user_id
-        ]);
+        return new PostResource($post->load(['media', 'categories', 'tags']));
     }
 
     /**
@@ -87,5 +75,38 @@ class PostService extends Service
         }
 
         return $post->update($request->validated());
+    }
+
+    /**
+     * Make media(s) for post
+     * @param $post
+     * @param $request
+     * @param bool $private
+     */
+    protected function uploadMedia($post, $request, bool $private = true)
+    {
+        $media = $private ?
+            MediaService::privateUpload($request) :
+            MediaService::publicUpload($request);
+
+        $post->media()->create([
+            'files' => $media->files,
+            'type' => $media->type,
+            'name' => $media->name,
+            'isPrivate' => $media->isPrivate,
+            'user_id' => $media->user_id
+        ]);
+    }
+
+    /**
+     * Make banner for post
+     * @param $request
+     * @param $filename
+     * @return mixed
+     */
+    protected function uploadBanner($request, $filename)
+    {
+        $imageService = resolve(ImageService::class);
+        return $imageService::upload($request, $filename, 'public', false);
     }
 }

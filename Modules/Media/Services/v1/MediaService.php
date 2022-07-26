@@ -89,6 +89,7 @@ class MediaService
         $media->name = self::$file->getClientOriginalName();
         $media->isPrivate = self::$isPrivate;
 
+//        dd($media->files);
         return $media;
     }
 }

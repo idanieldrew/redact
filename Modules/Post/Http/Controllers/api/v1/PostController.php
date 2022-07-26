@@ -15,6 +15,7 @@ use Module\Post\Models\Post;
 use Module\Post\Repository\v1\PostRepository;
 use Module\Post\Services\v1\PostService;
 use Module\Share\Contracts\Response\ResponseGenerator;
+use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class PostController extends Controller implements ResponseGenerator
 {
@@ -63,7 +64,7 @@ class PostController extends Controller implements ResponseGenerator
     {
         $post = $this->service()->store($request);
 
-        return $this->res('success', Response::HTTP_CREATED, null, new PostResource($post));
+        return $this->res('success', ResponseAlias::HTTP_CREATED, null, new PostResource($post));
     }
 
     /**
@@ -104,13 +105,6 @@ class PostController extends Controller implements ResponseGenerator
         $response = $this->repo()->search($request->keyword);
 
         return $this->res('success', Response::HTTP_OK, null, new PostCollection($response));
-    }
-
-    public function storeImages(Request $request, Filesystem $filesystem)
-    {
-        $this->service()->storeImages($request, $filesystem);
-
-        return $this->res('success', Response::HTTP_OK, 'Successfully store images', null);
     }
 
     // manage response
