@@ -17,15 +17,4 @@ class AddBannerColumnToPostsTable extends Migration
             $table->string('banner')->after('description');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('posts', function (Blueprint $table) {
-        });
-    }
 }
