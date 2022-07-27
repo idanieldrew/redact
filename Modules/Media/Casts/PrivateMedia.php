@@ -17,9 +17,7 @@ class PrivateMedia implements CastsAttributes
      */
     public function get($model, string $key, $value, array $attributes)
     {
-        return $value ?
-            'private' :
-            'public';
+        return $value;
     }
 
     /**

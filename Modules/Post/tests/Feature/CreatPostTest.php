@@ -17,17 +17,6 @@ class CreatPostTest extends TestCase
 {
     use DatabaseMigrations, WithFaker;
 
-    private function storePost()
-    {
-        $user = $this->CreateUser();
-        return $user->posts()->create([
-            'title' => $this->faker->name,
-            'details' => $this->faker->sentence,
-            'description' => $this->faker->paragraph,
-            'banner' => $this->faker->imageUrl
-        ]);
-    }
-
     /** @test */
     public function show_single_post()
     {
@@ -46,16 +35,25 @@ class CreatPostTest extends TestCase
             ->assertNotFound();
     }
 
-    /** @test */
-    public function store_post_without_attachments()
+    private function storePost($attachments = false): array
     {
         $img = 'banner.png';
         $extension = '.png';
+
         $this->WithoutEvents();
+
+        //Create user and category
         $this->CreateUser();
         $categories = Category::factory()->create(['user_id' => auth()->user()]);
 
         Storage::fake('local');
+
+        $attachments = $attachments ?
+            [
+                uploadedFile::fake()->image('image1.png'),
+                UploadedFile::fake()->image('image2.png')
+            ] :
+            null;
 
         $this->post(route('post.store'), [
             'title' => $title = $this->faker->name,
@@ -63,12 +61,38 @@ class CreatPostTest extends TestCase
             'description' => $this->faker->paragraph,
             'banner' => UploadedFile::fake()->image($img),
             'category' => [$categories->name],
-            'tag' => ['tag_1']
+            'tag' => ['tag_1'],
+            'attachment' => $attachments
         ])
             ->assertValid()
             ->assertCreated();
 
-        Storage::disk('local')->assertExists('public/' . Str::slug($title) . $extension);
+        return array($title, $extension);
+    }
+
+    /** @test */
+    public function store_post_without_attachments()
+    {
+        $res = $this->storePost();
+
+        Storage::disk('local')->assertExists('public/' . Str::slug($res[0]) . $res[1]);
+    }
+
+    /** @test */
+    public function store_post_with_attachments()
+    {
+        $res = $this->storePost(true);
+
+        Storage::disk('local')
+            ->assertExists('public/' . Str::slug($res[0]) . $res[1]);
+
+        for ($i = 0; $i <= 2; $i++) {
+            $attachments = Storage::disk('local')->listContents('private')[$i];
+            preg_match("/(.*?).png/", $attachments['basename'], $match);
+
+            Storage::disk('local')
+                ->assertExists(['private/' . $match[0]]);
+        }
     }
 
     /** @test */
