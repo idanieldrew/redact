@@ -4,14 +4,13 @@ namespace Module\Post\tests\Feature;
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 use Module\Category\Models\Category;
 use Module\Post\Events\PostPublish;
-use Module\Post\Listeners\SendNotificationAdmin;
-use Module\Post\Mail\PostPublishedPermission;
 use Module\Post\Models\Post;
+use Str;
 use Tests\TestCase;
 
 class CreatPostTest extends TestCase
@@ -48,22 +47,28 @@ class CreatPostTest extends TestCase
     }
 
     /** @test */
-    public function store_post()
+    public function store_post_without_attachments()
     {
+        $img = 'banner.png';
+        $extension = '.png';
         $this->WithoutEvents();
-        $user = $this->CreateUser();
+        $this->CreateUser();
         $categories = Category::factory()->create(['user_id' => auth()->user()]);
 
+        Storage::fake('local');
+
         $this->post(route('post.store'), [
-            'title' => $this->faker->name,
+            'title' => $title = $this->faker->name,
             'details' => $this->faker->sentence,
             'description' => $this->faker->paragraph,
-            'banner' => $this->faker->imageUrl,
+            'banner' => UploadedFile::fake()->image($img),
             'category' => [$categories->name],
-            'tag_request' => ['tag_1']
+            'tag' => ['tag_1']
         ])
             ->assertValid()
             ->assertCreated();
+
+        Storage::disk('local')->assertExists('public/' . Str::slug($title) . $extension);
     }
 
     /** @test */
@@ -128,7 +133,7 @@ class CreatPostTest extends TestCase
     }
 
     /** @test */
-    public function store_post_event_mailing_with_mock()
+    public function store_event_mailing_with_mock()
     {
         Event::fake([
             PostPublish::class

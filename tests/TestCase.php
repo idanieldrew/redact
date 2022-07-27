@@ -36,8 +36,10 @@ abstract class TestCase extends BaseTestCase
         $role3 = Role::create(['name' => 'super']);
 
         $p1 = Permission::create(['name' => 'view-users']);
+        $p2 = Permission::create(['name' => 'create-post']);
 
-        $role2->givePermissionTo($p1);
-        $role3->givePermissionTo($p1);
+        $role1->givePermissionTo($p1, $p2);
+        $role2->givePermissionTo($p1, $p2);
+        $role3->givePermissionTo($p1, $p2);
     }
 }
