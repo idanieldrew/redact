@@ -3,13 +3,11 @@
 namespace Module\Post\Services\v1;
 
 use Illuminate\Http\Response;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Gate;
 use Module\Category\Repository\v1\CategoryRepository;
 use Module\Media\Services\v1\ImageService;
 use Module\Media\Services\v1\MediaService;
 use Module\Post\Events\PostPublish;
-use Module\Post\Http\Requests\v1\PostRequest;
 use Module\Post\Http\Resources\v1\PostResource;
 use Module\Post\Models\Post;
 use Module\Post\Services\PostService as Service;
@@ -44,16 +42,11 @@ class PostService extends Service
             }
         }
 
-        // Create Tag(s)
-        $tagService = resolve(TagService::class);
-        $tags = $tagService->store($request->tag);
-        // Sync post & tag(s)
-        $post->tags()->sync($tags);
+        // Sync tag(s)
+        $this->syncTag($post, $request->tag);
 
         // Sync post with category(s)
-        $categoryRepository = resolve(CategoryRepository::class);
-        $categories = $categoryRepository->getCategories($request->category);
-        $post->categories()->syncWithPivotValues($categories, []);
+        $this->syncCategory($post, $request->category);
 
         // Report to admins
         PostPublish::dispatch($post->slug);
@@ -64,7 +57,7 @@ class PostService extends Service
     /**
      * Update post
      * @param $post
-     * @param UserRequest; $request
+     * @param $request
      * @return null
      */
     public function update($post, $request)
@@ -109,4 +102,34 @@ class PostService extends Service
         $imageService = resolve(ImageService::class);
         return $imageService::upload($request, $filename, 'public', false);
     }
+
+    /**
+     * Create tag if not exist & sync with post
+     *
+     * @param $post
+     * @param $tag
+     * @return void
+     */
+    protected function syncTag($post, $tag)
+    {
+        $tagService = resolve(TagService::class);
+        $tags = $tagService->store($tag);
+        // Sync post & tag(s)
+        $post->tags()->sync($tags);
+    }
+
+    /**
+     * Sync post with category(s)
+     *
+     * @param $post
+     * @param $category
+     * @return void
+     */
+    protected function syncCategory($post, $category)
+    {
+        $categoryRepository = resolve(CategoryRepository::class);
+        $categories = $categoryRepository->getCategories($category);
+        $post->categories()->syncWithPivotValues($categories, []);
+    }
 }
+
