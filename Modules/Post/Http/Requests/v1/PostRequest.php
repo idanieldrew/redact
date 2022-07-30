@@ -24,8 +24,8 @@ class PostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|unique:posts|max:32|min:3',
-            'details' => 'required|unique:posts|min:10',
+            'title' => 'required|max:32|min:3|unique:posts',
+            'details' => 'required|min:10|unique:posts',
             'description' => 'required',
             'banner' => 'required|mimes:png,jpg',
             'attachment' => 'nullable|array',
