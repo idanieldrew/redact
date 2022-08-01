@@ -7,14 +7,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Module\Category\Database\Factories\CategoryFactory;
+use Module\Lang\Traits\LangService;
 use Module\Media\Models\Media;
 use Module\Post\Models\Post;
 
 class Category extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, LangService;
 
     protected $guarded = [];
+
+    public $translatable = ['name'];
 
     /**
      * Create a new factories instance for the model.
