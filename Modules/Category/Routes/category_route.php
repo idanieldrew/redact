@@ -7,8 +7,8 @@ use Module\Category\Http\Controllers\api\v1\CategoryController;
 Route::get('/', function () {
     $category = \Module\Category\Models\Category::first();
 
-    $category->setTranslation('name', 'ul', "اکیه");
-    echo $category->getTranslation('name', 'en');
+//    $category->setTranslation('name', 'ul', "اکیه");
+    echo $category->getTranslation('name', 'fa');
 });
 
 Route::get('all', [CategoryController::class, 'index'])->name('category.index');

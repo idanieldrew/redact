@@ -2,6 +2,7 @@
 
 namespace Module\Category\Providers;
 
+use App;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Module\Category\Models\Category;
@@ -17,6 +18,7 @@ class CategoryServiceProvider extends ServiceProvider
     protected $policies = [
         Category::class => CategoryPolicy::class
     ];
+
     /**
      * Bootstrap any application services.
      *
@@ -27,8 +29,9 @@ class CategoryServiceProvider extends ServiceProvider
         // Migrations
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
 
+        app('domain');
         // Routes
-        Route::prefix('api/category')
+        Route::prefix("api/{lang?}/category")
             ->middleware('api')
             ->namespace($this->namespace)
             ->group(__DIR__ . '/../Routes/category_route.php');
