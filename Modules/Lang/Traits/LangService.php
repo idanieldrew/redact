@@ -3,8 +3,6 @@
 namespace Module\Lang\Traits;
 
 use Exception;
-use Illuminate\Database\Eloquent\Model;
-use function PHPUnit\Framework\throwException;
 
 trait LangService
 {

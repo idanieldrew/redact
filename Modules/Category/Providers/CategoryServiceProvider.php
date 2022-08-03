@@ -2,7 +2,6 @@
 
 namespace Module\Category\Providers;
 
-use App;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Module\Category\Models\Category;
