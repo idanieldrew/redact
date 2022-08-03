@@ -27,7 +27,7 @@ class PostServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
 
         // Routes
-        Route::prefix('api/posts')
+        Route::prefix('api/{lang?}/posts')
             ->middleware('api')
             ->namespace($this->namespace)
             ->group(__DIR__ . '/../Routes/post_route.php');
