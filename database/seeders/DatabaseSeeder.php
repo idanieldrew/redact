@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(RoleTableSeeder::class);
         User::factory(4)->create()->each(function ($user) {
-            $user->categories()->save(Category::factory()->make());
+//            $user->categories()->save(Category::factory()->make());
         });
 
         /* $user->categories()->save(Category::factory()->make())->each(function ($category) use ($user) {

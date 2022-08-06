@@ -15,7 +15,8 @@ class CategoryObserver
      */
     public function creating(Category $category)
     {
-        $category->slug = Str::slug($category->name);
+        $category->slug = "test-test";
+//        $category->slug = Str::slug($category->name['en']);
     }
 
     /**

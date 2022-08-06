@@ -7,7 +7,52 @@ use Exception;
 trait LangService
 {
     /**
-     * Set new language for $translatable
+     * Set attribute. If key exist in translatable property in model ...
+     * If key not exist in translatable property in model,read setAttribute parent ...
+     *
+     * @param string $key
+     * @param string $value
+     * @return mixed
+     */
+    public function setAttribute(string $key, $value)
+    {
+        if ($this->isTranslatableAttribute($key) && is_array($value)) {
+            return $this->setTranslations($key, $value);
+        }
+        if (!$this->isTranslatableAttribute($key) || is_array($value)) {
+            return parent::setAttribute($key, $value);
+        }
+        return $this->setTranslation($key, config('app.locale'), $value);
+    }
+
+    /**
+     * Check key exist in translatable property
+     *
+     * @param string $key
+     * @return bool
+     */
+    public function isTranslatableAttribute(string $key): bool
+    {
+        return in_array($key, $this->translatable);
+    }
+
+    /**
+     * Ready for setTranslation
+     *
+     * @param string $key
+     * @param array $values
+     * @return $this
+     */
+    protected function setTranslations(string $key, array $values)
+    {
+        foreach ($values as $locale => $value) {
+            $this->setTranslation($key, $locale, $value);
+        }
+        return $this;
+    }
+
+    /**
+     * Set translation
      *
      * @param string $key
      * @param string $locale

@@ -2,14 +2,28 @@
 
 use Illuminate\Support\Facades\Route;
 use Module\Category\Http\Controllers\api\v1\CategoryController;
+use Module\Category\Models\Category;
 
 // All posts
-Route::get('/', function () {
-    $category = \Module\Category\Models\Category::first();
+/*Route::get('/', function () {
+    $category = Category::first();
 
 //    $category->setTranslation('name', 'ul', "اکیه");
-    echo $category->getTranslation('name', 'fa');
-});
+
+    $name = [
+        "en" => "test 1",
+        "sp" => "test 2"
+    ];
+    Category::query()->create([
+        'name' => $name,
+        'user_id' => 1,
+    ]);
+
+    dd(77);
+
+    echo 'ok';
+//    echo $category->getTranslation('name', 'fa');
+});*/
 
 Route::get('all', [CategoryController::class, 'index'])->name('category.index');
 // Show category

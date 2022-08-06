@@ -18,7 +18,7 @@ class Lang
      */
     public function handle(Request $request, Closure $next)
     {
-        $req = $request->segments();
+        /*$req = $request->segments();
 
         $locale = $request->segment(2);
         if (count($req) <= 2) {
@@ -34,6 +34,6 @@ class Lang
             return redirect(implode('/', $oldSegments));
         } else {
             return redirect()->route('post.index');
-        }
+        }*/
     }
 }
