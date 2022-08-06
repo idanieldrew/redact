@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use Module\Category\Models\Category;
 use Module\Category\Observers\CategoryObserver;
 use Module\Category\Policies\CategoryPolicy;
+use Module\Share\Routes\Facades\MyRoute;
 
 class CategoryServiceProvider extends ServiceProvider
 {
@@ -28,7 +29,6 @@ class CategoryServiceProvider extends ServiceProvider
         // Migrations
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
 
-        app('domain');
         // Routes
         Route::prefix("api/{lang?}/category")
             ->middleware('api')

@@ -25,7 +25,7 @@ use Module\Category\Models\Category;
 //    echo $category->getTranslation('name', 'fa');
 });*/
 
-Route::get('all', [CategoryController::class, 'index'])->name('category.index');
+Route::get('/', [CategoryController::class, 'index'])->name('category.index');
 // Show category
 Route::get('{category:slug}', [CategoryController::class, 'show'])->name('category.show');
 Route::middleware(['auth:sanctum'])->group(function () {

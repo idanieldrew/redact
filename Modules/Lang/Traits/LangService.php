@@ -14,7 +14,7 @@ trait LangService
      * @param string $value
      * @return mixed
      */
-    public function setAttribute(string $key, $value)
+    public function setAttribute($key, $value)
     {
         if ($this->isTranslatableAttribute($key) && is_array($value)) {
             return $this->setTranslations($key, $value);
