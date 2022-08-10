@@ -18,7 +18,6 @@ class CreatPostTest extends TestCase
     /** @test */
     public function store_post_without_attachments()
     {
-        $this->withoutExceptionHandling();
         $res = $this->storePost();
 
         Storage::disk('local')->assertExists('public/' . Str::slug($res[0]) . $res[1]);
@@ -72,7 +71,7 @@ class CreatPostTest extends TestCase
     public function handle_unique_title_post()
     {
         // Store posts when title is equals
-        $this->storePost('writer', false, "test title");
+        $this->storePost('writer', false, 1, "test title");
         $this->post(route('post.store', ['lang' => 'en']), [
             'title' => "test title",
         ])->assertJsonValidationErrors('title');
@@ -92,7 +91,7 @@ class CreatPostTest extends TestCase
     public function handle_unique_details_post()
     {
         // Store posts when details are equals
-        $this->storePost('writer', false, "test title", "test details");
+        $this->storePost('writer', false, 1, "test title", "test details");
         $this->post(route('post.store', ['lang' => 'en']), [
             'title' => "test title",
             'details' => "test details"

@@ -47,7 +47,7 @@ abstract class TestCase extends BaseTestCase
         $role3->givePermissionTo($p1, $p2);
     }
 
-    protected function storePost($role = 'writer', $attachments = false, $titles = null, $details = null): array
+    protected function storePost($role = 'writer', $attachments = false, $number = 1, $titles = null, $details = null): array
     {
         $img = 'banner.png';
         $extension = '.png';
@@ -67,17 +67,19 @@ abstract class TestCase extends BaseTestCase
             ] :
             null;
 
-        $this->post(route('post.store', ['lang' => 'en']), [
-            'title' => $title = $titles ?? $this->faker->name,
-            'details' => $details ?? $this->faker->sentence,
-            'description' => $this->faker->paragraph,
-            'banner' => UploadedFile::fake()->image($img),
-            'category' => [$categories->name],
-            'tag' => ['tag_1'],
-            'attachment' => $attachments
-        ])
-            ->assertValid()
-            ->assertCreated();
+        for ($i = 0; $i < $number; $i++) {
+            $this->post(route('post.store', ['lang' => 'en']), [
+                'title' => $title = $titles ?? $this->faker->name,
+                'details' => $details ?? $this->faker->sentence,
+                'description' => $this->faker->paragraph,
+                'banner' => UploadedFile::fake()->image($img),
+                'category' => [$categories->name],
+                'tag' => ['tag_1'],
+                'attachment' => $attachments
+            ])
+                ->assertValid()
+                ->assertCreated();
+        }
 
         return array($title, $extension);
     }
