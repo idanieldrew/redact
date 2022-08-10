@@ -86,7 +86,7 @@ class PostController extends Controller implements ResponseGenerator
      * @param Post $post
      * @return JsonResponse
      */
-    public function destroy(Post $post)
+    public function destroy($lang,Post $post)
     {
         $this->repo()->destroy($post);
 

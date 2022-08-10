@@ -4,27 +4,22 @@ namespace Module\Post\tests\Feature;
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class DestroyPostTest extends TestCase
 {
-    use DatabaseMigrations,WithFaker;
+    use DatabaseMigrations, WithFaker;
 
     /** @test */
     public function destroy_post()
     {
-        $user = $this->CreateUser();
+        $this->withoutExceptionHandling();
+        $res = $this->storePost('super');
 
-        $post = $user->posts()->create([
-            'title' => $this->faker->title,
-            'details' => $this->faker->paragraph(1),
-            'description' => $this->faker->paragraph,
-            'banner' => $this->faker->imageUrl
-        ]);
-
-        $this->delete(route('post.destroy',$post->slug))
+        $this->delete(route('post.destroy', ['lang' => 'en', 'post' => Str::slug($res[0])]))
             ->assertOk();
 
-        $this->assertSoftDeleted('posts',['title' => $post->title]);
+        $this->assertSoftDeleted('posts', ['title' => $res[0]]);
     }
 }

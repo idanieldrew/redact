@@ -7,49 +7,13 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
-use Module\Category\Models\Category;
+use Illuminate\Support\Str;
 use Module\Post\Events\PostPublish;
-use Str;
 use Tests\TestCase;
 
 class CreatPostTest extends TestCase
 {
     use DatabaseMigrations, WithFaker;
-
-    private function storePost($attachments = false, $titles = null, $details = null): array
-    {
-        $img = 'banner.png';
-        $extension = '.png';
-
-        $this->WithoutEvents();
-
-        //Create user and category
-        $this->CreateUser();
-        $categories = Category::factory()->create(['user_id' => auth()->user()]);
-
-        Storage::fake('local');
-
-        $attachments = $attachments ?
-            [
-                uploadedFile::fake()->image('image1.png'),
-                UploadedFile::fake()->image('image2.png')
-            ] :
-            null;
-
-        $this->post(route('post.store', ['lang' => 'en']), [
-            'title' => $title = $titles ?? $this->faker->name,
-            'details' => $details ?? $this->faker->sentence,
-            'description' => $this->faker->paragraph,
-            'banner' => UploadedFile::fake()->image($img),
-            'category' => [$categories->name],
-            'tag' => ['tag_1'],
-            'attachment' => $attachments
-        ])
-            ->assertValid()
-            ->assertCreated();
-
-        return array($title, $extension);
-    }
 
     /** @test */
     public function store_post_without_attachments()
@@ -63,7 +27,7 @@ class CreatPostTest extends TestCase
     /** @test */
     public function store_post_with_attachments()
     {
-        $res = $this->storePost(true);
+        $res = $this->storePost('writer', true);
 
         Storage::disk('local')
             ->assertExists('public/' . Str::slug($res[0]) . $res[1]);
@@ -107,10 +71,8 @@ class CreatPostTest extends TestCase
     /** @test */
     public function handle_unique_title_post()
     {
-        $this->CreateUser();
-
         // Store posts when title is equals
-        $this->storePost(false, "test title");
+        $this->storePost('writer', false, "test title");
         $this->post(route('post.store', ['lang' => 'en']), [
             'title' => "test title",
         ])->assertJsonValidationErrors('title');
@@ -129,10 +91,8 @@ class CreatPostTest extends TestCase
     /** @test */
     public function handle_unique_details_post()
     {
-        $this->CreateUser();
-
         // Store posts when details are equals
-        $this->storePost(false, "test title", "test details");
+        $this->storePost('writer', false, "test title", "test details");
         $this->post(route('post.store', ['lang' => 'en']), [
             'title' => "test title",
             'details' => "test details"
