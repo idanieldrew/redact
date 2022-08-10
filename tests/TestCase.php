@@ -81,5 +81,4 @@ abstract class TestCase extends BaseTestCase
 
         return array($title, $extension);
     }
-
 }
