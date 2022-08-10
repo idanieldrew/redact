@@ -3,7 +3,6 @@
 namespace Module\Post\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;

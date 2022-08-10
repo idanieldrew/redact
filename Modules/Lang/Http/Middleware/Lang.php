@@ -18,22 +18,19 @@ class Lang
      */
     public function handle(Request $request, Closure $next)
     {
-        /*$req = $request->segments();
+        $req = $request->segments();
 
         $locale = $request->segment(2);
-        if (count($req) <= 2) {
-            return redirect()->route('post.index');
-        }
 
         if (in_array($locale, config('app.locales'))) {
             App::setLocale($locale);
             return $next($request);
-        } elseif (!in_array($locale, config('app.locales'))) {
-            $oldSegments = $request->segments();
-            $oldSegments[1] = config('app.fallback_locale');
-            return redirect(implode('/', $oldSegments));
+
         } else {
-            return redirect()->route('post.index');
-        }*/
+            $lang = config('app.fallback_locale');
+            $uri = array_replace($req, [$lang]);
+
+            return 'api/' . redirect(implode('/', $uri));
+        }
     }
 }

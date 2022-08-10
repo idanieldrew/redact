@@ -36,7 +36,7 @@ class CreatPostTest extends TestCase
             ] :
             null;
 
-        $this->post(route('post.store'), [
+        $this->post(route('post.store', ['lang' => 'en']), [
             'title' => $title = $titles ?? $this->faker->name,
             'details' => $details ?? $this->faker->sentence,
             'description' => $this->faker->paragraph,
@@ -54,6 +54,7 @@ class CreatPostTest extends TestCase
     /** @test */
     public function store_post_without_attachments()
     {
+        $this->withoutExceptionHandling();
         $res = $this->storePost();
 
         Storage::disk('local')->assertExists('public/' . Str::slug($res[0]) . $res[1]);
@@ -82,7 +83,7 @@ class CreatPostTest extends TestCase
         //Create user and category
         $this->CreateUser();
 
-        $this->post(route('post.store'), [
+        $this->post(route('post.store', ['lang' => 'en']), [
             'title' => null,
             'details' => null,
             'description' => null,
@@ -98,7 +99,7 @@ class CreatPostTest extends TestCase
     {
         $this->CreateUser();
 
-        $this->post(route('post.store'), [
+        $this->post(route('post.store', ['lang' => 'en']), [
             'title' => "te",
         ])->assertJsonValidationErrors('title');
     }
@@ -110,7 +111,7 @@ class CreatPostTest extends TestCase
 
         // Store posts when title is equals
         $this->storePost(false, "test title");
-        $this->post(route('post.store'), [
+        $this->post(route('post.store', ['lang' => 'en']), [
             'title' => "test title",
         ])->assertJsonValidationErrors('title');
     }
@@ -120,7 +121,7 @@ class CreatPostTest extends TestCase
     {
         $this->CreateUser();
 
-        $this->post(route('post.store'), [
+        $this->post(route('post.store', ['lang' => 'en']), [
             'details' => "te",
         ])->assertJsonValidationErrors('details');
     }
@@ -132,7 +133,7 @@ class CreatPostTest extends TestCase
 
         // Store posts when details are equals
         $this->storePost(false, "test title", "test details");
-        $this->post(route('post.store'), [
+        $this->post(route('post.store', ['lang' => 'en']), [
             'title' => "test title",
             'details' => "test details"
         ])->assertJsonValidationErrors('details');
@@ -147,7 +148,7 @@ class CreatPostTest extends TestCase
         Storage::fake('local');
 
         // Store posts when title is equals
-        $this->post(route('post.store'), [
+        $this->post(route('post.store', ['lang' => 'en']), [
             'banner' => UploadedFile::fake()->image("test.pdf"),
         ])->assertJsonValidationErrors('banner');
     }
@@ -157,7 +158,7 @@ class CreatPostTest extends TestCase
     {
         $this->CreateUser();
 
-        $this->post(route('post.store'), [
+        $this->post(route('post.store', ['lang' => 'en']), [
             'category' => "test category",
         ])->assertJsonValidationErrors('category');
     }
