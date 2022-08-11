@@ -30,7 +30,7 @@ class PostRequest extends FormRequest
             'banner' => 'required|mimes:png,jpg',
             'attachment' => 'nullable|array',
             'tag' => 'required|array',
-            'category' => 'required|array|exists:categories,name'
+            'category' => 'required|array'
         ];
     }
 }

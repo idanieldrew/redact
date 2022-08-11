@@ -10,19 +10,19 @@ class CategoryObserver
     /**
      * Handle the Post "created" event.
      *
-     * @param  \Module\Category\Models\Category  $category
+     * @param \Module\Category\Models\Category $category
      * @return void
+     * @throws \Exception
      */
-   /* public function creating(Category $category)
+    public function creating(Category $category)
     {
-        $category->slug['en'] = Str::slug($category->getTranslation('name', 'en'));
-        $category->slug = 'فارسی';
-    }*/
+        $category->slug = Str::slug($category->getTranslation('name', 'en'));
+    }
 
     /**
      * Handle the Post "updating" event.
      *
-     * @param  \Module\Category\Models\Category  $category
+     * @param \Module\Category\Models\Category $category
      * @return void
      */
     public function updating(Category $category)

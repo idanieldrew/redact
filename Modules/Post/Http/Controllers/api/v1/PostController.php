@@ -60,7 +60,7 @@ class PostController extends Controller implements ResponseGenerator
      * @param PostRequest $request
      * @return JsonResponse
      */
-    public function store(PostRequest $request): JsonResponse
+    public function store(Request $request): JsonResponse
     {
         $post = $this->service()->store($request);
 

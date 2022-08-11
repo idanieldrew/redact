@@ -5,6 +5,7 @@ namespace Module\Category\Services\v1;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
+use Module\Category\Http\Requests\v1\StoreRequest as StoreRequestAlias;
 use Module\Category\Http\Resources\v1\CategoryResource;
 use Module\Category\Models\Category;
 use Module\Category\Services\CategoryService as Service;
@@ -13,10 +14,10 @@ class CategoryService extends Service
 {
     /**
      * Create new category
-     * @param \Module\Category\Http\Requests\v1\StoreRequest $request
+     * @param StoreRequestAlias $request
      * @return \Module\Category\Http\Resources\v1\CategoryResource
      */
-    public function store($request)
+    public function store(StoreRequestAlias $request): CategoryResource
     {
         //  just admin & super can store new category
         if (Gate::denies('createOrUpdate', [Category::class])) {
@@ -28,10 +29,6 @@ class CategoryService extends Service
             'name' => [
                 'en' => $request->name['en'],
                 'fa' => $request->name['fa']
-            ],
-            'slug' => [
-                'en' => Str::slug($request->name['en']),
-                'fa' => make_slug($request->name['fa'])
             ],
         ]);
 
