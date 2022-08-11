@@ -42,7 +42,7 @@ abstract class TestCase extends BaseTestCase
         $p1 = Permission::create(['name' => 'view-users']);
         $p2 = Permission::create(['name' => 'create-post']);
 
-        $role1->givePermissionTo($p1, $p2);
+        $role1->givePermissionTo($p2);
         $role2->givePermissionTo($p1, $p2);
         $role3->givePermissionTo($p1, $p2);
     }

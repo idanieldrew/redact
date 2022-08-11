@@ -35,7 +35,7 @@ class UserController extends Controller implements ResponseGenerator
      */
     public function index(): UserCollection
     {
-        $users = $this->repo()->paginate(10);
+        $users = $this->repo()->paginate();
 
         return new UserCollection($users);
     }

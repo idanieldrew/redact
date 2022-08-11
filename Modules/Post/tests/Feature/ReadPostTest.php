@@ -3,12 +3,8 @@
 namespace Module\Post\tests\Feature;
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Str;
-use Module\Category\Models\Category;
-use Module\Post\Models\Post;
-use function PHPSTORM_META\type;
 use Tests\TestCase;
 
 class ReadPostTest extends TestCase
