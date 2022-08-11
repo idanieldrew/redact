@@ -37,7 +37,7 @@ class PostController extends Controller implements ResponseGenerator
      */
     public function index(): PostCollection
     {
-        return $this->repo()->paginate(10);
+        return $this->repo()->paginate();
     }
 
     /**
@@ -47,7 +47,7 @@ class PostController extends Controller implements ResponseGenerator
      * @param string $post
      * @return JsonResponse
      */
-    public function show(string $lang,string $post): JsonResponse
+    public function show(string $lang, string $post): JsonResponse
     {
         $post = $this->repo()->show($post);
 
@@ -60,7 +60,7 @@ class PostController extends Controller implements ResponseGenerator
      * @param PostRequest $request
      * @return JsonResponse
      */
-    public function store(Request $request): JsonResponse
+    public function store(PostRequest $request): JsonResponse
     {
         $post = $this->service()->store($request);
 
@@ -70,20 +70,22 @@ class PostController extends Controller implements ResponseGenerator
     /**
      * Update the specified resource in storage.
      *
-     * @param \Module\Post\Http\Requests\v1\UpdateRequest $request
+     * @param $lang
+     * @param UpdateRequest $request
      * @param Post $post
      * @return JsonResponse
      */
-    public function update(UpdateRequest $request, Post $post)
+    public function update($lang,UpdateRequest $request, Post $post)
     {
         $this->service()->update($post, $request);
 
-        return $this->res('success', Response::HTTP_NO_CONTENT, null, null);
+        return $this->res('success', Response::HTTP_NO_CONTENT, null);
     }
 
     /**
      * Remove the specified resource from storage.
      *
+     * @param $lang
      * @param Post $post
      * @return JsonResponse
      */
@@ -91,7 +93,7 @@ class PostController extends Controller implements ResponseGenerator
     {
         $this->repo()->destroy($post);
 
-        return $this->res('success', Response::HTTP_OK, 'Successfully delete post', null);
+        return $this->res('success', Response::HTTP_OK, 'Successfully delete post');
     }
 
     /**

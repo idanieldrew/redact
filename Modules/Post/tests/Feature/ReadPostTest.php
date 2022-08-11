@@ -2,6 +2,7 @@
 
 namespace Module\Post\tests\Feature;
 
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Str;
@@ -12,7 +13,7 @@ use Tests\TestCase;
 
 class ReadPostTest extends TestCase
 {
-    use RefreshDatabase, WithFaker;
+    use DatabaseMigrations, WithFaker;
 
     /** @test */
     public function see_posts()
