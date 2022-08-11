@@ -1,25 +1,12 @@
 <?php
 
-use Illuminate\Contracts\Routing\UrlGenerator;
+function make_slug($string, $separator = '-')
+{
+    $string = trim($string);
+    $string = mb_strtolower($string, 'UTF-8');
+    $string = preg_replace("/[^a-z0-9_\-\sءاآؤئبپتثجچحخدذرزژسشصضطظعغفقكکگلمنوهی]/u", '', $string);
+    $string = preg_replace("/[\s\-_]+/", ' ', $string);
+    $string = preg_replace("/[\s_]/", $separator, $string);
 
-if (!function_exists('url')) {
-    /**
-     * Generate an url for the application.
-     *
-     * @param string|null $path
-     * @param mixed $parameters
-     * @param bool|null $secure
-     * @return \Illuminate\Contracts\Routing\UrlGenerator|string
-     */
-    function kurl(string $path = null, $parameters = [], bool $secure = null)
-    {
-        if (is_null($path)) {
-            return app(UrlGenerator::class);
-        }
-
-        $lang = App::getLocale();
-        $path = "$lang/$path";
-
-        return app(UrlGenerator::class)->to($path, $parameters, $secure);
-    }
+    return $string;
 }

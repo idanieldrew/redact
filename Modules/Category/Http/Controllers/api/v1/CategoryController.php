@@ -43,7 +43,7 @@ class CategoryController extends Controller implements ResponseGenerator
      * Store a newly created resource in storage.
      *
      * @param \Module\Category\Http\Requests\v1\StoreRequest $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(StoreRequest $request)
     {

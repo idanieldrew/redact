@@ -24,10 +24,11 @@ class Category extends Model
      * @var array
      */
     protected $casts = [
-//        'name' => NameCategory::class
+        'name' => NameCategory::class,
+        'slug' => NameCategory::class
     ];
 
-    public $translatable = ['name'];
+    public $translatable = ['name', 'slug'];
 
     /**
      * Create a new factories instance for the model.

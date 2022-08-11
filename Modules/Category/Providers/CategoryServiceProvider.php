@@ -7,7 +7,6 @@ use Illuminate\Support\ServiceProvider;
 use Module\Category\Models\Category;
 use Module\Category\Observers\CategoryObserver;
 use Module\Category\Policies\CategoryPolicy;
-use Module\Share\Routes\Facades\MyRoute;
 
 class CategoryServiceProvider extends ServiceProvider
 {

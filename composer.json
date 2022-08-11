@@ -28,6 +28,9 @@
         "phpunit/phpunit": "^9.5.8"
     },
     "autoload": {
+        "files": [
+            "Modules/Share/Helpers/helper.php"
+        ],
         "psr-4": {
             "App\\": "app/",
             "Database\\Seeders\\": "database/seeders/",
