@@ -3,6 +3,7 @@
 namespace Module\Category\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Module\Category\Http\Requests\v1\StoreRequest;
 use Module\Category\Http\Requests\v1\UpdateRequest;
@@ -55,10 +56,11 @@ class CategoryController extends Controller implements ResponseGenerator
     /**
      * Display the specified resource.
      *
-     * @param \Module\Category\Models\Category $category
-     * @return \Illuminate\Http\Response
+     * @param $lang
+     * @param Category $category
+     * @return JsonResponse
      */
-    public function show(Category $category)
+    public function show($lang, Category $category)
     {
         return $this->res('success', Response::HTTP_OK, null, new CategoryResource($category));
     }

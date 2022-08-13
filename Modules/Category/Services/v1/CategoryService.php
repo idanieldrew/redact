@@ -4,7 +4,6 @@ namespace Module\Category\Services\v1;
 
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Str;
 use Module\Category\Http\Requests\v1\StoreRequest as StoreRequestAlias;
 use Module\Category\Http\Resources\v1\CategoryResource;
 use Module\Category\Models\Category;

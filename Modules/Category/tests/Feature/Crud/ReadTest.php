@@ -9,31 +9,32 @@ use Tests\TestCase;
 
 class ReadTest extends TestCase
 {
-    use DatabaseMigrations,WithFaker;
+    use DatabaseMigrations, WithFaker;
 
     /** @test */
     public function see_all_categories()
     {
-        $user = $this->CreateUser();
+        $this->CreateUser();
+        Category::factory()->create(['user_id' => auth()->user()]);
 
-        $category = Category::factory()->count(5)->raw();
-        $user->categories()->createMany($category);
-
-        $this->get(route('category.index'))
+        $this->get(route('category.index', ['lang' => 'en']))
             ->assertOk();
     }
 
     /** @test */
     public function see_single_category()
     {
-        $user = $this->CreateUser();
+        $this->CreateUser();
 
-        $category = $user->categories()->create([
-            'name' => $this->faker->title
+        $category = auth()->user()->categories()->create([
+            'name' => [
+                'en' => $this->faker->jobTitle,
+                'fa' => 'تست'
+            ]
         ]);
 
-        $this->get(route('category.show',$category->slug))
-            ->assertSee([$category->name , $category->slug])
+        $this->get(route('category.show', ['lang' => 'en', 'category' => $category->slug]))
+            ->assertSee([$category->getTranslation('name', 'en'), $category->slug])
             ->assertOk();
     }
 }
