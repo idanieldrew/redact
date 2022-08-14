@@ -17,7 +17,7 @@ class UpdatePostTest extends TestCase
     {
         $res = $this->storePost();
 
-        $this->patch(route('post.update', ['lang' => 'en', 'post' => Str::slug($res[0])]), ['title' => 'test']);
+        $this->patch(route('post.update', Str::slug($res[0])), ['title' => 'test']);
 
         $this->assertDatabaseHas('posts', ['title' => 'test']);
     }
@@ -27,7 +27,7 @@ class UpdatePostTest extends TestCase
     {
         $res = $this->storePost();
 
-        $this->patch(route('post.update', ['lang' => 'en', 'post' => Str::slug($res[0])]), ['title' => 'test']);
+        $this->patch(route('post.update', Str::slug($res[0])), ['title' => 'test']);
 
         $this->assertDatabaseHas('posts', ['slug' => 'test']);
     }
@@ -37,7 +37,7 @@ class UpdatePostTest extends TestCase
     {
         $res = $this->storePost();
 
-        $this->patch(route('post.update', ['lang' => 'en', 'post' => Str::slug($res[0])]), ['title' => 'te'])
+        $this->patch(route('post.update', Str::slug($res[0])), ['title' => 'te'])
             ->assertStatus(422);
     }
 
@@ -46,7 +46,7 @@ class UpdatePostTest extends TestCase
     {
         $res = $this->storePost();
 
-        $this->patch(route('post.update', ['lang' => 'en', 'post' => Str::slug($res[0])]), ['details' => 'test'])
+        $this->patch(route('post.update', Str::slug($res[0])), ['details' => 'test'])
             ->assertStatus(422);
     }
 
@@ -55,7 +55,7 @@ class UpdatePostTest extends TestCase
     {
         $res = $this->storePost();
 
-        $this->patch(route('post.update', ['lang' => 'en', 'post' => Str::slug($res[0])]), ['description' => 'test test'])
+        $this->patch(route('post.update', Str::slug($res[0])), ['description' => 'test test'])
             ->assertStatus(422);
     }
 }

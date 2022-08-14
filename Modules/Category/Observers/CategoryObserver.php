@@ -8,7 +8,7 @@ use Module\Category\Models\Category;
 class CategoryObserver
 {
     /**
-     * Handle the Post "created" event.
+     * Handle the Post "creating" event.
      *
      * @param \Module\Category\Models\Category $category
      * @return void
@@ -20,13 +20,14 @@ class CategoryObserver
     }
 
     /**
-     * Handle the Post "updating" event.
+     * Handle the Post "creating" event.
      *
      * @param \Module\Category\Models\Category $category
      * @return void
+     * @throws \Exception
      */
     public function updating(Category $category)
     {
-        $category->slug = Str::slug($category->name);
+        $category->slug = Str::slug($category->getTranslation('name', 'en'));
     }
 }

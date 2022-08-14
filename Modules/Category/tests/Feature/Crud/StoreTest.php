@@ -9,39 +9,18 @@ use Tests\TestCase;
 
 class StoreTest extends TestCase
 {
-    use RefreshDatabase,WithFaker;
+    use RefreshDatabase, WithFaker;
 
     /** @test */
-    public function store_category()
+    public function admin_can_store_category()
     {
         $this->CreateUser('admin');
         $category = Category::factory()->raw();
 
-        $this->post(route('category.store'),$category)
+        $this->post(route('category.store', 'en'), $category)
             ->assertCreated();
     }
-
-    /** @test */
-    public function handle_length_name_in_store_category()
-    {
-        $this->CreateUser('admin');
-        $category = Category::factory()->raw(['name' => 'te']);
-
-        $this->post(route('category.store'),$category)
-            ->assertStatus(422);
-    }
-
-    /** @test */
-    public function handle_unique_name_in_store_category()
-    {
-        $user = $this->CreateUser('admin');
-        $categoryOne = Category::factory()->create(['name' => 'test','user_id' => $user->id]);
-
-        $categoryTwo = Category::factory()->raw(['user_id' => $user->id,'name' => 'test']);
-
-        $this->post(route('category.store'),$categoryTwo)
-            ->assertStatus(422);
-    }
+    
 
     /** @test */
     public function user_can_not_store_category()
@@ -49,7 +28,7 @@ class StoreTest extends TestCase
         $this->CreateUser('user');
         $category = Category::factory()->raw();
 
-        $this->post(route('category.store'),$category)
+        $this->post(route('category.store'), $category)
             ->assertForbidden();
     }
 
@@ -59,7 +38,7 @@ class StoreTest extends TestCase
         $this->CreateUser('super');
         $category = Category::factory()->raw();
 
-        $this->post(route('category.store'),$category)
+        $this->post(route('category.store'), $category)
             ->assertCreated();
     }
 }

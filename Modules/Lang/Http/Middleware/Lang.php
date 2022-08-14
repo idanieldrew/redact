@@ -3,7 +3,6 @@
 namespace Module\Lang\Http\Middleware;
 
 use App;
-use Arr;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -18,19 +17,11 @@ class Lang
      */
     public function handle(Request $request, Closure $next)
     {
-        $req = $request->segments();
-
-        $locale = $request->segment(2);
-
-        if (in_array($locale, config('app.locales'))) {
-            App::setLocale($locale);
-            return $next($request);
-
-        } else {
-            $lang = config('app.fallback_locale');
-            $uri = array_replace($req, [$lang]);
-
-            return 'api/' . redirect(implode('/', $uri));
-        }
+        // Check header request and determine localization
+        $local = ($request->hasHeader('X-localization')) ? $request->header('X-localization') : 'en';
+        // set laravel localization
+        app()->setLocale($local);
+        // continue request
+        return $next($request);
     }
 }

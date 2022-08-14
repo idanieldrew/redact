@@ -16,6 +16,13 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication, WithFaker;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+        // set your headers here
+        $this->withHeader('X-localization', 'en');
+    }
+
     public function CreateUser($type = 'writer'): array
     {
         // Create role
@@ -41,10 +48,11 @@ abstract class TestCase extends BaseTestCase
 
         $p1 = Permission::create(['name' => 'view-users']);
         $p2 = Permission::create(['name' => 'create-post']);
+        $p3 = Permission::create(['name' => 'create-category']);
 
         $role1->givePermissionTo($p2);
-        $role2->givePermissionTo($p1, $p2);
-        $role3->givePermissionTo($p1, $p2);
+        $role2->givePermissionTo($p1, $p2, $p3);
+        $role3->givePermissionTo($p1, $p2, $p3);
     }
 
     protected function storePost($role = 'writer', $attachments = false, $number = 1, $titles = null, $details = null): array
@@ -68,7 +76,7 @@ abstract class TestCase extends BaseTestCase
             null;
 
         for ($i = 0; $i < $number; $i++) {
-            $this->post(route('post.store', ['lang' => 'en']), [
+            $this->post(route('post.store'), [
                 'title' => $title = $titles ?? $this->faker->name,
                 'details' => $details ?? $this->faker->sentence,
                 'description' => $this->faker->paragraph,

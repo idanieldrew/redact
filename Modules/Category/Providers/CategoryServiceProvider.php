@@ -29,8 +29,8 @@ class CategoryServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
 
         // Routes
-        Route::prefix("api/{lang?}/category")
-            ->middleware('api')
+        Route::prefix("api/category")
+            ->middleware(['api', 'lang'])
             ->namespace($this->namespace)
             ->group(__DIR__ . '/../Routes/category_route.php');
 

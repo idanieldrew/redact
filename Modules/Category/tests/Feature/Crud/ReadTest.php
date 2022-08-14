@@ -17,7 +17,7 @@ class ReadTest extends TestCase
         $this->CreateUser();
         Category::factory()->create(['user_id' => auth()->user()]);
 
-        $this->get(route('category.index', ['lang' => 'en']))
+        $this->get(route('category.index'))
             ->assertOk();
     }
 
@@ -33,7 +33,7 @@ class ReadTest extends TestCase
             ]
         ]);
 
-        $this->get(route('category.show', ['lang' => 'en', 'category' => $category->slug]))
+        $this->get(route('category.show',$category->slug))
             ->assertSee([$category->getTranslation('name', 'en'), $category->slug])
             ->assertOk();
     }

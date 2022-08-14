@@ -43,11 +43,10 @@ class PostController extends Controller implements ResponseGenerator
     /**
      * Display the specified resource.
      *
-     * @param string $lang
      * @param string $post
      * @return JsonResponse
      */
-    public function show(string $lang, string $post): JsonResponse
+    public function show(string $post): JsonResponse
     {
         $post = $this->repo()->show($post);
 
@@ -70,12 +69,11 @@ class PostController extends Controller implements ResponseGenerator
     /**
      * Update the specified resource in storage.
      *
-     * @param $lang
      * @param UpdateRequest $request
      * @param Post $post
      * @return JsonResponse
      */
-    public function update($lang,UpdateRequest $request, Post $post)
+    public function update(UpdateRequest $request, Post $post)
     {
         $this->service()->update($post, $request);
 
@@ -85,11 +83,10 @@ class PostController extends Controller implements ResponseGenerator
     /**
      * Remove the specified resource from storage.
      *
-     * @param $lang
      * @param Post $post
      * @return JsonResponse
      */
-    public function destroy($lang, Post $post)
+    public function destroy(Post $post)
     {
         $this->repo()->destroy($post);
 

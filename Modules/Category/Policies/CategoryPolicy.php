@@ -4,6 +4,7 @@ namespace Module\Category\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Module\Category\Models\Category;
+use Module\Role\Models\Permission;
 use Module\User\Models\User;
 
 class CategoryPolicy
@@ -29,7 +30,9 @@ class CategoryPolicy
      */
     public function createOrUpdate(User $user)
     {
-        return $user->isAdmin();
+        $permission = Permission::getName('create-category')->firstOrFail();
+
+        return $user->hasRole($permission->role_permissions);
     }
 
     /**

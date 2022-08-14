@@ -16,7 +16,7 @@ class DestroyPostTest extends TestCase
     {
         $res = $this->storePost('super');
 
-        $this->delete(route('post.destroy', ['lang' => 'en', 'post' => Str::slug($res[0])]))
+        $this->delete(route('post.destroy', Str::slug($res[0])))
             ->assertOk();
 
         $this->assertSoftDeleted('posts', ['title' => $res[0]]);
@@ -28,7 +28,7 @@ class DestroyPostTest extends TestCase
         $res = $this->storePost();
         $this->CreateUser();
 
-        $this->delete(route('post.destroy', ['lang' => 'en', 'post' => Str::slug($res[0])]))
+        $this->delete(route('post.destroy', Str::slug($res[0])))
             ->assertForbidden();
     }
 }

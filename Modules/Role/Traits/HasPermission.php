@@ -14,6 +14,7 @@ trait HasPermission
             } elseif (is_string($permission)) {
                 $permission = Permission::getName($permission)->first();
             }
+
             // Attaching
             $this->permissions()->attach($permission);
             $this->getModel()->load('permissions');

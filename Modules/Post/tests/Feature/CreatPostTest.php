@@ -46,7 +46,7 @@ class CreatPostTest extends TestCase
         //Create user and category
         $this->CreateUser();
 
-        $this->post(route('post.store', ['lang' => 'en']), [
+        $this->post(route('post.store'), [
             'title' => null,
             'details' => null,
             'description' => null,
@@ -62,7 +62,7 @@ class CreatPostTest extends TestCase
     {
         $this->CreateUser();
 
-        $this->post(route('post.store', ['lang' => 'en']), [
+        $this->post(route('post.store'), [
             'title' => "te",
         ])->assertJsonValidationErrors('title');
     }
@@ -72,7 +72,7 @@ class CreatPostTest extends TestCase
     {
         // Store posts when title is equals
         $this->storePost('writer', false, 1, "test title");
-        $this->post(route('post.store', ['lang' => 'en']), [
+        $this->post(route('post.store'), [
             'title' => "test title",
         ])->assertJsonValidationErrors('title');
     }
@@ -82,7 +82,7 @@ class CreatPostTest extends TestCase
     {
         $this->CreateUser();
 
-        $this->post(route('post.store', ['lang' => 'en']), [
+        $this->post(route('post.store'), [
             'details' => "te",
         ])->assertJsonValidationErrors('details');
     }
@@ -92,7 +92,7 @@ class CreatPostTest extends TestCase
     {
         // Store posts when details are equals
         $this->storePost('writer', false, 1, "test title", "test details");
-        $this->post(route('post.store', ['lang' => 'en']), [
+        $this->post(route('post.store'), [
             'title' => "test title",
             'details' => "test details"
         ])->assertJsonValidationErrors('details');
@@ -107,7 +107,7 @@ class CreatPostTest extends TestCase
         Storage::fake('local');
 
         // Store posts when title is equals
-        $this->post(route('post.store', ['lang' => 'en']), [
+        $this->post(route('post.store'), [
             'banner' => UploadedFile::fake()->image("test.pdf"),
         ])->assertJsonValidationErrors('banner');
     }
@@ -117,7 +117,7 @@ class CreatPostTest extends TestCase
     {
         $this->CreateUser();
 
-        $this->post(route('post.store', ['lang' => 'en']), [
+        $this->post(route('post.store'), [
             'category' => "test category",
         ])->assertJsonValidationErrors('category');
     }

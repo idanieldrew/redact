@@ -25,6 +25,15 @@ trait LangService
         return $this->setTranslation($key, config('app.locale'), $value);
     }
 
+    public function getAttributeValue($key)
+    {
+        if (! $this->isTranslatableAttribute($key)) {
+            return parent::getAttributeValue($key);
+        }
+
+        return $this->getTranslation($key, config('app.locale'));
+    }
+
     /**
      * Check key exist in translatable property
      *

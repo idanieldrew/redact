@@ -31,6 +31,7 @@ trait HasRole
         } elseif (is_null($role)) {
             return false;
         }
+
         return !!$role->intersect($this->roles)->count();
     }
 

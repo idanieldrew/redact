@@ -16,7 +16,7 @@ class ReadPostTest extends TestCase
     {
         $this->storePost('writer', false, 3);
 
-        $this->get(route('post.index', ['lang' => 'en']))
+        $this->get(route('post.index'))
             ->assertOk();
     }
 
@@ -25,23 +25,16 @@ class ReadPostTest extends TestCase
     {
         $this->storePost('writer', false, 1, 'test title');
 
-        $this->get(route('post.show', ['lang' => 'en', 'post' => Str::slug('test title')]))
+        $this->get(route('post.show', Str::slug('test title')))
             ->assertOk();
     }
 
     /** @test */
     public function search_posts()
     {
-        /*$user = $this->CreateUser();
-        $posts = Post::factory()->count(20)->raw();
-        $post = Post::factory()->count(1)->raw(['title' => 'test two']);
-
-        $user->posts()->createMany($posts);
-        $user->posts()->createMany($post);*/
-        $this->withoutExceptionHandling();
         $this->storePost('writer', false, 1, 'test title');
 
-        $this->getJson(route('post.search', ['lang' => 'en']) . '? keyword=test')
+        $this->getJson(route('post.search') . '? keyword=test')
             ->assertOk()
             ->assertJsonFragment(['title' => 'test title']);
     }

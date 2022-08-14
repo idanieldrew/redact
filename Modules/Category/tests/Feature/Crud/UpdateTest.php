@@ -5,74 +5,48 @@ namespace Module\Category\tests\Feature\Crud;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Str;
+use Module\Category\Models\Category;
 use Tests\TestCase;
 
 class UpdateTest extends TestCase
 {
-    use DatabaseMigrations,WithFaker;
+    use DatabaseMigrations, WithFaker;
 
     private $name = "test";
+
     private function storeCategory($type = 'admin')
     {
-        $user = $this->CreateUser($type);
-        $category = $user->categories()->create([
-            'name' => $this->faker->name
-        ]);
-
-        return $category;
+        $res = $this->CreateUser($type);
+        return Category::factory()->create(['user_id' => $res[0]->id]);
     }
 
     /** @test */
-    public function update_category()
+    public function update_categories()
     {
         $category = $this->storeCategory();
 
-        $this->patch(route('category.update',$category->slug),[
-            'name' => $this->name
+        $this->patch(route('category.update', $category->slug), [
+            'name' => [
+                'en' => "test",
+                'fa' => "تست"
+            ]
         ]);
 
         $this->assertDatabaseHas('categories',
-            ['name' => $this->name]
-            );
-    }
-
-    /** @test */
-    public function handle_length_name_in_update_category()
-    {
-        $name = 'te';
-        $category = $this->storeCategory();
-
-        $this->patch(route('category.update',$category->slug),[
-            'name' => $name
-        ]);
-
-        $this->assertDatabaseMissing('categories',
-            ['name' => $name]
-        );
-    }
-
-    /** @test */
-    public function check_update_slug_in_update_category()
-    {
-        $category = $this->storeCategory();
-
-        $this->patch(route('category.update',$category->slug),[
-            'name' => $this->name
-        ]);
-
-        $this->assertDatabaseHas('categories',
-            ['slug' => Str::slug($this->name)]
+            ['slug' => 'test']
         );
     }
 
     /** @test */
     public function user_can_not_update_category()
     {
-        $category = $this->storeCategory('user');
+        $category = $this->storeCategory('writer');
 
-        $this->patch(route('category.update',$category->slug),[
-            'name' => $this->name
-        ])->assertForbidden();
+        $this->patch(route('category.update', $category->slug), [
+            'name' => [
+                'en' => "test",
+                'fa' => "تست"
+            ]])->assertForbidden();
     }
 
     /** @test */
@@ -80,12 +54,15 @@ class UpdateTest extends TestCase
     {
         $category = $this->storeCategory('super');
 
-        $this->patch(route('category.update',$category->slug),[
-            'name' => $this->name
+        $this->patch(route('category.update', $category->slug), [
+            'name' => [
+                'en' => "test",
+                'fa' => "تست"
+            ]
         ]);
 
         $this->assertDatabaseHas('categories',
-            ['name' => $this->name]
+            ['slug' => 'test']
         );
     }
 }

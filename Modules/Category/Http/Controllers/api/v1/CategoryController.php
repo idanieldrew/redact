@@ -56,11 +56,10 @@ class CategoryController extends Controller implements ResponseGenerator
     /**
      * Display the specified resource.
      *
-     * @param $lang
      * @param Category $category
      * @return JsonResponse
      */
-    public function show($lang, Category $category)
+    public function show(Category $category)
     {
         return $this->res('success', Response::HTTP_OK, null, new CategoryResource($category));
     }

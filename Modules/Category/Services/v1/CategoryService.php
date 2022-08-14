@@ -48,7 +48,10 @@ class CategoryService extends Service
         }
 
         return $category->update([
-            'name' => $request->name
+            'name' => [
+                'en' => $request->name['en'],
+                'fa' => $request->name['fa']
+            ],
         ]);
     }
 }
