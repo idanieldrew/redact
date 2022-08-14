@@ -20,12 +20,12 @@ class StoreTest extends TestCase
         $this->post(route('category.store', 'en'), $category)
             ->assertCreated();
     }
-    
+
 
     /** @test */
     public function user_can_not_store_category()
     {
-        $this->CreateUser('user');
+        $this->CreateUser();
         $category = Category::factory()->raw();
 
         $this->post(route('category.store'), $category)

@@ -2,14 +2,14 @@
 
 namespace Module\User\tests\Feature\CrudUser\Auth;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\WithoutEvents;
 use Tests\TestCase;
 
 class LoginTest extends TestCase
 {
-    use RefreshDatabase, WithFaker, WithoutEvents;
+    use DatabaseMigrations, WithFaker, WithoutEvents;
 
     public function register()
     {
