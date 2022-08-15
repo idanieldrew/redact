@@ -5,9 +5,10 @@ namespace App\Providers;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
+use Module\Category\Events\NewCategory;
+use Module\Category\Listeners\ReportCategoryPublishedAdmin;
 use Module\Post\Events\PostPublish;
-use Module\Post\Listeners\SendNotificationAdmin;
+use Module\Post\Listeners\ReportPostPublishedAdmin;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -21,7 +22,10 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
         PostPublish::class => [
-            SendNotificationAdmin::class,
+            ReportPostPublishedAdmin::class,
         ],
+        NewCategory::class => [
+            ReportCategoryPublishedAdmin::class,
+        ]
     ];
 }

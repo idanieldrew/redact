@@ -5,6 +5,7 @@ namespace Module\Category\Http\Controllers\api\v1;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
+use Module\Category\Events\NewCategory;
 use Module\Category\Http\Requests\v1\StoreRequest;
 use Module\Category\Http\Requests\v1\UpdateRequest;
 use Module\Category\Http\Resources\v1\CategoryCollection;
@@ -44,11 +45,16 @@ class CategoryController extends Controller implements ResponseGenerator
      * Store a newly created resource in storage.
      *
      * @param \Module\Category\Http\Requests\v1\StoreRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return string
      */
     public function store(StoreRequest $request)
     {
-        $category = $this->service()->store($request);
+        try {
+            $category = $this->service()->store($request);
+        } catch (\Exception $ex) {
+            return $ex->getMessage();
+        }
+        NewCategory::dispatch($category->slug);
 
         return $this->res('success', Response::HTTP_CREATED, "Successfully create category", $category);
     }

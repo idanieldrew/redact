@@ -34,6 +34,7 @@ class CategoryServiceProvider extends ServiceProvider
             ->namespace($this->namespace)
             ->group(__DIR__ . '/../Routes/category_route.php');
 
+        $this->loadViewsFrom(__DIR__ . '/../Resources/Views/Category','category');
         // Observer Category
         Category::observe(CategoryObserver::class);
     }
