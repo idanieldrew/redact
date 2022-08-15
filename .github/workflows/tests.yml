@@ -20,13 +20,23 @@ jobs:
           --health-retries=3
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Laravel Setup
-        run: |
-          cp .env.example .env
-          composer install
-          php artisan key:generate
-          chmod -R 777 storage bootstrap/cache
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
+          coverage: none
+
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-interaction
+
+      - name: Copy environment file
+        run: cp .env.example .env
+
+      - name: Generate app key
+        run: php artisan key:generate
       - name: Execute tests (Unit and Feature tests) via PHPUnit
         env:
           DB_CONNECTION: mysql
