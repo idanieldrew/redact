@@ -36,8 +36,8 @@ class CategoryService extends Service
 
     /**
      * Update category
-     * @param string $category
-     * @param \Module\User\Http\Requests\v1\UserRequest; $request
+     * @param $category
+     * @param $request
      * @return null
      */
     public function update($category, $request)

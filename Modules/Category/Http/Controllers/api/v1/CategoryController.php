@@ -45,15 +45,12 @@ class CategoryController extends Controller implements ResponseGenerator
      * Store a newly created resource in storage.
      *
      * @param \Module\Category\Http\Requests\v1\StoreRequest $request
-     * @return string
+     * @return JsonResponse
      */
     public function store(StoreRequest $request)
     {
-        try {
-            $category = $this->service()->store($request);
-        } catch (\Exception $ex) {
-            return $ex->getMessage();
-        }
+        $category = $this->service()->store($request);
+
         NewCategory::dispatch($category->slug);
 
         return $this->res('success', Response::HTTP_CREATED, "Successfully create category", $category);
