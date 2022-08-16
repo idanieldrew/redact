@@ -50,7 +50,7 @@ trait HasRole
     }
 
     /**
-     * Relation with user model
+     * Relation with permission model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */

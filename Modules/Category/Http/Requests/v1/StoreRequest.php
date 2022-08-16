@@ -3,6 +3,7 @@
 namespace Module\Category\Http\Requests\v1;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreRequest extends FormRequest
 {
@@ -24,7 +25,7 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|array|unique:categories'
+            'name' => 'array:en,fa',
         ];
     }
 }

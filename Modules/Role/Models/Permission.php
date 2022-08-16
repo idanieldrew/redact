@@ -5,6 +5,7 @@ namespace Module\Role\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Module\Role\Traits\HasRole;
+use Module\User\Models\User;
 
 class Permission extends Model
 {
@@ -23,4 +24,9 @@ class Permission extends Model
     {
         return $query->where('name', $name);
     }
+
+    /*public function users()
+    {
+        return $this->hasManyThrough(User::class, Role::class);
+    }*/
 }

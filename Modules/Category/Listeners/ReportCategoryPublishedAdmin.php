@@ -31,12 +31,11 @@ class ReportCategoryPublishedAdmin
      */
     public function handle(NewCategory $event)
     {
-        echo 444;
-        /*$mail = new CategoryPublishedPermission($event->getSlug());
+        $mail = new CategoryPublishedPermission($event->getSlug());
         $repo = resolve(UserRepository::class);
 
         foreach ($repo->admins() as $admin) {
             Mail::to($admin->email)->send($mail);
-        }*/
+        }
     }
 }

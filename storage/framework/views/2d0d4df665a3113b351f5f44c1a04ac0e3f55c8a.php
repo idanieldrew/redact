@@ -1,5 +1,5 @@
 dear admin
-<a href="<?php echo e(env('APP_URL') . "/api/categories/${slug}"); ?>">
+<a href="<?php echo e(env('APP_URL') . "/api/category/${slug}"); ?>">
     <?php echo e($slug); ?>
 
 </a>

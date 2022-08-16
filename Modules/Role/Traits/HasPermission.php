@@ -6,6 +6,12 @@ use Module\Role\Models\Permission;
 
 trait HasPermission
 {
+    /**
+     * Give permission to role
+     *
+     * @param ...$permissions
+     * @return void
+     */
     public function givePermissionTo(...$permissions)
     {
         foreach ($permissions as $permission) {
@@ -21,6 +27,11 @@ trait HasPermission
         }
     }
 
+    /**
+     * Relation with role model
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function permissions(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Permission::class, 'role_has_permissions');

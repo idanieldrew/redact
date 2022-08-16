@@ -2,7 +2,9 @@
 
 namespace Module\Post\Services\v1;
 
+use Exception;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Module\Category\Repository\v1\CategoryRepository;
 use Module\Media\Services\v1\ImageService;
@@ -12,7 +14,7 @@ use Module\Post\Http\Resources\v1\PostResource;
 use Module\Post\Models\Post;
 use Module\Post\Services\PostService as Service;
 use Module\Tag\Services\v1\TagService;
-use Module\User\Http\Requests\v1\UserRequest;
+use Throwable;
 
 class PostService extends Service
 {
@@ -20,6 +22,8 @@ class PostService extends Service
      * Create new post
      * @param $request
      * @return PostResource
+     * @throws Exception
+     * @throws Throwable
      */
     public function store($request): PostResource
     {
@@ -27,30 +31,42 @@ class PostService extends Service
             abort(Response::HTTP_FORBIDDEN);
         }
 
-        // Create post
-        $post = auth()->user()->posts()->create([
-            'title' => $title = $request->title,
-            'details' => $request->details,
-            'description' => $request->description,
-            'banner' => $this->uploadBanner($request->banner, $title)
-        ]);
+        DB::beginTransaction();
 
-        // Upload media(s)
-        if ($request->attachment) {
-            foreach ($request->attachment as $attachment) {
-                $this->uploadMedia($post, $attachment);
+        try {
+            // Create post
+            $post = auth()->user()->posts()->create([
+                'title' => $title = $request->title,
+                'details' => $request->details,
+                'description' => $request->description,
+                'banner' => $this->uploadBanner($request->banner, $title)
+            ]);
+
+            // Upload media(s)
+            if ($request->attachment) {
+                foreach ($request->attachment as $attachment) {
+                    $this->uploadMedia($post, $attachment);
+                }
             }
+
+            // Sync tag(s)
+            $this->syncTag($post, $request->tag);
+
+            // Sync post with category(s)
+            $this->syncCategory($post, $request->category);
+
+            // Report to admins
+            PostPublish::dispatch($post->slug);
+
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw $e;
+        } catch (Throwable $t) {
+            DB::rollBack();
+            throw $t;
         }
-
-        // Sync tag(s)
-        $this->syncTag($post, $request->tag);
-
-        // Sync post with category(s)
-        $this->syncCategory($post, $request->category);
-
-        // Report to admins
-        PostPublish::dispatch($post->slug);
-
+        
         return new PostResource($post->load(['media', 'categories', 'tags']));
     }
 

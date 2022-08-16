@@ -2,11 +2,8 @@
 
 namespace Module\User\Services\v2;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
-use Module\Token\Models\Token;
 use Module\User\Models\User;
 use Module\User\Services\UserService as Service;
 

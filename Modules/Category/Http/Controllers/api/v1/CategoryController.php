@@ -5,6 +5,8 @@ namespace Module\Category\Http\Controllers\api\v1;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Module\Category\Events\NewCategory;
 use Module\Category\Http\Requests\v1\StoreRequest;
 use Module\Category\Http\Requests\v1\UpdateRequest;
