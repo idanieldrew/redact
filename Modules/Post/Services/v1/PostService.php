@@ -66,7 +66,7 @@ class PostService extends Service
             DB::rollBack();
             throw $t;
         }
-        
+
         return new PostResource($post->load(['media', 'categories', 'tags']));
     }
 
