@@ -1,75 +1,79 @@
 version: '3.9'
 services:
 
-  weblog_application:
-    build:
-      context: .
-      dockerfile: docker/Dockerfile
-    image: medium
-    container_name: weblog_application
-    restart: unless-stopped
-    tty: true
-    environment:
-      SERVICE_NAME:   app
-      SERVICE_TAGS: dev
-    working_dir: /var/www/html
-    volumes:
-      - ./:/var/www/html
-    #      - ./docker/php.ini:/usr/local/etc/php/conf.d/local.ini
-    networks:
-      - weblog-network
+    weblog_application:
+        build:
+            context: .
+            dockerfile: docker/Dockerfile
+        image: medium
+        container_name: weblog_application
+        restart: unless-stopped
+        tty: true
+        environment:
+            SERVICE_NAME: app
+            SERVICE_TAGS: dev
+        working_dir: /var/www/html
+        volumes:
+            - ./:/var/www/html
+        #      - ./docker/php.ini:/usr/local/etc/php/conf.d/local.ini
+        networks:
+            - weblog-network
 
-  medium_webserver:
-    image: nginx:1.21.3
-    container_name: mdedium-web-server
-    restart: always
-    tty: true
-    ports:
-      - "80:80"
-    #      - "443:443"
-    volumes:
-      - ./:/var/www/html
-      - ./docker/default.conf:/etc/nginx/conf.d/default.conf
-    depends_on:
-      - weblog_application
-    networks:
-      - weblog-network
+    medium_webserver:
+        image: nginx:1.21.3
+        container_name: mdedium-web-server
+        restart: always
+        tty: true
+        ports:
+            - "80:80"
+        #      - "443:443"
+        volumes:
+            - ./:/var/www/html
+            - ./docker/default.conf:/etc/nginx/conf.d/default.conf
+        depends_on:
+            - weblog_application
+        networks:
+            - weblog-network
 
-  medium_database:
-    image: postgres:14.2-alpine
-    container_name: mediumdb
-    restart: unless-stopped
-    tty: true
-    ports:
-      - "54320:5432"
-    environment:
-      POSTGRES_DB: "medium"
-      POSTGRES_USER: "dani"
-      POSTGRES_PASSWORD: password
-      SERVICE_NAME: app
-      SERVICE_TAGS: dev
-    volumes:
-      - dbdata:/var/lib/postgresql/data
-    networks:
-      - weblog-network
+    medium_database:
+        image: postgres:14.2-alpine
+        container_name: mediumdb
+        restart: unless-stopped
+        tty: true
+        depends_on:
+            -   weblog_application
+        ports:
+            - "54320:5432"
+        environment:
+            POSTGRES_DB: "medium"
+            POSTGRES_USER: "dani"
+            POSTGRES_PASSWORD: password
+            SERVICE_NAME: app
+            SERVICE_TAGS: dev
+        volumes:
+            - dbdata:/var/lib/postgresql/data
+        networks:
+            - weblog-network
 
-  medium_cache:
-    image: redis:7-alpine
-    container_name: mediumredis
-    ports:
-      - 6379:6379
-    volumes:
-      - cache-data:/data
-      - ./docker/redis.conf:/redis.conf
-    networks:
-      - weblog-network
+    medium_cache:
+        image: redis:7-alpine
+        container_name: mediumredis
+        depends_on:
+            -   weblog_application
+        ports:
+            - 6379:6379
+        volumes:
+            - cache-data:/data
+            - ./docker/redis.conf:/redis.conf
+        networks:
+            - weblog-network
 
 networks:
-  weblog-network:
-    driver: bridge
+    weblog-network:
+        driver: bridge
 
 volumes:
-  dbdata:
-    driver: local
-  cache-data:
-    driver: local
+    dbdata:
+        driver: local
+    cache-data:
+        driver: local

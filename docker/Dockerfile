@@ -46,6 +46,4 @@ COPY --chown=www:www . /var/www/html
 # Change cuurent usert to www
 USER www
 
-#EXPOSE 9000
-
 CMD ["php-fpm"]
