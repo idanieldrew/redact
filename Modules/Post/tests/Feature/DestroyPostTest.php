@@ -29,6 +29,7 @@ class DestroyPostTest extends TestCase
         $this->CreateUser('writer','test2@test.com');
 
         $this->delete(route('post.destroy', Str::slug($res[0])))
+
             ->assertForbidden();
     }
 }
