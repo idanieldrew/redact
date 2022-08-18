@@ -2,7 +2,9 @@
 
 namespace Module\Role\Traits;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Module\Role\Models\Role;
+use Module\User\Models\User;
 
 trait HasRole
 {
@@ -11,11 +13,11 @@ trait HasRole
     /**
      * Relation with user model
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsTo
      */
-    public function roles(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function role()
     {
-        return $this->belongsToMany(Role::class, 'user_has_roles');
+        return $this->belongsTo(Role::class);
     }
 
     /**
@@ -27,9 +29,11 @@ trait HasRole
     public function hasRole($role): bool
     {
         if (is_string($role)) {
-            return $this->roles->contains('name', $role);
+            return $this->role->contains('name', $role);
         } elseif (is_null($role)) {
             return false;
+        } elseif (is_int($role)) {
+            return (bool)Role::whereId($role)->first();
         }
 
         return !!$role->intersect($this->roles)->count();
@@ -45,8 +49,10 @@ trait HasRole
     {
         $role = Role::where('name', $role)->first();
 
-        $this->roles()->sync($role);
-        $this->getModel()->load('roles');
+        $user = User::find($this->getKey());
+        $user->update([
+            'role_id' => $role->id
+        ]);
     }
 
     /**

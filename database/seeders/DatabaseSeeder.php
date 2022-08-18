@@ -21,9 +21,9 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(RoleTableSeeder::class);
-        User::factory(4)->create()->each(function ($user) {
+
+        User::factory(['role_id' => 1])->create();
 //            $user->categories()->save(Category::factory()->make());
-        });
 
         /* $user->categories()->save(Category::factory()->make())->each(function ($category) use ($user) {
          $category->posts()->save(Post::factory()->make(['user_id' => $user->id]))->each(function ($post) {

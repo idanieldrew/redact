@@ -2,21 +2,21 @@
 
 namespace Module\User\tests\Feature\CrudUser\Auth;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithoutEvents;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
 class RegisterTest extends TestCase
 {
-    use RefreshDatabase, WithoutEvents;
+    use DatabaseMigrations;
 
     /** @test */
     public function register_a_user()
     {
-        $this->WithoutEvents();
+        $this->CreateUser();
+
         $data = [
             'name' => 'test',
-            'email' => 'test@test.com',
+            'email' => 'test2@test.com',
             'phone' => "09121234567",
             'password' => 'password'
         ];
@@ -29,6 +29,8 @@ class RegisterTest extends TestCase
     /** @test */
     public function handle_length_name_when_register_user()
     {
+        $this->CreateUser();
+
         $data = [
             'name' => 't',
             'email' => 'test@test.com',
@@ -43,6 +45,8 @@ class RegisterTest extends TestCase
     /** @test */
     public function handle_string_name_when_register_user()
     {
+        $this->CreateUser();
+
         $data = [
             'name' => 123,
             'email' => 'test@test.com',
@@ -57,6 +61,8 @@ class RegisterTest extends TestCase
     /** @test */
     public function unique_email_when_register_user()
     {
+        $this->CreateUser();
+
         $data = [
             'name' => 'test',
             'email' => 'test@test.com',
@@ -79,6 +85,8 @@ class RegisterTest extends TestCase
     /** @test */
     public function handle_length_password_when_register_user()
     {
+        $this->CreateUser();
+
         $data = [
             'name' => 'test',
             'email' => 'test@test.com',

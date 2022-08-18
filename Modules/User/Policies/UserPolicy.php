@@ -18,9 +18,7 @@ class UserPolicy
      */
     public function viewAny(User $user): bool
     {
-        $permission = Permission::where('name', 'view-users')->first();
-
-        return $user->hasRole($permission->role_permissions);
+        return $user->role->permissions->contains('name', 'view-users');
     }
 
     /**
@@ -45,7 +43,7 @@ class UserPolicy
     public function update(User $user, int $model): bool
     {
         if (request()->has('role')) {
-            return $user->roles->contains('name', 'admin');
+            return $user->role->name == 'admin';
         }
 
         return $user->id === $model;

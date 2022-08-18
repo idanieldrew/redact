@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Event;
 use Module\Category\Events\NewCategory;
 use Module\Category\Models\Category;
+use Module\User\Models\User;
 use Tests\TestCase;
 
 class StoreTest extends TestCase
@@ -17,6 +18,7 @@ class StoreTest extends TestCase
     public function admin_can_store_category()
     {
         $this->CreateUser('admin');
+
         $category = Category::factory()->raw();
 
         $this->post(route('category.store'), $category)

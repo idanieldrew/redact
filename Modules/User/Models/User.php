@@ -12,17 +12,12 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Module\Category\Models\Category;
 use Module\Post\Models\Post;
+use Module\Role\Models\Permission;
+use Module\Role\Models\Role;
 use Module\Role\Traits\HasRole;
 use Module\Token\Models\Token;
 use Module\User\Database\Factories\UserFactory;
 
-/**
- * @property Carbon $created_at
- * @property string $name
- * @property string $email
- * @property string $phone
- * @property int $type
- */
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes, HasRole;

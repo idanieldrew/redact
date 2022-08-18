@@ -26,7 +26,7 @@ class DestroyPostTest extends TestCase
     public function user_can_not_destroy_post()
     {
         $res = $this->storePost();
-        $this->CreateUser();
+        $this->CreateUser('writer','test2@test.com');
 
         $this->delete(route('post.destroy', Str::slug($res[0])))
             ->assertForbidden();

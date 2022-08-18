@@ -15,9 +15,6 @@ class ReadTest extends TestCase
     {
         $res = $this->CreateUser('super');
 
-        // Verified email
-        $this->assertNotNull($res[0]->email_verified_at);
-
         $this->assertDatabaseHas('users', ['name' => $res[0]->name]);
 
         $this->get(route('user.index'))->assertSee($res[0]->email);
@@ -27,8 +24,6 @@ class ReadTest extends TestCase
     public function admin_can_see_all_users()
     {
         $res = $this->CreateUser('admin');
-        // Verify email
-        $this->assertNotNull($res[0]->email_verified_at);
 
         $this->assertDatabaseHas('users', ['name' => $res[0]->name]);
 

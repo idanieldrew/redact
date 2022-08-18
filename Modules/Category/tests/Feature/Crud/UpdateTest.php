@@ -23,7 +23,6 @@ class UpdateTest extends TestCase
     /** @test */
     public function update_categories()
     {
-        $this->withoutExceptionHandling();
         $category = $this->storeCategory();
 
         $this->patch(route('category.update', $category->slug), [

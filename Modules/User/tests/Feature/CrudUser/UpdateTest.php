@@ -2,13 +2,13 @@
 
 namespace Module\User\tests\Feature\CrudUser;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Module\User\Models\User;
 use Tests\TestCase;
 
 class UpdateTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseMigrations;
 
     /** @test */
     public function super_can_update_user()
@@ -66,6 +66,7 @@ class UpdateTest extends TestCase
     /** @test */
     public function admin_can_update_user_role()
     {
+        $this->withoutExceptionHandling();
         $res = $this->CreateUser('admin');
         $user = User::factory()->create();
 
@@ -74,8 +75,7 @@ class UpdateTest extends TestCase
             ['role' => 'admin'])
             ->assertOk();
 
-        $this->assertDatabaseHas('user_has_roles', [
-            'user_id' => $res[0]->id,
+        $this->assertDatabaseHas('users', [
             'role_id' => $res[1]
         ]);
     }

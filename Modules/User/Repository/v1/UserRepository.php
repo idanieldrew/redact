@@ -64,7 +64,7 @@ class UserRepository extends Repository
     public function admins()
     {
         return Cache::remember('users.admins', self::TIME, function () {
-            return User::query()->whereHas('roles', function (Builder $builder) {
+            return User::query()->whereHas('role', function (Builder $builder) {
                 $builder->where('name', 'admin')->orWhere('name', 'super');
             })->get(['email']);
         });

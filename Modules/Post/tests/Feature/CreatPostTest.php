@@ -129,7 +129,7 @@ class CreatPostTest extends TestCase
             PostPublish::class
         ]);
 
-        $this->CreateUser();
+        $this->CreateUser('writer','test2@test.com');
 
         $this->storePost();
 

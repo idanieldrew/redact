@@ -32,9 +32,7 @@ class PostPolicy
      */
     public function create(User $user)
     {
-        $permission = Permission::getName('create-post')->firstOrFail();
-
-        return $user->hasRole($permission->role_permissions);
+        return $user->role->permissions->contains('name', 'create-post');
     }
 
     /**

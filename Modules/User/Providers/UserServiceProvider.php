@@ -11,6 +11,8 @@ use Module\User\Policies\UserPolicy;
 
 class UserServiceProvider extends ServiceProvider
 {
+    private const SUPER = 'super';
+
     private $namespace = 'Module\User\Http\Controllers';
 
     protected $policies = [
@@ -27,11 +29,12 @@ class UserServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public
+    function boot()
     {
         // super user
         Gate::before(function ($user) {
-            if ($user->hasRole('super')) {
+            if ($user->role->name === static::SUPER) {
                 return true;
             }
         });

@@ -30,9 +30,7 @@ class CategoryPolicy
      */
     public function createOrUpdate(User $user)
     {
-        $permission = Permission::getName('create-category')->firstOrFail();
-
-        return $user->hasRole($permission->role_permissions);
+        return $user->role->permissions->contains('name', 'create-category');
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace Module\User\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Module\User\Models\User;
 
@@ -23,11 +24,11 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->firstName,
+            'name' => $this->faker->firstName(),
             'email' => $this->faker->unique()->safeEmail(),
             'phone' => $this->faker->phoneNumber(),
             'email_verified_at' => now(),
-            'password' => bcrypt("password"),
+            'password' => Hash::make('password'),
             'remember_token' => Str::random(10),
         ];
     }

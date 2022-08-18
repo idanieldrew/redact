@@ -3,6 +3,7 @@
 namespace Module\Role\Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 use Module\Role\Models\Permission;
 use Module\Role\Models\Role;
 use Module\User\Models\User;
@@ -40,7 +41,14 @@ class RoleTableSeeder extends Seeder
         $role3 = Role::create(['name' => 'super']);
         $role3->givePermissionTo($p1, $p2, $p3, $p5, $p6, $p7, $p8);
 
-        $super = User::factory(['name' => 'super'])->create();
-        $super->assignRole($role3->name);
+        $role3->users()->create([
+            'name' => 'super',
+            'email' => 'super@super.com',
+            'password' => Hash::make('password'),
+            'phone' => '09121234567'
+        ]);
+
+        /*$super = User::factory(['name' => 'super'])->create();
+        $super->assignRole($role3->name);*/
     }
 }

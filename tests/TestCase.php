@@ -23,7 +23,7 @@ abstract class TestCase extends BaseTestCase
         $this->withHeader('X-localization', 'en');
     }
 
-    public function CreateUser($type = 'writer'): array
+    public function CreateUser($type = 'writer', $email = 'test@test.com'): array
     {
         // Create role
         $this->createRole();
@@ -31,12 +31,13 @@ abstract class TestCase extends BaseTestCase
         $role = Role::query()->where('name', $type)->firstOrFail();
 
         // Create new user with type admin
-        $user = User::factory()->create();
+        $user = User::factory(['email' => $email])->raw();
 
-        $user->assignRole($type);
+        $user = $role->users()->create($user);
+
+//        $user->assignRole($type);
         // actingAs
         Sanctum::actingAs($user);
-
         return [$user, $role->id];
     }
 
@@ -59,8 +60,6 @@ abstract class TestCase extends BaseTestCase
     {
         $img = 'banner.png';
         $extension = '.png';
-
-        $this->WithoutEvents();
 
         //Create user and category
         $this->CreateUser($role);

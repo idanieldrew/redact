@@ -38,7 +38,7 @@ class UserService extends Service
 
     /**
      * try to login
-     * @param \Module\User\Http\Requests\v2\RegisterRequest $request
+     * @param $request
      * @return null
      */
     public function login($request): array
@@ -46,7 +46,7 @@ class UserService extends Service
         $user = User::whereEmail($request->email)->first();
 
         // Check exist user
-        if (!$user || Hash::check($request->password, $user->password)) {
+        if (!$user || !Hash::check($request->password, $user->password)) {
             return $this->response(
                 'error',
                 Response::HTTP_UNAUTHORIZED,
