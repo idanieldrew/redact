@@ -13,6 +13,18 @@ class Role extends Model
 
     protected $guarded = [];
 
+    /**
+     * Scope a query to first permission of a given name.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string $name
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeGetName($query, $name)
+    {
+        return $query->where('name', $name);
+    }
+
     public function users()
     {
         return $this->hasMany(User::class);

@@ -15,9 +15,8 @@ class UserObserver
      */
     public function creating(User $user)
     {
-//        echo (bool)$user->role;
-        if (!$user->hasRole($user->role_id)) {
-            $role = Role::where('name', 'writer')->first();
+        if ($user->role == null) {
+            $role = Role::getName('writer')->first();
             $user->role_id = $role->id;
         } else {
             return;
