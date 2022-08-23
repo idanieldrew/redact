@@ -21,7 +21,7 @@ services:
 
     medium_webserver:
         image: nginx:1.21.3
-        container_name: mdedium-web-server
+        container_name: medium-web-server
         restart: always
         tty: true
         ports:
@@ -47,7 +47,7 @@ services:
         environment:
             POSTGRES_DB: "medium"
             POSTGRES_USER: "dani"
-            POSTGRES_PASSWORD: password
+            POSTGRES_PASSWORD: "password"
             SERVICE_NAME: app
             SERVICE_TAGS: dev
         volumes:
@@ -61,7 +61,7 @@ services:
         depends_on:
             -   weblog_application
         ports:
-            - 6379:6379
+            - "6379:6379"
         volumes:
             - cache-data:/data
             - ./docker/redis.conf:/redis.conf

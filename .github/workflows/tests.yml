@@ -33,7 +33,7 @@ jobs:
         run: composer install --prefer-dist --no-interaction
 
       - name: Copy environment file
-        run: cp .env.example .env
+        run: cp .env.example.ci .env
 
       - name: Generate app key
         run: php artisan key:generate

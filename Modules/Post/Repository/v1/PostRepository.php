@@ -3,8 +3,12 @@
 namespace Module\Post\Repository\v1;
 
 use Illuminate\Http\Response;
+use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Gate;
+use Module\Post\Filters\BlueTick;
+use Module\Post\Filters\FilterPost;
+use Module\Post\Filters\Published;
 use Module\Post\Http\Resources\v1\PostCollection;
 use Module\Post\Http\Resources\v1\PostResource;
 use Module\Post\Models\Post;
@@ -47,10 +51,15 @@ class PostRepository extends Repository
      */
     public function search(string $keyword): object
     {
-        return Post::query()
-            ->where('title', 'LIKE', "%" . $keyword . "%")
-            ->orWhere('slug', 'LIKE', "%" . $keyword . "%")
-            ->paginate();
+        return app(Pipeline::class)
+            ->send($this->model())
+            ->through([
+                Published::class,
+                BlueTick::class,
+                FilterPost::class
+            ])
+            ->thenReturn()
+            ->cursor();
     }
 
     /**

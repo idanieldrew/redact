@@ -5,6 +5,7 @@ namespace Module\Post\tests\Feature;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Str;
+use Module\Post\Models\Post;
 use Tests\TestCase;
 
 class ReadPostTest extends TestCase
@@ -34,7 +35,10 @@ class ReadPostTest extends TestCase
     {
         $this->storePost('writer', false, 1, 'test title');
 
-        $this->getJson(route('post.search') . '? keyword=test')
+        $this->getJson(route('post.search', [
+            'blue_tick' => false,
+            'keyword' => 'test'
+        ]))
             ->assertOk()
             ->assertJsonFragment(['title' => 'test title']);
     }

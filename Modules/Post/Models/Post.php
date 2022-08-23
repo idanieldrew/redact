@@ -17,7 +17,7 @@ class Post extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['title', 'details', 'description', 'banner', 'user_id'];
+    protected $fillable = ['title', 'details', 'description', 'banner', 'user_id', 'blue_tick'];
 
     /**
      * The attributes that should be cast.
