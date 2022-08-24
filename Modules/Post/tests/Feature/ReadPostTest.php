@@ -22,12 +22,24 @@ class ReadPostTest extends TestCase
     }
 
     /** @test */
-    public function read_post()
+    public function reading_post()
     {
+        $this->withoutExceptionHandling();
         $this->storePost('writer', false, 1, 'test title');
 
         $this->get(route('post.show', Str::slug('test title')))
             ->assertOk();
+    }
+
+    /** @test */
+    public function read_post_with_short_link()
+    {
+        $this->storePost('writer', false, 1, 'test title');
+
+        $post = Post::where('title', 'test title')->first();
+
+        $this->get(route('post.short_link', $post->short_link))
+            ->assertRedirect(route('post.show', $post->slug));
     }
 
     /** @test */

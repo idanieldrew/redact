@@ -18,7 +18,6 @@ class CreatPostTest extends TestCase
     /** @test */
     public function store_post_without_attachments()
     {
-        $this->withoutExceptionHandling();
         $res = $this->storePost();
 
         Storage::disk('local')->assertExists('public/' . Str::slug($res[0]) . $res[1]);
@@ -109,7 +108,7 @@ class CreatPostTest extends TestCase
 
         // Store posts when title is equals
         $this->post(route('post.store'), [
-            'banner' => UploadedFile::fake()->image("test.pdf"),
+            'banner' => UploadedFile::fake()->image("test.gif"),
         ])->assertJsonValidationErrors('banner');
     }
 

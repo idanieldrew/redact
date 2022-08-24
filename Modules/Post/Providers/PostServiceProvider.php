@@ -32,6 +32,12 @@ class PostServiceProvider extends ServiceProvider
             ->namespace($this->namespace)
             ->group(__DIR__ . '/../Routes/post_route.php');
 
+        // Routes
+        Route::prefix('api')
+            ->middleware(['api', 'lang'])
+            ->namespace($this->namespace)
+            ->group(__DIR__ . '/../Routes/single_route_post.php');
+
         // View
         $this->loadViewsFrom(__DIR__ . "/../Resources/views/Post", "post");
 
