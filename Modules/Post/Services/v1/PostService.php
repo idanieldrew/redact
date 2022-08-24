@@ -6,12 +6,14 @@ use Exception;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Str;
 use Module\Category\Repository\v1\CategoryRepository;
 use Module\Media\Services\v1\ImageService;
 use Module\Media\Services\v1\MediaService;
 use Module\Post\Events\PostPublish;
 use Module\Post\Http\Resources\v1\PostResource;
 use Module\Post\Models\Post;
+use Module\Post\Repository\v1\PostRepository;
 use Module\Post\Services\PostService as Service;
 use Module\Tag\Services\v1\TagService;
 use Throwable;
@@ -146,6 +148,21 @@ class PostService extends Service
         $categoryRepository = resolve(CategoryRepository::class);
         $categories = $categoryRepository->getCategories($category);
         $post->categories()->syncWithPivotValues($categories, []);
+    }
+
+    /**
+     * Generate unique link
+     *
+     * @return string
+     */
+    public function generateLink()
+    {
+        $link = Str::random(5);
+
+        if ((new PostRepository)->checkUniqueShortLink($link)) {
+            $this->generateLink();
+        }
+        return $link;
     }
 }
 

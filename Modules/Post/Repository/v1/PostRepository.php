@@ -2,6 +2,8 @@
 
 namespace Module\Post\Repository\v1;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Response;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Cache;
@@ -75,5 +77,16 @@ class PostRepository extends Repository
         }
 
         return $post->delete();
+    }
+
+    /**
+     * Generate short link
+     *
+     * @param string $link
+     * @return Builder|Model|object|null
+     */
+    public function checkUniqueShortLink($link)
+    {
+        return $this->model()->where('short_link', $link)->first();
     }
 }

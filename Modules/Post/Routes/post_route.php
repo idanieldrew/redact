@@ -13,6 +13,7 @@ Route::get('/', [PostController::class, 'index'])->name('post.index');
 Route::get('search', [PostController::class, 'search'])->name('post.search');
 // Post
 Route::get('{post:slug}', [PostController::class, 'show'])->name('post.show');
+Route::get('{code}', [PostController::class, 'short_link'])->name('post.show');
 
 Route::middleware(['auth:sanctum'])->group(function () {
     // Store post

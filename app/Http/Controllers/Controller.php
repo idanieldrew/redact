@@ -12,9 +12,4 @@ use Illuminate\Support\Facades\App;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-
-    public function __construct(Request $request)
-    {
-        App::setLocale($request->route('lang'));
-    }
 }

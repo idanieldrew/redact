@@ -20,7 +20,7 @@ class UserService extends Service
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
-            'password' => bcrypt($request->email)
+            'password' => Hash::make($request->password)
         ]);
 
         $token = $user->createToken('token')->plainTextToken;

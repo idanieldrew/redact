@@ -18,6 +18,7 @@ class CreatPostTest extends TestCase
     /** @test */
     public function store_post_without_attachments()
     {
+        $this->withoutExceptionHandling();
         $res = $this->storePost();
 
         Storage::disk('local')->assertExists('public/' . Str::slug($res[0]) . $res[1]);

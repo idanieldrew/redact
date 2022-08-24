@@ -24,7 +24,7 @@ class AuthController extends Controller implements ResponseGenerator
     /**
      * Register user
      * @param \Module\User\Http\Requests\v2\RegisterRequest $request
-     * @return \Illuminate\Http\JsonResponse $this->response($status,$message,$data)
+     * @return \Illuminate\Http\JsonResponse
      */
     public function register(RegisterRequest $request)
     {

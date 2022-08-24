@@ -107,7 +107,15 @@ class PostController extends Controller implements ResponseGenerator
         return $this->res('success', Response::HTTP_OK, null, new PostCollection($response));
     }
 
-    // manage response
+    /**
+     *
+     */
+    protected function short_link($link)
+    {
+        $post = $this->repo()->checkUniqueShortLink($link);
+        return redirect()->route('post.show', $post->slug);
+    }
+
     public function res($status, $code, $message, $data = null)
     {
         return response()->json([
