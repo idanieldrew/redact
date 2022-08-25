@@ -3,6 +3,7 @@
 namespace Module\User\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 use Module\Share\Contracts\Response\ResponseGenerator;
@@ -32,9 +33,13 @@ class UserController extends Controller implements ResponseGenerator
      * Display a listing of the resource.
      *
      * @return \Module\User\Http\Resources\v1\UserCollection
+     * @throws AuthorizationException
      */
     public function index(): UserCollection
     {
+        // Check permissions
+        $this->authorize('viewAny', User::class);
+
         $users = $this->repo()->paginate();
 
         return new UserCollection($users);
@@ -45,10 +50,12 @@ class UserController extends Controller implements ResponseGenerator
      *
      * @param User $user
      * @return UserResource
+     * @throws AuthorizationException
      */
     public function show(User $user): UserResource
     {
-        $user = $this->repo()->show($user);
+        // Check permissions
+        $this->authorize('view', [User::class, $user->id]);
 
         return new UserResource($user);
     }
@@ -59,9 +66,13 @@ class UserController extends Controller implements ResponseGenerator
      * @param int $user
      * @param UpdateRequest $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws AuthorizationException
      */
     public function update(int $user, UpdateRequest $request): \Illuminate\Http\JsonResponse
     {
+        // Check permissions
+        $this->authorize('update', [User::class, $user]);
+
         $this->service()->update($user, $request);
 
         return $this->res('success', Response::HTTP_OK, 'Successfully update user');
@@ -72,9 +83,13 @@ class UserController extends Controller implements ResponseGenerator
      *
      * @param \Module\User\Models\User $user
      * @return \Illuminate\Http\JsonResponse
+     * @throws AuthorizationException
      */
     public function destroy(User $user)
     {
+        // Check permissions
+        $this->authorize('delete', [User::class, $user]);
+
         $this->repo()->destroy($user);
 
         return $this->res('success', Response::HTTP_OK, 'Successfully delete user', null);

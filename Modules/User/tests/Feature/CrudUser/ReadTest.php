@@ -41,4 +41,36 @@ class ReadTest extends TestCase
         $this->get(route('user.index'))
             ->assertForbidden();
     }
+
+    /** @test */
+    public function super_can_see_one_user()
+    {
+        $this->withoutExceptionHandling();
+        $this->CreateUser('super');
+        $user = User::factory()->create();
+
+        $this->get(route('user.show', $user->id))
+            ->assertOk();
+    }
+
+    /** @test */
+    public function admin_can_not_see_one_user()
+    {
+        $this->CreateUser('admin');
+        $user = User::factory()->create();
+
+        $this->get(route('user.show', $user->id))
+            ->assertForbidden();
+    }
+
+    /** @test */
+    public function user_can_see_our_information()
+    {
+        $this->CreateUser('admin', 'email@email.com');
+
+        $user = User::whereEmail('email@email.com')->first(['id']);
+
+        $this->get(route('user.show', $user->id))
+            ->assertOk();
+    }
 }

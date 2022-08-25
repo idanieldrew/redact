@@ -20,25 +20,7 @@ class UserRepository extends Repository
      */
     public function paginate(int $number = 10): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
-        if (Gate::denies('viewAny', User::class)) {
-            abort(403);
-        }
-
         return $this->model()->withTrashed()->paginate($number);
-    }
-
-    /**
-     * Show User model
-     * @param int $id
-     * @return array|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|User
-     */
-    public function show(int $id)
-    {
-        if (Gate::denies('view', [User::class, $id])) {
-            abort(403);
-        }
-
-        return $this->model()->findOrFail($id);
     }
 
     /**
@@ -49,10 +31,6 @@ class UserRepository extends Repository
      */
     public function destroy(User $user): bool
     {
-        if (Gate::denies('delete', [User::class, $user])) {
-            abort(Response::HTTP_FORBIDDEN);
-        }
-
         return $user->delete();
     }
 
