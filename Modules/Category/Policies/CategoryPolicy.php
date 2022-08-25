@@ -12,17 +12,6 @@ class CategoryPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view the model.
-     *
-     * @param \App\Models\User $user
-     * @param \App\Models\Categories $categories
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function view(User $user, Category $categories)
-    {
-    }
-
-    /**
      * Determine whether the user can create models.
      *
      * @param \Module\User\Models\User $user
@@ -44,25 +33,4 @@ class CategoryPolicy
     {
     }
 
-    /**
-     * Determine whether the user can restore the model.
-     *
-     * @param \App\Models\User $user
-     * @param \App\Models\Categories $categories
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function restore(User $user, Categories $categories)
-    {
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     *
-     * @param \App\Models\User $user
-     * @param \App\Models\Categories $categories
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function forceDelete(User $user, Categories $categories)
-    {
-    }
 }

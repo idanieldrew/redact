@@ -3,11 +3,9 @@
 namespace Module\Category\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
-use Module\Category\Events\NewCategory;
 use Module\Category\Http\Requests\v1\StoreRequest;
 use Module\Category\Http\Requests\v1\UpdateRequest;
 use Module\Category\Http\Resources\v1\CategoryCollection;
@@ -48,12 +46,14 @@ class CategoryController extends Controller implements ResponseGenerator
      *
      * @param \Module\Category\Http\Requests\v1\StoreRequest $request
      * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
-        $category = $this->service()->store($request);
+        // Check permission
+        $this->authorize('createOrUpdate', Category::class);
 
-        NewCategory::dispatch($category->slug);
+        $category = $this->service()->store($request);
 
         return $this->res('success', Response::HTTP_CREATED, "Successfully create category", $category);
     }
@@ -70,24 +70,17 @@ class CategoryController extends Controller implements ResponseGenerator
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param \App\Models\Category $category
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Category $category)
-    {
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param \Module\Category\Http\Requests\v1\UpdateRequest $request
      * @param \Module\Category\Models\Category $category
      * @return \Illuminate\Http\JsonResponse
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, Category $category)
     {
+        // Check permission
+        $this->authorize('createOrUpdate', Category::class);
         $this->service()->update($category, $request);
 
         return $this->res('success', Response::HTTP_NO_CONTENT, null, null);
