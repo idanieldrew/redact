@@ -38,7 +38,7 @@ class UpdatePostTest extends TestCase
         $res = $this->storePost();
 
         $this->patch(route('post.update', Str::slug($res[0])), ['title' => 'te'])
-            ->assertStatus(422);
+            ->assertJsonValidationErrors("title");
     }
 
     /** @test */
@@ -47,7 +47,7 @@ class UpdatePostTest extends TestCase
         $res = $this->storePost();
 
         $this->patch(route('post.update', Str::slug($res[0])), ['details' => 'test'])
-            ->assertStatus(422);
+            ->assertJsonValidationErrors("details");
     }
 
     /** @test */
@@ -56,6 +56,6 @@ class UpdatePostTest extends TestCase
         $res = $this->storePost();
 
         $this->patch(route('post.update', Str::slug($res[0])), ['description' => 'test test'])
-            ->assertStatus(422);
+            ->assertJsonValidationErrors("description");
     }
 }

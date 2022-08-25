@@ -3,6 +3,7 @@
 namespace Module\Post\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -58,10 +59,13 @@ class PostController extends Controller implements ResponseGenerator
      *
      * @param PostRequest $request
      * @return JsonResponse
-     * @throws \Throwable
+     * @throws AuthorizationException|\Throwable
      */
     public function store(PostRequest $request): JsonResponse
     {
+        // Check permissions
+        $this->authorize('create', Post::class);
+
         $post = $this->service()->store($request);
 
         return $this->res('success', ResponseAlias::HTTP_CREATED, null, new PostResource($post));
@@ -73,9 +77,13 @@ class PostController extends Controller implements ResponseGenerator
      * @param UpdateRequest $request
      * @param Post $post
      * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, Post $post)
     {
+        // Check permissions
+        $this->authorize('update', [Post::class, $post]);
+
         $this->service()->update($post, $request);
 
         return $this->res('success', Response::HTTP_NO_CONTENT, null);
@@ -86,9 +94,13 @@ class PostController extends Controller implements ResponseGenerator
      *
      * @param Post $post
      * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function destroy(Post $post)
     {
+        // Check permissions
+        $this->authorize('delete', [Post::class, $post]);
+
         $this->repo()->destroy($post);
 
         return $this->res('success', Response::HTTP_OK, 'Successfully delete post');
@@ -111,7 +123,7 @@ class PostController extends Controller implements ResponseGenerator
     {
         $post = $this->repo()->checkUniqueShortLink($link);
 
-        return redirect()->route('post.show',$post->slug);
+        return redirect()->route('post.show', $post->slug);
     }
 
     public function res($status, $code, $message, $data = null)

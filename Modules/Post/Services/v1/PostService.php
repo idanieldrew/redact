@@ -29,10 +29,6 @@ class PostService extends Service
      */
     public function store($request): PostResource
     {
-        if (Gate::denies('create', [Post::class])) {
-            abort(Response::HTTP_FORBIDDEN);
-        }
-
         DB::beginTransaction();
 
         try {
@@ -80,11 +76,6 @@ class PostService extends Service
      */
     public function update($post, $request)
     {
-        // Just user can edit our information
-        if (Gate::denies('update', [Post::class, $post])) {
-            abort(Response::HTTP_FORBIDDEN);
-        }
-
         return $post->update($request->validated());
     }
 

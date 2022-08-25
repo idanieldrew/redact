@@ -39,7 +39,7 @@ class PostRepository extends Repository
      */
     public function show(string $post): PostResource
     {
-        return Cache::remember("post/{$post}", 900, function () use ($post) {
+        return Cache::remember("post/$post", 900, function () use ($post) {
             return new PostResource(
                 $this->model()->where('slug', $post)->with(['user', 'tags', 'media'])->firstOrFail()
             );
@@ -72,10 +72,6 @@ class PostRepository extends Repository
      */
     public function destroy(Post $post): bool
     {
-        if (Gate::denies('delete', [Post::class, $post])) {
-            abort(Response::HTTP_FORBIDDEN);
-        }
-
         return $post->delete();
     }
 
