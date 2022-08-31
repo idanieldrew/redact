@@ -1,6 +1,5 @@
 version: '3.9'
 services:
-
     weblog_application:
         build:
             context: .
