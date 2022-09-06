@@ -5,8 +5,10 @@ namespace Module\Post\Http\Controllers\api\v1;
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Module\Comment\Request\v1\CommentRequest;
 use Module\Post\Http\Requests\v1\PostRequest;
 use Module\Post\Http\Requests\v1\UpdateRequest;
 use Module\Post\Http\Resources\v1\PostCollection;
@@ -119,11 +121,28 @@ class PostController extends Controller implements ResponseGenerator
         return $this->res('success', Response::HTTP_OK, null, new PostCollection($response));
     }
 
+    /**
+     * Add short link
+     *
+     * @param $link
+     * @return RedirectResponse
+     */
     public function short_link($link)
     {
         $post = $this->repo()->checkUniqueShortLink($link);
 
         return redirect()->route('post.show', $post->slug);
+    }
+
+    /**
+     * Post $post
+     * @return JsonResponse
+     */
+    public function create_comment(Post $post, CommentRequest $request)
+    {
+        $service = $this->service()->createComment($post, $request);
+
+        return $this->res('success', ResponseAlias::HTTP_CREATED, null, $service);
     }
 
     public function res($status, $code, $message, $data = null)

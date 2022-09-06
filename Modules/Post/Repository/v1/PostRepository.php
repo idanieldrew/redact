@@ -12,7 +12,7 @@ use Module\Post\Filters\BlueTick;
 use Module\Post\Filters\FilterPost;
 use Module\Post\Filters\Published;
 use Module\Post\Http\Resources\v1\PostCollection;
-use Module\Post\Http\Resources\v1\PostResource;
+use Module\Post\Http\Resources\v1\CommentResource;
 use Module\Post\Models\Post;
 use Module\Post\Repository\PostRepository as Repository;
 
@@ -35,12 +35,12 @@ class PostRepository extends Repository
      * Display the specified resource.
      *
      * @param string $post
-     * @return PostResource
+     * @return CommentResource
      */
-    public function show(string $post): PostResource
+    public function show(string $post): CommentResource
     {
         return Cache::remember("post/$post", 900, function () use ($post) {
-            return new PostResource(
+            return new CommentResource(
                 $this->model()->where('slug', $post)->with(['user', 'tags', 'media'])->firstOrFail()
             );
         });

@@ -3,16 +3,14 @@
 namespace Module\Post\Services\v1;
 
 use Exception;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Module\Category\Repository\v1\CategoryRepository;
+use Module\Comment\Http\Resources\v1\CommentResource;
+use Module\Comment\Services\v1\CommentService;
 use Module\Media\Services\v1\ImageService;
 use Module\Media\Services\v1\MediaService;
 use Module\Post\Events\PostPublish;
-use Module\Post\Http\Resources\v1\PostResource;
-use Module\Post\Models\Post;
 use Module\Post\Repository\v1\PostRepository;
 use Module\Post\Services\PostService as Service;
 use Module\Tag\Services\v1\TagService;
@@ -23,11 +21,11 @@ class PostService extends Service
     /**
      * Create new post
      * @param $request
-     * @return PostResource
+     * @return CommentResource
      * @throws Exception
      * @throws Throwable
      */
-    public function store($request): PostResource
+    public function store($request): CommentResource
     {
         DB::beginTransaction();
 
@@ -65,7 +63,7 @@ class PostService extends Service
             throw $t;
         }
 
-        return new PostResource($post->load(['media', 'categories', 'tags']));
+        return new CommentResource($post->load(['media', 'categories', 'tags']));
     }
 
     /**
@@ -155,5 +153,19 @@ class PostService extends Service
         }
         return $link;
     }
-}
 
+    /**
+     * Create comment
+     *
+     * @param $post
+     * @param $request
+     * @return \Module\Comment\Http\Resources\v1\CommentResource
+     */
+    public function createComment($post, $request): \Module\Comment\Http\Resources\v1\CommentResource
+    {
+        $commentService = resolve(CommentService::class);
+        $comment = $commentService->store($post, $request->body);
+
+        return new CommentResource($comment);
+    }
+}
