@@ -4,7 +4,6 @@ namespace Module\Post\Policies;
 
 use Illuminate\Auth\Access\Response;
 use Module\Post\Models\Post;
-use Module\Role\Models\Permission;
 use Module\User\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 

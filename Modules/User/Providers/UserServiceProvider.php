@@ -19,11 +19,6 @@ class UserServiceProvider extends ServiceProvider
         User::class => UserPolicy::class
     ];
 
-    public function register()
-    {
-        //
-    }
-
     /**
      * Bootstrap any application services.
      *
@@ -43,7 +38,6 @@ class UserServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
 
         // Routes
-
         /** v1 */
         Route::prefix('api/users')
             ->middleware('api')

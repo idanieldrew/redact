@@ -18,6 +18,7 @@ RUN apt-get update && apt-get install -y \
                 zip \
                 curl \
                 unzip \
+                php-xdebug \
                 git
 
 # Clear cache

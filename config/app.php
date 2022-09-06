@@ -192,6 +192,8 @@ return [
         \Module\Tag\Providers\TagServiceProvider::class,
         // Media Module
         \Module\Media\Providers\MediaServiceProvider::class,
+        // Comment Module
+        \Module\Comment\Providers\CommentServiceProvider::class,
         // Panel Module
         \Module\Panel\Providers\PanelServiceProvider::class
     ],
