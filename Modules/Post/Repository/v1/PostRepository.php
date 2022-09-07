@@ -4,15 +4,13 @@ namespace Module\Post\Repository\v1;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Response;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Gate;
 use Module\Post\Filters\BlueTick;
 use Module\Post\Filters\FilterPost;
 use Module\Post\Filters\Published;
 use Module\Post\Http\Resources\v1\PostCollection;
-use Module\Post\Http\Resources\v1\CommentResource;
+use Module\Post\Http\Resources\v1\PostResource;
 use Module\Post\Models\Post;
 use Module\Post\Repository\PostRepository as Repository;
 
@@ -35,13 +33,13 @@ class PostRepository extends Repository
      * Display the specified resource.
      *
      * @param string $post
-     * @return CommentResource
+     * @return PostResource
      */
-    public function show(string $post): CommentResource
+    public function show(string $post): PostResource
     {
         return Cache::remember("post/$post", 900, function () use ($post) {
-            return new CommentResource(
-                $this->model()->where('slug', $post)->with(['user', 'tags', 'media'])->firstOrFail()
+            return new PostResource(
+                $this->model()->where('slug', $post)->with(['user', 'tags', 'media', 'comments'])->firstOrFail()
             );
         });
     }

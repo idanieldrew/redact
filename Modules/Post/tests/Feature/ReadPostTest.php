@@ -24,7 +24,6 @@ class ReadPostTest extends TestCase
     /** @test */
     public function reading_post()
     {
-        $this->withoutExceptionHandling();
         $this->storePost('writer', false, 1, 'test title');
 
         $this->get(route('post.show', Str::slug('test title')))
