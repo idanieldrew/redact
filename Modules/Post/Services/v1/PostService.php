@@ -168,4 +168,20 @@ class PostService extends Service
 
         return new CommentResource($comment);
     }
+
+    /**
+     * Reply comment
+     *
+     * @param $post
+     * @param $comment
+     * @param $request
+     * @return CommentResource
+     */
+    public function replyComment($post, $comment, $request): \Module\Comment\Http\Resources\v1\CommentResource
+    {
+        $commentService = resolve(CommentService::class);
+        $comment = $commentService->reply($post, $comment, $request->body);
+
+        return new CommentResource($comment);
+    }
 }

@@ -8,6 +8,8 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\Sanctum;
 use Module\Category\Models\Category;
+use Module\Comment\Models\Comment;
+use Module\Post\Models\Post;
 use Module\Role\Models\Permission;
 use Module\Role\Models\Role;
 use Module\User\Models\User;
@@ -89,5 +91,11 @@ abstract class TestCase extends BaseTestCase
         }
 
         return array($title, $extension);
+    }
+
+    protected function CreateComment()
+    {
+        $this->storePost();
+        return Post::first();
     }
 }
