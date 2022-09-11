@@ -17,6 +17,7 @@ class CreateCommentsTable extends Migration
             $table->id();
             $table->string('body');
             $table->morphs('commentable');
+            $table->unsignedBigInteger('parent_id');
             $table->timestamps();
         });
     }
