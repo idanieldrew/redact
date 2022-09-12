@@ -14,7 +14,7 @@ class ReplyCommentTest extends TestCase
     public function reply_comment()
     {
         $post = $this->CreateComment();
-        $this->post(route('post.reply_comment', $post->slug), ['body' => 'test comment'])
+        $this->post(route('post.store_comment', $post->slug), ['body' => 'test comment'])
             ->assertCreated();
 
         $comment = Comment::first();

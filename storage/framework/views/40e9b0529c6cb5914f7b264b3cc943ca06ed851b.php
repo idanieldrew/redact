@@ -1,5 +1,5 @@
 dear admin
-<a href="<?php echo e("/api/posts/${slug}"); ?>">
+<a href="<?php echo e(env('APP_URL') . "/api/posts/${slug}"); ?>">
 <?php echo e($slug); ?>
 
 </a>

@@ -16,7 +16,7 @@ class ReadCommentTest extends TestCase
         $this->withoutExceptionHandling();
         $this->storePost();
         $post = Post::first();
-        
+
         $this->post(route('post.store_comment', $post->slug), ['body' => 'test comment'])
             ->assertCreated();
         $this->post(route('post.store_comment', $post->slug), ['body' => 'test comment 2'])

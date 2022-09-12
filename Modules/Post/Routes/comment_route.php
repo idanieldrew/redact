@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use Module\Post\Http\Controllers\api\v1\CommentController;
 
-// Add Comment
 Route::prefix('{post:slug}/comment')->group(function () {
     // Create comment
     Route::post('/', [CommentController::class, 'store'])->name('post.store_comment');
