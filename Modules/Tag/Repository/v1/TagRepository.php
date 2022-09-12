@@ -15,7 +15,7 @@ class TagRepository extends Repository
      * @param int $number
      * @return Tag
      */
-    public function paginate($number = 10)
+    public function paginate(int $number = 10): Tag
     {
         return Cache::remember('tags.all', 900, function () use ($number) {
             return new TagCollection($this->model()->paginate($number));

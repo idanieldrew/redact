@@ -3,9 +3,11 @@
 namespace Module\Post\Repository\v1;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Cache;
+use Module\Comment\Http\Resources\v1\CommentCollection;
 use Module\Post\Filters\BlueTick;
 use Module\Post\Filters\FilterPost;
 use Module\Post\Filters\Published;
@@ -82,5 +84,16 @@ class PostRepository extends Repository
     public function checkUniqueShortLink($link)
     {
         return $this->model()->where('short_link', $link)->first();
+    }
+
+    /**
+     * Generate short link
+     *
+     * @param $post
+     * @return CommentCollection
+     */
+    public function comments($post)
+    {
+        return new CommentCollection($post->comments);
     }
 }

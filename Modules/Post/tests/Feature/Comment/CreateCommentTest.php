@@ -16,7 +16,7 @@ class CreateCommentTest extends TestCase
     {
         $this->storePost();
         $post = Post::first();
-        $this->post(route('post.create_comment', $post->slug), ['body' => 'test comment'])
+        $this->post(route('post.store_comment', $post->slug), ['body' => 'test comment'])
             ->assertCreated();
 
         $comment = Comment::first();
@@ -31,7 +31,7 @@ class CreateCommentTest extends TestCase
     {
         $this->storePost();
         $post = Post::first();
-        $this->post(route('post.create_comment', $post->slug), ['body' => 't'])
+        $this->post(route('post.store_comment', $post->slug), ['body' => 't'])
             ->assertJsonValidationErrors('body');
     }
 }

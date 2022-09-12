@@ -5,7 +5,10 @@ use Module\Post\Http\Controllers\api\v1\CommentController;
 
 // Add Comment
 Route::prefix('{post:slug}/comment')->group(function () {
-    Route::post('/', [CommentController::class, 'create_comment'])->name('post.create_comment');
+    // Create comment
+    Route::post('/', [CommentController::class, 'store'])->name('post.store_comment');
+    // Comments for post
+    Route::get('/',[CommentController::class,'index','index'])->name('post.index_comment');
     // Reply comment
-    Route::post('/{comment}', [CommentController::class, 'reply_comment'])->name('post.reply_comment');
+    Route::post('/{comment}', [CommentController::class, 'reply'])->name('post.reply_comment');
 });

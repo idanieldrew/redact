@@ -4,15 +4,29 @@ namespace Module\Post\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 use Module\Comment\Models\Comment;
 use Module\Comment\Request\v1\CommentRequest;
 use Module\Post\Models\Post;
+use Module\Post\Repository\v1\PostRepository;
 use Module\Post\Services\v1\PostService;
 use Module\Share\Contracts\Response\ResponseGenerator;
-use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class CommentController extends Controller implements ResponseGenerator
 {
+    /**
+     * All comments for $post
+     *
+     * @param Post $post
+     * @return JsonResponse
+     */
+    public function index(Post $post)
+    {
+        $comments = (new PostRepository)->comments($post);
+
+        return $this->res('success',Response::HTTP_OK,"All comment for $post->slug",$comments);
+    }
+
     /**
      * Create comment for post
      *
@@ -20,11 +34,11 @@ class CommentController extends Controller implements ResponseGenerator
      * @param CommentRequest $request
      * @return JsonResponse
      */
-    public function create_comment(Post $post, CommentRequest $request)
+    public function store(Post $post, CommentRequest $request)
     {
         $service = (new PostService)->createComment($post, $request);
 
-        return $this->res('success', ResponseAlias::HTTP_CREATED, "Successfully add comment for post", $service);
+        return $this->res('success', Response::HTTP_CREATED, "Successfully add comment for post", $service);
     }
 
     /**
@@ -35,11 +49,11 @@ class CommentController extends Controller implements ResponseGenerator
      * @param CommentRequest $request
      * @return JsonResponse
      */
-    public function reply_comment(Post $post, Comment $comment, CommentRequest $request)
+    public function reply(Post $post, Comment $comment, CommentRequest $request)
     {
         $service = (new PostService)->replyComment($post, $comment, $request);
 
-        return $this->res('success', ResponseAlias::HTTP_CREATED, "Successfully add reply for comment", $service);
+        return $this->res('success', Response::HTTP_CREATED, "Successfully add reply for comment", $service);
     }
 
     public function res($status, $code, $message, $data = null)
