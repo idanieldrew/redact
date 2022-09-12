@@ -3,7 +3,7 @@
 namespace Module\Tag\Repository\v1;
 
 use Illuminate\Support\Facades\Cache;
-use Module\Category\Repository\TagRepository as Repository;
+use Module\Tag\Repository\TagRepository as Repository;
 use Module\Tag\Http\Resources\v1\TagCollection;
 use Module\Tag\Models\Tag;
 
