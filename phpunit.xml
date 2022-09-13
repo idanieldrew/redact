@@ -30,6 +30,11 @@
             <directory suffix="Test.php">./Modules/Post/tests/Feature</directory>
         </testsuite>
 
+        <!--panel tests-->
+        <testsuite name="Feature">
+            <directory suffix="Test.php">./Modules/Panel/tests/Feature</directory>
+        </testsuite>
+
 
     </testsuites>
 

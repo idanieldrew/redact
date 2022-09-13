@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Notification;
 use Module\Share\Contracts\Response\ResponseGenerator;
 use Module\User\Http\Notifications\CeremonyMessage;
 use Module\User\Http\Requests\v1\UpdateRequest;
@@ -109,5 +110,6 @@ class UserController extends Controller implements ResponseGenerator
         auth()->user()->notify(new CeremonyMessage());
 
         Log::info("send it");
+        dd(44);
     }
 }
