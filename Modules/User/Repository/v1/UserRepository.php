@@ -47,4 +47,16 @@ class UserRepository extends Repository
             })->get(['email']);
         });
     }
+
+    /**
+     *
+     */
+    public function simpleUsers()
+    {
+        return Cache::remember('simple.users', self::TIME, function () {
+            return User::query()->whereHas('role', function (Builder $builder) {
+                $builder->where('name', 'writer')->cursor();
+            })->get(['email']);
+        });
+    }
 }

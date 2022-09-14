@@ -1,2 +1,2 @@
-jkdjnnnnnnnnnnj
-@dd(5555)
+dear
+{{ $content }}

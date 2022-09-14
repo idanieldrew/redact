@@ -10,14 +10,16 @@ class CeremonyMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    protected $content;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(string $content)
     {
-        //
+        $this->content = $content;
     }
 
     /**
@@ -27,6 +29,7 @@ class CeremonyMail extends Mailable
      */
     public function build()
     {
-        return $this->view('panel::Mail.CeremonyMessage');
+        return $this->view('panel::Mail.CeremonyMessage')
+            ->with(['content' => $this->content]);
     }
 }
