@@ -44,6 +44,7 @@ class ReadPostTest extends TestCase
     /** @test */
     public function search_posts()
     {
+        $this->withoutExceptionHandling();
         $this->storePost('writer', false, 1, 'test title');
 
         $this->getJson(route('post.search', [
