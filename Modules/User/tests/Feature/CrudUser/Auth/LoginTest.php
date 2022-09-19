@@ -15,6 +15,7 @@ class LoginTest extends TestCase
     /** @test */
     public function login_a_user()
     {
+        $this->withoutExceptionHandling();
         $this->CreateUser();
 
         $res = $this->post(route('login.v2'), [

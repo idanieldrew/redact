@@ -32,11 +32,11 @@ class CreatPostTest extends TestCase
             ->assertExists('public/' . Str::slug($res[0]) . $res[1]);
 
         for ($i = 0; $i <= 2; $i++) {
-            $attachments = Storage::disk('local')->listContents('private')[$i];
-            preg_match("/(.*?).png/", $attachments['basename'], $match);
+            $attachments = Storage::disk('local')->files('private')[$i];
 
+            preg_match("/(.*?).png/", $attachments, $match);
             Storage::disk('local')
-                ->assertExists(['private/' . $match[0]]);
+                ->assertExists(['' . $match[0]]);
         }
     }
 
@@ -129,7 +129,7 @@ class CreatPostTest extends TestCase
             PostPublish::class
         ]);
 
-        $this->CreateUser('writer','test2@test.com');
+        $this->CreateUser('writer', 'test2@test.com');
 
         $this->storePost();
 
