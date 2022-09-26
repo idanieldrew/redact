@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use JeroenG\Explorer\Application\Explored;
+use Laravel\Scout\Searchable;
 use Module\Category\Models\Category;
 use Module\Comment\Models\Comment;
 use Module\Media\Models\Media;
@@ -14,11 +16,11 @@ use Module\Post\Database\Factories\PostFactory;
 use Module\Tag\Models\Tag;
 use Module\User\Models\User;
 
-class Post extends Model
+class Post extends Model implements Explored
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes,Searchable;
 
-    protected $fillable = ['title', 'details', 'description', 'banner', 'user_id', 'blue_tick'];
+    protected $fillable = ['title', 'slug', 'details', 'description', 'banner', 'user_id', 'blue_tick'];
 
     /**
      * The attributes that should be cast.
@@ -67,5 +69,15 @@ class Post extends Model
     public function comments(): \Illuminate\Database\Eloquent\Relations\MorphMany
     {
         return $this->morphMany(Comment::class, 'commentable');
+    }
+
+    public function mappableAs(): array
+    {
+        return [
+            'id' => 'keyword',
+            'title' => 'text',
+            'slug' => 'text',
+            'created_at' => 'date',
+        ];
     }
 }
