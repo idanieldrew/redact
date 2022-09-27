@@ -84,22 +84,22 @@ services:
         cap_add:
             - IPC_LOCK
         volumes:
-            - elasticsearch-data:/usr/share/elasticsearch/data
+            - elasti:/usr/share/elasticsearch/data
         ports:
-            - 9200:9200
+            - "9200:9200"
             - 9300:9300
         networks:
             - weblog-network
 
     medium_kibana:
-        container_name: mediumKibana
         image: docker.elastic.co/kibana/kibana:7.4.0
+        container_name: mediumKibana
         environment:
             - ELASTICSEARCH_HOSTS=http://medium_elasticsearch:9200
-        ports:
-            - 5601:5601
         depends_on:
             - medium_elasticsearch
+        ports:
+            - 5601:5601
         networks:
             - weblog-network
 
@@ -110,7 +110,7 @@ networks:
 volumes:
     dbdata:
         driver: local
-    elasticsearch-data:
+    elasti:
         driver: local
     cache-data:
         driver: local
