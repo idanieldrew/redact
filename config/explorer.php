@@ -25,6 +25,7 @@ return [
                 'id' => 'keyword',
                 'title' => 'text',
                 'slug' => 'text',
+                'details' => 'text',
                 'created_at' => 'date',
             ]
         ]

@@ -18,7 +18,7 @@ use Module\User\Models\User;
 
 class Post extends Model implements Explored
 {
-    use HasFactory, SoftDeletes,Searchable;
+    use HasFactory, SoftDeletes, Searchable;
 
     protected $fillable = ['title', 'slug', 'details', 'description', 'banner', 'user_id', 'blue_tick'];
 
@@ -77,6 +77,7 @@ class Post extends Model implements Explored
             'id' => 'keyword',
             'title' => 'text',
             'slug' => 'text',
+            'details' => 'text',
             'created_at' => 'date',
         ];
     }
