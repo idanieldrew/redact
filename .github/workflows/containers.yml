@@ -1,13 +1,14 @@
 name: Containers
 
-on: [ push,pul_request ]
+on: [ push, pull_request ]
 
 jobs:
-  runs-on: ubuntu-latest
-  steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-    - name: docker-compose
-      run: docker-compose up -d
-    - name: rum tests
-      run: docker-compose exec weblog_application php artisan test
+  laravel-blog-containers:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: docker-compose
+        run: docker-compose up -d
+      - name: rum tests
+        run: docker-compose exec weblog_application php artisan test
