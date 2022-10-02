@@ -13,4 +13,4 @@ jobs:
       - name: show services
         run: docker ps
       - name: run tests
-        run: docker-compose exec -T weblog_application php artisan test
+        run: docker-compose exec -T weblog_application php artisan key:generate

@@ -84,7 +84,7 @@ services:
         cap_add:
             - IPC_LOCK
         volumes:
-            - elasti:/usr/share/elasticsearch/data
+            - elastic:/usr/share/elasticsearch/data
         ports:
             - "9200:9200"
             - 9300:9300
@@ -110,7 +110,7 @@ networks:
 volumes:
     dbdata:
         driver: local
-    elasti:
+    elastic:
         driver: local
     cache-data:
         driver: local
