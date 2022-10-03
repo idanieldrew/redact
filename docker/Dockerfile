@@ -38,7 +38,7 @@ RUN mkdir -p /home/$user/.composer && \
     chown -R $user:$user /home/$user
 
 # Work directory
-WORKDIR /var/www/html
+WORKDIR /var/www
 
 # Change cuurent usert to www
 USER $user
