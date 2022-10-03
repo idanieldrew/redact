@@ -16,7 +16,7 @@ services:
             SERVICE_TAGS: dev
         working_dir: /var/www/html
         volumes:
-            - ./:/var/www/html
+            - ./:/var/www
             - ./docker/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
         #      - ./docker/php.ini:/usr/local/etc/php/conf.d/local.ini
         networks:
