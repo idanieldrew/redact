@@ -42,7 +42,7 @@ RUN groupadd -g 1000 www
 
 # Create user for laravel app id=1000 username=www spacificGp=www
 #RUN useradd -u 1000 -ms /bin/bash -g www www
-RUN useradd -G www-data,root -u 1000 -d /home/www www
+RUN useradd -g www -u 1000 -d /home/www www
 
 RUN mkdir -p /home/www/.composer && \
     chown -R www:www /home/www
