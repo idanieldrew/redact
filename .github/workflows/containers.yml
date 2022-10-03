@@ -12,8 +12,8 @@ jobs:
         run: docker-compose up -d
       - name: show services
         run: docker ps
-      - name: remove composer lock
-        run: docker-compose exec -T weblog_application rm -rf vendor composer.lock
+#      - name: remove composer lock
+#        run: docker-compose exec -T weblog_application rm -rf vendor composer.lock
       - name: composer install
         run: docker-compose exec -T weblog_application composer install
       - name: run tests
