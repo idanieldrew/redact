@@ -10,24 +10,28 @@ jobs:
         uses: actions/checkout@v3
       - name: depend
         run: docker run --rm -v $(pwd):/app composer install
+      - name: lists1
+        run: ls -la
       - name: permission
         run: sudo chown -R $USER:$USER .
-      - name: docker-compose
-        run: docker-compose up -d
-      - name: make env
-        run: sudo mkdir .env
-      - name: set environment
-        run: sudo cp .env.docker.ci .env
-      - name: show services
-        run: docker ps
-      - name: key generate
-        run: docker-compose exec -T weblog_application php artisan key:generate
-      - name: run tests
-        env:
-          DB_CONNECTION: "pgsql"
-          DB_HOST: "mediumdb"
-          DB_PORT: 5432
-          DB_DATABASE: medium
-          DB_USERNAME: "dani"
-          DB_PASSWORD: "password"
-        run: docker-compose exec -T weblog_application php artisan test
+      - name: lists2
+        run: ls -la
+#      - name: docker-compose
+#        run: docker-compose up -d
+#      - name: make env
+#        run: sudo mkdir .env
+#      - name: set environment
+#        run: sudo cp .env.docker.ci .env
+#      - name: show services
+#        run: docker ps
+#      - name: key generate
+#        run: docker-compose exec -T weblog_application php artisan key:generate
+#      - name: run tests
+#        env:
+#          DB_CONNECTION: "pgsql"
+#          DB_HOST: "mediumdb"
+#          DB_PORT: 5432
+#          DB_DATABASE: medium
+#          DB_USERNAME: "dani"
+#          DB_PASSWORD: "password"
+#        run: docker-compose exec -T weblog_application php artisan test
