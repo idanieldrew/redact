@@ -16,7 +16,9 @@ jobs:
         run: sudo chown -R $USER:$USER /var/www/html
       - name: show services
         run: docker ps
-      - name: composer install
-        run: docker-compose exec -T weblog_application composer install
+      - name: artisan
+        run: docker-compose exec -T weblog_application php artisan
+#      - name: composer install
+#        run: docker-compose exec -T weblog_application composer install
       - name: run tests
         run: docker-compose exec -T weblog_application php artisan test
