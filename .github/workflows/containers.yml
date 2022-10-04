@@ -8,12 +8,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: docker-compose
-        run: docker-compose up -d
       - name: depend
         run: docker run --rm -v $(pwd):/app composer install
       - name: permission
-        run: sudo chown -R $USER:$USER /var/www/html/
+        run: sudo chown -R $USER:$USER /.
+      - name: docker-compose
+        run: docker-compose up -d
       - name: make env
         run: sudo mkdir .env
       - name: set environment
