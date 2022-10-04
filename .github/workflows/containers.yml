@@ -13,7 +13,7 @@ jobs:
       - name: depend
         run: docker run --rm -v $(pwd):/app composer install
       - name: permission
-        run: sudo chown -R $USER:$USER /var/www/html
+        run: sudo chown -R $USER:$USER /var/www/html/
       - name: make env
         run: sudo mkdir .env
       - name: set environment
