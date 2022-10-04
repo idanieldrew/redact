@@ -11,7 +11,7 @@ jobs:
       - name: depend
         run: docker run --rm -v $(pwd):/app composer install
       - name: lists
-        run: ls -la
+        run: ls -alrth /var/www
 #      - name: permission
 #        run: sudo chown -R $USER:$USER /.
 #      - name: docker-compose

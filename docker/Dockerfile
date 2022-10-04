@@ -1,10 +1,10 @@
 FROM php:8.1-fpm
 
 # Copy composer.json & composer.lock
-COPY composer.json composer.lock /var/www/html/
+COPY composer.lock composer.json /var/www/
 
 # Work directory
-WORKDIR /var/www/html
+WORKDIR /var/www
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
@@ -41,10 +41,10 @@ RUN groupadd -g 1000 www
 RUN useradd -u 1000 -ms /bin/bash -g www www
 
 # Copy app content
-COPY . /var/www/html
+COPY . /var/www
 
 # Copy permission
-COPY --chown=www:www . /var/www/html
+COPY --chown=www:www . /var/www
 
 # Change cuurent usert to www
 USER www
