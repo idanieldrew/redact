@@ -13,7 +13,7 @@ jobs:
       - name: lists1
         run: ls -la
       - name: permission
-        run: sudo chown -R $USER:$USER
+        run: sudo chown -R $USER:$USER *
       - name: lists2
         run: ls -la
 #      - name: docker-compose
