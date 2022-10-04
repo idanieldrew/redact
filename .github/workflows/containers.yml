@@ -12,6 +12,8 @@ jobs:
         run: docker-compose up -d
       - name: depend
         run: docker run --rm -v $(pwd):/app composer install
+      - name: permission
+        run: sudo chown -R $USER:$USER ~/modular-blog
       - name: show services
         run: docker ps
 #      - name: remove composer lock
