@@ -12,6 +12,8 @@ jobs:
         run: docker run --rm -v $(pwd):/app composer install
       - name: lists
         run: ls -alrth /var/www
+      - name: lists
+        run: ls -alrth /var/www/html
 #      - name: permission
 #        run: sudo chown -R $USER:$USER /.
 #      - name: docker-compose
