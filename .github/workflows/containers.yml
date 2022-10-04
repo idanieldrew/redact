@@ -19,7 +19,7 @@ jobs:
       - name: docker-compose
         run: docker-compose up -d
       - name: list 3
-        run: ls -la
+        run: ls /var/www
       - name: make env
         run: sudo mkdir .env
       - name: set environment
