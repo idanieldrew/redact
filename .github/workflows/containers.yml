@@ -16,12 +16,12 @@ jobs:
         run: sudo chown -R $USER:$USER /var/www/html
       - name: make env
         run: sudo mkdir .env
+      - name: set environment
+        run: sudo cp .env.docker.ci .env
       - name: show services
         run: docker ps
       - name: key generate
         run: docker-compose exec -T weblog_application php artisan key:generate
-      - name: set environment
-        run: docker-compose exec -T weblog_application cp .env.docker.ci .env
       - name: run tests
         env:
           DB_CONNECTION: "pgsql"
