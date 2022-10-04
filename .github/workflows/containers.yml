@@ -14,6 +14,8 @@ jobs:
         run: docker run --rm -v $(pwd):/app composer install
       - name: permission
         run: sudo chown -R $USER:$USER /var/www/html
+      - name: make env
+        run: sudo mkdir .env
       - name: show services
         run: docker ps
       - name: key generate
