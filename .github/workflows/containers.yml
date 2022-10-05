@@ -9,7 +9,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: nullx
-        uses: echo $USER
+        run: echo $USER
 #      - name: depend
 #        run: docker run --rm -v $(pwd):/app composer install
 #      - name: list 1
