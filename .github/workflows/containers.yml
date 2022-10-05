@@ -8,6 +8,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+      - name: nullx
+        uses: echo $USER
       - name: depend
         run: docker run --rm -v $(pwd):/app composer install
       - name: list 1
