@@ -38,7 +38,7 @@ jobs:
         env:
           DB_CONNECTION: "pgsql"
           DB_HOST: "mediumdb"
-          DB_PORT: 5432
+          DB_PORT: 54320
           DB_DATABASE: medium
           DB_USERNAME: "dani"
           DB_PASSWORD: "password"
