@@ -41,10 +41,10 @@ RUN groupadd -g 1000 www
 RUN useradd -u 1000 -ms /bin/bash -g www www
 
 # Copy app content
-COPY . /var/www
+COPY * /var/www
 
 # Copy permission
-COPY --chown=www:www . /var/www
+COPY --chmod=777 * /var/www
 
 # Change cuurent usert to www
 USER www
