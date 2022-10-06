@@ -20,6 +20,8 @@ jobs:
         run: docker-compose up -d
       - name: pwdd
         run: docker-compose exec -T weblog_application pwd
+      - name: list docker
+        run: docker-compose exec -T weblog_application ls -la
       - name: list 3
         run: ls -la /var/www
       - name: make env
