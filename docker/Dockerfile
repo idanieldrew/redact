@@ -3,9 +3,6 @@ FROM php:8.1-fpm
 # Copy composer.json & composer.lock
 COPY composer.lock composer.json /var/www/
 
-# Work directory
-WORKDIR /var/www
-
 # Install dependencies
 RUN apt-get update && apt-get install -y \
                 build-essential \
@@ -44,9 +41,12 @@ RUN useradd -u 1000 -ms /bin/bash -g www www
 COPY . /var/www
 
 # Copy permission
-COPY --chmod=777 . /var/www
+COPY --chown=www:www . /var/www
 
 # Change cuurent usert to www
 USER www
+
+# Work directory
+WORKDIR /var/www
 
 CMD ["php-fpm"]
