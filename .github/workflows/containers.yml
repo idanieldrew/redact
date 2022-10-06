@@ -27,7 +27,7 @@ jobs:
       - name: make env
         run: sudo mkdir .env
       - name: set environment
-        run: docker-compose exec -T weblog_application cp .env.docker.ci .env
+        run: sudo cp .env.docker.ci .env
       - name: show services
         run: docker ps
       - name: clear
