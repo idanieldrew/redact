@@ -23,9 +23,11 @@ jobs:
       - name: make env
         run: sudo mkdir .env
       - name: set environment
-        run: sudo cp .env.docker.ci .env
+        run: docker-compose exec -T weblog_application cp .env.docker.ci .env
       - name: show services
         run: docker ps
+      - name: clear
+        run: docker-compose exec -T weblog_application php artisan optimize:clear
       - name: key generate
         run: docker-compose exec -T weblog_application php artisan key:generate
       - name: run tests
