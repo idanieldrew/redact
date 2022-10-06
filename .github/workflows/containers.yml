@@ -32,8 +32,8 @@ jobs:
         run: docker ps
       - name: clear
         run: docker-compose exec -T weblog_application php artisan optimize:clear
-      - name: key generate
-        run: docker-compose exec -T weblog_application php artisan key:generate
+     # - name: key generate
+       # run: docker-compose exec -T weblog_application php artisan key:generate
       - name: run tests
         env:
           DB_CONNECTION: "pgsql"
