@@ -5,7 +5,7 @@ services:
             args:
                 user: idanieldrew
                 uid: 1000
-            context: .docker/
+            context: docker/
             dockerfile: Dockerfile
         image: medium
         container_name: weblog_application
