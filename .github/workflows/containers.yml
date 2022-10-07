@@ -8,8 +8,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: permission
-        run: sudo chmod -R 777 *
       - name: build
         run: docker-compose build weblog_application
       - name: docker-compose
@@ -20,6 +18,8 @@ jobs:
         run: sudo cp .env.docker.ci .env
       - name: show services
         run: docker ps
+      - name: listz
+        run: docker-compose exec -T weblog_application ls -la
       - name: rm composer lock
         run: docker-compose exec -T weblog_application rm -rf vendor composer.lock
       - name: composer
