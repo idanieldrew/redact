@@ -1,7 +1,8 @@
 FROM php:8.1-fpm
 
-# Copy composer.json & composer.lock
-COPY composer.lock composer.json /var/www/
+# Arguments defined in docker-compose.yml
+ARG user
+ARG uid
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
@@ -28,25 +29,15 @@ RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql
 RUN docker-php-ext-install pdo pdo_pgsql
 RUN docker-php-ext-install gd
 
-# Install composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# Get latest Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Create group for laravel app id=1000 nameGp=www
-RUN groupadd -g 1000 www
+# Create system user to run Composer and Artisan Commands
+RUN useradd -G www-data,root -u $uid -d /home/$user $user
+RUN mkdir -p /home/$user/.composer && \
+    chown -R $user:$user /home/$user
 
-# Create user for laravel app id=1000 username=www spacificGp=www
-RUN useradd -u 1000 -ms /bin/bash -g www www
-
-# Copy app content
-COPY . /var/www
-
-# Copy permission
-COPY --chown=www:www . /var/www
-
-# Change cuurent usert to www
-USER www
-
-# Work directory
+# Set working directory
 WORKDIR /var/www
 
-CMD ["php-fpm"]
+USER $user
