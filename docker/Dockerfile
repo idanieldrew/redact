@@ -40,4 +40,4 @@ RUN sudo mkdir -p /home/$user/.composer && \
 # Set working directory
 WORKDIR /var/www
 
-sudo USER $user
+USER $user
