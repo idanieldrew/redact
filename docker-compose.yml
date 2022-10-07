@@ -2,6 +2,9 @@ version: '3.9'
 services:
     weblog_application:
         build:
+            args:
+                user: sammy
+                uid: 1000
             context: .
             dockerfile: docker/Dockerfile
         image: medium
