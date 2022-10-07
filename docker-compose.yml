@@ -3,17 +3,14 @@ services:
     weblog_application:
         build:
             args:
-                user: sammy
+                user: idanieldrew
                 uid: 1000
-            context: .
-            dockerfile: docker/Dockerfile
+            context: .docker/
+            dockerfile: Dockerfile
         image: medium
         container_name: weblog_application
         restart: unless-stopped
         tty: true
-        environment:
-            SERVICE_NAME: app
-            SERVICE_TAGS: dev
         working_dir: /var/www
         volumes:
             - ./:/var/www
