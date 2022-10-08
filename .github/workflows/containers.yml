@@ -1,13 +1,15 @@
-name: Containers
+name: docker
 
 on: [ push, pull_request ]
 
 jobs:
-  laravel-blog-containers:
+  blog-containers:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+      - name: show
+        run: docker ps
       - name: build
         run: docker-compose build weblog_application
       - name: docker-compose
@@ -18,8 +20,10 @@ jobs:
         run: sudo cp .env.docker.ci .env
       - name: show services
         run: docker ps
+      - name: listx
+        run: ls -l
       - name: listz
-        run: docker-compose exec -T weblog_application ls -la
+        run: docker-compose exec -T weblog_application ls -l
       - name: rm composer lock
         run: docker-compose exec -T weblog_application rm -rf vendor composer.lock
       - name: composer
