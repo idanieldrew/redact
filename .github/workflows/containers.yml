@@ -14,10 +14,10 @@ jobs:
         run: sudo docker-compose build weblog_application
       - name: docker-compose
         run: sudo docker-compose up -d
-      - name: make .env
-        run: sudo touch .env
-      - name: set environment
-        run: cp .env.docker.ci .env
+      #- name: make .env
+       # run: sudo touch .env
+      #- name: set environment
+       # run: cp .env.docker.ci .env
       - name: show services
         run: docker ps
       - name: listz
