@@ -12,8 +12,6 @@ jobs:
         run: docker ps
       - name: build
         run: sudo docker-compose build weblog_application
-      - name: lis
-        run: ls -l /home/idanieldrew
       - name: docker-compose
         run: sudo docker-compose up -d
       - name: make .env
