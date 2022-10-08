@@ -5,24 +5,21 @@ on: [ push, pull_request ]
 jobs:
   blog-containers:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: /home/idanieldrew
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: show
         run: docker ps
       - name: build
-        run: docker-compose build weblog_application
+        run: sudo docker-compose build weblog_application
       - name: lis
         run: ls -l /home/idanieldrew
       - name: docker-compose
-        run: docker-compose up -d
+        run: sudo docker-compose up -d
       - name: make .env
         run: sudo touch .env
       - name: set environment
-        run: sudo cp .env.docker.ci .env
+        run: cp .env.docker.ci .env
       - name: show services
         run: docker ps
       - name: listz
