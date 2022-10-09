@@ -1,41 +1,41 @@
-name: docker
-
-on: [ push, pull_request ]
-
-jobs:
-  blog-containers:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - name: show
-        run: docker ps
-      - name: build
-        run: sudo docker-compose build weblog_application
-      - name: docker-compose
-        run: sudo docker-compose up -d
-      #- name: make .env
-       # run: sudo touch .env
-      #- name: set environment
-       # run: cp .env.docker.ci .env
-      - name: show services
-        run: docker ps
-      - name: listz
-        run: docker-compose exec -T weblog_application ls -l
-     # - name: rm composer lock
-    #    run: docker-compose exec -T weblog_application rm -rf vendor composer.lock
-      - name: composer
-        run: docker-compose exec -T weblog_application composer install
-#      - name: clear
-#        run: docker-compose exec -T weblog_application php artisan optimize:clear
-      - name: key generate
-        run: docker-compose exec -T weblog_application php artisan key:generate
-      - name: run tests
-        env:
-          DB_CONNECTION: "pgsql"
-          DB_HOST: "mediumdb"
-          DB_PORT: 5432
-          DB_DATABASE: medium
-          DB_USERNAME: "dani"
-          DB_PASSWORD: "password"
-        run: docker-compose exec -T weblog_application php artisan test
+#name: docker
+#
+#on: [ push, pull_request ]
+#
+#jobs:
+#  blog-containers:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v3
+#      - name: show
+#        run: docker ps
+#      - name: build
+#        run: sudo docker-compose build weblog_application
+#      - name: docker-compose
+#        run: sudo docker-compose up -d
+#      #- name: make .env
+#       # run: sudo touch .env
+#      #- name: set environment
+#       # run: cp .env.docker.ci .env
+#      - name: show services
+#        run: docker ps
+#      - name: listz
+#        run: docker-compose exec -T weblog_application ls -l
+#     # - name: rm composer lock
+#    #    run: docker-compose exec -T weblog_application rm -rf vendor composer.lock
+#      - name: composer
+#        run: docker-compose exec -T weblog_application composer install
+##      - name: clear
+##        run: docker-compose exec -T weblog_application php artisan optimize:clear
+#      - name: key generate
+#        run: docker-compose exec -T weblog_application php artisan key:generate
+#      - name: run tests
+#        env:
+#          DB_CONNECTION: "pgsql"
+#          DB_HOST: "mediumdb"
+#          DB_PORT: 5432
+#          DB_DATABASE: medium
+#          DB_USERNAME: "dani"
+#          DB_PASSWORD: "password"
+#        run: docker-compose exec -T weblog_application php artisan test
