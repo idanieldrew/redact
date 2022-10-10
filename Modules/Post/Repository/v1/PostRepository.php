@@ -53,6 +53,13 @@ class PostRepository extends Repository
      */
     public function search(string $keyword): object
     {
+        // elastic engine
+        return Post::search($keyword)
+            ->where('published', false)
+            ->where('blue_tick', request()->blue_tick)
+            ->cursor();
+
+        /* Filter with pipeline laravel
         return app(Pipeline::class)
             ->send($this->model())
             ->through([
@@ -62,6 +69,7 @@ class PostRepository extends Repository
             ])
             ->thenReturn()
             ->cursor();
+        */
     }
 
     /**
