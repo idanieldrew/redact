@@ -33,7 +33,7 @@ abstract class TestCase extends BaseTestCase
         $role = Role::query()->where('name', $type)->firstOrFail();
 
         // Create new user with type admin
-        $user = User::factory(['email' => $email])->raw();
+        $user = User::factory(['email' => $email ?? $this->faker->email])->raw();
 
         $user = $role->users()->create($user);
 
@@ -58,14 +58,15 @@ abstract class TestCase extends BaseTestCase
         $role3->givePermissionTo($p1, $p2, $p3);
     }
 
-    protected function storePost($role = 'writer', $attachments = false, $number = 1, $titles = null, $details = null): array
+    protected function storePost($role = 'writer', $attachments = false, $number = 1, $title = null, $details = null, $category = null, $mail = null): array
     {
         $img = 'banner.png';
         $extension = '.png';
+        $titles = [];
 
         //Create user and category
-        $this->CreateUser($role);
-        $categories = Category::factory()->create(['user_id' => auth()->user()]);
+        $this->CreateUser($role, $mail);
+        $categories = Category::factory()->create(['user_id' => auth()->user(), 'slug' => $category ?? $this->faker->slug]);
 
         Storage::fake('local');
 
@@ -78,11 +79,11 @@ abstract class TestCase extends BaseTestCase
 
         for ($i = 0; $i < $number; $i++) {
             $this->post(route('post.store'), [
-                'title' => $title = $titles ?? $this->faker->name,
+                'title' => $titles[$i] = $title ?? $this->faker->name,
                 'details' => $details ?? $this->faker->sentence,
                 'description' => $this->faker->paragraph,
                 'banner' => UploadedFile::fake()->image($img),
-                'category' => [$categories->name],
+                'category' => [$categories->slug],
                 'tag' => ['tag_1'],
                 'attachment' => $attachments
             ])
@@ -90,7 +91,7 @@ abstract class TestCase extends BaseTestCase
                 ->assertCreated();
         }
 
-        return array($title, $extension);
+        return array($titles, $extension);
     }
 
     protected function CreateComment()

@@ -3,14 +3,10 @@
 namespace Module\Post\Repository\v1;
 
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Cache;
+use Module\Category\Models\Category;
 use Module\Comment\Http\Resources\v1\CommentCollection;
-use Module\Post\Filters\BlueTick;
-use Module\Post\Filters\FilterPost;
-use Module\Post\Filters\Published;
 use Module\Post\Http\Resources\v1\PostCollection;
 use Module\Post\Http\Resources\v1\PostResource;
 use Module\Post\Models\Post;
@@ -35,14 +31,21 @@ class PostRepository extends Repository
      * Display the specified resource.
      *
      * @param string $post
-     * @return PostResource
+     * @return array
      */
-    public function show(string $post): PostResource
+    public function show(string $post): array
     {
         return Cache::remember("post/$post", 900, function () use ($post) {
-            return new PostResource(
-                $this->model()->where('slug', $post)->with(['user', 'tags', 'media', 'comments'])->firstOrFail()
-            );
+            $mainPost = $this->model()->where('slug', $post)->with(['user', 'categories', 'tags', 'media', 'comments'])->firstOrFail();
+
+            $otherPosts = $this->model()->whereHas('categories', function ($query) use ($mainPost) {
+                $query->where('slug', $mainPost->categories->all()[0]->slug);
+            })->get(['title', 'details']);
+
+            return [
+                'post' => new PostResource($mainPost),
+                'otherPosts' => new PostCollection($otherPosts)
+            ];
         });
     }
 

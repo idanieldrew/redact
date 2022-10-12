@@ -31,6 +31,17 @@ class ReadPostTest extends TestCase
     }
 
     /** @test */
+    public function show_other_post()
+    {
+        $this->withoutExceptionHandling();
+        $res = $this->storePost('writer', false, 5);
+
+        $this->getJson(route('post.show', Str::slug($res[0][0])))
+            ->assertOk()
+            ->assertJsonFragment(['title' => $res[0][1]]);
+    }
+
+    /** @test */
     public function read_post_with_short_link()
     {
         $this->storePost('writer', false, 1, 'test title');
