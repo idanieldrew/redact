@@ -5,9 +5,9 @@ namespace Module\Category\tests\Feature\Crud;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
 use Module\Category\Models\Category;
-use Tests\TestCase;
+use Tests\CustomTestCase;
 
-class ReadTest extends TestCase
+class ReadTest extends CustomTestCase
 {
     use DatabaseMigrations, WithFaker;
 

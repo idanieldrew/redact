@@ -4,9 +4,9 @@ namespace Module\User\tests\Feature\CrudUser;
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Module\User\Models\User;
-use Tests\TestCase;
+use Tests\CustomTestCase;
 
-class UpdateTest extends TestCase
+class UpdateTest extends CustomTestCase
 {
     use DatabaseMigrations;
 

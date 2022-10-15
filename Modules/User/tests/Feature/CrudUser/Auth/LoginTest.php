@@ -4,11 +4,9 @@ namespace Module\User\tests\Feature\CrudUser\Auth;
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\WithoutEvents;
-use Module\User\Models\User;
-use Tests\TestCase;
+use Tests\CustomTestCase;
 
-class LoginTest extends TestCase
+class LoginTest extends CustomTestCase
 {
     use DatabaseMigrations, WithFaker;
 

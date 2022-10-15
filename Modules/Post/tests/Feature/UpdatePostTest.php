@@ -5,10 +5,9 @@ namespace Module\Post\tests\Feature;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Str;
-use Module\Post\Models\Post;
-use Tests\TestCase;
+use Tests\CustomTestCase;
 
-class UpdatePostTest extends TestCase
+class UpdatePostTest extends CustomTestCase
 {
     use DatabaseMigrations, WithFaker;
 
@@ -17,7 +16,7 @@ class UpdatePostTest extends TestCase
     {
         $res = $this->storePost();
 
-        $this->patch(route('post.update', Str::slug($res[0])), ['title' => 'test']);
+        $this->patch(route('post.update', Str::slug($res[0][0])), ['title' => 'test']);
 
         $this->assertDatabaseHas('posts', ['title' => 'test']);
     }
@@ -27,7 +26,7 @@ class UpdatePostTest extends TestCase
     {
         $res = $this->storePost();
 
-        $this->patch(route('post.update', Str::slug($res[0])), ['title' => 'test']);
+        $this->patch(route('post.update', Str::slug($res[0][0])), ['title' => 'test']);
 
         $this->assertDatabaseHas('posts', ['slug' => 'test']);
     }
@@ -37,7 +36,7 @@ class UpdatePostTest extends TestCase
     {
         $res = $this->storePost();
 
-        $this->patch(route('post.update', Str::slug($res[0])), ['title' => 'te'])
+        $this->patch(route('post.update', Str::slug($res[0][0])), ['title' => 'te'])
             ->assertJsonValidationErrors("title");
     }
 
@@ -46,7 +45,7 @@ class UpdatePostTest extends TestCase
     {
         $res = $this->storePost();
 
-        $this->patch(route('post.update', Str::slug($res[0])), ['details' => 'test'])
+        $this->patch(route('post.update', Str::slug($res[0][0])), ['details' => 'test'])
             ->assertJsonValidationErrors("details");
     }
 
@@ -55,7 +54,7 @@ class UpdatePostTest extends TestCase
     {
         $res = $this->storePost();
 
-        $this->patch(route('post.update', Str::slug($res[0])), ['description' => 'test test'])
+        $this->patch(route('post.update', Str::slug($res[0][0])), ['description' => 'test test'])
             ->assertJsonValidationErrors("description");
     }
 }

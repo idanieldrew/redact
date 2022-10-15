@@ -3,9 +3,9 @@
 namespace Module\User\tests\Feature\CrudUser\Auth;
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Tests\TestCase;
+use Tests\CustomTestCase;
 
-class RegisterTest extends TestCase
+class RegisterTest extends CustomTestCase
 {
     use DatabaseMigrations;
 

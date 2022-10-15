@@ -7,10 +7,9 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Event;
 use Module\Category\Events\NewCategory;
 use Module\Category\Models\Category;
-use Module\User\Models\User;
-use Tests\TestCase;
+use Tests\CustomTestCase;
 
-class StoreTest extends TestCase
+class StoreTest extends CustomTestCase
 {
     use RefreshDatabase, WithFaker;
 

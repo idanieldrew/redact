@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Module\Post\Events\PostPublish;
-use Tests\TestCase;
+use Tests\CustomTestCase;
 
-class CreatPostTest extends TestCase
+class CreatPostTest extends CustomTestCase
 {
     use DatabaseMigrations, WithFaker;
 
@@ -20,7 +20,7 @@ class CreatPostTest extends TestCase
     {
         $res = $this->storePost();
 
-        Storage::disk('local')->assertExists('public/' . Str::slug($res[0]) . $res[1]);
+        Storage::disk('local')->assertExists('public/' . Str::slug($res[0][0]) . $res[1]);
     }
 
     /** @test */
@@ -29,7 +29,7 @@ class CreatPostTest extends TestCase
         $res = $this->storePost('writer', true);
 
         Storage::disk('local')
-            ->assertExists('public/' . Str::slug($res[0]) . $res[1]);
+            ->assertExists('public/' . Str::slug($res[0][0]) . $res[1]);
 
         for ($i = 0; $i <= 2; $i++) {
             $attachments = Storage::disk('local')->files('private')[$i];

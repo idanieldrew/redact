@@ -6,9 +6,9 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Module\Role\Models\Permission;
 use Module\Role\Models\Role;
 use Module\User\Models\User;
-use Tests\TestCase;
+use Tests\CustomTestCase;
 
-class AssignRoleTest extends TestCase
+class AssignRoleTest extends CustomTestCase
 {
     use DatabaseMigrations;
 

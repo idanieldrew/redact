@@ -4,9 +4,9 @@ namespace Module\User\tests\Feature\CrudUser;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Module\User\Models\User;
-use Tests\TestCase;
+use Tests\CustomTestCase;
 
-class ReadTest extends TestCase
+class ReadTest extends CustomTestCase
 {
     use RefreshDatabase;
 

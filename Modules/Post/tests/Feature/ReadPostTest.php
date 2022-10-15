@@ -6,9 +6,9 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Str;
 use Module\Post\Models\Post;
-use Tests\TestCase;
+use Tests\CustomTestCase;
 
-class ReadPostTest extends TestCase
+class ReadPostTest extends CustomTestCase
 {
     use DatabaseMigrations, WithFaker;
 

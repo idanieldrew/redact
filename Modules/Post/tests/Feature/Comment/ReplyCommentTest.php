@@ -4,9 +4,9 @@ namespace Module\Post\tests\Feature\Comment;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Module\Comment\Models\Comment;
-use Tests\TestCase;
+use Tests\CustomTestCase;
 
-class ReplyCommentTest extends TestCase
+class ReplyCommentTest extends CustomTestCase
 {
     use RefreshDatabase;
 

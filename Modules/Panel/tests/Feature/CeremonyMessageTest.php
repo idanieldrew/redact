@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\Mail;
 use Module\Panel\Jobs\CeremonyMessage;
 use Module\Panel\Mail\CeremonyMail;
 use Module\User\Models\User;
-use Tests\TestCase;
+use Tests\CustomTestCase;
 
-class CeremonyMessageTest extends TestCase
+class CeremonyMessageTest extends CustomTestCase
 {
     use DatabaseMigrations;
 

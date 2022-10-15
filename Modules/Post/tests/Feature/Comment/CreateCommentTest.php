@@ -5,9 +5,9 @@ namespace Module\Post\tests\Feature\Comment;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Module\Comment\Models\Comment;
 use Module\Post\Models\Post;
-use Tests\TestCase;
+use Tests\CustomTestCase;
 
-class CreateCommentTest extends TestCase
+class CreateCommentTest extends CustomTestCase
 {
     use DatabaseMigrations;
 
