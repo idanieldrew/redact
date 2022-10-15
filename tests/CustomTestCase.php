@@ -19,7 +19,6 @@ class CustomTestCase extends TestCase
         $this->createRole();
         // Find it
         $role = Role::query()->where('name', $type)->firstOrFail();
-
         // Create new user with type admin
         $user = User::factory(['email' => $email ?? $this->faker->email])->raw();
 

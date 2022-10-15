@@ -36,6 +36,23 @@ class StoreTest extends CustomTestCase
     }
 
     /** @test */
+    public function slug_should_english()
+    {
+        $this->CreateUser('admin');
+        $category = [
+            'name' => [
+                'en' => 'test name',
+                'fa' => 'تست فرضی'
+            ]
+        ];
+
+        $this->post(route('category.store'), $category)
+            ->assertCreated()
+            ->assertJsonFragment(['slug' => 'test-name'])
+            ->assertJsonMissing(['slug' => 'تست-فرضی']);
+    }
+
+    /** @test */
     public function super_can_store_category()
     {
         $this->CreateUser('super');

@@ -24,7 +24,7 @@ class CategoryFactory extends Factory
         return [
             'name' => [
                 'en' => $this->faker->jobTitle,
-                'fa' => 'تس'
+                'fa' => 'تست'
                 ],
         ];
     }
