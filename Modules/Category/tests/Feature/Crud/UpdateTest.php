@@ -11,7 +11,7 @@ class UpdateTest extends CustomTestCase
 {
     use DatabaseMigrations, WithFaker;
 
-    private $name = "test";
+    private string $name = "test";
 
     private function storeCategory($type = 'admin')
     {
@@ -29,7 +29,7 @@ class UpdateTest extends CustomTestCase
                 'en' => "test",
                 'fa' => "تست"
             ]
-        ]);
+        ])->assertNoContent();
 
         $this->assertDatabaseHas('categories',
             ['slug' => 'test']
@@ -58,7 +58,7 @@ class UpdateTest extends CustomTestCase
                 'en' => "test",
                 'fa' => "تست"
             ]
-        ]);
+        ])->assertNoContent();
 
         $this->assertDatabaseHas('categories',
             ['slug' => 'test']

@@ -66,7 +66,7 @@ class CategoryController extends Controller implements ResponseGenerator
      */
     public function show(Category $category)
     {
-        return $this->res('success', Response::HTTP_OK, null, new CategoryResource($category));
+        return $this->res('success', Response::HTTP_OK, "category $category successfully fetch", new CategoryResource($category));
     }
 
     /**
@@ -83,7 +83,7 @@ class CategoryController extends Controller implements ResponseGenerator
         $this->authorize('createOrUpdate', Category::class);
         $this->service()->update($category, $request);
 
-        return $this->res('success', Response::HTTP_NO_CONTENT, null, null);
+        return $this->res('success', Response::HTTP_NO_CONTENT, "category $category successfully updated");
     }
 
     /**

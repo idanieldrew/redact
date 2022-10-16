@@ -7,7 +7,7 @@ use Module\Share\Service\Service;
 
 class CommentService implements Service
 {
-    public function model()
+    public function model(): \Illuminate\Database\Eloquent\Builder
     {
         return Comment::query();
     }

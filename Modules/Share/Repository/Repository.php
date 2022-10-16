@@ -17,7 +17,7 @@ abstract class Repository
      * @param bool $softDelete
      * @return mixed
      */
-    public function take($query, $class = null, int $number = 10, bool $softDelete = false)
+    public function take($query, $class = null, int $number = 10, bool $softDelete = false): mixed
     {
         if ($class) {
             if (Gate::denies('viewAny', $class)) {
