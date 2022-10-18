@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "affc63accbf93237e23730464e8811ee",
+    "content-hash": "8d5f2ce88c354f0b2017c0837c2063e1",
     "packages": [
         {
             "name": "brick/math",
@@ -2187,6 +2187,55 @@
                 }
             ],
             "time": "2022-07-24T11:55:47+00:00"
+        },
+        {
+            "name": "mvaliolahi/sibdoc",
+            "version": "v0.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mvaliolahi/sibdoc.git",
+                "reference": "f535ee93a9847d67fd61cf0bbbd4d829ee8db6a5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mvaliolahi/sibdoc/zipball/f535ee93a9847d67fd61cf0bbbd4d829ee8db6a5",
+                "reference": "f535ee93a9847d67fd61cf0bbbd4d829ee8db6a5",
+                "shasum": ""
+            },
+            "require": {
+                "twig/twig": "^2.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "6.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Mvaliolahi\\SibDoc\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Meysam Valiolahi",
+                    "email": "mvaliolahi@gmail.com"
+                }
+            ],
+            "description": "PHP API Document Generator",
+            "homepage": "https://mvaliolahi.ir",
+            "keywords": [
+                "API Document",
+                "API Document Builder",
+                "API Document Generator"
+            ],
+            "support": {
+                "issues": "https://github.com/mvaliolahi/sibdoc/issues",
+                "source": "https://github.com/mvaliolahi/sibdoc/tree/master"
+            },
+            "time": "2019-10-21T11:04:38+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -5770,6 +5819,86 @@
                 "source": "https://github.com/tijsverkoyen/CssToInlineStyles/tree/2.2.5"
             },
             "time": "2022-09-12T13:28:28+00:00"
+        },
+        {
+            "name": "twig/twig",
+            "version": "v2.15.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twigphp/Twig.git",
+                "reference": "ab402673db8746cb3a4c46f3869d6253699f614a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/ab402673db8746cb3a4c46f3869d6253699f614a",
+                "reference": "ab402673db8746cb3a4c46f3869d6253699f614a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.3",
+                "symfony/polyfill-ctype": "^1.8",
+                "symfony/polyfill-mbstring": "^1.3",
+                "symfony/polyfill-php72": "^1.8"
+            },
+            "require-dev": {
+                "psr/container": "^1.0",
+                "symfony/phpunit-bridge": "^4.4.9|^5.0.9|^6.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.15-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Twig_": "lib/"
+                },
+                "psr-4": {
+                    "Twig\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
+                },
+                {
+                    "name": "Twig Team",
+                    "role": "Contributors"
+                },
+                {
+                    "name": "Armin Ronacher",
+                    "email": "armin.ronacher@active-4.com",
+                    "role": "Project Founder"
+                }
+            ],
+            "description": "Twig, the flexible, fast, and secure template language for PHP",
+            "homepage": "https://twig.symfony.com",
+            "keywords": [
+                "templating"
+            ],
+            "support": {
+                "issues": "https://github.com/twigphp/Twig/issues",
+                "source": "https://github.com/twigphp/Twig/tree/v2.15.3"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/twig/twig",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2022-09-28T08:40:08+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

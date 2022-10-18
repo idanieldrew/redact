@@ -16,6 +16,7 @@
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.7",
+        "mvaliolahi/sibdoc": "^0.0.5",
         "predis/predis": "^2.0.2"
     },
     "require-dev": {
