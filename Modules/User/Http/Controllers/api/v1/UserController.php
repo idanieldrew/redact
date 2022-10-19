@@ -6,11 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Notification;
 use Module\Share\Contracts\Response\ResponseGenerator;
 use Module\User\Http\Notifications\CeremonyMessage;
 use Module\User\Http\Requests\v1\UpdateRequest;
-use Module\User\Http\Resources\v1\UserCollection;
 use Module\User\Http\Resources\v1\UserResource;
 use Module\User\Models\User;
 use Module\User\Repository\v1\UserRepository;
@@ -43,7 +41,7 @@ class UserController extends Controller implements ResponseGenerator
 
         $users = $this->repo()->paginate();
 
-        return new UserCollection($users);
+        return $this->res('Success', Response::HTTP_OK, "Show all users", $users);
     }
 
     /**
@@ -76,7 +74,7 @@ class UserController extends Controller implements ResponseGenerator
 
         $this->service()->update($user, $request);
 
-        return $this->res('success', Response::HTTP_OK, 'Successfully update user');
+        return $this->res('Success', Response::HTTP_NO_CONTENT, 'Successfully update user');
     }
 
     /**
@@ -93,7 +91,7 @@ class UserController extends Controller implements ResponseGenerator
 
         $this->repo()->destroy($user);
 
-        return $this->res('success', Response::HTTP_OK, 'Successfully delete user', null);
+        return $this->res('Success', Response::HTTP_OK, 'Successfully delete user');
     }
 
     public function res($status, $code, $message, $data = null)

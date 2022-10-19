@@ -4,6 +4,7 @@ namespace Module\User\Http\Controllers\auth\v1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Response;
 use Module\Share\Contracts\Response\ResponseGenerator;
 use Module\User\Http\Requests\v1\LoginRequest;
 use Module\User\Http\Requests\v1\RegisterRequest;
@@ -25,11 +26,11 @@ class AuthController extends Controller implements ResponseGenerator
      */
     public function register(RegisterRequest $request)
     {
-        $store = $this->service->store($request);
+        $res = $this->service->store($request);
 
         event(new Registered($store['data']['user']));
 
-        return $this->res($store['success'], $store['status'], $store['message'], $store['data']);
+        return $this->res('Success', Response::HTTP_OK, 'Successfully register', [$res[0], $res[1]]);
     }
 
     /**
@@ -41,7 +42,7 @@ class AuthController extends Controller implements ResponseGenerator
     {
         $login = $this->service->login($request);
 
-        return $this->res($login['success'], $login['status'], $login['message'], $login['data']);
+        return $this->res('success', Response::HTTP_OK, 'Successfully login', [$login[0], $login[1]]);
     }
 
     public function res($status, $code, $message, $data = null): \Illuminate\Http\JsonResponse

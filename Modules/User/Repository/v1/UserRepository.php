@@ -3,9 +3,8 @@
 namespace Module\User\Repository\v1;
 
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Gate;
+use Module\User\Http\Resources\v1\UserCollection;
 use Module\User\Models\User;
 use Module\User\Repository\UserRepository as Repository;
 
@@ -16,11 +15,11 @@ class UserRepository extends Repository
     /**
      * Paginate $this->model
      * @param int $number
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @return UserCollection
      */
-    public function paginate(int $number = 10): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    public function paginate(int $number = 10): UserCollection
     {
-        return $this->model()->withTrashed()->paginate($number);
+        return new UserCollection($this->model()->withTrashed()->paginate($number));
     }
 
     /**

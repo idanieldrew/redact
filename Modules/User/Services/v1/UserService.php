@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
+use Module\User\Http\Requests\v1\LoginRequest;
 use Module\User\Http\Requests\v1\RegisterRequest;
 use Module\User\Models\User;
 use Module\User\Services\UserService as Service;
@@ -46,15 +47,7 @@ class UserService extends Service
         ]);
         $token = $user->createToken('token')->plainTextToken;
 
-        return [
-            'success' => true,
-            'status' => Response::HTTP_CREATED,
-            'message' => 'Successfully registered',
-            'data' => [
-                'user' => $user,
-                'token' => $token
-            ]
-        ];
+        return array($token,$user);
     }
 
     /**
@@ -62,7 +55,7 @@ class UserService extends Service
      * @param RegisterRequest $request
      * @return array
      */
-    public function login(RegisterRequest $request): array
+    public function login(LoginRequest $request): array
     {
         $user = $this->model()->whereEmail($request->email)->first();
 
@@ -72,7 +65,8 @@ class UserService extends Service
         }
 
         $token = $user->createToken('token')->plainTextToken;
-        return $this->response('success', Response::HTTP_OK, 'success login', [$user, $token]);
+        return array($token,$user);
+//        return $this->response('success', Response::HTTP_OK, 'Successfully login', [$user, $token]);
     }
 
     /**

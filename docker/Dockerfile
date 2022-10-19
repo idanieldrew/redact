@@ -21,8 +21,10 @@ RUN apt-get update && apt-get install -y \
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN pecl install xdebug \
-    && docker-php-ext-enable xdebug
+ENV HTTPS_PROXY="http://fodev.org:8118"
+
+#RUN pecl install xdebug \
+#    && docker-php-ext-enable xdebug
 
 # Install extensions
 RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql
