@@ -11,7 +11,7 @@ jobs:
       - name: show
         run: docker ps
       - name: build
-        run: docker-compose upp --build
+        run: docker-compose up --build
       - name: make .env
         run: sudo touch .env
       - name: set environment
