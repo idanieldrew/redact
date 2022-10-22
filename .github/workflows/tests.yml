@@ -30,10 +30,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: running tests 
+      - name: Verify Elasticsearch connection from host 
+        env: 
+          ELASTIC_SEARCH_URL: http://localhost:${{ job.services.elasticsearch.ports[9200] }}
         run: |
-           sleep 60
-           curl -X GET http://localhost:9200/ 
+          echo $ELASTIC_SEARCH_URL
+          curl -fsSL "$ELASTIC_SEARCH_URL/_cat/health?h=status" 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
