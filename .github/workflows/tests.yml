@@ -16,18 +16,18 @@ jobs:
           --health-interval=10s
           --health-timeout=5s
           --health-retries=3
-      elasticsearch:
-        image: docker.elastic.co/elasticsearch/elasticsearch:7.9.2
-        env:
-          discovery.type: single-node
-        options: >-
-          --health-cmd "curl http://localhost:9200/_cluster/health"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 10
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+      - name: elastic
+        - uses: getong/elasticsearch-action@v1.2
+          with: elasticsearch 
+          version: '7.9.1'
+          host port: 9200 
+          container port: 9200 
+          host node port: 9300
+          node port: 9300 
+          discovery type: 'single-node'
       - name: running tests
         run: |
             sleep 60
