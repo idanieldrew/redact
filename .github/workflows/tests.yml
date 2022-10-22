@@ -21,7 +21,7 @@ jobs:
         uses: actions/checkout@v3
       - name: elastic
         uses: getong/elasticsearch-action@v1.2
-          with: elasticsearch 
+        with: elasticsearch 
           version: '7.9.1'
           host port: 9200 
           container port: 9200 
