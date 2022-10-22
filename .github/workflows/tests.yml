@@ -4,7 +4,7 @@ jobs:
   laravel-blog:
     runs-on: ubuntu-latest
     services:
-     elasticsearch: 
+      elasticsearch: 
         image: docker.elastic.co/elasticsearch/elasticsearch:7.9.2
         env: 
           discovery.type: single-node 
