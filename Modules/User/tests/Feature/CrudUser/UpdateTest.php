@@ -19,7 +19,7 @@ class UpdateTest extends CustomTestCase
         $this->patch(
             route('user.update', $user->id),
             ['email' => 'test@test.co'])
-            ->assertStatus(200);
+            ->assertNoContent();
 
         $this->assertDatabaseHas('users', ['email' => 'test@test.co']);
     }
@@ -44,7 +44,7 @@ class UpdateTest extends CustomTestCase
         $this->patch(
             route('user.update', $res[0]->id),
             ['email' => 'test@test.co'])
-            ->assertStatus(200);
+            ->assertNoContent();
 
         $this->assertDatabaseHas('users', ['email' => 'test@test.co']);
     }
@@ -66,14 +66,13 @@ class UpdateTest extends CustomTestCase
     /** @test */
     public function admin_can_update_user_role()
     {
-        $this->withoutExceptionHandling();
         $res = $this->CreateUser('admin');
         $user = User::factory()->create();
 
         $this->patch(
             route('user.update', $user->id),
             ['role' => 'admin'])
-            ->assertOk();
+            ->assertNoContent();
 
         $this->assertDatabaseHas('users', [
             'role_id' => $res[1]
