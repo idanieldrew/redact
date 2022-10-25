@@ -4,19 +4,19 @@ jobs:
   laravel-blog:
     runs-on: ubuntu-latest
     services:
-      elasticsearch: 
-        image: docker.elastic.co/elasticsearch/elasticsearch:7.9.2
-        env: 
-          discovery.type: single-node 
-        options: >- 
-         --name mediumElasticsearch
-         --hostname mediumElasticsearch
-         --health-cmd "curl http://localhost:9200/_cluster/health" 
-         --health-interval 10s 
-         --health-timeout 5s
-         --health-retries 10 
+      elasticsearch:
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.4.0
+        env:
+          discovery.type: single-node
+        options: >-
+          --name mediumElasticsearch
+          --hostname mediumElasticsearch
+          --health-cmd "curl http://localhost:9200/_cluster/health"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
         ports:
-        - 9200:9200
+          - 9200:9200
       mysql-service:
         image: mysql:5.7
         env:
@@ -32,12 +32,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Verify Elasticsearch connection from host 
-        env: 
+      - name: Verify Elasticsearch connection from host
+        env:
           ELASTIC_SEARCH_URL: http://localhost:${{ job.services.elasticsearch.ports[9200] }}
         run: |
           echo $ELASTIC_SEARCH_URL
-          curl -fsSL "$ELASTIC_SEARCH_URL/_cat/health?h=status" 
+          curl -fsSL "$ELASTIC_SEARCH_URL/_cat/health?h=status"
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -50,6 +50,10 @@ jobs:
         run: cp .env.example.ci .env
       - name: Generate app key
         run: php artisan key:generate
+      - name: Remove indexes
+        run: php artisan scout:flush "Module\Post\Models\Post"
+      - name: Import indexes
+        run: php artisan scout:import "Module\Post\Models\Post"
       - name: Execute tests (Unit and Feature tests) via PHPUnit
         env:
           DB_CONNECTION: mysql
