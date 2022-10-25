@@ -50,8 +50,6 @@ jobs:
         run: cp .env.example.ci .env
       - name: Generate app key
         run: php artisan key:generate
-      - name: Remove indexes
-        run: php artisan scout:flush "Module\Post\Models\Post"
       - name: Import indexes
         run: php artisan scout:import "Module\Post\Models\Post"
       - name: Execute tests (Unit and Feature tests) via PHPUnit
