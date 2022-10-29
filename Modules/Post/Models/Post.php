@@ -13,7 +13,6 @@ use Module\Comment\Models\Comment;
 use Module\Media\Models\Media;
 use Module\Post\Casts\Published;
 use Module\Post\Database\Factories\PostFactory;
-use Module\Share\Models\CategoryProduct;
 use Module\Tag\Models\Tag;
 use Module\User\Models\User;
 

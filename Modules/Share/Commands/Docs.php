@@ -176,7 +176,68 @@ class Docs extends Command
                 $request->response($success);
             });
         });
-        $api->saveTo('./');
+
+        $api->group('api/posts', function (SibDoc $user) {
+            $user->get('/', function (Request $request) {
+                $request->title('Show all posts');
+                $request->version(1);
+
+                // Define Response.
+                $success = (new Response())
+                    ->title('Success')
+                    ->code(200)
+                    ->description('Show all posts');
+
+                // Assings Reaponses to the Request.
+                $request->response($success);
+            });
+            $user->get('search?=keyword=', function (Request $request) {
+                $request->title('Search post');
+                $request->version(1);
+                $request->parameters('keyword');
+
+                // Define Response.
+                $success = (new Response())
+                    ->title('Success')
+                    ->code(200)
+                    ->description('Show post or posts')
+                    ->body([
+                        'title' => 'string',
+                        'slug' => 'string',
+                        'details' => 'string',
+                        'description' => 'string',
+                        'banner' => 'string',
+                        'user' => [
+                            'name' => 'string',
+                            'email' => 'string',
+                            'phone' => 'string',
+                        ],
+                        'tags' => [
+                            'name' => 'string'
+                        ],
+                        'media' => [
+                            'type' => 'string',
+                            'files' => 'string',
+                            'name' => 'string',
+                            'is-private' => 'bool'
+                        ],
+                        'categories' => [
+                            'name' => 'string',
+                            'slug' => 'string',
+                        ],
+                        'comments' => [
+                            'body' => 'string',
+                        ],
+                        'blue_tick' => 'bool',
+                        'published' => 'bool',
+                        'created_at' => 'timestamp'
+                    ]);
+
+                $request->response($success);
+            });
+        });
+
+        $api->saveTo('/docs/api');
         return 0;
     }
 }

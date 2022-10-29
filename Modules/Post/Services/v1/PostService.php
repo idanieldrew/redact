@@ -11,6 +11,7 @@ use Module\Comment\Services\v1\CommentService;
 use Module\Media\Services\v1\ImageService;
 use Module\Media\Services\v1\MediaService;
 use Module\Post\Events\PostPublish;
+use Module\Post\Http\Resources\v1\PostResource;
 use Module\Post\Repository\v1\PostRepository;
 use Module\Post\Services\PostService as Service;
 use Module\Tag\Services\v1\TagService;
@@ -21,11 +22,10 @@ class PostService extends Service
     /**
      * Create new post
      * @param $request
-     * @return CommentResource
+     * @return PostResource
      * @throws Exception
-     * @throws Throwable
      */
-    public function store($request): CommentResource
+    public function store($request): PostResource
     {
         DB::beginTransaction();
 
@@ -58,12 +58,9 @@ class PostService extends Service
         } catch (Exception $e) {
             DB::rollBack();
             throw $e;
-        } catch (Throwable $t) {
-            DB::rollBack();
-            throw $t;
         }
 
-        return new CommentResource($post->load(['media', 'categories', 'tags']));
+        return new PostResource($post->load(['media', 'categories', 'tags']));
     }
 
     /**

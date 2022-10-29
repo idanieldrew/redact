@@ -3,6 +3,10 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
+use Module\Category\Models\Category;
+use Module\Post\Models\Post;
 use Module\Role\Database\Seeders\RoleTableSeeder;
 use Module\User\Models\User;
 
