@@ -191,6 +191,20 @@ class Docs extends Command
                 // Assings Reaponses to the Request.
                 $request->response($success);
             });
+            $user->get('/', function (Request $request) {
+                $request->title('Show one post with similar post with it');
+                $request->version(1);
+
+                // Define Response.
+                $success = (new Response())
+                    ->title('Success')
+                    ->code(200)
+                    ->description('Show "name" post');
+
+                // Assings Reaponses to the Request.
+                $request->response($success);
+            });
+
             $user->get('search?=keyword=', function (Request $request) {
                 $request->title('Search post');
                 $request->version(1);

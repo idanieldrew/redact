@@ -2,6 +2,7 @@
 
 namespace Module\User\Observers\v1;
 
+use Illuminate\Support\Facades\Cache;
 use Module\Role\Models\Role;
 use Module\User\Models\User;
 

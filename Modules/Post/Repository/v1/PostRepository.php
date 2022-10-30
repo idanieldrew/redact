@@ -2,10 +2,11 @@
 
 namespace Module\Post\Repository\v1;
 
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
-use Module\Category\Models\Category;
+use Illuminate\Support\Facades\DB;
 use Module\Comment\Http\Resources\v1\CommentCollection;
 use Module\Post\Http\Resources\v1\PostCollection;
 use Module\Post\Http\Resources\v1\PostResource;
@@ -36,15 +37,12 @@ class PostRepository extends Repository
     public function show(string $post): array
     {
         return Cache::remember("post/$post", 900, function () use ($post) {
-            $mainPost = $this->model()->where('slug', $post)->with(['user', 'categories', 'tags', 'media', 'comments'])->firstOrFail();
 
-            $otherPosts = $this->model()->whereHas('categories', function ($query) use ($mainPost) {
-                $query->where('slug', $mainPost->categories->all()[0]->slug);
-            })->get(['title', 'details']);
+            $res = $this->specialPost($post);
 
             return [
-                'post' => new PostResource($mainPost),
-                'otherPosts' => new PostCollection($otherPosts)
+                'post' => new PostResource($res[0]),
+                'otherPosts' => new PostCollection($res[1])
             ];
         });
     }
@@ -106,5 +104,30 @@ class PostRepository extends Repository
     public function comments($post)
     {
         return new CommentCollection($post->comments);
+    }
+
+    /**
+     * post & similar posts
+     * @param string $post
+     * @return array
+     * @throws Exception
+     */
+    private function specialPost(string $post)
+    {
+        DB::beginTransaction();
+
+        try {
+            $mainPost = $this->model()->where('slug', $post)->with(['user', 'categories', 'tags', 'media', 'comments'])->firstOrFail();
+            // Similar post with $mainPost
+            $otherPosts = $this->model()->whereHas('categories', function ($query) use ($mainPost) {
+                $query->where('slug', $mainPost->categories->all()[0]->slug);
+            })->where('slug', '!=', $mainPost->slug)->get(['title', 'details']);
+            DB::commit();
+        } catch (Exception $exception) {
+            DB::rollBack();
+            throw $exception;
+        }
+
+        return [$mainPost, $otherPosts];
     }
 }

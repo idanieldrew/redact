@@ -50,9 +50,9 @@ class PostController extends Controller implements ResponseGenerator
      */
     public function show(string $post): JsonResponse
     {
-        $post = $this->repo()->show($post);
+        $res = $this->repo()->show($post);
 
-        return $this->res('success', Response::HTTP_OK, null, $post);
+        return $this->res('success', Response::HTTP_OK, "this $post post", $res);
     }
 
     /**

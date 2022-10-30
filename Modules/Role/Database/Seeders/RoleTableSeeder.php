@@ -3,6 +3,7 @@
 namespace Module\Role\Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Module\Role\Models\Permission;
 use Module\Role\Models\Role;
