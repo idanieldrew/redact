@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException as NotFound;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Illuminate\Http\Response;
@@ -67,6 +68,12 @@ class Handler extends ExceptionHandler
                 'status' => 'fail',
                 'message' => 'Not Found',
             ], Response::HTTP_NOT_FOUND, $e->getHeaders());
+        }
+        if ($e instanceof NotFound) {
+            return response()->json([
+                'status' => 'fail',
+                'message' => 'Not Found',
+            ], Response::HTTP_NOT_FOUND);
         }
         if ($e instanceof MethodNotAllowedHttpException) {
             return response()->json([

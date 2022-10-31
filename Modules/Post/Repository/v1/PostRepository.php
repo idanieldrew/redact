@@ -112,12 +112,16 @@ class PostRepository extends Repository
      * @return array
      * @throws Exception
      */
-    private function specialPost(string $post)
+    private function specialPost(string $post): array
     {
         DB::beginTransaction();
 
         try {
-            $mainPost = $this->model()->where('slug', $post)->with(['user', 'categories', 'tags', 'media', 'comments'])->firstOrFail();
+            $mainPost = $this->model()
+                ->where('slug', $post)
+                ->with(['user', 'categories', 'tags', 'media', 'comments'])
+                ->firstOrFail();
+
             // Similar post with $mainPost
             $otherPosts = $this->model()->whereHas('categories', function ($query) use ($mainPost) {
                 $query->where('slug', $mainPost->categories->all()[0]->slug);
