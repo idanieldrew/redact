@@ -69,7 +69,7 @@ services:
 
     medium_elasticsearch:
         image: docker.elastic.co/elasticsearch/elasticsearch:7.4.0
-        container_name: mediumElasticsearch
+        container_name: medium_elasticsearch
         environment:
             - xpack.security.enabled=false
             - discovery.type=single-node

@@ -33,7 +33,6 @@ class ReadPostTest extends CustomTestCase
     /** @test */
     public function show_other_post()
     {
-        $this->withoutExceptionHandling();
         $res = $this->storePost('writer', false, 5);
 
         $this->getJson(route('post.show', Str::slug($res[0][0])))
