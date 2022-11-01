@@ -1,9 +1,9 @@
 # Modular blog
 
-## Installation
+### Installation With Docker
 
 ```sh
-git clone https://github.com/idanieldrew/modular-blog
+git clone https://github.com/idanieldrew/redact
 
 cd modular-blog
 
@@ -14,13 +14,31 @@ copy .env.example .env
 docker-compose up --build
 ```
 
+### Installation Without Docker
+
+```sh
+git clone https://github.com/idanieldrew/redact
+
+cd modular-blog
+
+# set environment
+copy .env.example .env
+
+# install composer
+composer install
+```
+
 ## Tests
 ```sh
 docker-compose exec weblog_application php artisan test
 ```
 
-### Infrastructure Description
+## Fake data
+```sh
+php artisan migrate:fresh --seed
+```
 
+### Infrastructure Description
 - This project is built with laravel and php
 - This project offers a special api for blog
 - I tried to make the architecture of the project based on
@@ -31,7 +49,7 @@ docker-compose exec weblog_application php artisan test
 
 ## Database Description
 
-#### Laravel is flexible in determining main database but i performed
+#### Laravel is flexible in determining database but i performed
 
 - PostgresQL for main database
 - Redis for cache database
