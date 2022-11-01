@@ -1,10 +1,13 @@
 {
-    "name": "laravel/laravel",
+    "name": "idanieldrew/redact",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "Redact is a place to write article.",
     "keywords": [
-        "framework",
-        "laravel"
+        "laravel",
+        "article",
+        "redact",
+        "php",
+        "project"
     ],
     "license": "MIT",
     "require": {
