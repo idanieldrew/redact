@@ -4,11 +4,9 @@ namespace Module\User\Services\v1;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Module\User\Http\Requests\v1\LoginRequest;
 use Module\User\Http\Requests\v1\RegisterRequest;
-use Module\User\Models\User;
 use Module\User\Services\UserService as Service;
 
 class UserService extends Service
@@ -39,34 +37,36 @@ class UserService extends Service
      */
     public function store($request)
     {
-        $user = $this->model->create([
+        $user = $this->model()->create([
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
-            'password' => bcrypt($request->email)
+            'password' => Hash::make($request->password)
         ]);
         $token = $user->createToken('token')->plainTextToken;
-
-        return array($token,$user);
+        return [
+            'token' => $token,
+            'user' => $user
+        ];
     }
 
     /**
      * try to log in
-     * @param RegisterRequest $request
+     * @param $request
      * @return array
      */
-    public function login(LoginRequest $request): array
+    public function login($request): array
     {
         $user = $this->model()->whereEmail($request->email)->first();
 
         // Check exist user
-        if (!$user || Hash::check($request->password, $user->password)) {
+        if (!$user || !Hash::check($request->password, $user->password)) {
             return $this->response('fail', Response::HTTP_UNAUTHORIZED, 'invalid email or password');
         }
 
         $token = $user->createToken('token')->plainTextToken;
-        return array($token,$user);
-//        return $this->response('success', Response::HTTP_OK, 'Successfully login', [$user, $token]);
+        return $this->response('success', Response::HTTP_OK, 'Successfully login', ['user' => $user, 'token' => $token]
+        );
     }
 
     /**

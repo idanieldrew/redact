@@ -9,6 +9,13 @@
         "php",
         "project"
     ],
+    "authors" : [
+        {
+            "name" : "Daniel",
+            "email": "danielgia35@gmail.com",
+            "role": "Developer"
+        }
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.1",

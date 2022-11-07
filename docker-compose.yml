@@ -14,7 +14,7 @@ services:
         volumes:
             - .:/var/www
             - ./docker/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-        #      - ./docker/php.ini:/usr/local/etc/php/conf.d/local.ini
+#            - ./docker/php.ini:/usr/local/etc/php/conf.d/local.ini
         networks:
             - weblog-network
 

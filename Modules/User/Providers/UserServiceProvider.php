@@ -13,7 +13,7 @@ class UserServiceProvider extends ServiceProvider
 {
     private const SUPER = 'super';
 
-    private $namespace = 'Module\User\Http\Controllers';
+    private string $namespace = 'Module\User\Http\Controllers';
 
     protected $policies = [
         User::class => UserPolicy::class
