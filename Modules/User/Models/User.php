@@ -12,6 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Module\Category\Models\Category;
 use Module\Post\Models\Post;
 use Module\Role\Traits\HasRole;
+use Module\Status\Models\Status;
 use Module\Token\Models\Token;
 use Module\User\Database\Factories\UserFactory;
 
@@ -74,6 +75,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function tokenize(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Token::class);
+    }
+
+    public function statuses()
+    {
+        return $this->morphMany(Status::class, 'statusable');
     }
 
     /** End Relations */

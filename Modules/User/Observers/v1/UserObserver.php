@@ -22,4 +22,19 @@ class UserObserver
         }
         return;
     }
+
+    /**
+     * Handle the Post "created" event.
+     *
+     * @param \Module\User\Models\User $user
+     * @return void
+     */
+    public function created(User $user)
+    {
+        $user->statuses()->create([
+            'name' => 'pending',
+            'reason' => 'needs verification'
+        ]);
+    }
+
 }

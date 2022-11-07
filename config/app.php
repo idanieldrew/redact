@@ -194,6 +194,8 @@ return [
         \Module\Media\Providers\MediaServiceProvider::class,
         // Comment Module
         \Module\Comment\Providers\CommentServiceProvider::class,
+        // Status Module
+        \Module\Status\Providers\StatusServiceProvider::class,
         // Panel Module
         \Module\Panel\Providers\PanelServiceProvider::class
     ],
