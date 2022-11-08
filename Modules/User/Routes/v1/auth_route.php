@@ -8,4 +8,4 @@ Route::post('login', [AuthController::class, 'login'])->name('login');
 // Register
 Route::post('register', [AuthController::class, 'register'])->name('register');
 
-require_once 'verify_route.php';
+require 'verify_route.php';

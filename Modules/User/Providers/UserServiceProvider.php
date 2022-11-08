@@ -29,12 +29,7 @@ class UserServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->renderable(function (InvalidSignatureException $e) {
-            response()->json([
-                'status' => 'error',
-                'message' => "forbidden",
-            ], ResponseAlias::HTTP_FORBIDDEN);
-        });
+        //
     }
 
     /**
