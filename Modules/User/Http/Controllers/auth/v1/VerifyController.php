@@ -8,22 +8,21 @@ use Illuminate\Http\Request;
 
 class VerifyController extends Controller
 {
-/*    public function notice()
-    {
-        dd("first verify");
-    }*/
-
+    /**
+     * @param EmailVerificationRequest $request
+     * @return string
+     */
     public function verify(EmailVerificationRequest $request)
     {
         $request->fulfill();
 
-        return redirect()->route('post.index');
+        return 'ok,verify it';
     }
 
     public function send(Request $request)
     {
         $request->user()->sendEmailVerificationNotification();
 
-        return;
+        return 'send it';
     }
 }

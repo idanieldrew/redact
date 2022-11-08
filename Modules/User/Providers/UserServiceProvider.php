@@ -2,12 +2,15 @@
 
 namespace Module\User\Providers;
 
-use Carbon\Laravel\ServiceProvider;
+use Illuminate\Http\Response;
+use Illuminate\Routing\Exceptions\InvalidSignatureException;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\ServiceProvider;
 use Module\User\Models\User;
 use Module\User\Observers\v1\UserObserver;
 use Module\User\Policies\UserPolicy;
+use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class UserServiceProvider extends ServiceProvider
 {
@@ -20,12 +23,26 @@ class UserServiceProvider extends ServiceProvider
     ];
 
     /**
+     * Register the exception handling callbacks for the application.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->renderable(function (InvalidSignatureException $e) {
+            response()->json([
+                'status' => 'error',
+                'message' => "forbidden",
+            ], ResponseAlias::HTTP_FORBIDDEN);
+        });
+    }
+
+    /**
      * Bootstrap any application services.
      *
      * @return void
      */
-    public
-    function boot()
+    public function boot()
     {
         // super user
         Gate::before(function ($user) {
