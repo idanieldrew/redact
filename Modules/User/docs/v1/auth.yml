@@ -18,31 +18,12 @@ paths:
       summary: Create user
       description: This can only be done by the unique mail.
       operationId: Register User
-      parameters:
-        - name: name
-          in: query
-          description: The name for register
-          required: true
-          schema:
-            type: string
-        - name: email
-          in: query
-          description: The email for register
-          required: true
-          schema:
-            type: string
-        - name: password
-          in: query
-          description: The password for register
-          required: true
-          schema:
-            type: string
       requestBody:
         description: Created user object
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/User.v1'
+              $ref: '#/components/schemas/User-register.v1'
       responses:
         default:
           description: Successfully register
@@ -57,25 +38,12 @@ paths:
       summary: Login user
       description: Exist mai and correct password.
       operationId: Login User
-      parameters:
-        - name: email
-          in: query
-          description: The email for login
-          required: true
-          schema:
-            type: string
-        - name: password
-          in: query
-          description: The password for login
-          required: true
-          schema:
-            type: string
       requestBody:
         description: login
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/User.v1'
+              $ref: '#/components/schemas/User-login.v1'
       responses:
         default:
           description: Successfully login
@@ -83,10 +51,32 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Login'
+  /api/auth//email/verify/{id}/{hash} (v1):
+    get:
+      tags:
+        - auth
+      summary: verify
+      operationId: id
+      parameters:
+        - name: id
+          in: path
+          description: ID user
+          required: true
+          schema:
+            type: integer
+        - name: hash
+          in: path
+          description: hash
+          required: true
+          schema:
+            $ref: '#/components/schemas/User-login.v1'
+      responses:
+        default:
+          description: ok,verify it
 
 components:
   schemas:
-    User.v1:
+    User-register.v1:
       type: object
       properties:
         name:
@@ -95,6 +85,19 @@ components:
         email:
           type: string
           example: dan@dan.com
+        password:
+          type: string
+          example: password
+    User-login.v1:
+      type: object
+      properties:
+        email:
+          type: string
+          example: dan@dan.com
+        password:
+          type: string
+          example: password
+
     Tag:
       type: object
       properties:
@@ -159,4 +162,4 @@ components:
       type: apiKey
       name: api_key
       in: header
-
+      
