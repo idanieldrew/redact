@@ -35,7 +35,7 @@ docker-compose exec weblog_application php artisan test
 
 ## Fake data
 ```sh
-php artisan migrate:fresh --seed
+docker-compose exec weblog_application php artisan migrate:fresh --seed
 ```
 
 ### Infrastructure Description
@@ -77,3 +77,10 @@ php artisan migrate:fresh --seed
   don't need all this.That's why i made this module.
 - Use cache for queries(redis)
 - I tried to clean code so use Solid and Design patterns. If you have an idea to make the code cleaner,do a pull request.
+
+## Pull Requests
+
+Thank you for investing your time in contributing to our project.
+
+
+
