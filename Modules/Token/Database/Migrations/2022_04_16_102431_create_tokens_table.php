@@ -16,9 +16,6 @@ class CreateTokensTable extends Migration
     {
         Schema::create('tokens', function (Blueprint $table) {
             $table->id();
-            $table->string('code');
-            $table->foreignIdFor(User::class);
-            $table->boolean('used')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });
