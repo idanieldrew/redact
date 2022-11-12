@@ -4,6 +4,9 @@ namespace Module\User\Observers\v1;
 
 use Illuminate\Support\Facades\Cache;
 use Module\Role\Models\Role;
+use Module\Token\Services\v1\EmailVerify;
+use Module\Token\Services\v1\SmsVerify;
+use Module\Token\Services\v1\Verify;
 use Module\User\Models\User;
 
 class UserObserver
@@ -20,7 +23,6 @@ class UserObserver
             $role = Role::getName('writer')->first();
             $user->role_id = $role->id;
         }
-        return;
     }
 
     /**
@@ -35,6 +37,9 @@ class UserObserver
             'name' => 'pending',
             'reason' => 'needs verification'
         ]);
-    }
 
+        // verify with mobile or mail(mobile is priority)
+        $verify = resolve(Verify::class);
+        $verify->send(new EmailVerify());
+    }
 }

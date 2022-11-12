@@ -43,15 +43,6 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
-    /**
      * Create a new factories instance for the model.
      *
      * @return Factory
@@ -61,7 +52,13 @@ class User extends Authenticatable implements MustVerifyEmail
         return UserFactory::new();
     }
 
-    /** Relations */
+    /* relations */
+
+    public function types()
+    {
+        return $this->morphMany(Token::class, 'typeable');
+    }
+
     public function posts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Post::class);
@@ -70,11 +67,6 @@ class User extends Authenticatable implements MustVerifyEmail
     public function categories(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Category::class);
-    }
-
-    public function tokenize(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(Token::class);
     }
 
     public function statuses()
