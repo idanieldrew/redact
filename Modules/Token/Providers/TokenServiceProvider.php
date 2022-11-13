@@ -22,6 +22,8 @@ class TokenServiceProvider extends ServiceProvider
         // Migrations
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
 
+        $this->loadViewsFrom(__DIR__ . '/../Resources/View','verify');
+
         // Routes
         Route::prefix('api/token')
             ->middleware('api')

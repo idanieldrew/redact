@@ -39,7 +39,7 @@ class UserObserver
         ]);
 
         // verify with mobile or mail(mobile is priority)
-        $verify = resolve(Verify::class);
-        $verify->send(new EmailVerify());
+        $verify = new Verify;
+        $verify->verify(new EmailVerify($user->withoutRelations()));
     }
 }

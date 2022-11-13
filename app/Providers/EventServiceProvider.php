@@ -2,13 +2,13 @@
 
 namespace App\Providers;
 
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Module\Category\Events\NewCategory;
 use Module\Category\Listeners\ReportCategoryPublishedAdmin;
 use Module\Post\Events\PostPublish;
 use Module\Post\Listeners\ReportPostPublishedAdmin;
+use Module\Token\Listeners\SendMailVerification;
+use Module\User\Events\Registered;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -18,8 +18,11 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        Registered::class => [
+        /*Registered::class => [
             SendEmailVerificationNotification::class,
+        ],*/
+        Registered::class => [
+            SendMailVerification::class,
         ],
         PostPublish::class => [
             ReportPostPublishedAdmin::class,
