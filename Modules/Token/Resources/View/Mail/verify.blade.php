@@ -1,2 +1,4 @@
-dear {{ $data[1] }}
-{{ $data[0] }}
+dear {{ $name }}
+{{ $mail }}
+
+{{$url}}

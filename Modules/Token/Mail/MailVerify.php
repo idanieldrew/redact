@@ -5,6 +5,7 @@ namespace Module\Token\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\URL;
 
 class MailVerify extends Mailable
 {
@@ -16,7 +17,8 @@ class MailVerify extends Mailable
      * @return void
      */
     public function __construct(
-        private array $data
+        private string $mail,
+        private string $name,
     )
     {
         //
@@ -29,6 +31,14 @@ class MailVerify extends Mailable
      */
     public function build()
     {
-        return $this->view('verify::Mail/verify')->with('data', $this->data);
+        $url = URL::temporarySignedRoute('verify.v2',
+            now()->addMinutes(15),
+            ['name' => $this->name]
+        );
+
+        return $this->view('verify::Mail/verify')
+            ->with('mail', $this->mail)
+            ->with('name', $this->name)
+            ->with('url', $url);
     }
 }
