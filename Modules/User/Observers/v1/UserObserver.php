@@ -2,6 +2,7 @@
 
 namespace Module\User\Observers\v1;
 
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
 use Module\Role\Models\Role;
 use Module\Token\Services\v1\EmailVerify;
@@ -38,8 +39,10 @@ class UserObserver
             'reason' => 'needs verification'
         ]);
 
-        // verify with mobile or mail(mobile is priority)
-        $verify = new Verify;
-        $verify->verify(new EmailVerify($user->withoutRelations()));
+        if (App::environment('local')) {
+            // verify with mobile or mail(mobile is priority)
+            $verify = new Verify;
+            $verify->verify(new EmailVerify($user->withoutRelations()));
+        }
     }
 }
