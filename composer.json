@@ -25,6 +25,7 @@
         "intervention/image": "^2.7",
         "jeroen-g/explorer": "^3.2",
         "laravel/framework": "^9.19",
+        "laravel/horizon": "^5.10",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.7",
         "mvaliolahi/sibdoc": "^0.0.5",
