@@ -25,6 +25,5 @@ class Registered
         protected User $user
     )
     {
-        //
     }
 }

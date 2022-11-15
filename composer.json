@@ -9,16 +9,17 @@
         "php",
         "project"
     ],
-    "authors" : [
+    "authors": [
         {
-            "name" : "Daniel",
+            "name": "Daniel",
             "email": "danielgia35@gmail.com",
             "role": "Developer"
         }
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.1",
+        "php": "^8.0||^8.1",
+        "ext-json": "*",
         "fruitcake/laravel-cors": "^3.0",
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "^2.7",
@@ -27,7 +28,9 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.7",
         "mvaliolahi/sibdoc": "^0.0.5",
-        "predis/predis": "^2.0.2"
+        "php-amqplib/php-amqplib": "^3.4.0",
+        "predis/predis": "^2.0.2",
+        "vladimir-yuldashev/laravel-queue-rabbitmq": "^13.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

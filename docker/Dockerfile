@@ -28,6 +28,8 @@ RUN pecl install xdebug \
 RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql
 RUN docker-php-ext-install pdo pdo_pgsql
 RUN docker-php-ext-install gd
+RUN docker-php-ext-install sockets
+
 
 # Get latest Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer

@@ -10,11 +10,13 @@ services:
         image: medium
         container_name: weblog_application
         restart: unless-stopped
+        depends_on:
+            - redact_rabbit
         working_dir: /var/www
         volumes:
             - .:/var/www
             - ./docker/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-#            - ./docker/php.ini:/usr/local/etc/php/conf.d/local.ini
+        #            - ./docker/php.ini:/usr/local/etc/php/conf.d/local.ini
         networks:
             - weblog-network
 
@@ -90,6 +92,23 @@ services:
         networks:
             - weblog-network
 
+    redact_rabbit:
+        image: rabbitmq:3.11.3-management
+        container_name: redact_rabbit
+        tty: true
+        environment:
+            DEFAULT_VHOST: /
+            DEFAULT_USER: guest
+            DEFAULT_PASS: guest
+        ports:
+            - 5672:5672
+            - 15672:15672
+        volumes:
+            - rabbitmq-data:/var/lib/rabbitmq
+            - rabbitmq-data2:/var/log/rabbitmq
+        networks:
+            - weblog-network
+
     medium_kibana:
         image: docker.elastic.co/kibana/kibana:7.4.0
         container_name: mediumKibana
@@ -112,4 +131,8 @@ volumes:
     elastic:
         driver: local
     cache-data:
+        driver: local
+    rabbitmq-data:
+        driver: local
+    rabbitmq-data2:
         driver: local
