@@ -183,6 +183,8 @@ return [
         \Module\User\Providers\UserServiceProvider::class,
         // Role & Permission module
         \Module\Role\Providers\RoleServiceProvider::class,
+        // Auth module
+        \Module\Auth\Providers\AuthServiceProvider::class,
         // Token module
         \Module\Token\Providers\TokenServiceProvider::class,
         // Category Module

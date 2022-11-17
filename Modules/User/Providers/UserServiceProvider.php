@@ -2,15 +2,11 @@
 
 namespace Module\User\Providers;
 
-use Illuminate\Http\Response;
-use Illuminate\Routing\Exceptions\InvalidSignatureException;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Module\User\Models\User;
-use Module\User\Observers\v1\UserObserver;
 use Module\User\Policies\UserPolicy;
-use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class UserServiceProvider extends ServiceProvider
 {
@@ -55,19 +51,5 @@ class UserServiceProvider extends ServiceProvider
             ->middleware('api')
             ->namespace($this->namespace)
             ->group(__DIR__ . '/../Routes/v1/user_route.php');
-
-        Route::prefix('api/auth')
-            ->middleware('api')
-            ->namespace($this->namespace)
-            ->group(__DIR__ . '/../Routes/v1/auth_route.php');
-
-        /** v2 */
-        Route::prefix('api/auth')
-            ->middleware('api')
-            ->namespace($this->namespace)
-            ->group(__DIR__ . '/../Routes/v2/auth_route.php');
-
-        // Observer User
-        User::observe(UserObserver::class);
     }
 }

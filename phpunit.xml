@@ -13,11 +13,17 @@
              <directory suffix="Test.php">./tests/Feature</directory>
          </testsuite>-->
 
-        <testsuite name="Unit">
-            <directory suffix="Test.php">./Modules/User/tests/Unit</directory>
-        </testsuite>
         <testsuite name="Feature">
             <directory suffix="Test.php">./Modules/User/tests/Feature</directory>
+        </testsuite>
+
+        <!--auth tests-->
+        <testsuite name="Unit">
+            <directory suffix="Test.php">./Modules/Auth/tests/Unit</directory>
+        </testsuite>
+
+        <testsuite name="Feature">
+            <directory suffix="Test.php">./Modules/Auth/tests/Feature</directory>
         </testsuite>
 
         <!--category tests-->
