@@ -1,5 +1,7 @@
 # Modular blog
 
+## About Redact
+Redact is built with php and laravel. Redact is a place to write articles. Redact is suitable for developers who want to learn more about Laravel and know how to use technologies.
 ### Installation With Docker
 
 ```sh
