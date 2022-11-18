@@ -4,8 +4,6 @@ namespace Module\Auth\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Module\Auth\Observers\v1\AuthObserver;
-use Module\User\Models\User;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -23,8 +21,5 @@ class AuthServiceProvider extends ServiceProvider
             ->middleware('api')
             ->namespace($this->namespace)
             ->group(__DIR__ . '/../Routes/v2/auth_route.php');
-
-        // Observer User
-        User::observe(AuthObserver::class);
     }
 }

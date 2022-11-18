@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Module\User\Models\User;
+use Module\User\Observers\v1\UserObserver;
 use Module\User\Policies\UserPolicy;
 
 class UserServiceProvider extends ServiceProvider
@@ -51,5 +52,10 @@ class UserServiceProvider extends ServiceProvider
             ->middleware('api')
             ->namespace($this->namespace)
             ->group(__DIR__ . '/../Routes/v1/user_route.php');
+
+
+
+        // Observer User
+        User::observe(UserObserver::class);
     }
 }

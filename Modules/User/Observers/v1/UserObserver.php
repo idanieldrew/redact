@@ -1,16 +1,14 @@
 <?php
 
-namespace Module\Auth\Observers\v1;
+namespace Module\User\Observers\v1;
 
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Cache;
 use Module\Role\Models\Role;
 use Module\Token\Services\v1\EmailVerify;
-use Module\Token\Services\v1\SmsVerify;
 use Module\Token\Services\v1\Verify;
 use Module\User\Models\User;
 
-class AuthObserver
+class UserObserver
 {
     /**
      * Handle the Post "creating" event.
