@@ -59,8 +59,9 @@ class CustomTestCase extends TestCase
 
         $attachments = $attachments ?
             [
+                UploadedFile::fake()->create("video.mp4", "280000000", "mp4"),
                 uploadedFile::fake()->image('image1.png'),
-                UploadedFile::fake()->image('image2.png')
+                UploadedFile::fake()->image('image2.png'),
             ] :
             null;
 

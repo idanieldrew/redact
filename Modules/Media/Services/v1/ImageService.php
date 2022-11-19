@@ -4,10 +4,10 @@ namespace Module\Media\Services\v1;
 
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image as Intervention;
 use Module\Media\Contracts\FileContract;
 use Module\Media\Services\MediaService as Service;
-use Str;
 
 class ImageService extends Service implements FileContract
 {
