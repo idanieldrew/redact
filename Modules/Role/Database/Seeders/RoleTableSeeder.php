@@ -43,7 +43,7 @@ class RoleTableSeeder extends Seeder
         $role3->givePermissionTo($p1, $p2, $p3, $p5, $p6, $p7, $p8);
 
         $role3->users()->create([
-            'name' => 'super',
+            'username' => 'super',
             'email' => 'super@super.com',
             'password' => Hash::make('password'),
             'phone' => '09121234567'

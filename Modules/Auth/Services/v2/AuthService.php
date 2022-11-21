@@ -17,7 +17,7 @@ class AuthService extends Service
     public function store($request): array
     {
         $user = $this->model()->create([
-            'name' => $request->name,
+            'username' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
             'password' => Hash::make($request->password)

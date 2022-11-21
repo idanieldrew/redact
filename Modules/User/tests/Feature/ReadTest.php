@@ -15,7 +15,7 @@ class ReadTest extends CustomTestCase
     {
         $res = $this->CreateUser('super');
 
-        $this->assertDatabaseHas('users', ['name' => $res[0]->name]);
+        $this->assertDatabaseHas('users', ['username' => $res[0]->username]);
 
         $this->get(route('user.index'))->assertSee($res[0]->email);
     }
@@ -25,7 +25,7 @@ class ReadTest extends CustomTestCase
     {
         $res = $this->CreateUser('admin');
 
-        $this->assertDatabaseHas('users', ['name' => $res[0]->name]);
+        $this->assertDatabaseHas('users', ['username' => $res[0]->username]);
 
         $this->get(route('user.index'))->assertSee($res[0]->email);
     }
@@ -36,7 +36,7 @@ class ReadTest extends CustomTestCase
         $res = $this->CreateUser();
         User::factory()->create();
 
-        $this->assertDatabaseHas('users', ['name' => $res[0]->name]);
+        $this->assertDatabaseHas('users', ['username' => $res[0]->username]);
 
         $this->get(route('user.index'))
             ->assertForbidden();
@@ -45,7 +45,6 @@ class ReadTest extends CustomTestCase
     /** @test */
     public function super_can_see_one_user()
     {
-        $this->withoutExceptionHandling();
         $this->CreateUser('super');
         $user = User::factory()->create();
 

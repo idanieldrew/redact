@@ -20,9 +20,9 @@ class Role extends Model
      * @param string $name
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeGetName($query, $name)
+    public function scopeGetName($query, $username)
     {
-        return $query->where('name', $name);
+        return $query->where('name', $username);
     }
 
     public function users()
