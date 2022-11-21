@@ -1,4 +1,6 @@
 dear {{ $name }}
 {{ $mail }}
-
-{{$url}}
+<br>
+<h2>
+    {{$url}}
+</h2>

@@ -27,8 +27,6 @@ class AuthController extends Controller implements ResponseGenerator
     {
         $store = $this->service->store($request);
 
-//        event(new Registered($store['data']['user']));
-
         return $this->res($store['status'], $store['code'], $store['message'], $store['data']);
     }
 

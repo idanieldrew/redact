@@ -17,6 +17,7 @@ class MailVerify extends Mailable
      * @return void
      */
     public function __construct(
+        private        $id,
         private string $mail,
         private string $name,
     )
@@ -31,9 +32,10 @@ class MailVerify extends Mailable
      */
     public function build()
     {
+        dd(111);
         $url = URL::temporarySignedRoute('verify.v2',
             now()->addMinutes(15),
-            ['name' => $this->name]
+            ['user' => $this->id]
         );
 
         return $this->view('verify::Mail/verify')

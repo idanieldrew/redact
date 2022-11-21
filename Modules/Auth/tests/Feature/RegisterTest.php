@@ -2,9 +2,7 @@
 
 namespace Module\Auth\tests\Feature;
 
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Support\Facades\Event;
 use Tests\CustomTestCase;
 
 class RegisterTest extends CustomTestCase

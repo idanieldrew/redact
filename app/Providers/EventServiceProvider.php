@@ -20,10 +20,10 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         /*Registered::class => [
             SendEmailVerificationNotification::class,
-        ],*/
+        ],*/ // work in v1
         Registered::class => [
             SendMailVerification::class,
-        ],
+        ], // work in v2
         PostPublish::class => [
             ReportPostPublishedAdmin::class,
         ],
