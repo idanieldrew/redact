@@ -32,7 +32,6 @@ class MailVerify extends Mailable
      */
     public function build()
     {
-        dd(111);
         $url = URL::temporarySignedRoute('verify.v2',
             now()->addMinutes(15),
             ['user' => $this->id]

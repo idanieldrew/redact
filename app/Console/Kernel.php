@@ -4,6 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Module\Panel\Jobs\NewUsers;
 use Module\Share\Commands\Docs;
 
 class Kernel extends ConsoleKernel
@@ -25,7 +26,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('test')->hourly();
+        // new users
+        $schedule->job(NewUsers::class)->daily();
     }
 
     /**

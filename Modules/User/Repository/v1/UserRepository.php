@@ -47,9 +47,6 @@ class UserRepository extends Repository
         });
     }
 
-    /**
-     *
-     */
     public function simpleUsers()
     {
         return Cache::remember('simple.users', self::TIME, function () {
@@ -57,5 +54,11 @@ class UserRepository extends Repository
                 $builder->where('name', 'writer')->cursor();
             })->get(['email']);
         });
+    }
+
+    public function newUsers($type)
+    {
+        return $this->model()->where('created_at', '>', $type)
+            ->get(['username', 'email']);
     }
 }
