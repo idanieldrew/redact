@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->string('slug');
             $table->text('details');
             $table->string('price');
+            $table->foreignId('user_id')->constrained();
             $table->softDeletes();
             $table->timestamps();
         });

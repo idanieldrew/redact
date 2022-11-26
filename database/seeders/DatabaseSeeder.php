@@ -3,10 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 use Module\Category\Models\Category;
-use Module\Post\Models\Post;
+use Module\Premium\Database\Seeders\PremiumDatabaseSeeder;
 use Module\Role\Database\Seeders\RoleTableSeeder;
 use Module\User\Models\User;
 
@@ -20,6 +18,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(RoleTableSeeder::class);
+        $this->call(PremiumDatabaseSeeder::class);
         User::factory(['role_id' => 1])->create();
 
         $names = ['sport', 'science', 'imaginary'];
