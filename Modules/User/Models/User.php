@@ -74,7 +74,12 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->morphMany(Status::class, 'statusable');
     }
 
-    /** End Relations */
+    public function premiums()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
+    /** end relations */
 
     public function getPhoneNumber()
     {

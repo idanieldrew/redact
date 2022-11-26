@@ -199,6 +199,8 @@ return [
         \Module\Comment\Providers\CommentServiceProvider::class,
         // Status Module
         \Module\Status\Providers\StatusServiceProvider::class,
+        // Status Module
+        \Module\Premium\Providers\PremiumServiceProvider::class,
         // Panel Module
         \Module\Panel\Providers\PanelServiceProvider::class
     ],
