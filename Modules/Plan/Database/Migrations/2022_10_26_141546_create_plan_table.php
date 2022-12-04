@@ -12,13 +12,15 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('premium', function (Blueprint $table) {
+        Schema::create('plan', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('slug');
-            $table->text('details');
-            $table->string('price');
-            $table->foreignId('user_id')->constrained();
+            $table->string('currency', 6);
+            $table->json('description');
+            $table->decimal('price')->default('0.00');
+            $table->decimal('signup_fee')->default('0.00');
+            $table->decimal('invoice');
             $table->softDeletes();
             $table->timestamps();
         });

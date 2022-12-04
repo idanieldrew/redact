@@ -1,13 +1,13 @@
 <?php
 
-namespace Module\Premium\Models;
+namespace Module\Plan\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Module\User\Models\User;
 
-class Premium extends Model
+class Plan extends Model
 {
     use HasFactory,SoftDeletes;
 

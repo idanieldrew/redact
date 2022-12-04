@@ -12,9 +12,13 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('premium_user', function (Blueprint $table) {
-            $table->foreignId('premium_id')->constrained('premium');
-            $table->foreignId('user_id')->constrained()->cascadeOnUpdate();
+        Schema::create('plan_feature', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('plan_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->string('name');
+            $table->string('slug');
+            $table->json('description')->nullable();
+
             $table->timestamps();
         });
     }
@@ -26,6 +30,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('premium_user');
+        Schema::dropIfExists('plan_feature');
     }
 };
