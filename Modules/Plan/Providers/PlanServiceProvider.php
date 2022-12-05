@@ -4,11 +4,10 @@ namespace Module\Plan\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Module\Plan\Models\Plan;
 
 class PlanServiceProvider extends ServiceProvider
 {
-    private string $namespace = 'Module\Premium\Http\Controllers';
+    private string $namespace = 'Module\Plan\Http\Controllers';
 
     public function boot()
     {

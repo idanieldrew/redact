@@ -6,9 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Module\Plan\Casts\DescriptionPlan;
-use Module\User\Models\User;
 
-class Plan extends Model
+class PlanFeature extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -17,10 +16,4 @@ class Plan extends Model
     protected $casts = [
         'description' => DescriptionPlan::class
     ];
-
-    /** relations */
-    public function plan_feature()
-    {
-        return $this->hasMany(PlanFeature::class);
-    }
 }

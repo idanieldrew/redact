@@ -12,13 +12,17 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('plan_feature', function (Blueprint $table) {
+        Schema::create('plans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('plan_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('name');
             $table->string('slug');
-            $table->json('description')->nullable();
+            $table->json('description');
+            $table->smallInteger('count_account');
+            $table->decimal('price')->default(10);
+            $table->smallInteger('period')->unsigned()->default(1);
+            $table->string('interval')->default('day');
 
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -30,6 +34,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('plan_feature');
+        Schema::dropIfExists('premium');
     }
 };

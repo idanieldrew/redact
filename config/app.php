@@ -200,7 +200,7 @@ return [
         // Status Module
         \Module\Status\Providers\StatusServiceProvider::class,
         // Status Module
-//        \Module\Plan\Providers\PlanServiceProvider::class,
+        \Module\Plan\Providers\PlanServiceProvider::class,
         // Panel Module
         \Module\Panel\Providers\PanelServiceProvider::class
     ],

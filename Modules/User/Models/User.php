@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Module\Category\Models\Category;
+use Module\Plan\Models\Subscribe;
 use Module\Post\Models\Post;
 use Module\Role\Traits\HasRole;
 use Module\Status\Models\Status;
@@ -84,5 +85,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getPhoneNumber()
     {
         return $this->phone;
+    }
+
+    public function subscribs()
+    {
+        return $this->hasMany(Subscribe::class);
     }
 }

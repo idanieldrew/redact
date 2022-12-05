@@ -12,15 +12,11 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('plan', function (Blueprint $table) {
+        Schema::create('subscribes', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('slug');
-            $table->string('currency', 6);
-            $table->json('description');
-            $table->decimal('price')->default('0.00');
-            $table->decimal('signup_fee')->default('0.00');
-            $table->decimal('invoice');
+            $table->foreignId('plan_id')->constrained();
+            $table->foreignId('user_id')->constrained();
+
             $table->softDeletes();
             $table->timestamps();
         });
@@ -33,6 +29,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('premium');
+        Schema::dropIfExists('subscribes');
     }
 };
