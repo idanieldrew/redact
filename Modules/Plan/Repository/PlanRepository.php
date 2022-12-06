@@ -5,7 +5,7 @@ namespace Module\Plan\Repository;
 use Module\Plan\Models\Plan;
 use Module\Share\Repository\Repository as BaseRepository;
 
-class Repository extends BaseRepository
+class PlanRepository extends BaseRepository
 {
 
     public function model()

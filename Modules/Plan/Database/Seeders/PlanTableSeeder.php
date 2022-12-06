@@ -70,11 +70,9 @@ class PlanTableSeeder extends Seeder
             'slug' => Str::slug($name),
             'count_account' => 1,
             'description' => [
-                'description' => [
-                    'Hulu (ad-supported) plan',
-                    'Can Download(pdf)',
-                    'Access to all posts',
-                ],
+                'Hulu (ad-supported) plan',
+                'Can Download(pdf)',
+                'Access to all posts',
             ],
             'price' => 4.99,
             'period' => 1,

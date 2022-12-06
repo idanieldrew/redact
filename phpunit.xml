@@ -6,9 +6,9 @@
 >
     <testsuites>
 
-         <testsuite name="Unit">
-             <directory suffix="Test.php">Modules/Role/tests/Unit</directory>
-         </testsuite>
+        <testsuite name="Unit">
+            <directory suffix="Test.php">Modules/Role/tests/Unit</directory>
+        </testsuite>
         <!-- <testsuite name="Feature">
              <directory suffix="Test.php">./tests/Feature</directory>
          </testsuite>-->
@@ -42,8 +42,13 @@
         </testsuite>
 
         <!--comment tests-->
-        <testsuite name="Feature">
+        <testsuite name="Unit">
             <directory suffix="Test.php">./Modules/Comment/tests/Unit</directory>
+        </testsuite>
+
+        <!--plan tests-->
+        <testsuite name="Feature">
+            <directory suffix="Test.php">./Modules/Plan/tests/Feature</directory>
         </testsuite>
 
 

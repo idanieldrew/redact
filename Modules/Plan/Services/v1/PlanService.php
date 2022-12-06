@@ -2,12 +2,23 @@
 
 namespace Module\Plan\Services\v1;
 
-use Module\Premium\Services\Service;
+use Module\Plan\Http\Resources\v1\PlanResource;
+use Module\Plan\Repository\v1\PlanFeaturePlanRepository;
+use Module\Plan\Repository\v1\PlanPlanRepository;
+use Module\Plan\Services\Service;
 
 class PlanService extends Service
 {
-    public function store()
+    protected function repo()
     {
-        dd(11);
+        return resolve(PlanPlanRepository::class);
+    }
+
+    public function store($request)
+    {
+        $plan = $this->repo()->store($request);
+        (new PlanFeaturePlanRepository)->store($plan, $request->features);
+
+        return new PlanResource($plan);
     }
 }

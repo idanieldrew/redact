@@ -10,7 +10,7 @@ use Module\Post\Policies\PostPolicy;
 
 class PostServiceProvider extends ServiceProvider
 {
-    private $namespace = 'Module\Post\Http\Controllers';
+    private string $namespace = 'Module\Post\Http\Controllers';
 
     protected $policies = [
         Post::class => PostPolicy::class

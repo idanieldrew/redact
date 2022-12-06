@@ -6,8 +6,10 @@ use {{ namespacedModel }};
 use {{ rootNamespace }}Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use {{ namespacedParentModel }};
+use Module\Share\Contracts\Response\ResponseGenerator;
 
-class {{ class }} extends Controller
+
+class {{ class }} extends Controller implement ResponseGenerator
 {
     /**
      * Display a listing of the resource.
@@ -67,5 +69,10 @@ class {{ class }} extends Controller
     public function destroy({{ parentModel }} ${{ parentModelVariable }}, {{ model }} ${{ modelVariable }})
     {
         //
+    }
+
+    public function res($status, $code, $message, $data = null)
+    {
+            // TODO: Implement res() method.
     }
 }

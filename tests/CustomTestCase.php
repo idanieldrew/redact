@@ -13,10 +13,10 @@ use Module\User\Models\User;
 
 class CustomTestCase extends TestCase
 {
-    public function CreateUser($type = 'writer', $email = 'test@test.com'): array
+    public function CreateUser(string $type = 'writer', string $email = 'test@test.com', bool $special_role = false): array
     {
         // Create role
-        $this->createRole();
+        $this->createRole($special_role);
         // Find it
         $role = Role::query()->where('name', $type)->firstOrFail();
         // Create new user with type admin
@@ -30,7 +30,7 @@ class CustomTestCase extends TestCase
         return [$user, $role->id];
     }
 
-    private function createRole()
+    private function createRole(bool $special = false)
     {
         $role1 = Role::create(['name' => 'writer']);
         $role2 = Role::create(['name' => 'admin']);
@@ -39,10 +39,15 @@ class CustomTestCase extends TestCase
         $p1 = Permission::create(['name' => 'view-users']);
         $p2 = Permission::create(['name' => 'create-post']);
         $p3 = Permission::create(['name' => 'create-category']);
+        $p4 = Permission::create(['name' => 'create-plan']);
 
         $role1->givePermissionTo($p2);
-        $role2->givePermissionTo($p1, $p2, $p3);
-        $role3->givePermissionTo($p1, $p2, $p3);
+        $special ?
+            $role2->givePermissionTo($p1, $p2, $p3, $p4)
+            :
+            $role2->givePermissionTo($p1, $p2, $p3);
+
+        $role3->givePermissionTo($p1, $p2, $p3, $p4);
     }
 
     protected function storePost($role = 'writer', $attachments = false, $number = 1, $title = null, $details = null, $category = null, $mail = null): array
