@@ -24,13 +24,13 @@ class PlanRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'count_account' => 'required',
+            'name' => 'required|unique:plans',
+            'count_account' => 'required|numeric|min:1',
             'description' => 'required|array',
-            'price' => 'required',
-            'period' => 'required',
-            'interval' => 'required',
-            'features' => 'required'
+            'price' => 'required|numeric',
+            'period' => 'required|numeric',
+            'interval' => 'required|string',
+            'features' => 'required|array'
         ];
     }
 }

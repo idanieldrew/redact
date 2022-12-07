@@ -13,7 +13,7 @@ use Module\User\Models\User;
 
 class CustomTestCase extends TestCase
 {
-    public function CreateUser(string $type = 'writer', string $email = 'test@test.com', bool $special_role = false): array
+    public function CreateUser($type = 'writer', $email = 'test@test.com', bool $special_role = false): array
     {
         // Create role
         $this->createRole($special_role);

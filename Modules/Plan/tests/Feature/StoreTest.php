@@ -55,12 +55,136 @@ class StoreTest extends CustomTestCase
     }
 
     /** @test */
-    public function validation_error()
+    public function required_name_in_store_plan()
     {
+        $plan = [
+            'count_account' => 1,
+            'description' => [
+                'test 1',
+                'test 2'
+            ],
+            'price' => 10.99,
+            'period' => 15,
+            'interval' => 'day',
+            'features' => [
+                'test feature 1',
+                'test feature 2'
+            ]
+        ];
+
         $this->CreateUser('super');
-        $this->post(route('plan.store'), [])->assertUnprocessable();
+        $this->post(route('plan.store'), $plan)->assertUnprocessable();
 
         $this->assertDatabaseMissing('plans', ['name' => 'pro']);
     }
 
+    /** @test */
+    public function unique_name_in_store_plan()
+    {
+        $plan = [
+            'name' => 'pro',
+            'count_account' => 1,
+            'description' => [
+                'test 1',
+                'test 2'
+            ],
+            'price' => 10.99,
+            'period' => 15,
+            'interval' => 'day',
+            'features' => [
+                'test feature 1',
+                'test feature 2'
+            ]
+        ];
+
+        $this->CreateUser('super');
+        $this->post(route('plan.store'), $this->plan)->assertCreated();
+
+        $this->post(route('plan.store'), $plan)->assertUnprocessable();
+    }
+
+    /** @test */
+    public function required_countAccount_in_store_plan()
+    {
+        $plan = [
+            'name' => 'pro',
+            'description' => [
+                'test 1',
+                'test 2'
+            ],
+            'price' => 10.99,
+            'period' => 15,
+            'interval' => 'day',
+            'features' => [
+                'test feature 1',
+                'test feature 2'
+            ]
+        ];
+
+        $this->CreateUser('super');
+        $this->post(route('plan.store'), $plan)->assertUnprocessable();
+    }
+
+    /** @test */
+    public function minimum_countAccount_in_store_plan()
+    {
+        $plan = [
+            'name' => 'pro',
+            'count_account' => 0,
+            'description' => [
+                'test 1',
+                'test 2'
+            ],
+            'price' => 10.99,
+            'period' => 15,
+            'interval' => 'day',
+            'features' => [
+                'test feature 1',
+                'test feature 2'
+            ]
+        ];
+
+        $this->CreateUser('super');
+        $this->post(route('plan.store'), $plan)->assertUnprocessable();
+    }
+
+    /** @test */
+    public function description_should_array_in_store_plan()
+    {
+        $plan = [
+            'name' => 'pro',
+            'count_account' => 1,
+            'description' => 'test 1',
+            'price' => 10.99,
+            'period' => 15,
+            'interval' => 'day',
+            'features' => [
+                'test feature 1',
+                'test feature 2'
+            ]
+        ];
+
+        $this->CreateUser('super');
+        $this->post(route('plan.store'), $plan)->assertUnprocessable();
+    }
+
+    /** @test */
+    public function price_should_numeric_in_store_plan()
+    {
+        $plan = [
+            'name' => 'pro',
+            'count_account' => 1,
+            'description' => ['test 1'],
+            'price' => "test price",
+            'period' => 15,
+            'interval' => 'day',
+            'features' => [
+                'test feature 1',
+                'test feature 2'
+            ]
+        ];
+
+        $this->CreateUser('super');
+        $this->post(route('plan.store'), $plan)->assertUnprocessable();
+    }
 }
