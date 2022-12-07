@@ -7,6 +7,11 @@ use Module\Plan\Repository\PlanRepository;
 
 class PlanPlanRepository extends PlanRepository
 {
+    public function index()
+    {
+        return $this->model()->get();
+    }
+
     public function store($request)
     {
         return $this->model()->create([

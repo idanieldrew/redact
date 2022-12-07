@@ -13,7 +13,7 @@ class PlanRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->user()->exists;
+        return true;
     }
 
     /**

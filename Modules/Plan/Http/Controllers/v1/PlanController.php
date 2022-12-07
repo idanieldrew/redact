@@ -25,7 +25,9 @@ class PlanController extends Controller implements ResponseGenerator
      */
     public function index()
     {
-        //
+        $service = $this->service()->index();
+
+        return $this->res('success', 200, 'all plans', $service);
     }
 
     /**

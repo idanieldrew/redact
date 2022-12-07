@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Module\Plan\Casts\DescriptionPlan;
+use Module\Plan\Casts\Times;
 use Module\User\Models\User;
 
 class Plan extends Model
@@ -15,12 +16,15 @@ class Plan extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'description' => DescriptionPlan::class
+        'description' => DescriptionPlan::class,
+        'created_at' => Times::class,
+        'updated_at' => Times::class,
+        'deleted_at' => Times::class
     ];
 
     /** relations */
     public function plan_feature()
     {
-        return $this->hasMany(PlanFeature::class);
+        return $this->hasOne(PlanFeature::class);
     }
 }

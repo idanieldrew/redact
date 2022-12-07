@@ -4,7 +4,7 @@ namespace Module\Plan\Http\Resources\v1;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class PlanResourcecCollection extends ResourceCollection
+class PlanCollection extends ResourceCollection
 {
     /**
      * Transform the resource into an array.
@@ -14,6 +14,6 @@ class PlanResourcecCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return ['plans' => $this->collection];
     }
 }

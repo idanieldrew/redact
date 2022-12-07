@@ -3,8 +3,9 @@
 namespace Module\Plan\Casts;
 
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
+use Morilog\Jalali\Jalalian;
 
-class DescriptionPlan implements CastsAttributes
+class Times implements CastsAttributes
 {
     /**
      * Cast the given value.
@@ -17,7 +18,14 @@ class DescriptionPlan implements CastsAttributes
      */
     public function get($model, string $key, $value, array $attributes)
     {
-        return json_decode($value, true);
+        if ($value) {
+            $jdate = Jalalian::fromFormat('Y-m-d H:i:s', $value);
+            $timestamp = $jdate->getTimestamp();
+            $persion = Jalalian::fromFormat('Y-m-d H:i:s', $value)->toString();
+
+            return array('timestamp' => $timestamp, 'org' => $value, 'jalali' => $persion);
+        }
+        return null;
     }
 
     /**
@@ -31,6 +39,6 @@ class DescriptionPlan implements CastsAttributes
      */
     public function set($model, string $key, $value, array $attributes)
     {
-        return json_encode($value);
+        return $value;
     }
 }

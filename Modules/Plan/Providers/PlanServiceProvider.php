@@ -5,6 +5,7 @@ namespace Module\Plan\Providers;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Module\Plan\Models\Plan;
+use Module\Plan\Observers\PlanObserver;
 use Module\Plan\Policies\PlanPolicy;
 
 class PlanServiceProvider extends ServiceProvider
@@ -20,9 +21,11 @@ class PlanServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
 
         // Routes
-        Route::prefix('api/plan')
+        Route::prefix('api/plans')
             ->middleware('api')
             ->namespace($this->namespace)
             ->group(__DIR__ . '/../Routes/plan_route.php');
+
+        Plan::observe(PlanObserver::class);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException as NotFound;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
@@ -63,6 +64,12 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $e)
     {
+        if ($e instanceof AuthorizationException) {
+            return response()->json([
+                'status' => 'fail',
+                'message' => $e->getMessage(),
+            ], Response::HTTP_FORBIDDEN);
+        }
         if ($e instanceof NotFoundHttpException) {
             return response()->json([
                 'status' => 'fail',
@@ -109,7 +116,7 @@ class Handler extends ExceptionHandler
         if ($e instanceof HttpException) {
             return response()->json([
                 'status' => 'error',
-                'message' => $this->isDebugMode() ? "forbidden" : 'forbidden',
+                'message' => $this->isDebugMode() ?? "forbidden",
             ], Response::HTTP_FORBIDDEN);
         }
 //        dd($e);

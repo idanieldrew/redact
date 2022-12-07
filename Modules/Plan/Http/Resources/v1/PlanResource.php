@@ -6,6 +6,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class PlanResource extends JsonResource
 {
+
     /**
      * Transform the resource into an array.
      *
@@ -15,13 +16,19 @@ class PlanResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'slug' => $request->slug,
-            'count_account' => $request->count_account,
-            'description' => $request->description,
-            'price' => $request->price,
-            'period' => $request->period,
-            'interval' => $request->interval,
-            'features' => new PlanFeatureResource($this->plan_feature)
+            'name' => $this->name,
+            'slug' => $this->slug,
+            'count_account' => $this->count_account,
+            'description' => $this->description,
+            'price' => $this->price,
+            'period' => $this->period,
+            'interval' => $this->interval,
+            'features' => $this->whenLoaded('plan_feature', function () {
+                return new PlanFeatureResource($this->plan_feature);
+            }),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            'deleted_at' => $this->deleted_at
         ];
     }
 }

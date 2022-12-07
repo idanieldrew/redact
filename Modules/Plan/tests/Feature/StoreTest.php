@@ -26,8 +26,16 @@ class StoreTest extends CustomTestCase
         ]
     ];
 
-    /*
-        /** @test */
+    /** @test */
+    public function writer_cant_store_new_plan()
+    {
+        $this->CreateUser('admin');
+        $this->post(route('plan.store'), $this->plan)->assertForbidden();
+
+        $this->assertDatabaseMissing('plans', ['name' => 'pro']);
+    }
+
+    /** @test */
     public function admin_without_permission_cant_store_new_plan()
     {
         $this->CreateUser('admin');

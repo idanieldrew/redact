@@ -28,6 +28,7 @@
         "laravel/horizon": "^5.10",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.7",
+        "morilog/jalali": "3.*",
         "mvaliolahi/sibdoc": "^0.0.5",
         "php-amqplib/php-amqplib": "^3.4.0",
         "predis/predis": "^2.0.2",

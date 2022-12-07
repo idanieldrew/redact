@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Module\User\Models\User;
 
 class AppServiceProvider extends ServiceProvider
 {
