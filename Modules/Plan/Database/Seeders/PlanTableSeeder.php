@@ -23,10 +23,8 @@ class PlanTableSeeder extends Seeder
             'slug' => Str::slug($name),
             'count_account' => 1,
             'description' => [
-                'description' => [
-                    'Can Download(pdf)',
-                    'Access to all posts',
-                ],
+                'Can Download(pdf)',
+                'Access to all posts',
             ],
             'price' => 9.99,
             'period' => 1,
@@ -38,11 +36,9 @@ class PlanTableSeeder extends Seeder
             'slug' => Str::slug($name),
             'count_account' => 2,
             'description' => [
-                'description' => [
-                    '2 Premium accounts for a couple under one roof',
-                    'Can Download(pdf)',
-                    'Access to all posts',
-                ],
+                '2 Premium accounts for a couple under one roof',
+                'Can Download(pdf)',
+                'Access to all posts',
             ],
             'price' => 12.99,
             'period' => 1,
@@ -54,11 +50,9 @@ class PlanTableSeeder extends Seeder
             'slug' => Str::slug($name),
             'count_account' => 6,
             'description' => [
-                'description' => [
-                    '6 Premium accounts for family members living under one roof',
-                    'Can Download(pdf)',
-                    'Access to all posts',
-                ],
+                '6 Premium accounts for family members living under one roof',
+                'Can Download(pdf)',
+                'Access to all posts',
             ],
             'price' => 15.99,
             'period' => 1,
