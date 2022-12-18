@@ -9,8 +9,6 @@ class SmsMessage
 {
     protected $liens = [];
 
-    protected $from;
-
     protected $to;
 
     public function __construct(array $lines = [])
