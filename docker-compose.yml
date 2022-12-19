@@ -56,9 +56,9 @@ services:
         networks:
             - weblog-network
 
-    medium_cache:
+    medium_redis:
         image: redis:7-alpine
-        container_name: mediumredis
+        container_name: medium_redis
         depends_on:
             - weblog_application
         ports:
@@ -121,11 +121,40 @@ services:
         networks:
             - weblog-network
 
+
+    testlink:
+        shm_size: 1g
+        image: bitnami/testlink:latest
+        container_name: medium_testlink
+        depends_on:
+            - medium_database
+        ports:
+            - "8088:8080"
+            - "8443:8443"
+        user: root
+        environment:
+            - ALLOW_EMPTY_PASSWORD=yes
+            - TESTLINK_USERNAME=dani
+            - TESTLINK_PASSWORD=password
+            - TESTLINK_DATABASE_USER=daniel
+            - TESTLINK_DATABASE_PASSWORD=password
+            - TESTLINK_DATABASE_NAME=bitnami_testlink
+            - TESTLINK_DATABASE_HOST=mariadb-testlink
+        volumes:
+            - testlink_data:/bitnami/testlink
+            - testlink_code:/opt/bitnami/testlink
+
+        networks:
+            - weblog-network
+
+        privileged: true
 networks:
     weblog-network:
         driver: bridge
 
 volumes:
+    testlink_data:
+    testlink_code:
     dbdata:
         driver: local
     elastic:
