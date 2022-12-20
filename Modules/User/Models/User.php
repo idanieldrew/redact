@@ -13,13 +13,14 @@ use Module\Category\Models\Category;
 use Module\Plan\Models\Subscribe;
 use Module\Post\Models\Post;
 use Module\Role\Traits\HasRole;
+use Module\Share\Traits\UseUuid;
 use Module\Status\Models\Status;
 use Module\Token\Models\Token;
 use Module\User\Database\Factories\UserFactory;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, HasRole;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, HasRole, UseUuid;
 
     /**
      * The attributes that are mass assignable.

@@ -13,12 +13,13 @@ use Module\Comment\Models\Comment;
 use Module\Media\Models\Media;
 use Module\Post\Casts\Published;
 use Module\Post\Database\Factories\PostFactory;
+use Module\Share\Traits\UseUuid;
 use Module\Tag\Models\Tag;
 use Module\User\Models\User;
 
 class Post extends Model implements Explored
 {
-    use HasFactory, SoftDeletes, Searchable;
+    use HasFactory, SoftDeletes, UseUuid, Searchable;
 
     protected $fillable = ['title', 'slug', 'details', 'description', 'banner', 'user_id', 'blue_tick'];
 

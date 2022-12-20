@@ -13,7 +13,7 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('plans', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('name');
             $table->string('slug');
             $table->json('description');

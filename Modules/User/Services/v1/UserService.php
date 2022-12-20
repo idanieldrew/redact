@@ -9,20 +9,20 @@ class UserService extends Service
 {
     /**
      * Update $this->model
-     * @param int $param
+     * @param string $param
      * @param Request; $request
      * @return mixed
      */
-    public function update(int $param, $request)
+    public function update(string $param, $request)
     {
         if ($request->only('role')) {
-            $user = $this->model()->findOrFail($param);
+            $user = $this->model()->where('username', $param)->first();
             $user->assignRole($request->role);
             return;
         }
 
         return $this->model()
-            ->whereId($param)
+            ->where('username', $param)
             ->update($request->validated());
     }
 

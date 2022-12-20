@@ -17,7 +17,7 @@ class UpdateTest extends CustomTestCase
         $user = User::factory()->create();
 
         $this->patch(
-            route('user.update', $user->id),
+            route('user.update', $user->username),
             ['email' => 'test@test.co'])
             ->assertNoContent();
 
@@ -27,11 +27,11 @@ class UpdateTest extends CustomTestCase
     /** @test */
     public function user_can_not_update_other_user()
     {
-        $firstUser = $this->CreateUser();
+        $this->CreateUser();
         $secondUser = User::factory()->create();
 
         $this->patch(
-            route('user.update', $secondUser->id),
+            route('user.update', $secondUser->username),
             ['email' => 'test@test.co'])
             ->assertStatus(403);
     }
@@ -42,7 +42,7 @@ class UpdateTest extends CustomTestCase
         $res = $this->CreateUser();
 
         $this->patch(
-            route('user.update', $res[0]->id),
+            route('user.update', $res[0]->username),
             ['email' => 'test@test.co'])
             ->assertNoContent();
 
@@ -56,7 +56,7 @@ class UpdateTest extends CustomTestCase
         $user = User::factory()->create();
 
         $this->patch(
-            route('user.update', $user->id),
+            route('user.update', $user->username),
             ['email' => 'test@test.co'])
             ->assertForbidden();
 
@@ -70,7 +70,7 @@ class UpdateTest extends CustomTestCase
         $user = User::factory()->create();
 
         $this->patch(
-            route('user.update', $user->id),
+            route('user.update', $user->username),
             ['role' => 'admin'])
             ->assertNoContent();
 
@@ -85,7 +85,7 @@ class UpdateTest extends CustomTestCase
         $res = $this->CreateUser();
 
         $this->patch(
-            route('user.update', $res[0]->id),
+            route('user.update', $res[0]->username),
             ['role' => 'admin'])
             ->assertForbidden();
     }

@@ -13,6 +13,7 @@ class ReplyCommentTest extends CustomTestCase
     /** @test */
     public function reply_comment()
     {
+        $this->withoutExceptionHandling();
         $post = $this->CreateComment();
         $this->post(route('post.store_comment', $post->slug), ['body' => 'test comment'])
             ->assertCreated();

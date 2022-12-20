@@ -25,28 +25,28 @@ class UserPolicy
      * Determine whether the user can view the model.
      *
      * @param User $user
-     * @param int $author
+     * @param string $author
      * @return bool
      */
-    public function view(User $user, int $author): bool
+    public function view(User $user, string $author): bool
     {
-        return $user->id === $author;
+        return $user->username === $author;
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param User $user
-     * @param int $model
+     * @param string $model
      * @return bool
      */
-    public function update(User $user, int $model): bool
+    public function update(User $user, string $model): bool
     {
         if (request()->has('role')) {
             return $user->role->name == 'admin';
         }
 
-        return $user->id === $model;
+        return $user->username === $model;
     }
 
     /**
@@ -58,6 +58,6 @@ class UserPolicy
      */
     public function delete(User $user, User $model): bool
     {
-        return $user->id === $model->id;
+        return $user->username === $model->username;
     }
 }

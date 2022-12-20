@@ -5,11 +5,12 @@ namespace Module\Role\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Module\Role\Traits\HasPermission;
+use Module\Share\Traits\UseUuid;
 use Module\User\Models\User;
 
 class Role extends Model
 {
-    use HasFactory, HasPermission;
+    use HasFactory, HasPermission, UseUuid;
 
     protected $guarded = [];
 

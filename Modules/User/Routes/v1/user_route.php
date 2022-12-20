@@ -7,7 +7,7 @@ Route::prefix('v1')->middleware(['auth:sanctum'])->group(function () {
     // Paginate Users
     Route::get('/', [UserController::class, 'index'])->name('user.index');
     // Show User
-    Route::get('{user}', [UserController::class, 'show'])->name('user.show');
+    Route::get('{user:username}', [UserController::class, 'show'])->name('user.show');
     // Update User
     Route::patch('{user}', [UserController::class, 'update'])->name('user.update');
     // Destroy User

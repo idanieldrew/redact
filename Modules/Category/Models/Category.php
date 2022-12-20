@@ -11,10 +11,11 @@ use Module\Category\Database\Factories\CategoryFactory;
 use Module\Lang\Traits\LangService;
 use Module\Media\Models\Media;
 use Module\Post\Models\Post;
+use Module\Share\Traits\UseUuid;
 
 class Category extends Model
 {
-    use HasFactory, SoftDeletes, LangService;
+    use HasFactory, SoftDeletes, LangService, UseUuid;
 
     protected $guarded = [];
 

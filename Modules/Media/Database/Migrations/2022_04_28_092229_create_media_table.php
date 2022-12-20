@@ -15,13 +15,13 @@ class CreateMediaTable extends Migration
     public function up()
     {
         Schema::create('media', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->json('files');
             $table->string('name', 255);
             $table->enum('type', ['image', 'video', 'audio', 'zip', 'doc']);
             $table->boolean('isPrivate');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->morphs('mediaable');
+            $table->foreignUuid('user_id')->constrained()->onDelete('cascade');
+            $table->uuidMorphs('mediaable');
             $table->timestamps();
         });
     }

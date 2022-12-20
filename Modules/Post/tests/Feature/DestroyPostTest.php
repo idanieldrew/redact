@@ -14,6 +14,7 @@ class DestroyPostTest extends CustomTestCase
     /** @test */
     public function destroy_post()
     {
+        $this->withoutExceptionHandling();
         $res = $this->storePost('super');
 
         $this->delete(route('post.destroy', Str::slug($res[0][0])))

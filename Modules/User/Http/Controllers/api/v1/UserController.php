@@ -34,7 +34,7 @@ class UserController extends Controller implements ResponseGenerator
      * @return \Module\User\Http\Resources\v1\UserCollection
      * @throws AuthorizationException
      */
-    public function index(): UserCollection
+    public function index()
     {
         // Check permissions
         $this->authorize('viewAny', User::class);
@@ -54,7 +54,7 @@ class UserController extends Controller implements ResponseGenerator
     public function show(User $user): UserResource
     {
         // Check permissions
-        $this->authorize('view', [User::class, $user->id]);
+        $this->authorize('view', [User::class, $user->username]);
 
         return new UserResource($user);
     }
@@ -62,12 +62,12 @@ class UserController extends Controller implements ResponseGenerator
     /**
      * Update the specified resource in storage.
      *
-     * @param int $user
+     * @param string $user
      * @param UpdateRequest $request
      * @return \Illuminate\Http\JsonResponse
      * @throws AuthorizationException
      */
-    public function update(int $user, UpdateRequest $request): \Illuminate\Http\JsonResponse
+    public function update(string $user, UpdateRequest $request): \Illuminate\Http\JsonResponse
     {
         // Check permissions
         $this->authorize('update', [User::class, $user]);

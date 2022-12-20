@@ -58,7 +58,7 @@ class CustomTestCase extends TestCase
 
         //Create user and category
         $this->CreateUser($role, $mail);
-        $categories = Category::factory()->create(['user_id' => auth()->user(), 'slug' => $category ?? $this->faker->slug]);
+        $categories = Category::factory()->create(['user_id' => auth()->id(), 'slug' => $category ?? $this->faker->slug]);
 
         Storage::fake('local');
 

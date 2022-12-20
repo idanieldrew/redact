@@ -15,7 +15,7 @@ class CreateTokensTable extends Migration
     public function up()
     {
         Schema::create('tokens', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('token')->unique();
             $table->json('data');
             $table->morphs('typeable');

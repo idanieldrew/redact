@@ -20,11 +20,11 @@ class DatabaseSeeder extends Seeder
         $this->call(RoleTableSeeder::class);
         $this->call(PlanTableSeeder::class);
 
-        User::factory(['role_id' => 1])->create();
-
         $names = ['sport', 'science', 'imaginary'];
         foreach ($names as $name) {
-            Category::factory(['name' => $name, 'user_id' => 1])->create();
+            User::first()->categories()->create([
+                'name' => $name
+            ]);
         }
     }
 }

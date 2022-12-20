@@ -7,11 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Module\Plan\Casts\DescriptionPlan;
 use Module\Plan\Casts\Times;
+use Module\Share\Traits\UseUuid;
 use Module\User\Models\User;
 
 class Plan extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes,UseUuid;
 
     protected $guarded = [];
 

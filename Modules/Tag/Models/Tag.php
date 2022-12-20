@@ -5,11 +5,12 @@ namespace Module\Tag\Models;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Module\Share\Traits\UseUuid;
 use Module\Tag\Database\Factories\TagFactory;
 
 class Tag extends Model
 {
-    use HasFactory;
+    use HasFactory,UseUuid;
 
     protected $fillable = ['name', 'slug'];
 

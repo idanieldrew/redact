@@ -48,7 +48,7 @@ class ReadTest extends CustomTestCase
         $this->CreateUser('super');
         $user = User::factory()->create();
 
-        $this->get(route('user.show', $user->id))
+        $this->get(route('user.show', $user->username))
             ->assertOk();
     }
 
@@ -58,7 +58,7 @@ class ReadTest extends CustomTestCase
         $this->CreateUser('admin');
         $user = User::factory()->create();
 
-        $this->get(route('user.show', $user->id))
+        $this->get(route('user.show', $user->username))
             ->assertForbidden();
     }
 
@@ -67,9 +67,9 @@ class ReadTest extends CustomTestCase
     {
         $this->CreateUser('admin', 'email@email.com');
 
-        $user = User::whereEmail('email@email.com')->first(['id']);
+        $user = User::whereEmail('email@email.com')->first(['username']);
 
-        $this->get(route('user.show', $user->id))
+        $this->get(route('user.show', $user->username))
             ->assertOk();
     }
 }
