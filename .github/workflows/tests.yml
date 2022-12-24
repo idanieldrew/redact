@@ -53,6 +53,8 @@ jobs:
       - name: Migration
         run: php artisan migrate:fresh --seed
       - name: Import indexes
+        run: php artisan scout:index posts
+      - name: Import db
         run: php artisan scout:import "Module\Post\Models\Post"
       - name: Execute tests (Unit and Feature tests) via PHPUnit
         env:
