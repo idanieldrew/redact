@@ -1,28 +1,28 @@
 version: '3.9'
 services:
-    weblog_application:
+    redact_application:
         build:
             args:
                 user: idanieldrew
                 uid: 1000
             context: docker/
             dockerfile: Dockerfile
-        image: medium
-        container_name: weblog_application
+        image: redact
+        container_name: redact_application
         restart: unless-stopped
         depends_on:
-            - redact_rabbit
+            - redact_rabbitmq
         working_dir: /var/www
         volumes:
             - .:/var/www
             - ./docker/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-            - ./docker/php.ini:/usr/local/etc/php/conf.d/local.ini
+        #            - ./docker/php.ini:/usr/local/etc/php/conf.d/local.ini
         networks:
-            - weblog-network
+            - redact_network
 
-    medium_webserver:
+    redact_webserver:
         image: nginx:1.21.3
-        container_name: medium-web-server
+        container_name: redact_server
         restart: always
         tty: true
         ports:
@@ -32,21 +32,21 @@ services:
             - .:/var/www
             - ./docker/default.conf:/etc/nginx/conf.d/default.conf
         depends_on:
-            - weblog_application
+            - redact_application
         networks:
-            - weblog-network
+            - redact_network
 
-    medium_database:
+    redact_database:
         image: postgres:14.2-alpine
-        container_name: mediumdb
+        container_name: redact_db
         restart: unless-stopped
         tty: true
         depends_on:
-            - weblog_application
+            - redact_application
         ports:
             - "54320:5432"
         environment:
-            POSTGRES_DB: "medium"
+            POSTGRES_DB: "redact"
             POSTGRES_USER: "dani"
             POSTGRES_PASSWORD: "password"
             SERVICE_NAME: app
@@ -54,24 +54,24 @@ services:
         volumes:
             - dbdata:/var/lib/postgresql/data
         networks:
-            - weblog-network
+            - redact_network
 
     redact_cache:
         image: redis:7-alpine
         container_name: redact_redis
         depends_on:
-            - weblog_application
+            - redact_application
         ports:
             - "6379:6379"
         volumes:
             - cache-data:/data
             - ./docker/redis.conf:/redis.conf
         networks:
-            - weblog-network
+            - redact_network
 
-    medium_elasticsearch:
+    redact_elasticsearch:
         image: docker.elastic.co/elasticsearch/elasticsearch:7.4.0
-        container_name: medium_elasticsearch
+        container_name: redact_elastic
         environment:
             - xpack.security.enabled=false
             - discovery.type=single-node
@@ -90,9 +90,9 @@ services:
             - "9200:9200"
             - 9300:9300
         networks:
-            - weblog-network
+            - redact_network
 
-    redact_rabbit:
+    redact_rabbitmq:
         image: rabbitmq:3.11.3-management
         container_name: redact_rabbit
         tty: true
@@ -107,22 +107,38 @@ services:
             - rabbitmq-data:/var/lib/rabbitmq
             - rabbitmq-data2:/var/log/rabbitmq
         networks:
-            - weblog-network
+            - redact_network
 
-    medium_kibana:
+    redact_kibana:
         image: docker.elastic.co/kibana/kibana:7.4.0
-        container_name: mediumKibana
+        container_name: redact_kibana
         environment:
-            - ELASTICSEARCH_HOSTS=http://medium_elasticsearch:9200
+            - ELASTICSEARCH_HOSTS=http://redact_elasticsearch:9200
         depends_on:
-            - medium_elasticsearch
+            - redact_elasticsearch
         ports:
             - 5601:5601
         networks:
-            - weblog-network
+            - redact_network
+
+    redact_logstash:
+        image: logstash:7.7.0
+        ports:
+            - "9600:9600"
+            - "8089:8089"
+        volumes:
+            - logstash:/usr/share/logstash/pipeline
+        links:
+            - "redact_elasticsearch:elastic"
+        environment:
+            - ELASTICSEARCH_HOSTS=http://redact_elasticsearch:9200
+        depends_on:
+            - redact_elasticsearch
+        networks:
+            - redact_network
 
 networks:
-    weblog-network:
+    redact_network:
         driver: bridge
 
 volumes:
@@ -135,4 +151,6 @@ volumes:
     rabbitmq-data:
         driver: local
     rabbitmq-data2:
+        driver: local
+    logstash:
         driver: local
