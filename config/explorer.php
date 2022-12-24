@@ -22,7 +22,6 @@ return [
         \Module\Post\Models\Post::class,
         'subscribers' => [
             'properties' => [
-                'id' => 'keyword',
                 'title' => 'text',
                 'slug' => 'text',
                 'details' => 'text',

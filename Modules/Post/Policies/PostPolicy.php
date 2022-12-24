@@ -49,8 +49,8 @@ class PostPolicy
     /**
      * Determine whether the user can restore the model.
      *
-     * @param \App\Models\User $user
-     * @param \App\Models\Post $post
+     * @param \Module\User\Models\User $user
+     * @param \Module\Post\Models\Post $post
      * @return Response|bool
      */
     public function restore(User $user, Post $post)
@@ -60,7 +60,7 @@ class PostPolicy
     /**
      * Determine whether the user can permanently delete the model.
      *
-     * @param \App\Models\User $user
+     * @param \Module\User\Models\User $user
      * @param \App\Models\Post $post
      * @return Response|bool
      */

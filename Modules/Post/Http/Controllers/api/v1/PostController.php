@@ -102,7 +102,8 @@ class PostController extends Controller implements ResponseGenerator
         // Check permissions
         $this->authorize('delete', [Post::class, $post]);
 
-        $this->repo()->destroy($post);
+        $post->delete();
+//        $this->repo()->destroy($post);
 
         return $this->res('success', Response::HTTP_OK, 'Successfully delete post');
     }

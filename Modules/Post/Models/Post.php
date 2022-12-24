@@ -75,7 +75,6 @@ class Post extends Model implements Explored
     public function mappableAs(): array
     {
         return [
-            'id' => 'keyword',
             'title' => 'text',
             'slug' => 'text',
             'details' => 'text',
