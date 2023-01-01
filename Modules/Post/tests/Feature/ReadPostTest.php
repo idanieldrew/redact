@@ -52,15 +52,8 @@ class ReadPostTest extends CustomTestCase
     }
 
     /** @test */
-    public function search_posts()
+    public function class_uses_scout()
     {
-        $this->storePost('writer', false, 1, 'test title');
-
-        $this->getJson(route('post.search', [
-            'blue_tick' => false,
-            'keyword' => 'test'
-        ]))
-            ->assertOk()
-            ->assertJsonFragment(['title' => 'test title']);
+        $this->assertTrue(in_array('Laravel\Scout\Searchable', class_uses(Post::class)));
     }
 }

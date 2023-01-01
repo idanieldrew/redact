@@ -116,7 +116,7 @@ class PostController extends Controller implements ResponseGenerator
     public function search(Request $request)
     {
         $response = $this->repo()->search($request->keyword);
-
+        dd($response);
         return $this->res('success', Response::HTTP_OK, null, new PostCollection($response));
     }
 

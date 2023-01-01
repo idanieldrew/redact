@@ -27,6 +27,7 @@
         "laravel/framework": "^9.19",
         "laravel/horizon": "^5.10",
         "laravel/sanctum": "^2.11",
+        "laravel/scout": "^9.6",
         "laravel/tinker": "^2.7",
         "morilog/jalali": "3.*",
         "mvaliolahi/sibdoc": "^0.0.5",

@@ -23,6 +23,8 @@ class CreatePostsTable extends Migration
             $table->boolean('blue_tick')->default(0);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->unique('slug');
         });
     }
 

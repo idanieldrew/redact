@@ -26,7 +26,6 @@ class CreatPostTest extends CustomTestCase
     /** @test */
     public function store_post_with_attachments()
     {
-        $this->withoutExceptionHandling();
         $res = $this->storePost('writer', true);
 
         Storage::disk('local')

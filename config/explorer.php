@@ -9,7 +9,7 @@ return [
      * https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/configuration.html
      */
     'connection' => [
-        'host' => env('ELASTIC_HOST', 'localhost'),
+        'host' => env('ELASTIC_HOST', 'redact_elastic'),
         'port' => '9200',
         'scheme' => 'http',
     ],
@@ -22,6 +22,7 @@ return [
         \Module\Post\Models\Post::class,
         'subscribers' => [
             'properties' => [
+                'id' => 'text',
                 'title' => 'text',
                 'slug' => 'text',
                 'details' => 'text',

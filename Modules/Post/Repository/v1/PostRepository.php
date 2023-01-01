@@ -5,9 +5,13 @@ namespace Module\Post\Repository\v1;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Module\Comment\Http\Resources\v1\CommentCollection;
+use Module\Post\Filters\BlueTick;
+use Module\Post\Filters\FilterPost;
+use Module\Post\Filters\Published;
 use Module\Post\Http\Resources\v1\PostCollection;
 use Module\Post\Http\Resources\v1\PostResource;
 use Module\Post\Models\Post;
@@ -54,14 +58,17 @@ class PostRepository extends Repository
      */
     public function search(string $keyword): object
     {
+        dd(Post::search($keyword)
+            ->where('published', false)
+            ->where('blue_tick', request()->blue_tick)
+            ->get(),$keyword,Post::all());
         // elastic engine
         return Post::search($keyword)
             ->where('published', false)
             ->where('blue_tick', request()->blue_tick)
-            ->cursor();
+            ->get();
 
-        /* Filter with pipeline laravel
-        return app(Pipeline::class)
+        /*return app(Pipeline::class)
             ->send($this->model())
             ->through([
                 Published::class,
@@ -69,8 +76,8 @@ class PostRepository extends Repository
                 FilterPost::class
             ])
             ->thenReturn()
-            ->cursor();
-        */
+            ->cursor();*/
+
     }
 
     /**

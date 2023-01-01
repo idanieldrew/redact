@@ -19,9 +19,9 @@ use Module\User\Models\User;
 
 class Post extends Model implements Explored
 {
-    use HasFactory, SoftDeletes, UseUuid, Searchable;
+    use HasFactory, UseUuid, SoftDeletes, Searchable;
 
-    protected $fillable = ['title', 'slug', 'details', 'description', 'banner', 'user_id', 'blue_tick'];
+    protected $fillable = ['id','title', 'slug', 'details', 'description', 'banner', 'user_id', 'blue_tick'];
 
     /**
      * The attributes that should be cast.
@@ -29,8 +29,9 @@ class Post extends Model implements Explored
      * @var array
      */
     protected $casts = [
+        'id' => 'string',
         'blue_tick' => 'boolean',
-        'published' => Published::class
+        'published' => Published::class,
     ];
 
     /**
@@ -72,13 +73,54 @@ class Post extends Model implements Explored
         return $this->morphMany(Comment::class, 'commentable');
     }
 
+    /**
+     * Get the name of the index associated with the model.
+     *
+     * @return string
+     */
+    /*public function searchableAs()
+    {
+        return 'posts';
+    }*/
+
+    /**
+     * Get the value used to index the model.
+     *
+     * @return mixed
+     */
+    public function getScoutKey()
+    {
+        return (string) $this->id;
+    }
+
+    /**
+     * Get the key name used to index the model.
+     *
+     * @return mixed
+     */
+    public function getScoutKeyName()
+    {
+        return (string) 'id';
+    }
+
     public function mappableAs(): array
     {
         return [
+            'id' => 'text',
             'title' => 'text',
             'slug' => 'text',
             'details' => 'text',
             'created_at' => 'date',
+        ];
+    }
+
+    public function toSearchableArray()
+    {
+        return [
+            'text' => $this->getKey(),
+            'slug' => $this->getScoutKey(),
+            'details' => $this->details,
+            'created_at' => $this->created_at,
         ];
     }
 }
