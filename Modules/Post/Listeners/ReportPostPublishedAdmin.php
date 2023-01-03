@@ -10,19 +10,12 @@ use Module\User\Repository\v1\UserRepository;
 
 class ReportPostPublishedAdmin implements ShouldQueue
 {
-    /**
-     * The name of the connection the job should be sent to.
-     *
-     * @var string|null
-     */
-    public $queue = 'admin';
 
     /**
      * The time (seconds) before the job should be processed.
      *
      * @var int
      */
-    public $delay = 90;
 
     /**
      * Handle the event.

@@ -22,6 +22,14 @@ class PostObserver
         $post->short_link = $service->generateLink();
     }
 
+    public function created(Post $post)
+    {
+        $post->statuses()->create([
+            'name' => 'pending',
+            'reason' => 'pending approval'
+        ]);
+    }
+
     /**
      * Handle the Post "updating" event.
      *

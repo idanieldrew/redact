@@ -14,6 +14,7 @@ use Module\Media\Models\Media;
 use Module\Post\Casts\Published;
 use Module\Post\Database\Factories\PostFactory;
 use Module\Share\Traits\UseUuid;
+use Module\Status\Models\Status;
 use Module\Tag\Models\Tag;
 use Module\User\Models\User;
 
@@ -21,7 +22,7 @@ class Post extends Model implements Explored
 {
     use HasFactory, UseUuid, SoftDeletes, Searchable;
 
-    protected $fillable = ['id','title', 'slug', 'details', 'description', 'banner', 'user_id', 'blue_tick'];
+    protected $fillable = ['id', 'title', 'slug', 'details', 'description', 'banner', 'user_id', 'blue_tick'];
 
     /**
      * The attributes that should be cast.
@@ -45,6 +46,11 @@ class Post extends Model implements Explored
     }
 
     /** Relations */
+    public function statuses()
+    {
+        return $this->morphMany(Status::class, 'statusable');
+    }
+
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -78,10 +84,10 @@ class Post extends Model implements Explored
      *
      * @return string
      */
-    /*public function searchableAs()
+    public function searchableAs()
     {
         return 'posts';
-    }*/
+    }
 
     /**
      * Get the value used to index the model.
@@ -90,7 +96,7 @@ class Post extends Model implements Explored
      */
     public function getScoutKey()
     {
-        return (string) $this->id;
+        return (string)$this->id;
     }
 
     /**
@@ -100,7 +106,7 @@ class Post extends Model implements Explored
      */
     public function getScoutKeyName()
     {
-        return (string) 'id';
+        return (string)'id';
     }
 
     public function mappableAs(): array
