@@ -32,12 +32,22 @@ composer install
 
 ## Tests
 ```sh
-docker-compose exec weblog_application php artisan test
+docker-compose exec redact_application php artisan test
 ```
 
 ## Fake data
 ```sh
 docker-compose exec weblog_application php artisan migrate:fresh --seed
+```
+
+## Elasticsearch
+If you use elasticsearch,you must create index.
+```sh
+docker-compose exec weblog_application php artisan scout:index posts
+```
+and then you can see other information in kibana
+```sh
+http://localhost:5601
 ```
 
 ### Infrastructure Description
@@ -48,6 +58,7 @@ docker-compose exec weblog_application php artisan migrate:fresh --seed
 - Support [laravel 8 with php 7.4](https://github.com/idanieldrew/modular-blog/releases/tag/v1.2.0)
   & [laravel 9 with php 8.1](https://github.com/idanieldrew/modular-blog/releases/tag/v2.0)
 - Docker is used for containers
+- Rabbitmq is used for queues
 
 ## Database Description
 
