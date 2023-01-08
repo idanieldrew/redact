@@ -116,7 +116,7 @@ class PostController extends Controller implements ResponseGenerator
     public function search(Request $request)
     {
         $response = $this->repo()->search($request->keyword);
-        dd($response);
+
         return $this->res('success', Response::HTTP_OK, null, new PostCollection($response));
     }
 
@@ -131,6 +131,18 @@ class PostController extends Controller implements ResponseGenerator
         $post = $this->repo()->checkUniqueShortLink($link);
 
         return redirect()->route('post.show', $post->slug);
+    }
+
+    /**
+     * @return void
+     */
+    public function updateLicense(Post $post, Request $request)
+    {
+//        $this->authorize('update_license', [Post::class, $post]);
+
+        $this->service()->update_license($post, $request);
+
+        return $this->res('success', Response::HTTP_OK, null, new PostResource($post));
     }
 
     public function res($status, $code, $message, $data = null)

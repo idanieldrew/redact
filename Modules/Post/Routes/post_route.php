@@ -17,6 +17,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::patch('{post:slug}', [PostController::class, 'update'])->name('post.update');
     // Destroy post
     Route::delete('{post:slug}', [PostController::class, 'destroy'])->name('post.destroy');
+    // Specify license
+    Route::patch('{post:slug}/license', [PostController::class, 'updateLicense'])->name('post.license-update');
 
     require 'comment_route.php';
 });

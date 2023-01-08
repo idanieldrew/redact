@@ -6,6 +6,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use Module\Category\Http\Resources\v1\CategoryCollection;
 use Module\Comment\Http\Resources\v1\CommentCollection;
 use Module\Media\Http\Resources\v1\MediaCollection;
+use Module\Status\Http\Resources\v1\StatusResource;
 use Module\Tag\Http\Resources\v1\TagCollection;
 use Module\User\Http\Resources\v1\UserResource;
 
@@ -41,7 +42,7 @@ class PostResource extends JsonResource
                 return new CommentCollection($this->comments);
             }),
             'blue_tick' => $this->blue_tick,
-            'published' => $this->published,
+            'published' => new StatusResource($this->statuses),
             'created_at' => $this->created_at
         ];
     }

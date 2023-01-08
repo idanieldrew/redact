@@ -6,6 +6,8 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 use Module\Category\Events\NewCategory;
 use Module\Category\Listeners\ReportCategoryPublishedAdmin;
 use Module\Post\Events\PostPublish;
+use Module\Post\Events\SockdolagerPost;
+use Module\Post\Listeners\ReplyAuthorPost;
 use Module\Post\Listeners\ReportPostPublishedAdmin;
 use Module\Token\Listeners\SendMailVerification;
 use Module\User\Events\Registered;
@@ -26,6 +28,9 @@ class EventServiceProvider extends ServiceProvider
         ], // work in v2
         PostPublish::class => [
             ReportPostPublishedAdmin::class,
+        ],
+        SockdolagerPost::class => [
+            ReplyAuthorPost::class,
         ],
         NewCategory::class => [
             ReportCategoryPublishedAdmin::class,

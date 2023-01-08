@@ -12,12 +12,6 @@ class ReportPostPublishedAdmin implements ShouldQueue
 {
 
     /**
-     * The time (seconds) before the job should be processed.
-     *
-     * @var int
-     */
-
-    /**
      * Handle the event.
      *
      * @param PostPublish $event

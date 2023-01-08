@@ -11,7 +11,9 @@ use Module\Comment\Services\v1\CommentService;
 use Module\Media\Services\v1\ImageService;
 use Module\Media\Services\v1\MediaService;
 use Module\Post\Events\PostPublish;
+use Module\Post\Events\SockdolagerPost;
 use Module\Post\Http\Resources\v1\PostResource;
+use Module\Post\Models\Post;
 use Module\Post\Repository\v1\PostRepository;
 use Module\Post\Services\PostService as Service;
 use Module\Tag\Services\v1\TagService;
@@ -180,5 +182,21 @@ class PostService extends Service
         $comment = $commentService->reply($post, $comment, $request->body);
 
         return new CommentResource($comment);
+    }
+
+    /**
+     * admin update status
+     *
+     * @param Post $post
+     * @param $request
+     */
+    public function update_license(Post $post, $request)
+    {
+        SockdolagerPost::dispatch($post);
+        dd(0);
+        $post->statuses()->update([
+            'name' => $request->name,
+            'reason' => $request->reason
+        ]);
     }
 }

@@ -24,6 +24,8 @@ class Post extends Model implements Explored
 
     protected $fillable = ['id', 'title', 'slug', 'details', 'description', 'banner', 'user_id', 'blue_tick'];
 
+    protected $with = ['statuses'];
+
     /**
      * The attributes that should be cast.
      *
@@ -32,7 +34,7 @@ class Post extends Model implements Explored
     protected $casts = [
         'id' => 'string',
         'blue_tick' => 'boolean',
-        'published' => Published::class,
+//        'published' => Published::class,
     ];
 
     /**
@@ -48,7 +50,7 @@ class Post extends Model implements Explored
     /** Relations */
     public function statuses()
     {
-        return $this->morphMany(Status::class, 'statusable');
+        return $this->morphOne(Status::class, 'statusable');
     }
 
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo

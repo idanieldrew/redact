@@ -47,24 +47,17 @@ class PostPolicy
     }
 
     /**
-     * Determine whether the user can restore the model.
+     * admin can update license
      *
-     * @param \Module\User\Models\User $user
-     * @param \Module\Post\Models\Post $post
-     * @return Response|bool
+     * @param User $user
+     * @param Post $post
+     * @return bool
      */
-    public function restore(User $user, Post $post)
+    public function update_license(User $user, Post $post): bool
     {
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     *
-     * @param \Module\User\Models\User $user
-     * @param \App\Models\Post $post
-     * @return Response|bool
-     */
-    public function forceDelete(User $user, Post $post)
-    {
+        if ($user->role->name == 'admin' && $user->id === $post->user_id) {
+            return true;
+        }
+        return false;
     }
 }
