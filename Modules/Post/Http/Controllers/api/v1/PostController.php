@@ -138,7 +138,7 @@ class PostController extends Controller implements ResponseGenerator
      */
     public function updateLicense(Post $post, Request $request)
     {
-//        $this->authorize('update_license', [Post::class, $post]);
+        $this->authorize('update_license', [Post::class, $post]);
 
         $this->service()->update_license($post, $request);
 

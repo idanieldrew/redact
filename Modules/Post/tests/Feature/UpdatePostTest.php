@@ -11,6 +11,15 @@ class UpdatePostTest extends CustomTestCase
 {
     use DatabaseMigrations, WithFaker;
 
+    private function updateLicense(string $role): \Illuminate\Testing\TestResponse
+    {
+        $res = $this->storePost($role);
+        return $this->patch(route('post.license-update', Str::slug($res[0][0])), [
+            'name' => 'accepted',
+            'reason' => 'no problem'
+        ]);
+    }
+
     /** @test */
     public function updating_post()
     {
@@ -56,5 +65,32 @@ class UpdatePostTest extends CustomTestCase
 
         $this->patch(route('post.update', Str::slug($res[0][0])), ['description' => 'test test'])
             ->assertJsonValidationErrors("description");
+    }
+
+    /** @test */
+    public function admin_can_update_license_post()
+    {
+        $this->updateLicense('admin')->assertOk();
+        $this->assertDatabaseHas('statuses',[
+           'name' => 'accepted'
+        ]);
+    }
+
+    /** @test */
+    public function super_can_update_license_post()
+    {
+        $this->updateLicense('super')->assertOk();
+        $this->assertDatabaseHas('statuses',[
+            'name' => 'accepted'
+        ]);
+    }
+
+    /** @test */
+    public function writer_cant_update_license_post()
+    {
+        $this->updateLicense('writer')->assertForbidden();
+        $this->assertDatabaseMissing('statuses',[
+            'name' => 'accepted'
+        ]);
     }
 }

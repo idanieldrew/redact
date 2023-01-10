@@ -193,7 +193,7 @@ class PostService extends Service
     public function update_license(Post $post, $request)
     {
         SockdolagerPost::dispatch($post);
-        dd(0);
+
         $post->statuses()->update([
             'name' => $request->name,
             'reason' => $request->reason
