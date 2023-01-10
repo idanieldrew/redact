@@ -29,7 +29,6 @@ class SendMailVerification implements ShouldQueue
         $mail = $event->getUser()->email;
         $name = $event->getUser()->username;
 
-        Log::info("send it to $mail");
         Mail::to($mail)->send(new MailVerify($id, $mail, $name));
     }
 }

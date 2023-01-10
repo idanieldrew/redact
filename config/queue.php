@@ -96,6 +96,9 @@ return [
                 ],
                 'queue' => [
                     'job' => VladimirYuldashev\LaravelQueueRabbitMQ\Queue\Jobs\RabbitMQJob::class,
+                    'reroute_failed' => true,
+                    'failed_exchange' => 'failed-exchange',
+                    'failed_routing_key' => 'application-x.%s',
                 ],
             ],
 
@@ -106,23 +109,6 @@ return [
             'after_commit' => false,
         ],
 
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Failed Queue Jobs
-    |--------------------------------------------------------------------------
-    |
-    | These options configure the behavior of failed queue job logging so you
-    | can control which database and table are used to store the jobs that
-    | have failed. You may change them to any database / table you wish.
-    |
-    */
-
-    'failed' => [
-        'driver' => env('QUEUE_FAILED_DRIVER', 'database-uuids'),
-        'database' => env('DB_CONNECTION', 'mysql'),
-        'table' => 'failed_jobs',
     ],
 
 ];
