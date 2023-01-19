@@ -21,5 +21,7 @@ class AuthServiceProvider extends ServiceProvider
             ->middleware('api')
             ->namespace($this->namespace)
             ->group(__DIR__ . '/../Routes/v2/auth_route.php');
+
+        $this->loadViewsFrom(__DIR__ . "/../Resources/views/Auth", "auth");
     }
 }

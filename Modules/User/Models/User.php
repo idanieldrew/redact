@@ -81,6 +81,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(User::class);
     }
 
+    public function tokenz()
+    {
+        return $this->hasMany(Token::class);
+    }
+
     /** end relations */
 
     public function getPhoneNumber()

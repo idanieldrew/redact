@@ -10,10 +10,12 @@ class Token extends Model
 {
     use HasFactory, UseUuid;
 
+    protected $guarded = [];
+
     /* relations */
 
-    public function typeable()
+    public function user()
     {
-        return $this->morphTo();
+        return $this->belongsTo();
     }
 }

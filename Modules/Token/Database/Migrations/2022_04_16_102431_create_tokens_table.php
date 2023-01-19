@@ -5,8 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Module\User\Models\User;
 
-class CreateTokensTable extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -18,7 +17,10 @@ class CreateTokensTable extends Migration
             $table->uuid('id')->primary();
             $table->string('token')->unique();
             $table->json('data');
-            $table->morphs('typeable');
+            $table->string('type');
+            $table->foreignUuid('user_id');
+
+            $table->timestamp('expired_at');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -33,4 +35,4 @@ class CreateTokensTable extends Migration
     {
         Schema::dropIfExists('tokens');
     }
-}
+};
