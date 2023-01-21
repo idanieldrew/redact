@@ -61,4 +61,12 @@ class UserRepository extends Repository
         return $this->model()->where('created_at', '>', $type)
             ->get(['username', 'email']);
     }
+
+    /**
+     *
+     */
+    public function getCustomRow(string $column, string $field)
+    {
+        return $this->model()->where($column, $field)->first();
+    }
 }

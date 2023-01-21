@@ -4,8 +4,14 @@ namespace Module\Auth\Services\v2;
 
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+use Module\Auth\Mail\ForgetPassword as ForgetPasswordAlias;
+use Module\Token\Repository\v1\TokenRepository;
 use Module\User\Models\User;
 use Module\Auth\Services\AuthService as Service;
+use Module\User\Repository\v1\UserRepository;
+use stdClass;
 
 class AuthService extends Service
 {
@@ -63,6 +69,30 @@ class AuthService extends Service
             'Successfully login',
             ['user' => $user, 'token' => $token]
         );
+    }
+
+    /**
+     *
+     */
+    public function forgetPassword(string $field)
+    {
+        $data = filter_var($field, FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';
+
+        // check exist user
+        $user = (new UserRepository)->getCustomRow($data, $field);
+        if (!$user) {
+            return $this->response('fail', Response::HTTP_UNAUTHORIZED, 'email not found', null);
+        }
+
+        $token = Str::random(5);
+        $request = new stdClass();
+        $request->token = $token;
+        $request->data = $data;
+        $request->field = $field;
+        $request->type = "$data verified";
+        (new TokenRepository())->store($user, $request);
+
+        Mail::to($field)->send(new ForgetPasswordAlias($request->field, $token));
     }
 
     /**
