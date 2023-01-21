@@ -7,7 +7,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Module\Auth\Mail\ForgetPassword as ForgetPasswordAlias;
+use Module\Auth\Services\v2\Email\ForgetPasswordEmail;
 use Module\Token\Repository\v1\TokenRepository;
+use Module\Token\Services\v1\EmailVerify;
 use Module\User\Models\User;
 use Module\Auth\Services\AuthService as Service;
 use Module\User\Repository\v1\UserRepository;
@@ -92,7 +94,7 @@ class AuthService extends Service
         $request->type = "$data verified";
         (new TokenRepository())->store($user, $request);
 
-        Mail::to($field)->send(new ForgetPasswordAlias($request->field, $token));
+        (new ForgetPassword)->forgetPassword(new ForgetPasswordEmail($user, $token));
     }
 
     /**
