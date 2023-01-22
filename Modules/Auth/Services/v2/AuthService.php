@@ -95,6 +95,7 @@ class AuthService extends Service
         (new TokenRepository())->store($user, $request);
 
         (new ForgetPassword)->forgetPassword(new ForgetPasswordEmail($user, $token));
+        return $this->response('success', Response::HTTP_OK, 'send token for forgot password', null);
     }
 
     /**
