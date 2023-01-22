@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Module\Auth\Services\v2\AuthService;
 use Module\Share\Contracts\Response\ResponseGenerator;
-use Module\Token\Models\Token;
-use Module\User\Models\User;
 
 class ForgetPassword extends Controller implements ResponseGenerator
 {
