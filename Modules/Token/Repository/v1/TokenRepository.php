@@ -3,7 +3,6 @@
 namespace Module\Token\Repository\v1;
 
 use Module\Token\Repository\TokenRepository as Repository;
-use Module\User\Models\User;
 
 class TokenRepository extends Repository
 {
@@ -22,5 +21,13 @@ class TokenRepository extends Repository
             'type' => "$request->data verified",
             'expired_at' => now()->addMinutes(10)
         ]);
+    }
+
+    public function existToken(string $token)
+    {
+        return $this->model()
+            ->where('token', $token)
+            ->where('expired_at', '>', now())
+            ->exists();
     }
 }

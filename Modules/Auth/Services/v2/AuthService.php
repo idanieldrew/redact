@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Module\Auth\Mail\ForgetPassword as ForgetPasswordAlias;
 use Module\Auth\Services\v2\Email\ForgetPasswordEmail;
+use Module\Token\Models\Token;
 use Module\Token\Repository\v1\TokenRepository;
 use Module\Token\Services\v1\EmailVerify;
 use Module\User\Models\User;
@@ -74,7 +75,10 @@ class AuthService extends Service
     }
 
     /**
+     * Forget password
      *
+     * @param string $field
+     * @return array
      */
     public function forgetPassword(string $field)
     {
@@ -96,6 +100,15 @@ class AuthService extends Service
 
         (new ForgetPassword)->forgetPassword(new ForgetPasswordEmail($user, $token));
         return $this->response('success', Response::HTTP_OK, 'send token for forgot password', null);
+    }
+
+    public function verfyToken(string $token)
+    {
+        $res = (new TokenRepository)->existToken($token);
+
+        return $res ?
+            $this->response('success', '200', 'correct', null) :
+            $this->response('fail', '404', 'incorrect', null);
     }
 
     /**

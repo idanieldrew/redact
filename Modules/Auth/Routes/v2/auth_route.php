@@ -11,6 +11,7 @@ Route::post('register.v2', [AuthController::class, 'register'])->name('register.
 
 // Forget password
 Route::post('forget-password.v2', [ForgetPassword::class, 'forgetPassword'])->name('forget-password');
+// Verify forget password
 Route::post('verify.forget-password.v2', [ForgetPassword::class, 'verifyForgetPsd'])->name('verify-forget-psd');
 
 require 'verify_route.php';

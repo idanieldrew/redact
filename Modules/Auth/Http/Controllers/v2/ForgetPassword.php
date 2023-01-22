@@ -37,10 +37,9 @@ class ForgetPassword extends Controller implements ResponseGenerator
      */
     public function verifyForgetPsd(Request $request)
     {
-        $res = Token::query()->where('token', $request->token)->where('expired_at', '>', now())->exists();
-        return $res ?
-            $this->res('success', '200', 'correct') :
-            $this->res('fail', '404', 'incorrect');
+        $res = $this->service()->verfyToken($request->token);
+
+        return $this->res($res['status'], $res['code'], $res['message']);
     }
 
     public function res($status, $code, $message, $data = null): \Illuminate\Http\JsonResponse
