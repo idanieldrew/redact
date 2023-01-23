@@ -122,27 +122,27 @@ services:
             - redact_network
 
 
-    redact_logstash:
-        image: logstash:7.7.0
-        ports:
-            - "9600:9600"
-            - "8089:8089"
-        links:
-            - "redact_elasticsearch"
-        environment:
-            - LOGSTASH_JDBC_URL=jdbc:postgresql://redact_db:5432/postgres
-            - LOGSTASH_JDBC_DRIVER=org.postgresql.Driver
-#            - LOGSTASH_JDBC_DRIVER_JAR_LOCATION=docker/logstash/postgresql.jar
-            - LOGSTASH_JDBC_USERNAME=dani
-            - LOGSTASH_JDBC_PASSWORD=password
-            - LOGSTASH_ELASTICSEARCH_HOST=http://redact_elasticsearch:9200
-        volumes:
-            - ./docker/logstash/postgresql.jar:/usr/share/logstash/logstash-core/lib/jars/postgresql.jar
-            - ./docker/logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
-        depends_on:
-            - redact_elasticsearch
-        networks:
-            - redact_network
+#    redact_logstash:
+#        image: logstash:7.7.0
+#        ports:
+#            - "9600:9600"
+#            - "8089:8089"
+#        links:
+#            - "redact_elasticsearch"
+#        environment:
+#            - LOGSTASH_JDBC_URL=jdbc:postgresql://redact_db:5432/postgres
+#            - LOGSTASH_JDBC_DRIVER=org.postgresql.Driver
+##            - LOGSTASH_JDBC_DRIVER_JAR_LOCATION=docker/logstash/postgresql.jar
+#            - LOGSTASH_JDBC_USERNAME=dani
+#            - LOGSTASH_JDBC_PASSWORD=password
+#            - LOGSTASH_ELASTICSEARCH_HOST=http://redact_elasticsearch:9200
+#        volumes:
+#            - ./docker/logstash/postgresql.jar:/usr/share/logstash/logstash-core/lib/jars/postgresql.jar
+#            - ./docker/logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+#        depends_on:
+#            - redact_elasticsearch
+#        networks:
+#            - redact_network
 
 networks:
     redact_network:
