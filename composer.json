@@ -87,8 +87,13 @@
         "sort-packages": true,
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true
+        },
+        "platform": {
+            "ext-pcntl": "8.0",
+            "ext-posix": "8.0"
         }
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    }
+},
+"minimum-stability": "dev",
+"prefer-stable": true
 }
