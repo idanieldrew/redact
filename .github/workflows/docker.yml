@@ -11,14 +11,14 @@ jobs:
       - name: Run docker
         run: docker-compose up -d
       - name: Check docker
-        run: docker ps
+        run: docker ps -a
       - name: Generate app key
-        run: docker-compose exec redact_application php artisan key:generate
+        run: docker-compose exec -T redact_application php artisan key:generate
       - name: Migration
-        run: docker-compose exec redact_application php artisan migrate:fresh --seed
+        run: docker-compose exec -T redact_application php artisan migrate:fresh --seed
       - name: Import indexes
-        run: docker-compose exec redact_application php artisan scout:index posts
+        run: docker-compose exec -T redact_application php artisan scout:index posts
       - name: Import db
-        run: docker-compose exec redact_application php artisan scout:import "Module\Post\Models\Post"
+        run: docker-compose exec -T redact_application php artisan scout:import "Module\Post\Models\Post"
       - name: Execute tests (Unit and Feature tests) via PHPUnit
-        run: docker-compose exec redact_application php artisan test
+        run: docker-compose exec -T redact_application php artisan test
