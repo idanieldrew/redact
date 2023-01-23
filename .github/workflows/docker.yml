@@ -9,7 +9,7 @@ jobs:
       - name: Copy environment file
         run: cp .env.example .env
       - name: Run docker
-        run: docker-compose up --build
+        run: docker-compose up -d
       - name: Check docker
         run: docker ps
       - name: Generate app key
