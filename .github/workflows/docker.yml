@@ -13,7 +13,7 @@ jobs:
       - name: Check docker
         run: docker ps
       - name: Composer
-        run: composer install --prefer-dist --no-interaction
+        run:  docker-compose exec -T redact_application composer install --prefer-dist --no-interaction
       - name: Generate app key
         run: docker-compose exec -T redact_application php artisan key:generate
       - name: Migration
