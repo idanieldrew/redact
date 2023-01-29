@@ -13,7 +13,7 @@ jobs:
       - name: Check docker
         run: docker ps
       - name: Composer
-        run:  docker-compose exec -T redact_application composer install --ignore-platform-reqs
+        run:  docker-compose exec -T redact_application composer install
       - name: Generate app key
         run: docker-compose exec -T redact_application php artisan key:generate
       - name: Migration
