@@ -29,6 +29,7 @@ RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql
 RUN docker-php-ext-install pdo pdo_pgsql
 RUN docker-php-ext-install gd
 RUN docker-php-ext-install sockets
+# add pcntl
 RUN docker-php-ext-install pcntl
 
 # Get latest Composer
