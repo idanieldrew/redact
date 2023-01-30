@@ -12,7 +12,7 @@ class VerifyController extends Controller implements ResponseGenerator
     {
         $user->statuses()->update([
             'name' => 'verified',
-            'reason' => 'verify complete'
+            'reason' => 'verify complete',
         ]);
 
         return $this->res('success', 200, 'successfully verify');
@@ -23,7 +23,7 @@ class VerifyController extends Controller implements ResponseGenerator
         return response()->json([
             'status' => $status,
             'message' => $message,
-            'data' => $data
+            'data' => $data,
         ], $code);
     }
 }

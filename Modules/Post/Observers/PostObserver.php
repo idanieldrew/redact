@@ -11,7 +11,7 @@ class PostObserver
     /**
      * Handle the Post "creating" event.
      *
-     * @param \Module\Post\Models\Post $post
+     * @param  \Module\Post\Models\Post  $post
      * @return void
      */
     public function creating(Post $post)
@@ -26,14 +26,14 @@ class PostObserver
     {
         $post->statuses()->create([
             'name' => 'pending',
-            'reason' => 'pending approval'
+            'reason' => 'pending approval',
         ]);
     }
 
     /**
      * Handle the Post "updating" event.
      *
-     * @param \Module\Post\Models\Post $post
+     * @param  \Module\Post\Models\Post  $post
      * @return void
      */
     public function updating(Post $post)

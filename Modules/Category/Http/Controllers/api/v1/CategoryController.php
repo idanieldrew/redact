@@ -44,8 +44,9 @@ class CategoryController extends Controller implements ResponseGenerator
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Module\Category\Http\Requests\v1\StoreRequest $request
+     * @param  \Module\Category\Http\Requests\v1\StoreRequest  $request
      * @return JsonResponse
+     *
      * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
@@ -55,13 +56,13 @@ class CategoryController extends Controller implements ResponseGenerator
 
         $category = $this->service()->store($request);
 
-        return $this->res('success', Response::HTTP_CREATED, "Successfully create category", $category);
+        return $this->res('success', Response::HTTP_CREATED, 'Successfully create category', $category);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param Category $category
+     * @param  Category  $category
      * @return JsonResponse
      */
     public function show(Category $category)
@@ -72,9 +73,10 @@ class CategoryController extends Controller implements ResponseGenerator
     /**
      * Update the specified resource in storage.
      *
-     * @param \Module\Category\Http\Requests\v1\UpdateRequest $request
-     * @param \Module\Category\Models\Category $category
+     * @param  \Module\Category\Http\Requests\v1\UpdateRequest  $request
+     * @param  \Module\Category\Models\Category  $category
      * @return \Illuminate\Http\JsonResponse
+     *
      * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, Category $category)
@@ -89,7 +91,7 @@ class CategoryController extends Controller implements ResponseGenerator
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Models\Category $category
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
     public function destroy(Category $category)
@@ -97,12 +99,12 @@ class CategoryController extends Controller implements ResponseGenerator
     }
 
     // manage response
-    public function res($status, $code, $message, $data = null): \Illuminate\Http\JsonResponse
+    public function res($status, $code, $message, $data = null): JsonResponse
     {
         return response()->json([
             'status' => $status,
             'message' => $message,
-            'data' => $data ?? null
+            'data' => $data ?? null,
         ], $code);
     }
 }

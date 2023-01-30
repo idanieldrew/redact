@@ -29,11 +29,11 @@ class ReadTest extends CustomTestCase
         $category = auth()->user()->categories()->create([
             'name' => [
                 'en' => $this->faker->jobTitle,
-                'fa' => 'تست'
-            ]
+                'fa' => 'تست',
+            ],
         ]);
 
-        $this->get(route('category.show',$category->slug))
+        $this->get(route('category.show', $category->slug))
             ->assertSee([$category->getTranslation('name', 'en'), $category->slug])
             ->assertOk();
     }

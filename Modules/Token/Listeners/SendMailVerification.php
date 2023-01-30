@@ -3,7 +3,6 @@
 namespace Module\Token\Listeners;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Module\Token\Mail\MailVerify;
 use Module\User\Events\Registered;
@@ -20,7 +19,7 @@ class SendMailVerification implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param Registered $event
+     * @param  Registered  $event
      * @return void
      */
     public function handle(Registered $event)

@@ -13,7 +13,7 @@ class CommentService extends Service
     public function store($model, $request)
     {
         return $model->comments()->create([
-            'body' => $request
+            'body' => $request,
         ]);
     }
 
@@ -24,7 +24,7 @@ class CommentService extends Service
     {
         return $model->comments()->create([
             'body' => $request,
-            'parent_id' => $comment->id
+            'parent_id' => $comment->id,
         ]);
     }
 }

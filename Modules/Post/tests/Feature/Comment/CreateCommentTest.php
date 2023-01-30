@@ -23,7 +23,6 @@ class CreateCommentTest extends CustomTestCase
 
         $this->assertDatabaseHas('comments', ['body' => 'test comment']);
         $this->assertInstanceOf(Post::class, $comment->commentable);
-
     }
 
     /** @test */

@@ -3,7 +3,6 @@
 namespace Module\User\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Module\Role\Models\Permission;
 use Module\User\Models\User;
 
 class UserPolicy
@@ -13,7 +12,7 @@ class UserPolicy
     /**
      * Determine whether the user can view any models.
      *
-     * @param User $user
+     * @param  User  $user
      * @return bool
      */
     public function viewAny(User $user): bool
@@ -24,8 +23,8 @@ class UserPolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @param User $user
-     * @param string $author
+     * @param  User  $user
+     * @param  string  $author
      * @return bool
      */
     public function view(User $user, string $author): bool
@@ -36,8 +35,8 @@ class UserPolicy
     /**
      * Determine whether the user can update the model.
      *
-     * @param User $user
-     * @param string $model
+     * @param  User  $user
+     * @param  string  $model
      * @return bool
      */
     public function update(User $user, string $model): bool
@@ -52,8 +51,8 @@ class UserPolicy
     /**
      * Determine whether the user can delete the model.
      *
-     * @param User $user
-     * @param User $model
+     * @param  User  $user
+     * @param  User  $model
      * @return bool
      */
     public function delete(User $user, User $model): bool

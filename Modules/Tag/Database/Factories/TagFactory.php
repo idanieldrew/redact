@@ -24,7 +24,7 @@ class TagFactory extends Factory
         $faker = $this->faker;
 
         return [
-            'name' => $faker->name
+            'name' => $faker->name,
         ];
     }
 }

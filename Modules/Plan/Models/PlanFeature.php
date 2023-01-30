@@ -15,6 +15,6 @@ class PlanFeature extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'description' => DescriptionPlan::class
+        'description' => DescriptionPlan::class,
     ];
 }

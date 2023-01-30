@@ -25,8 +25,7 @@ class UserRequest extends FormRequest
     {
         return [
             'name' => 'required | string',
-            'email' => 'required | email | digits:11 | unique:users,email'
+            'email' => 'required | email | digits:11 | unique:users,email',
         ];
-
     }
 }

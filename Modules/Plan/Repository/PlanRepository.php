@@ -7,7 +7,6 @@ use Module\Share\Repository\Repository as BaseRepository;
 
 class PlanRepository extends BaseRepository
 {
-
     public function model()
     {
         return Plan::query();

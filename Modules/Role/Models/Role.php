@@ -17,8 +17,8 @@ class Role extends Model
     /**
      * Scope a query to first permission of a given name.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param string $name
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  string  $name
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeGetName($query, $username)

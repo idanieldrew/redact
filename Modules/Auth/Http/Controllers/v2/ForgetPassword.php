@@ -17,7 +17,7 @@ class ForgetPassword extends Controller implements ResponseGenerator
     /**
      * Handle forget password
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function forgetPassword(Request $request)
@@ -30,7 +30,7 @@ class ForgetPassword extends Controller implements ResponseGenerator
     /**
      * Handle verify forget password
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function verifyForgetPsd(Request $request)
@@ -45,7 +45,7 @@ class ForgetPassword extends Controller implements ResponseGenerator
         return response()->json([
             'status' => $status,
             'message' => $message,
-            'data' => $data
+            'data' => $data,
         ], $code);
     }
 }

@@ -22,7 +22,7 @@ class PostRepository extends Repository
     /**
      * Paginate $this->model
      *
-     * @param int $number
+     * @param  int  $number
      * @return PostCollection
      */
     public function paginate(int $number = 10): PostCollection
@@ -35,25 +35,25 @@ class PostRepository extends Repository
     /**
      * Display the specified resource.
      *
-     * @param string $post
+     * @param  string  $post
      * @return array
      */
     public function show(string $post): array
     {
         return Cache::remember("post/$post", 900, function () use ($post) {
-
             $res = $this->specialPost($post);
 
             return [
                 'post' => new PostResource($res[0]),
-                'otherPosts' => new PostCollection($res[1])
+                'otherPosts' => new PostCollection($res[1]),
             ];
         });
     }
 
     /**
      * Search in Module\Post\Models\Post
-     * @param string $keyword
+     *
+     * @param  string  $keyword
      * @return object
      */
     public function search(string $keyword): object
@@ -61,7 +61,7 @@ class PostRepository extends Repository
         dd(Post::search($keyword)
             ->where('published', false)
             ->where('blue_tick', request()->blue_tick)
-            ->get(),$keyword,Post::all());
+            ->get(), $keyword, Post::all());
         // elastic engine
         return Post::search($keyword)
             ->where('published', false)
@@ -77,13 +77,12 @@ class PostRepository extends Repository
             ])
             ->thenReturn()
             ->cursor();*/
-
     }
 
     /**
      * Destroy User model
      *
-     * @param Post $post
+     * @param  Post  $post
      * @return bool
      */
     public function destroy(Post $post): bool
@@ -94,7 +93,7 @@ class PostRepository extends Repository
     /**
      * Generate short link
      *
-     * @param string $link
+     * @param  string  $link
      * @return Builder|Model|object|null
      */
     public function checkUniqueShortLink($link)
@@ -115,8 +114,10 @@ class PostRepository extends Repository
 
     /**
      * post & similar posts
-     * @param string $post
+     *
+     * @param  string  $post
      * @return array
+     *
      * @throws Exception
      */
     private function specialPost(string $post): array

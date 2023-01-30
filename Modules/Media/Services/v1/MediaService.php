@@ -9,25 +9,30 @@ use Module\Media\Models\Media;
 class MediaService
 {
     private static $file;
+
     private static $dir;
+
     private static $isPrivate;
 
     /**
      * Private upload
-     * @param UploadedFile $file
+     *
+     * @param  UploadedFile  $file
      * @return Media|void
      */
     public static function privateUpload(UploadedFile $file)
     {
         self::$file = $file;
-        self::$dir = "private/";
+        self::$dir = 'private/';
         self::$isPrivate = true;
+
         return self::upload();
     }
 
     /**
      * Public upload
-     * @param UploadedFile $file
+     *
+     * @param  UploadedFile  $file
      * @return Media|void
      */
     public static function publicUpload(UploadedFile $file)
@@ -35,11 +40,13 @@ class MediaService
         self::$file = $file;
         self::$dir = 'public/';
         self::$isPrivate = false;
+
         return self::upload();
     }
 
     /**
      * Upload
+     *
      * @return Media|void
      */
     private static function upload()
@@ -54,7 +61,8 @@ class MediaService
 
     /**
      * To lower extension
-     * @param UploadedFile $file
+     *
+     * @param  UploadedFile  $file
      * @return string
      */
     private static function normalizeExtension(UploadedFile $file): string
@@ -64,6 +72,7 @@ class MediaService
 
     /**
      * To lower extension
+     *
      * @return string
      */
     private static function filenameGenerator(): string
@@ -73,8 +82,9 @@ class MediaService
 
     /**
      * To lower extension
-     * @param FileContract $service
-     * @param string $key
+     *
+     * @param  FileContract  $service
+     * @param  string  $key
      * @return Media
      */
     private static function uploadByHandler(FileContract $service, string $key): Media

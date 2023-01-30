@@ -3,8 +3,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Module\Post\Models\Post;
-use Module\Tag\Models\Tag;
 
 class CreatePostTagTable extends Migration
 {

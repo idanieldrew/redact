@@ -17,11 +17,11 @@ class LoginTest extends CustomTestCase
         $this->CreateUser();
 
         $res = $this->post(route('login.v2'), [
-            'email' => "test@test.com",
-            'password' => "password"
+            'email' => 'test@test.com',
+            'password' => 'password',
         ])->assertOk();
 
-        $res->assertJsonFragment(['status' => "success"]);
+        $res->assertJsonFragment(['status' => 'success']);
     }
 
     /** @test */
@@ -31,7 +31,7 @@ class LoginTest extends CustomTestCase
 
         $this->post(route('login.v2'), [
             'email' => 'wrong@wrong.com',
-            'password' => 'password'
+            'password' => 'password',
         ])->assertUnauthorized();
     }
 
@@ -42,7 +42,7 @@ class LoginTest extends CustomTestCase
 
         $this->post(route('login.v2'), [
             'email' => 'test@test.com',
-            'password' => 'wrong'
+            'password' => 'wrong',
         ])->assertStatus(422);
     }
 }

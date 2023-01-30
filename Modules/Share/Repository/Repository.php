@@ -11,10 +11,11 @@ abstract class Repository
 
     /**
      * Paginate model
+     *
      * @param
-     * @param null $class
-     * @param int $number
-     * @param bool $softDelete
+     * @param  null  $class
+     * @param  int  $number
+     * @param  bool  $softDelete
      * @return mixed
      */
     public function take($query, $class = null, int $number = 10, bool $softDelete = false): mixed

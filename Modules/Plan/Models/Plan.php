@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Module\Plan\Casts\DescriptionPlan;
 use Module\Plan\Casts\Times;
 use Module\Share\Traits\UseUuid;
-use Module\User\Models\User;
 
 class Plan extends Model
 {
@@ -20,7 +19,7 @@ class Plan extends Model
         'description' => DescriptionPlan::class,
         'created_at' => Times::class,
         'updated_at' => Times::class,
-        'deleted_at' => Times::class
+        'deleted_at' => Times::class,
     ];
 
     /** relations */

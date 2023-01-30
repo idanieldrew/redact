@@ -19,7 +19,7 @@ class TokenRepository extends Repository
             'token' => $request->token,
             'data' => json_encode([$request->data => $request->field]),
             'type' => "$request->data verified",
-            'expired_at' => now()->addMinutes(10)
+            'expired_at' => now()->addMinutes(10),
         ]);
     }
 

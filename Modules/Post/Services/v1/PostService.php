@@ -17,14 +17,15 @@ use Module\Post\Models\Post;
 use Module\Post\Repository\v1\PostRepository;
 use Module\Post\Services\PostService as Service;
 use Module\Tag\Services\v1\TagService;
-use Throwable;
 
 class PostService extends Service
 {
     /**
      * Create new post
+     *
      * @param $request
      * @return PostResource
+     *
      * @throws Exception
      */
     public function store($request): PostResource
@@ -37,7 +38,7 @@ class PostService extends Service
                 'title' => $title = $request->title,
                 'details' => $request->details,
                 'description' => $request->description,
-                'banner' => $this->uploadBanner($request->banner, $title)
+                'banner' => $this->uploadBanner($request->banner, $title),
             ]);
 
             // Upload media(s)
@@ -67,6 +68,7 @@ class PostService extends Service
 
     /**
      * Update post
+     *
      * @param $post
      * @param $request
      * @return null
@@ -78,9 +80,10 @@ class PostService extends Service
 
     /**
      * Make media(s) for post
+     *
      * @param $post
      * @param $request
-     * @param bool $private
+     * @param  bool  $private
      */
     protected function uploadMedia($post, $request, bool $private = true)
     {
@@ -93,12 +96,13 @@ class PostService extends Service
             'type' => $media->type,
             'name' => $media->name,
             'isPrivate' => $media->isPrivate,
-            'user_id' => $media->user_id
+            'user_id' => $media->user_id,
         ]);
     }
 
     /**
      * Make banner for post
+     *
      * @param $request
      * @param $filename
      * @return mixed
@@ -106,6 +110,7 @@ class PostService extends Service
     protected function uploadBanner($request, $filename)
     {
         $imageService = resolve(ImageService::class);
+
         return $imageService::upload($request, $filename, 'public', false);
     }
 
@@ -150,6 +155,7 @@ class PostService extends Service
         if ((new PostRepository)->checkUniqueShortLink($link)) {
             $this->generateLink();
         }
+
         return $link;
     }
 
@@ -160,7 +166,7 @@ class PostService extends Service
      * @param $request
      * @return \Module\Comment\Http\Resources\v1\CommentResource
      */
-    public function createComment($post, $request): \Module\Comment\Http\Resources\v1\CommentResource
+    public function createComment($post, $request): CommentResource
     {
         $commentService = resolve(CommentService::class);
         $comment = $commentService->store($post, $request->body);
@@ -176,7 +182,7 @@ class PostService extends Service
      * @param $request
      * @return CommentResource
      */
-    public function replyComment($post, $comment, $request): \Module\Comment\Http\Resources\v1\CommentResource
+    public function replyComment($post, $comment, $request): CommentResource
     {
         $commentService = resolve(CommentService::class);
         $comment = $commentService->reply($post, $comment, $request->body);
@@ -187,7 +193,7 @@ class PostService extends Service
     /**
      * admin update status
      *
-     * @param Post $post
+     * @param  Post  $post
      * @param $request
      */
     public function update_license(Post $post, $request)
@@ -196,7 +202,7 @@ class PostService extends Service
 
         $post->statuses()->update([
             'name' => $request->name,
-            'reason' => $request->reason
+            'reason' => $request->reason,
         ]);
     }
 }

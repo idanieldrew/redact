@@ -19,7 +19,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->app->singleton('domain', function ($app) {
-            return 'api/' . request()->segment(2);
+            return 'api/'.request()->segment(2);
         });
 
         /*$this->routes(function () {

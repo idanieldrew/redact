@@ -27,8 +27,8 @@ return [
                 'slug' => 'text',
                 'details' => 'text',
                 'created_at' => 'date',
-            ]
-        ]
+            ],
+        ],
     ],
 
     /**

@@ -8,16 +8,16 @@ return [
             'image' => [
                 'extensions' => [
                     'jpg',
-                    'png'
+                    'png',
                 ],
-                'handler' => \Module\Media\Services\v1\ImageService::class
+                'handler' => \Module\Media\Services\v1\ImageService::class,
             ],
             'video' => [
                 'extensions' => [
-                    'mp4'
+                    'mp4',
                 ],
-                'handler' => \Module\Media\Services\v1\VideoService::class
-            ]
-        ]
-    ]
+                'handler' => \Module\Media\Services\v1\VideoService::class,
+            ],
+        ],
+    ],
 ];

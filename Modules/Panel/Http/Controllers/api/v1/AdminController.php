@@ -14,7 +14,7 @@ class AdminController extends Controller implements ResponseGenerator
     /**
      * Send message
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return JsonResponse
      */
     public function ceremony(Request $request)
@@ -29,7 +29,7 @@ class AdminController extends Controller implements ResponseGenerator
         return response()->json([
             'status' => $status,
             'message' => $message,
-            'data' => $data
+            'data' => $data,
         ], $code);
     }
 }

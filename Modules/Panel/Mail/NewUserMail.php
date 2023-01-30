@@ -5,7 +5,6 @@ namespace Module\Panel\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Module\User\Models\User;
 
 class NewUserMail extends Mailable
 {

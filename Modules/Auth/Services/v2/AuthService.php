@@ -4,15 +4,11 @@ namespace Module\Auth\Services\v2;
 
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
-use Module\Auth\Mail\ForgetPassword as ForgetPasswordAlias;
-use Module\Auth\Services\v2\Email\ForgetPasswordEmail;
-use Module\Token\Models\Token;
-use Module\Token\Repository\v1\TokenRepository;
-use Module\Token\Services\v1\EmailVerify;
-use Module\User\Models\User;
 use Module\Auth\Services\AuthService as Service;
+use Module\Auth\Services\v2\Email\ForgetPasswordEmail;
+use Module\Token\Repository\v1\TokenRepository;
+use Module\User\Models\User;
 use Module\User\Repository\v1\UserRepository;
 use stdClass;
 
@@ -20,6 +16,7 @@ class AuthService extends Service
 {
     /**
      *Create new user
+     *
      * @param $request
      * @return array
      */
@@ -29,7 +26,7 @@ class AuthService extends Service
             'username' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
-            'password' => Hash::make($request->password)
+            'password' => Hash::make($request->password),
         ]);
 
         $token = $user->createToken('token')->plainTextToken;
@@ -40,13 +37,14 @@ class AuthService extends Service
             'message' => 'Successfully registered',
             'data' => [
                 'user' => $user,
-                'token' => $token
-            ]
+                'token' => $token,
+            ],
         ];
     }
 
     /**
      * try to login
+     *
      * @param $request
      * @return null
      */
@@ -55,7 +53,7 @@ class AuthService extends Service
         $user = User::whereEmail($request->email)->first();
 
         // Check exist user
-        if (!$user || !Hash::check($request->password, $user->password)) {
+        if (! $user || ! Hash::check($request->password, $user->password)) {
             return $this->response(
                 'error',
                 Response::HTTP_UNAUTHORIZED,
@@ -77,7 +75,7 @@ class AuthService extends Service
     /**
      * Forget password
      *
-     * @param string $field
+     * @param  string  $field
      * @return array
      */
     public function forgetPassword(string $field)
@@ -86,7 +84,7 @@ class AuthService extends Service
 
         // check exist user
         $user = (new UserRepository)->getCustomRow($data, $field);
-        if (!$user) {
+        if (! $user) {
             return $this->response('fail', Response::HTTP_UNAUTHORIZED, 'email not found', null);
         }
 
@@ -99,6 +97,7 @@ class AuthService extends Service
         (new TokenRepository())->store($user, $request);
 
         (new ForgetPassword)->forgetPassword(new ForgetPasswordEmail($user, $token));
+
         return $this->response('success', Response::HTTP_OK, 'send token for forgot password', null);
     }
 
@@ -113,9 +112,10 @@ class AuthService extends Service
 
     /**
      * Return array
-     * @param string $status
-     * @param int $code
-     * @param string $message
+     *
+     * @param  string  $status
+     * @param  int  $code
+     * @param  string  $message
      * @param $data
      * @return array
      */
@@ -125,7 +125,7 @@ class AuthService extends Service
             'status' => $status,
             'code' => $code,
             'message' => $message,
-            'data' => $data ?: null
+            'data' => $data ?: null,
         ];
     }
 }

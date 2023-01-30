@@ -5,7 +5,6 @@ namespace Module\Auth\tests\Unit;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Module\User\Models\User;
 use Tests\CustomTestCase;
-use Tests\TestCase;
 
 class RegisterTest extends CustomTestCase
 {

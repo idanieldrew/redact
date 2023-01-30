@@ -2,8 +2,8 @@
 
 namespace Module\Plan\Services\v1;
 
-use Module\Plan\Http\Resources\v1\PlanResource;
 use Module\Plan\Http\Resources\v1\PlanCollection;
+use Module\Plan\Http\Resources\v1\PlanResource;
 use Module\Plan\Repository\v1\PlanFeaturePlanRepository;
 use Module\Plan\Repository\v1\PlanPlanRepository;
 use Module\Plan\Services\Service;

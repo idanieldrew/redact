@@ -10,11 +10,10 @@ use Module\User\Repository\v1\UserRepository;
 
 class ReportPostPublishedAdmin implements ShouldQueue
 {
-
     /**
      * Handle the event.
      *
-     * @param PostPublish $event
+     * @param  PostPublish  $event
      * @return void
      */
     public function handle(PostPublish $event)

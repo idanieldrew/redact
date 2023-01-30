@@ -5,7 +5,6 @@ namespace Module\Post\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Log;
 
 class PostPublishedPermission extends Mailable
 {
@@ -16,7 +15,7 @@ class PostPublishedPermission extends Mailable
     /**
      * Create a new message instance.
      *
-     * @param string $slug
+     * @param  string  $slug
      * @return void
      */
     public function __construct($slug)

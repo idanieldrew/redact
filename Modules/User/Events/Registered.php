@@ -3,7 +3,6 @@
 namespace Module\User\Events;
 
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Module\User\Models\User;
@@ -16,6 +15,7 @@ class Registered
     {
         return $this->user;
     }
+
     /**
      * Create a new event instance.
      *
@@ -23,7 +23,6 @@ class Registered
      */
     public function __construct(
         protected User $user
-    )
-    {
+    ) {
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
 return [
-  'ghasedak' => [
-      'number' => env('linenumber'),
-      'api' => env('apikey')
-  ]
+    'ghasedak' => [
+        'number' => env('linenumber'),
+        'api' => env('apikey'),
+    ],
 ];

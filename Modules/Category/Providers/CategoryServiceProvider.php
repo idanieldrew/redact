@@ -15,7 +15,7 @@ class CategoryServiceProvider extends ServiceProvider
 
     // Policy
     protected $policies = [
-        Category::class => CategoryPolicy::class
+        Category::class => CategoryPolicy::class,
     ];
 
     /**
@@ -26,15 +26,15 @@ class CategoryServiceProvider extends ServiceProvider
     public function boot()
     {
         // Migrations
-        $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
+        $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations');
 
         // Routes
-        Route::prefix("api/category")
+        Route::prefix('api/category')
             ->middleware(['api', 'lang'])
             ->namespace($this->namespace)
-            ->group(__DIR__ . '/../Routes/category_route.php');
+            ->group(__DIR__.'/../Routes/category_route.php');
 
-        $this->loadViewsFrom(__DIR__ . '/../Resources/Views/Category','category');
+        $this->loadViewsFrom(__DIR__.'/../Resources/Views/Category', 'category');
         // Observer Category
         Category::observe(CategoryObserver::class);
     }

@@ -3,8 +3,6 @@
 namespace Module\Category\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Module\Category\Models\Category;
-use Module\Role\Models\Permission;
 use Module\User\Models\User;
 
 class CategoryPolicy
@@ -14,7 +12,7 @@ class CategoryPolicy
     /**
      * Determine whether the user can create models.
      *
-     * @param \Module\User\Models\User $user
+     * @param  \Module\User\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function createOrUpdate(User $user)
@@ -25,12 +23,11 @@ class CategoryPolicy
     /**
      * Determine whether the user can delete the model.
      *
-     * @param \App\Models\User $user
-     * @param \App\Models\Categories $categories
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Categories  $categories
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function delete(User $user, Categories $categories)
     {
     }
-
 }

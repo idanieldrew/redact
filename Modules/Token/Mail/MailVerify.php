@@ -20,8 +20,7 @@ class MailVerify extends Mailable
         private        $id,
         private string $mail,
         private string $name,
-    )
-    {
+    ) {
         //
     }
 

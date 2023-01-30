@@ -28,7 +28,7 @@ class PlanTableSeeder extends Seeder
             ],
             'price' => 9.99,
             'period' => 1,
-            'interval' => 'month'
+            'interval' => 'month',
         ]);
 
         $duo = Plan::create([
@@ -42,7 +42,7 @@ class PlanTableSeeder extends Seeder
             ],
             'price' => 12.99,
             'period' => 1,
-            'interval' => 'month'
+            'interval' => 'month',
         ]);
 
         $family = Plan::create([
@@ -56,7 +56,7 @@ class PlanTableSeeder extends Seeder
             ],
             'price' => 15.99,
             'period' => 1,
-            'interval' => 'month'
+            'interval' => 'month',
         ]);
 
         $student = Plan::create([
@@ -70,28 +70,28 @@ class PlanTableSeeder extends Seeder
             ],
             'price' => 4.99,
             'period' => 1,
-            'interval' => 'month'
+            'interval' => 'month',
         ]);
 
         $individual->plan_feature()->create([
-            'description' => 'terms and conditions for individual plan'
+            'description' => 'terms and conditions for individual plan',
         ]);
 
         $duo->plan_feature()->create([
-            'description' => 'terms and conditions for duo plan'
+            'description' => 'terms and conditions for duo plan',
         ]);
 
         $family->plan_feature()->create([
-            'description' => 'terms and conditions for family plan'
+            'description' => 'terms and conditions for family plan',
         ]);
 
         $student->plan_feature()->create([
-            'description' => 'terms and conditions for student plan'
+            'description' => 'terms and conditions for student plan',
         ]);
 
         $user = User::first();
         $user->subscribs()->create([
-            'plan_id' => $duo->id
+            'plan_id' => $duo->id,
         ]);
     }
 }

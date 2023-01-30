@@ -7,9 +7,7 @@ use Module\Media\Repositories\MediaRepository as Repository;
 class MediaRepository extends Repository
 {
     /**
-     *
-     *
-     * @param int $number
+     * @param  int  $number
      * @return PostCollection
      */
     public function paginate(int $number = 10): PostCollection

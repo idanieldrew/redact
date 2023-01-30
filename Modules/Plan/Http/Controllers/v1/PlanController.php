@@ -33,8 +33,9 @@ class PlanController extends Controller implements ResponseGenerator
     /**
      * Store a newly created resource in storage.
      *
-     * @param PlanRequest $request
+     * @param  PlanRequest  $request
      * @return Response
+     *
      * @throws AuthorizationException
      */
     public function store(PlanRequest $request)
@@ -42,13 +43,14 @@ class PlanController extends Controller implements ResponseGenerator
         $this->authorize('create', Plan::class);
 
         $service = $this->service()->store($request);
+
         return $this->res('success', 201, 'success create plan', $service);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -59,8 +61,8 @@ class PlanController extends Controller implements ResponseGenerator
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -71,7 +73,7 @@ class PlanController extends Controller implements ResponseGenerator
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -84,7 +86,7 @@ class PlanController extends Controller implements ResponseGenerator
         return response()->json([
             'status' => $status,
             'message' => $message,
-            'data' => $data
+            'data' => $data,
         ], $code);
     }
 }

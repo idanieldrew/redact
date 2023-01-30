@@ -45,7 +45,7 @@ class PostController extends Controller implements ResponseGenerator
     /**
      * Display the specified resource.
      *
-     * @param string $post
+     * @param  string  $post
      * @return JsonResponse
      */
     public function show(string $post): JsonResponse
@@ -58,8 +58,9 @@ class PostController extends Controller implements ResponseGenerator
     /**
      * Store a newly created resource in storage.
      *
-     * @param PostRequest $request
+     * @param  PostRequest  $request
      * @return JsonResponse
+     *
      * @throws AuthorizationException|\Throwable
      */
     public function store(PostRequest $request): JsonResponse
@@ -75,9 +76,10 @@ class PostController extends Controller implements ResponseGenerator
     /**
      * Update the specified resource in storage.
      *
-     * @param UpdateRequest $request
-     * @param Post $post
+     * @param  UpdateRequest  $request
+     * @param  Post  $post
      * @return JsonResponse
+     *
      * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, Post $post)
@@ -93,8 +95,9 @@ class PostController extends Controller implements ResponseGenerator
     /**
      * Remove the specified resource from storage.
      *
-     * @param Post $post
+     * @param  Post  $post
      * @return JsonResponse
+     *
      * @throws AuthorizationException
      */
     public function destroy(Post $post)
@@ -110,7 +113,7 @@ class PostController extends Controller implements ResponseGenerator
     /**
      * Display the specified resource.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return JsonResponse
      */
     public function search(Request $request)
@@ -150,7 +153,7 @@ class PostController extends Controller implements ResponseGenerator
         return response()->json([
             'status' => $status,
             'message' => $message,
-            'data' => $data
+            'data' => $data,
         ], $code);
     }
 }

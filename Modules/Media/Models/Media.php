@@ -15,7 +15,7 @@ class Media extends Model
 
     protected $casts = [
         'files' => 'json',
-        'isPrivate' => PrivateMedia::class
+        'isPrivate' => PrivateMedia::class,
     ];
 
     /** Relations */

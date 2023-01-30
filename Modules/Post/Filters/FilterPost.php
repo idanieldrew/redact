@@ -8,7 +8,7 @@ class FilterPost
 {
     public function handle($request, Closure $next)
     {
-        return $next($request)->where('title', 'LIKE', '%' . request()->keyword . '%')
-            ->orWhere('details', 'LIKE', '%' . request()->keyword . '%');
+        return $next($request)->where('title', 'LIKE', '%'.request()->keyword.'%')
+            ->orWhere('details', 'LIKE', '%'.request()->keyword.'%');
     }
 }

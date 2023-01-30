@@ -10,8 +10,9 @@ class CategoryObserver
     /**
      * Handle the Post "creating" event.
      *
-     * @param \Module\Category\Models\Category $category
+     * @param  \Module\Category\Models\Category  $category
      * @return void
+     *
      * @throws \Exception
      */
     public function creating(Category $category)
@@ -22,8 +23,9 @@ class CategoryObserver
     /**
      * Handle the Post "creating" event.
      *
-     * @param \Module\Category\Models\Category $category
+     * @param  \Module\Category\Models\Category  $category
      * @return void
+     *
      * @throws \Exception
      */
     public function updating(Category $category)

@@ -26,6 +26,7 @@ class PostPublish
      * Create a new event instance.
      *
      * @return void
+     *
      * @var Post
      */
     public function __construct($post)

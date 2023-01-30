@@ -22,6 +22,6 @@ class ReplyCommentTest extends CustomTestCase
         $this->post(route('post.reply_comment', [$post->slug, $comment->id]), ['body' => 'reply comment'])
             ->assertCreated();
 
-        $this->assertDatabaseHas('comments', ['parent_id' => $comment->id,'body' => 'reply comment']);
+        $this->assertDatabaseHas('comments', ['parent_id' => $comment->id, 'body' => 'reply comment']);
     }
 }

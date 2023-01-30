@@ -23,7 +23,7 @@ trait HasRole
     /**
      * Check what's role
      *
-     * @param mixed $role
+     * @param  mixed  $role
      * @return bool
      */
     public function hasRole($role): bool
@@ -33,16 +33,16 @@ trait HasRole
         } elseif (is_null($role)) {
             return false;
         } elseif (is_int($role)) {
-            return (bool)Role::whereId($role)->first();
+            return (bool) Role::whereId($role)->first();
         }
 
-        return !!$role->intersect($this->roles)->count();
+        return (bool) $role->intersect($this->roles)->count();
     }
 
     /**
      * Assign role for user
      *
-     * @param string $role
+     * @param  string  $role
      * @return void
      */
     public function assignRole(string $role)
@@ -51,7 +51,7 @@ trait HasRole
 
         $user = User::find($this->getKey());
         $user->update([
-            'role_id' => $role->id
+            'role_id' => $role->id,
         ]);
     }
 

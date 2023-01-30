@@ -10,7 +10,7 @@ class TagObserver
     /**
      * Handle the Post "created" event.
      *
-     * @param  \Module\Tag\Models\Tag $tag
+     * @param  \Module\Tag\Models\Tag  $tag
      * @return void
      */
     public function creating(Tag $tag)
@@ -21,7 +21,7 @@ class TagObserver
     /**
      * Handle the Post "updating" event.
      *
-     * @param  \Module\Tag\Models\Tag $tag
+     * @param  \Module\Tag\Models\Tag  $tag
      * @return void
      */
     public function updating(Tag $tag)

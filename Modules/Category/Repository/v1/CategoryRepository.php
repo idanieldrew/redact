@@ -8,6 +8,7 @@ class CategoryRepository extends Repository
 {
     /**
      *return id categories
+     *
      * @param $request
      * @return array
      */

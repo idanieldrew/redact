@@ -17,10 +17,11 @@ class ImageService extends Service implements FileContract
 
     /**
      * Upload media
-     * @param UploadedFile $file
+     *
+     * @param  UploadedFile  $file
      * @param $filename string
      * @param $dir string
-     * @param bool $resize
+     * @param  bool  $resize
      * @return array | string
      */
     public static function upload(UploadedFile $file, string $filename, string $dir, bool $resize = true)
@@ -30,7 +31,7 @@ class ImageService extends Service implements FileContract
         $filename = Str::slug($filename);
         $path = "$dir/$filename.$extension";
 
-        Storage::putFileAs($dir, $file, $filename . '.' . $extension);
+        Storage::putFileAs($dir, $file, $filename.'.'.$extension);
 
         return $resize ?
             self::resize(Storage::path($path), $dir, $filename, $extension) :
@@ -39,6 +40,7 @@ class ImageService extends Service implements FileContract
 
     /**
      * Resize media with Intervention package
+     *
      * @param $img string
      * @param $dir string
      * @param $name string
@@ -49,15 +51,16 @@ class ImageService extends Service implements FileContract
     {
         $img = Intervention::make($img);
 
-        $images['original'] = $name . '.' . $extension;
+        $images['original'] = $name.'.'.$extension;
 
         foreach (self::$sizes as $size) {
-            $images[$size] = $name . '_' . $size . '.' . $extension;
+            $images[$size] = $name.'_'.$size.'.'.$extension;
             $img->resize($size, null, function ($aspect) {
                 $aspect->aspectRatio();
             })
-                ->save(Storage::path($dir) . $name . '_' . $size . '.' . $extension);
+                ->save(Storage::path($dir).$name.'_'.$size.'.'.$extension);
         }
+
         return $images;
     }
 }

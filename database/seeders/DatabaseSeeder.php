@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Module\Category\Models\Category;
 use Module\Plan\Database\Seeders\PlanTableSeeder;
 use Module\Role\Database\Seeders\RoleTableSeeder;
 use Module\User\Models\User;
@@ -23,7 +22,7 @@ class DatabaseSeeder extends Seeder
         $names = ['sport', 'science', 'imaginary'];
         foreach ($names as $name) {
             User::first()->categories()->create([
-                'name' => $name
+                'name' => $name,
             ]);
         }
     }

@@ -21,7 +21,7 @@ class PlanPlanRepository extends PlanRepository
             'description' => $request->description,
             'price' => $request->price,
             'period' => $request->period,
-            'interval' => $request->interval
+            'interval' => $request->interval,
         ]);
     }
 }

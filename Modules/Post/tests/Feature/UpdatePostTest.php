@@ -14,9 +14,10 @@ class UpdatePostTest extends CustomTestCase
     private function updateLicense(string $role): \Illuminate\Testing\TestResponse
     {
         $res = $this->storePost($role);
+
         return $this->patch(route('post.license-update', Str::slug($res[0][0])), [
             'name' => 'accepted',
-            'reason' => 'no problem'
+            'reason' => 'no problem',
         ]);
     }
 
@@ -46,7 +47,7 @@ class UpdatePostTest extends CustomTestCase
         $res = $this->storePost();
 
         $this->patch(route('post.update', Str::slug($res[0][0])), ['title' => 'te'])
-            ->assertJsonValidationErrors("title");
+            ->assertJsonValidationErrors('title');
     }
 
     /** @test */
@@ -55,7 +56,7 @@ class UpdatePostTest extends CustomTestCase
         $res = $this->storePost();
 
         $this->patch(route('post.update', Str::slug($res[0][0])), ['details' => 'test'])
-            ->assertJsonValidationErrors("details");
+            ->assertJsonValidationErrors('details');
     }
 
     /** @test */
@@ -64,15 +65,15 @@ class UpdatePostTest extends CustomTestCase
         $res = $this->storePost();
 
         $this->patch(route('post.update', Str::slug($res[0][0])), ['description' => 'test test'])
-            ->assertJsonValidationErrors("description");
+            ->assertJsonValidationErrors('description');
     }
 
     /** @test */
     public function admin_can_update_license_post()
     {
         $this->updateLicense('admin')->assertOk();
-        $this->assertDatabaseHas('statuses',[
-           'name' => 'accepted'
+        $this->assertDatabaseHas('statuses', [
+            'name' => 'accepted',
         ]);
     }
 
@@ -80,8 +81,8 @@ class UpdatePostTest extends CustomTestCase
     public function super_can_update_license_post()
     {
         $this->updateLicense('super')->assertOk();
-        $this->assertDatabaseHas('statuses',[
-            'name' => 'accepted'
+        $this->assertDatabaseHas('statuses', [
+            'name' => 'accepted',
         ]);
     }
 
@@ -89,8 +90,8 @@ class UpdatePostTest extends CustomTestCase
     public function writer_cant_update_license_post()
     {
         $this->updateLicense('writer')->assertForbidden();
-        $this->assertDatabaseMissing('statuses',[
-            'name' => 'accepted'
+        $this->assertDatabaseMissing('statuses', [
+            'name' => 'accepted',
         ]);
     }
 }

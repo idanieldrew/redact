@@ -34,7 +34,7 @@ class Post extends Model implements Explored
     protected $casts = [
         'id' => 'string',
         'blue_tick' => 'boolean',
-//        'published' => Published::class,
+        //        'published' => Published::class,
     ];
 
     /**
@@ -98,7 +98,7 @@ class Post extends Model implements Explored
      */
     public function getScoutKey()
     {
-        return (string)$this->id;
+        return (string) $this->id;
     }
 
     /**
@@ -108,7 +108,7 @@ class Post extends Model implements Explored
      */
     public function getScoutKeyName()
     {
-        return (string)'id';
+        return (string) 'id';
     }
 
     public function mappableAs(): array

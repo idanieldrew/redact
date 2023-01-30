@@ -11,7 +11,7 @@ class TagServiceProvider extends ServiceProvider
     public function boot()
     {
         // Migrations
-        $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
+        $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations');
 
         // Observers
         Tag::observe(TagObserver::class);

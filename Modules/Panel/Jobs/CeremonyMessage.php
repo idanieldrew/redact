@@ -43,6 +43,6 @@ class CeremonyMessage implements ShouldQueue
             Mail::to($user->email)->send($mail);
         }
 
-        Log::info("send mails");
+        Log::info('send mails');
     }
 }

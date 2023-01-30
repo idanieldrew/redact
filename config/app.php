@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'debug' => (bool)env('APP_DEBUG', false),
+    'debug' => (bool) env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -202,7 +202,7 @@ return [
         // Status Module
         \Module\Plan\Providers\PlanServiceProvider::class,
         // Panel Module
-        \Module\Panel\Providers\PanelServiceProvider::class
+        \Module\Panel\Providers\PanelServiceProvider::class,
     ],
 
     /*

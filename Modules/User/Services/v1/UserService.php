@@ -9,7 +9,8 @@ class UserService extends Service
 {
     /**
      * Update $this->model
-     * @param string $param
+     *
+     * @param  string  $param
      * @param Request; $request
      * @return mixed
      */
@@ -18,6 +19,7 @@ class UserService extends Service
         if ($request->only('role')) {
             $user = $this->model()->where('username', $param)->first();
             $user->assignRole($request->role);
+
             return;
         }
 
@@ -28,10 +30,11 @@ class UserService extends Service
 
     /**
      * Return array
-     * @param string $status
-     * @param int $code
-     * @param string $message
-     * @param null $data
+     *
+     * @param  string  $status
+     * @param  int  $code
+     * @param  string  $message
+     * @param  null  $data
      * @return array
      */
     private function response(string $status, int $code, string $message, $data = null): array
@@ -40,7 +43,7 @@ class UserService extends Service
             $status,
             $code,
             $message,
-            $data
+            $data,
         ];
     }
 }

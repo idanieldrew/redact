@@ -10,7 +10,7 @@ class MediaResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
     public function toArray($request)
@@ -19,7 +19,7 @@ class MediaResource extends JsonResource
             'type' => $this->type,
             'files' => $this->files,
             'name' => $this->name,
-            'is-private' => $this->isPrivate
+            'is-private' => $this->isPrivate,
         ];
     }
 }

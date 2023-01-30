@@ -14,7 +14,8 @@ class CategoryService extends Service
 {
     /**
      * Create new category
-     * @param StoreRequestAlias $request
+     *
+     * @param  StoreRequestAlias  $request
      * @return \Module\Category\Http\Resources\v1\CategoryResource
      */
     public function store(StoreRequestAlias $request): CategoryResource
@@ -23,7 +24,7 @@ class CategoryService extends Service
         $category = auth()->user()->categories()->create([
             'name' => [
                 'en' => $request->name['en'],
-                'fa' => $request->name['fa']
+                'fa' => $request->name['fa'],
             ],
         ]);
 
@@ -34,6 +35,7 @@ class CategoryService extends Service
 
     /**
      * Update category
+     *
      * @param $category
      * @param $request
      * @return null
@@ -48,7 +50,7 @@ class CategoryService extends Service
         return $category->update([
             'name' => [
                 'en' => $request->name['en'],
-                'fa' => $request->name['fa']
+                'fa' => $request->name['fa'],
             ],
         ]);
     }

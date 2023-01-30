@@ -32,6 +32,7 @@ class UserController extends Controller implements ResponseGenerator
      * Display a listing of the resource.
      *
      * @return \Module\User\Http\Resources\v1\UserCollection
+     *
      * @throws AuthorizationException
      */
     public function index()
@@ -41,14 +42,15 @@ class UserController extends Controller implements ResponseGenerator
 
         $users = $this->repo()->paginate();
 
-        return $this->res('Success', Response::HTTP_OK, "Show all users", $users);
+        return $this->res('Success', Response::HTTP_OK, 'Show all users', $users);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param User $user
+     * @param  User  $user
      * @return UserResource
+     *
      * @throws AuthorizationException
      */
     public function show(User $user): UserResource
@@ -62,9 +64,10 @@ class UserController extends Controller implements ResponseGenerator
     /**
      * Update the specified resource in storage.
      *
-     * @param string $user
-     * @param UpdateRequest $request
+     * @param  string  $user
+     * @param  UpdateRequest  $request
      * @return \Illuminate\Http\JsonResponse
+     *
      * @throws AuthorizationException
      */
     public function update(string $user, UpdateRequest $request): \Illuminate\Http\JsonResponse
@@ -80,8 +83,9 @@ class UserController extends Controller implements ResponseGenerator
     /**
      * Update the specified resource in storage.
      *
-     * @param \Module\User\Models\User $user
+     * @param  \Module\User\Models\User  $user
      * @return \Illuminate\Http\JsonResponse
+     *
      * @throws AuthorizationException
      */
     public function destroy(User $user)
@@ -99,7 +103,7 @@ class UserController extends Controller implements ResponseGenerator
         return response()->json([
             'status' => $status,
             'message' => $message,
-            'data' => $data
+            'data' => $data,
         ], $code);
     }
 
@@ -107,7 +111,7 @@ class UserController extends Controller implements ResponseGenerator
     {
         auth()->user()->notify(new CeremonyMessage());
 
-        Log::info("send it");
+        Log::info('send it');
         dd(44);
     }
 }

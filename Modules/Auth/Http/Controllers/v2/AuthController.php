@@ -3,11 +3,11 @@
 namespace Module\Auth\Http\Controllers\v2;
 
 use App\Http\Controllers\Controller;
-use Module\Share\Contracts\Response\ResponseGenerator;
 use Module\Auth\Http\Requests\v2\LoginRequest;
 use Module\Auth\Http\Requests\v2\RegisterRequest;
-use Module\User\Http\Resources\v2\UserResource;
 use Module\Auth\Services\v2\AuthService;
+use Module\Share\Contracts\Response\ResponseGenerator;
+use Module\User\Http\Resources\v2\UserResource;
 
 class AuthController extends Controller implements ResponseGenerator
 {
@@ -20,7 +20,8 @@ class AuthController extends Controller implements ResponseGenerator
 
     /**
      * Register user
-     * @param  $request
+     *
+     * @param    $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function register(RegisterRequest $request)
@@ -32,7 +33,8 @@ class AuthController extends Controller implements ResponseGenerator
 
     /**
      * Login user
-     * @param \Module\User\Http\Requests\v2\LoginRequest $request
+     *
+     * @param  \Module\User\Http\Requests\v2\LoginRequest  $request
      * @return \Illuminate\Http\JsonResponse $this->response($status,$message,$data)
      */
     public function login(LoginRequest $request): \Illuminate\Http\JsonResponse
@@ -47,10 +49,10 @@ class AuthController extends Controller implements ResponseGenerator
         return response()->json([
             'status' => $status,
             'message' => $message,
-            'data' => !$data ? null : [
+            'data' => ! $data ? null : [
                 'user' => new UserResource($data['user']),
-                'token' => $data['token']
-            ]
+                'token' => $data['token'],
+            ],
         ], $code);
     }
 }

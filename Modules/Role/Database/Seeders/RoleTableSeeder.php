@@ -3,7 +3,6 @@
 namespace Module\Role\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Module\Role\Models\Permission;
 use Module\Role\Models\Role;
@@ -47,21 +46,21 @@ class RoleTableSeeder extends Seeder
             'username' => 'write',
             'email' => 'writer@writer.com',
             'password' => Hash::make('password'),
-            'phone' => '091111111111'
+            'phone' => '091111111111',
         ]);
 
         $role2->users()->create([
             'username' => 'admin',
             'email' => 'admin@admin.com',
             'password' => Hash::make('password'),
-            'phone' => '09222222222'
+            'phone' => '09222222222',
         ]);
 
         $role3->users()->create([
             'username' => 'super',
             'email' => 'super@super.com',
             'password' => Hash::make('password'),
-            'phone' => '093333333333'
+            'phone' => '093333333333',
         ]);
 
         /*$super = User::factory(['name' => 'super'])->create();

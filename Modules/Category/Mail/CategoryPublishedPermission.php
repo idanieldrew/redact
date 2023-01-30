@@ -15,7 +15,7 @@ class CategoryPublishedPermission extends Mailable
     /**
      * Create a new message instance.
      *
-     * @param string $slug
+     * @param  string  $slug
      * @return void
      */
     public function __construct(string $slug)

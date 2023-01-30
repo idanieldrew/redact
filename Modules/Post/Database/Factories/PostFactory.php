@@ -2,9 +2,8 @@
 
 namespace Module\Post\Database\Factories;
 
-use Module\Category\Models\Category;
-use Module\Post\Models\Post;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Module\Post\Models\Post;
 
 class PostFactory extends Factory
 {
@@ -28,7 +27,7 @@ class PostFactory extends Factory
             'title' => $faker->jobTitle,
             'details' => $faker->paragraph(1),
             'description' => $faker->paragraph(6),
-            'banner' => $faker->imageUrl
+            'banner' => $faker->imageUrl,
         ];
     }
 }

@@ -7,7 +7,7 @@ use Module\Plan\Repository\PlanFeatureRepository;
 
 class PlanFeaturePlanRepository extends PlanFeatureRepository
 {
-    public function store(Plan $plan,$request)
+    public function store(Plan $plan, $request)
     {
         return $plan->plan_feature()->create([
             'description' => $request,

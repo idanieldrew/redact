@@ -20,7 +20,7 @@ class CreatPostTest extends CustomTestCase
     {
         $res = $this->storePost();
 
-        Storage::disk('local')->assertExists('public/' . Str::slug($res[0][0]) . $res[1]);
+        Storage::disk('local')->assertExists('public/'.Str::slug($res[0][0]).$res[1]);
     }
 
     /** @test */
@@ -29,14 +29,14 @@ class CreatPostTest extends CustomTestCase
         $res = $this->storePost('writer', true);
 
         Storage::disk('local')
-            ->assertExists('public/' . Str::slug($res[0][0]) . $res[1]);
+            ->assertExists('public/'.Str::slug($res[0][0]).$res[1]);
 
         for ($i = 0; $i <= 2; $i++) {
             $attachments = Storage::disk('local')->files('private')[$i];
             $video = Storage::disk('local')->files('private/video')[0];
 
-            preg_match("/(.*?).png/", $attachments, $match);
-            preg_match("/(.*?).mp4/", $video, $v);
+            preg_match('/(.*?).png/', $attachments, $match);
+            preg_match('/(.*?).mp4/', $video, $v);
             Storage::disk('local')
                 ->assertExists([$match[0]]);
             Storage::disk('local')
@@ -67,7 +67,7 @@ class CreatPostTest extends CustomTestCase
         $this->CreateUser();
 
         $this->post(route('post.store'), [
-            'title' => "te",
+            'title' => 'te',
         ])->assertJsonValidationErrors('title');
     }
 
@@ -75,9 +75,9 @@ class CreatPostTest extends CustomTestCase
     public function handle_unique_title_post()
     {
         // Store posts when title is equals
-        $this->storePost('writer', false, 1, "test title");
+        $this->storePost('writer', false, 1, 'test title');
         $this->post(route('post.store'), [
-            'title' => "test title",
+            'title' => 'test title',
         ])->assertJsonValidationErrors('title');
     }
 
@@ -87,7 +87,7 @@ class CreatPostTest extends CustomTestCase
         $this->CreateUser();
 
         $this->post(route('post.store'), [
-            'details' => "te",
+            'details' => 'te',
         ])->assertJsonValidationErrors('details');
     }
 
@@ -95,10 +95,10 @@ class CreatPostTest extends CustomTestCase
     public function handle_unique_details_post()
     {
         // Store posts when details are equals
-        $this->storePost('writer', false, 1, "test title", "test details");
+        $this->storePost('writer', false, 1, 'test title', 'test details');
         $this->post(route('post.store'), [
-            'title' => "test title",
-            'details' => "test details"
+            'title' => 'test title',
+            'details' => 'test details',
         ])->assertJsonValidationErrors('details');
     }
 
@@ -112,7 +112,7 @@ class CreatPostTest extends CustomTestCase
 
         // Store posts when title is equals
         $this->post(route('post.store'), [
-            'banner' => UploadedFile::fake()->image("test.gif"),
+            'banner' => UploadedFile::fake()->image('test.gif'),
         ])->assertJsonValidationErrors('banner');
     }
 
@@ -122,7 +122,7 @@ class CreatPostTest extends CustomTestCase
         $this->CreateUser();
 
         $this->post(route('post.store'), [
-            'category' => "test category",
+            'category' => 'test category',
         ])->assertJsonValidationErrors('category');
     }
 
@@ -130,7 +130,7 @@ class CreatPostTest extends CustomTestCase
     public function store_event_mailing_with_mock()
     {
         Event::fake([
-            PostPublish::class
+            PostPublish::class,
         ]);
 
         $this->CreateUser('writer', 'test2@test.com');

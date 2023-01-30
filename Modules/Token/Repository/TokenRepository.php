@@ -4,7 +4,6 @@ namespace Module\Token\Repository;
 
 use Module\Share\Repository\Repository;
 use Module\Token\Models\Token;
-use Module\User\Models\User;
 
 class TokenRepository extends Repository
 {

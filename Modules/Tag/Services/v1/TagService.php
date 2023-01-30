@@ -2,7 +2,6 @@
 
 namespace Module\Tag\Services\v1;
 
-use Illuminate\Http\Request;
 use Module\Tag\Models\Tag;
 use Module\Tag\Services\TagService as Service;
 
@@ -10,6 +9,7 @@ class TagService extends Service
 {
     /**
      * Create new tag
+     *
      * @param $request
      * @return array
      */
@@ -18,7 +18,7 @@ class TagService extends Service
         foreach ($request as $tags) {
             $this->model()->firstWhere('name', '=', $tags) ??
                 $this->model()->create([
-                    'name' => $tags
+                    'name' => $tags,
                 ]);
         }
 

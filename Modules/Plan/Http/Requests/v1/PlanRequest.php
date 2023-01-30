@@ -30,7 +30,7 @@ class PlanRequest extends FormRequest
             'price' => 'required|numeric',
             'period' => 'required|numeric',
             'interval' => 'required|string',
-            'features' => 'required|array'
+            'features' => 'required|array',
         ];
     }
 }

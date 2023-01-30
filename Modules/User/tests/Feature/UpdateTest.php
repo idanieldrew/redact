@@ -75,7 +75,7 @@ class UpdateTest extends CustomTestCase
             ->assertNoContent();
 
         $this->assertDatabaseHas('users', [
-            'role_id' => $res[1]
+            'role_id' => $res[1],
         ]);
     }
 

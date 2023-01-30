@@ -10,8 +10,8 @@ trait LangService
      * Set attribute. If key exist in translatable property in model ...
      * If key not exist in translatable property in model,read setAttribute parent ...
      *
-     * @param string $key
-     * @param string $value
+     * @param  string  $key
+     * @param  string  $value
      * @return mixed
      */
     public function setAttribute($key, $value)
@@ -19,9 +19,10 @@ trait LangService
         if ($this->isTranslatableAttribute($key) && is_array($value)) {
             return $this->setTranslations($key, $value);
         }
-        if (!$this->isTranslatableAttribute($key) || is_array($value)) {
+        if (! $this->isTranslatableAttribute($key) || is_array($value)) {
             return parent::setAttribute($key, $value);
         }
+
         return $this->setTranslation($key, config('app.locale'), $value);
     }
 
@@ -37,7 +38,7 @@ trait LangService
     /**
      * Check key exist in translatable property
      *
-     * @param string $key
+     * @param  string  $key
      * @return bool
      */
     public function isTranslatableAttribute(string $key): bool
@@ -48,8 +49,8 @@ trait LangService
     /**
      * Ready for setTranslation
      *
-     * @param string $key
-     * @param array $values
+     * @param  string  $key
+     * @param  array  $values
      * @return $this
      */
     protected function setTranslations(string $key, array $values)
@@ -57,15 +58,16 @@ trait LangService
         foreach ($values as $locale => $value) {
             $this->setTranslation($key, $locale, $value);
         }
+
         return $this;
     }
 
     /**
      * Set translation
      *
-     * @param string $key
-     * @param string $locale
-     * @param string $value
+     * @param  string  $key
+     * @param  string  $locale
+     * @param  string  $value
      * @return $this
      */
     public function setTranslation(string $key, string $locale, string $value)
@@ -81,9 +83,10 @@ trait LangService
     /**
      * Get value language
      *
-     * @param string $key
-     * @param string $locale
+     * @param  string  $key
+     * @param  string  $locale
      * @return mixed|string
+     *
      * @throws Exception
      */
     public function getTranslation(string $key, string $locale)
@@ -91,11 +94,12 @@ trait LangService
         $locale = $this->normalizeLocale($key, $locale);
 
         $translations = $this->getTranslations($key);
+
         return $translations[$locale] ?? '';
     }
 
     /**
-     * @param string $key
+     * @param  string  $key
      * @return array
      */
     public function getTranslations(string $key): array

@@ -26,7 +26,7 @@ class ReportCategoryPublishedAdmin
     /**
      * Handle the event.
      *
-     * @param NewCategory $event
+     * @param  NewCategory  $event
      * @return void
      */
     public function handle(NewCategory $event)

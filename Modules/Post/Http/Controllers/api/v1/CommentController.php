@@ -17,43 +17,43 @@ class CommentController extends Controller implements ResponseGenerator
     /**
      * All comments for $post
      *
-     * @param Post $post
+     * @param  Post  $post
      * @return JsonResponse
      */
     public function index(Post $post)
     {
         $comments = (new PostRepository)->comments($post);
 
-        return $this->res('success',Response::HTTP_OK,"All comment for $post->slug",$comments);
+        return $this->res('success', Response::HTTP_OK, "All comment for $post->slug", $comments);
     }
 
     /**
      * Create comment for post
      *
-     * @param Post $post
-     * @param CommentRequest $request
+     * @param  Post  $post
+     * @param  CommentRequest  $request
      * @return JsonResponse
      */
     public function store(Post $post, CommentRequest $request)
     {
         $service = (new PostService)->createComment($post, $request);
 
-        return $this->res('success', Response::HTTP_CREATED, "Successfully add comment for post", $service);
+        return $this->res('success', Response::HTTP_CREATED, 'Successfully add comment for post', $service);
     }
 
     /**
      * Reply comment for post
      *
-     * @param Post $post
-     * @param Comment $comment
-     * @param CommentRequest $request
+     * @param  Post  $post
+     * @param  Comment  $comment
+     * @param  CommentRequest  $request
      * @return JsonResponse
      */
     public function reply(Post $post, Comment $comment, CommentRequest $request)
     {
         $service = (new PostService)->replyComment($post, $comment, $request);
 
-        return $this->res('success', Response::HTTP_CREATED, "Successfully add reply for comment", $service);
+        return $this->res('success', Response::HTTP_CREATED, 'Successfully add reply for comment', $service);
     }
 
     public function res($status, $code, $message, $data = null)
@@ -61,7 +61,7 @@ class CommentController extends Controller implements ResponseGenerator
         return response()->json([
             'status' => $status,
             'message' => $message,
-            'data' => $data
+            'data' => $data,
         ], $code);
     }
 }

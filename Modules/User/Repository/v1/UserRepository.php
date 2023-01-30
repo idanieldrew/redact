@@ -14,7 +14,8 @@ class UserRepository extends Repository
 
     /**
      * Paginate $this->model
-     * @param int $number
+     *
+     * @param  int  $number
      * @return UserCollection
      */
     public function paginate(int $number = 10): UserCollection
@@ -25,7 +26,7 @@ class UserRepository extends Repository
     /**
      * Destroy User model
      *
-     * @param User $user
+     * @param  User  $user
      * @return bool
      */
     public function destroy(User $user): bool
@@ -62,9 +63,6 @@ class UserRepository extends Repository
             ->get(['username', 'email']);
     }
 
-    /**
-     *
-     */
     public function getCustomRow(string $column, string $field)
     {
         return $this->model()->where($column, $field)->first();

@@ -9,6 +9,6 @@ class ForgetPasswordPhone implements ForgetPasswordInterface
 {
     public function send()
     {
-        Log::info("coming soon!");
+        Log::info('coming soon!');
     }
 }

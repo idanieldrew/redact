@@ -31,7 +31,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'username',
         'email',
         'phone',
-        'password'
+        'password',
     ];
 
     /**
@@ -87,7 +87,6 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /** end relations */
-
     public function getPhoneNumber()
     {
         return $this->phone;

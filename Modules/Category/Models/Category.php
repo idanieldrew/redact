@@ -25,7 +25,7 @@ class Category extends Model
      * @var array
      */
     protected $casts = [
-        'name' => NameCategory::class
+        'name' => NameCategory::class,
     ];
 
     public $translatable = ['name'];

@@ -24,7 +24,6 @@ class StoreTest extends CustomTestCase
             ->assertCreated();
     }
 
-
     /** @test */
     public function user_can_not_store_category()
     {
@@ -42,8 +41,8 @@ class StoreTest extends CustomTestCase
         $category = [
             'name' => [
                 'en' => 'test name',
-                'fa' => 'تست فرضی'
-            ]
+                'fa' => 'تست فرضی',
+            ],
         ];
 
         $this->post(route('category.store'), $category)
@@ -66,7 +65,7 @@ class StoreTest extends CustomTestCase
     public function work_event_for_store_category()
     {
         Event::fake([
-            NewCategory::class
+            NewCategory::class,
         ]);
 
         $this->CreateUser('admin');

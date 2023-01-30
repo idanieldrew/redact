@@ -21,8 +21,7 @@ class ProcessMailVerify implements ShouldQueue
      */
     public function __construct(
         private string $mail
-    )
-    {
+    ) {
         //
     }
 

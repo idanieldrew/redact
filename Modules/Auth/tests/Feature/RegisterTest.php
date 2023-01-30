@@ -17,8 +17,8 @@ class RegisterTest extends CustomTestCase
         $data = [
             'name' => 'test',
             'email' => 'test2@test.com',
-            'phone' => "09121234567",
-            'password' => 'password'
+            'phone' => '09121234567',
+            'password' => 'password',
         ];
         $res = $this->post(route('register.v2'), $data)
             ->assertCreated();
@@ -34,8 +34,8 @@ class RegisterTest extends CustomTestCase
         $data = [
             'name' => 't',
             'email' => 'test@test.com',
-            'phone' => "09121234567",
-            'password' => 'password'
+            'phone' => '09121234567',
+            'password' => 'password',
         ];
 
         $this->post(route('register.v2'), $data)
@@ -50,8 +50,8 @@ class RegisterTest extends CustomTestCase
         $data = [
             'name' => 123,
             'email' => 'test@test.com',
-            'phone' => "09121234567",
-            'password' => 'password'
+            'phone' => '09121234567',
+            'password' => 'password',
         ];
 
         $this->post(route('register.v2'), $data)
@@ -66,15 +66,15 @@ class RegisterTest extends CustomTestCase
         $data = [
             'name' => 'test',
             'email' => 'test@test.com',
-            'phone' => "09121234567",
-            'password' => 'password'
+            'phone' => '09121234567',
+            'password' => 'password',
         ];
 
         $data2 = [
             'name' => 'test2',
             'email' => 'test@test.com',
-            'phone' => "09121234567",
-            'password' => 'password'
+            'phone' => '09121234567',
+            'password' => 'password',
         ];
         $this->post(route('register.v2'), $data);
 
@@ -90,8 +90,8 @@ class RegisterTest extends CustomTestCase
         $data = [
             'name' => 'test',
             'email' => 'test@test.com',
-            'phone' => "09121234567",
-            'password' => 'pass'
+            'phone' => '09121234567',
+            'password' => 'pass',
         ];
 
         $this->post(route('register.v2'), $data)

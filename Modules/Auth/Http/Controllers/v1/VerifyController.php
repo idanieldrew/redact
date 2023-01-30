@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class VerifyController extends Controller
 {
     /**
-     * @param EmailVerificationRequest $request
+     * @param  EmailVerificationRequest  $request
      * @return string
      */
     public function verify(EmailVerificationRequest $request)

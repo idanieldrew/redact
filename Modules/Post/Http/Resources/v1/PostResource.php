@@ -15,7 +15,7 @@ class PostResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
     public function toArray($request)
@@ -43,7 +43,7 @@ class PostResource extends JsonResource
             }),
             'blue_tick' => $this->blue_tick,
             'published' => new StatusResource($this->statuses),
-            'created_at' => $this->created_at
+            'created_at' => $this->created_at,
         ];
     }
 }

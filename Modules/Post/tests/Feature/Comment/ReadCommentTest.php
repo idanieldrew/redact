@@ -24,6 +24,6 @@ class ReadCommentTest extends CustomTestCase
 
         $this->get(route('post.index_comment', $post->slug))
             ->assertOk()
-            ->assertSee(["test comment", "test comment 2", "All comment for $post->slug"]);
+            ->assertSee(['test comment', 'test comment 2', "All comment for $post->slug"]);
     }
 }

@@ -34,6 +34,6 @@ class EventServiceProvider extends ServiceProvider
         ],
         NewCategory::class => [
             ReportCategoryPublishedAdmin::class,
-        ]
+        ],
     ];
 }

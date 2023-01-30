@@ -25,7 +25,7 @@ class MediaRequest extends FormRequest
     {
         return [
             'name' => 'required|array|unique:images',
-            'image' => 'required | image | mimes: jpg,png | max: 1024'
+            'image' => 'required | image | mimes: jpg,png | max: 1024',
         ];
     }
 }

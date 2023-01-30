@@ -44,7 +44,7 @@ class Docs extends Command
             'url' => 'http://127.0.0.1',
             'title' => 'Our Awesome API',
             'description' => 'Generate API Document Using Lovely PHP.',
-            'background_color' => '#191970'
+            'background_color' => '#191970',
         ]);
 
         $api->group('api/users', function (SibDoc $user) {
@@ -53,7 +53,7 @@ class Docs extends Command
                 $request->description('You must have a permission.');
                 $request->version(1);
                 $request->headers([
-                    'Authorization ' => 'Bearer {token}'
+                    'Authorization ' => 'Bearer {token}',
                 ]);
                 // Define Response.
                 $success = (new Response())
@@ -73,7 +73,7 @@ class Docs extends Command
                 $request->description('You must have a permission,or you are {user}');
                 $request->version(1);
                 $request->headers([
-                    'Authorization ' => 'Bearer {token}'
+                    'Authorization ' => 'Bearer {token}',
                 ]);
                 // Define Response.
                 $success = (new Response())
@@ -93,7 +93,7 @@ class Docs extends Command
                 $request->description('You must have a permission,or you are {user}');
                 $request->version(1);
                 $request->headers([
-                    'Authorization ' => 'Bearer {token}'
+                    'Authorization ' => 'Bearer {token}',
                 ]);
 
                 $request->parameters([
@@ -115,7 +115,7 @@ class Docs extends Command
                 $request->description('You must have a permission,or you are {user}');
                 $request->version(1);
                 $request->headers([
-                    'Authorization ' => 'Bearer {token}'
+                    'Authorization ' => 'Bearer {token}',
                 ]);
                 // Define Response.
                 $success = (new Response())
@@ -133,7 +133,7 @@ class Docs extends Command
                 $request->version(1);
                 $request->parameters([
                     'email' => 'required|email|string',
-                    'password' => 'required|min:8'
+                    'password' => 'required|min:8',
                 ]);
                 // Define Response.
                 $success = (new Response())
@@ -144,7 +144,7 @@ class Docs extends Command
                         'token' => 'string',
                         'user' => [
                             'name' => 'string',
-                            'email' => 'string'
+                            'email' => 'string',
                         ],
                     ]);
 
@@ -157,7 +157,7 @@ class Docs extends Command
                 $request->parameters([
                     'name' => 'required|string|min:3',
                     'email' => 'required|email|string',
-                    'password' => 'required|min:8'
+                    'password' => 'required|min:8',
                 ]);
                 // Define Response.
                 $success = (new Response())
@@ -168,7 +168,7 @@ class Docs extends Command
                         'token' => 'string',
                         'user' => [
                             'name' => 'string',
-                            'email' => 'string'
+                            'email' => 'string',
                         ],
                     ]);
 
@@ -227,13 +227,13 @@ class Docs extends Command
                             'phone' => 'string',
                         ],
                         'tags' => [
-                            'name' => 'string'
+                            'name' => 'string',
                         ],
                         'media' => [
                             'type' => 'string',
                             'files' => 'string',
                             'name' => 'string',
-                            'is-private' => 'bool'
+                            'is-private' => 'bool',
                         ],
                         'categories' => [
                             'name' => 'string',
@@ -244,7 +244,7 @@ class Docs extends Command
                         ],
                         'blue_tick' => 'bool',
                         'published' => 'bool',
-                        'created_at' => 'timestamp'
+                        'created_at' => 'timestamp',
                     ]);
 
                 $request->response($success);
@@ -252,6 +252,7 @@ class Docs extends Command
         });
 
         $api->saveTo('/docs/api');
+
         return 0;
     }
 }

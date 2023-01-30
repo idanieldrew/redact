@@ -6,10 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Module\Auth\Services\v1\AuthService;
-use Module\Share\Contracts\Response\ResponseGenerator;
 use Module\Auth\Http\Requests\v1\LoginRequest;
 use Module\Auth\Http\Requests\v1\RegisterRequest;
+use Module\Auth\Services\v1\AuthService;
+use Module\Share\Contracts\Response\ResponseGenerator;
 use Module\User\Http\Resources\v1\UserResource;
 
 class AuthController extends Controller implements ResponseGenerator
@@ -23,7 +23,8 @@ class AuthController extends Controller implements ResponseGenerator
 
     /**
      * Register user
-     * @param RegisterRequest $request
+     *
+     * @param  RegisterRequest  $request
      * @return JsonResponse $this->response($status,$message,$data)
      */
     public function register(RegisterRequest $request)
@@ -38,7 +39,8 @@ class AuthController extends Controller implements ResponseGenerator
 
     /**
      * Login user
-     * @param LoginRequest $request
+     *
+     * @param  LoginRequest  $request
      * @return JsonResponse $this->response($status,$message,$data)
      */
     public function login(LoginRequest $request)
@@ -53,10 +55,10 @@ class AuthController extends Controller implements ResponseGenerator
         return response()->json([
             'status' => $status,
             'message' => $message,
-            'data' => !$data ? null : [
+            'data' => ! $data ? null : [
                 'user' => new UserResource($data['user']),
-                'token' => $data['token']
-            ]
+                'token' => $data['token'],
+            ],
         ], $code);
     }
 }

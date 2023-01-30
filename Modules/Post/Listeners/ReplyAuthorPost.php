@@ -9,11 +9,10 @@ use Module\Post\Mail\ReplyAuthor;
 
 class ReplyAuthorPost implements ShouldQueue
 {
-
     /**
      * Handle the event.
      *
-     * @param SockdolagerPost $event
+     * @param  SockdolagerPost  $event
      * @return void
      */
     public function handle(SockdolagerPost $event)
@@ -23,7 +22,7 @@ class ReplyAuthorPost implements ShouldQueue
         $mail = new ReplyAuthor([
             'slug' => $post->slug,
             'name' => $post->statuses->name,
-            'reason' => $post->statuses->reason
+            'reason' => $post->statuses->reason,
         ]);
 
         Mail::to($post->user->email)->send($mail);

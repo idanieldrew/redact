@@ -11,11 +11,12 @@ class UpdateTest extends CustomTestCase
 {
     use DatabaseMigrations, WithFaker;
 
-    private string $name = "test";
+    private string $name = 'test';
 
     private function storeCategory($type = 'admin')
     {
         $res = $this->CreateUser($type);
+
         return Category::factory()->create(['user_id' => $res[0]->id]);
     }
 
@@ -26,9 +27,9 @@ class UpdateTest extends CustomTestCase
 
         $this->patch(route('category.update', $category->slug), [
             'name' => [
-                'en' => "test",
-                'fa' => "تست"
-            ]
+                'en' => 'test',
+                'fa' => 'تست',
+            ],
         ])->assertNoContent();
 
         $this->assertDatabaseHas('categories',
@@ -43,8 +44,8 @@ class UpdateTest extends CustomTestCase
 
         $this->patch(route('category.update', $category->slug), [
             'name' => [
-                'en' => "test",
-                'fa' => "تست"
+                'en' => 'test',
+                'fa' => 'تست',
             ]])->assertForbidden();
     }
 
@@ -55,9 +56,9 @@ class UpdateTest extends CustomTestCase
 
         $this->patch(route('category.update', $category->slug), [
             'name' => [
-                'en' => "test",
-                'fa' => "تست"
-            ]
+                'en' => 'test',
+                'fa' => 'تست',
+            ],
         ])->assertNoContent();
 
         $this->assertDatabaseHas('categories',

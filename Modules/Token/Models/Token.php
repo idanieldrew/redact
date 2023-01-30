@@ -15,7 +15,7 @@ class Token extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'token' => LowerToken::class
+        'token' => LowerToken::class,
     ];
 
     /* relations */

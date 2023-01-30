@@ -15,15 +15,15 @@ class StoreTest extends CustomTestCase
         'count_account' => 1,
         'description' => [
             'test 1',
-            'test 2'
+            'test 2',
         ],
         'price' => 10.99,
         'period' => 15,
         'interval' => 'day',
         'features' => [
             'test feature 1',
-            'test feature 2'
-        ]
+            'test feature 2',
+        ],
     ];
 
     /** @test */
@@ -69,15 +69,15 @@ class StoreTest extends CustomTestCase
             'count_account' => 1,
             'description' => [
                 'test 1',
-                'test 2'
+                'test 2',
             ],
             'price' => 10.99,
             'period' => 15,
             'interval' => 'day',
             'features' => [
                 'test feature 1',
-                'test feature 2'
-            ]
+                'test feature 2',
+            ],
         ];
 
         $this->CreateUser('super');
@@ -94,15 +94,15 @@ class StoreTest extends CustomTestCase
             'count_account' => 1,
             'description' => [
                 'test 1',
-                'test 2'
+                'test 2',
             ],
             'price' => 10.99,
             'period' => 15,
             'interval' => 'day',
             'features' => [
                 'test feature 1',
-                'test feature 2'
-            ]
+                'test feature 2',
+            ],
         ];
 
         $this->CreateUser('super');
@@ -118,15 +118,15 @@ class StoreTest extends CustomTestCase
             'name' => 'pro',
             'description' => [
                 'test 1',
-                'test 2'
+                'test 2',
             ],
             'price' => 10.99,
             'period' => 15,
             'interval' => 'day',
             'features' => [
                 'test feature 1',
-                'test feature 2'
-            ]
+                'test feature 2',
+            ],
         ];
 
         $this->CreateUser('super');
@@ -141,15 +141,15 @@ class StoreTest extends CustomTestCase
             'count_account' => 0,
             'description' => [
                 'test 1',
-                'test 2'
+                'test 2',
             ],
             'price' => 10.99,
             'period' => 15,
             'interval' => 'day',
             'features' => [
                 'test feature 1',
-                'test feature 2'
-            ]
+                'test feature 2',
+            ],
         ];
 
         $this->CreateUser('super');
@@ -168,8 +168,8 @@ class StoreTest extends CustomTestCase
             'interval' => 'day',
             'features' => [
                 'test feature 1',
-                'test feature 2'
-            ]
+                'test feature 2',
+            ],
         ];
 
         $this->CreateUser('super');
@@ -183,13 +183,13 @@ class StoreTest extends CustomTestCase
             'name' => 'pro',
             'count_account' => 1,
             'description' => ['test 1'],
-            'price' => "test price",
+            'price' => 'test price',
             'period' => 15,
             'interval' => 'day',
             'features' => [
                 'test feature 1',
-                'test feature 2'
-            ]
+                'test feature 2',
+            ],
         ];
 
         $this->CreateUser('super');

@@ -13,7 +13,7 @@ class UserObserver
     /**
      * Handle the Post "creating" event.
      *
-     * @param \Module\User\Models\User $user
+     * @param  \Module\User\Models\User  $user
      * @return void
      */
     public function creating(User $user)
@@ -27,14 +27,14 @@ class UserObserver
     /**
      * Handle the Post "created" event.
      *
-     * @param \Module\User\Models\User $user
+     * @param  \Module\User\Models\User  $user
      * @return void
      */
     public function created(User $user)
     {
         $user->statuses()->create([
             'name' => 'pending',
-            'reason' => 'needs verification'
+            'reason' => 'needs verification',
         ]);
 
         if (App::environment('local')) {

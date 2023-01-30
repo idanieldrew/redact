@@ -5,7 +5,6 @@ namespace Module\Post\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Module\Post\Models\Post;
 
 class ReplyAuthor extends Mailable
 {
@@ -32,7 +31,7 @@ class ReplyAuthor extends Mailable
             ->with([
                 'slug' => $this->post['slug'],
                 'name' => $this->post['name'],
-                'reason' => $this->post['reason']
+                'reason' => $this->post['reason'],
             ]);
     }
 }

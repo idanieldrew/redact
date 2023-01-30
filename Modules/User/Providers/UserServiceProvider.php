@@ -16,7 +16,7 @@ class UserServiceProvider extends ServiceProvider
     private string $namespace = 'Module\User\Http\Controllers';
 
     protected $policies = [
-        User::class => UserPolicy::class
+        User::class => UserPolicy::class,
     ];
 
     /**
@@ -44,16 +44,14 @@ class UserServiceProvider extends ServiceProvider
         });
 
         // Migrations
-        $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
+        $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations');
 
         // Routes
         /** v1 */
         Route::prefix('api/users')
             ->middleware('api')
             ->namespace($this->namespace)
-            ->group(__DIR__ . '/../Routes/v1/user_route.php');
-
-
+            ->group(__DIR__.'/../Routes/v1/user_route.php');
 
         // Observer User
         User::observe(UserObserver::class);

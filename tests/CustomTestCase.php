@@ -27,6 +27,7 @@ class CustomTestCase extends TestCase
 //        $user->assignRole($type);
         // actingAs
         Sanctum::actingAs($user);
+
         return [$user, $role->id];
     }
 
@@ -64,7 +65,7 @@ class CustomTestCase extends TestCase
 
         $attachments = $attachments ?
             [
-                UploadedFile::fake()->create("video.mp4", "280000000", "mp4"),
+                UploadedFile::fake()->create('video.mp4', '280000000', 'mp4'),
                 uploadedFile::fake()->image('image1.png'),
                 UploadedFile::fake()->image('image2.png'),
             ] :
@@ -78,18 +79,19 @@ class CustomTestCase extends TestCase
                 'banner' => UploadedFile::fake()->image($img),
                 'category' => [$categories->slug],
                 'tag' => ['tag_1'],
-                'attachment' => $attachments
+                'attachment' => $attachments,
             ])
                 ->assertValid()
                 ->assertCreated();
         }
 
-        return array($titles, $extension);
+        return [$titles, $extension];
     }
 
     protected function CreateComment()
     {
         $this->storePost();
+
         return Post::first();
     }
 }

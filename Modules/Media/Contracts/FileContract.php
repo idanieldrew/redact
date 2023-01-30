@@ -8,7 +8,8 @@ interface FileContract
 {
     /**
      * Upload media
-     * @param UploadedFile $file
+     *
+     * @param  UploadedFile  $file
      * @param $filename string
      * @param $dir string
      * @return array | string
