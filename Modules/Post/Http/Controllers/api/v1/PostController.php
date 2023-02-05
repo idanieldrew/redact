@@ -111,7 +111,7 @@ class PostController extends Controller implements ResponseGenerator
     }
 
     /**
-     * Display the specified resource.
+     * Search with elasticsearch or pipeline
      *
      * @param  \Illuminate\Http\Request  $request
      * @return JsonResponse
@@ -138,6 +138,7 @@ class PostController extends Controller implements ResponseGenerator
 
     /**
      * @return void
+     * @throws AuthorizationException
      */
     public function updateLicense(Post $post, Request $request)
     {

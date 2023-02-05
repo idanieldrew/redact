@@ -106,7 +106,7 @@ return [
              * Set to "horizon" if you wish to use Laravel Horizon.
              */
             'worker' => env('RABBITMQ_WORKER', 'horizon'),
-            'after_commit' => false,
+            'after_commit' => true,
         ],
 
     ],

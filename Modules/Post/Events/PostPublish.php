@@ -2,15 +2,16 @@
 
 namespace Module\Post\Events;
 
+use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Broadcasting\InteractsWithSockets;
 use Module\Post\Models\Post;
 
-class PostPublish
+class PostPublish implements ShouldBroadcast
 {
-    use Dispatchable, SerializesModels;
-
-    private $post;
+    use Dispatchable, SerializesModels, InteractsWithSockets;
 
     /**
      * Get slug($post)
@@ -29,8 +30,12 @@ class PostPublish
      *
      * @var Post
      */
-    public function __construct($post)
+    public function __construct(public $post)
     {
-        $this->post = $post;
+    }
+
+    public function broadcastOn()
+    {
+        return new PrivateChannel('new_posts');
     }
 }

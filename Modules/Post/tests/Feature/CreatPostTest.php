@@ -3,6 +3,7 @@
 namespace Module\Post\tests\Feature;
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Event;
@@ -13,7 +14,7 @@ use Tests\CustomTestCase;
 
 class CreatPostTest extends CustomTestCase
 {
-    use DatabaseMigrations, WithFaker;
+    use RefreshDatabase, WithFaker;
 
     /** @test */
     public function store_post_without_attachments()
