@@ -7,7 +7,8 @@
         "article",
         "redact",
         "php",
-        "project"
+        "project",
+        "crud"
     ],
     "authors": [
         {
@@ -32,6 +33,7 @@
         "morilog/jalali": "3.*",
         "php-amqplib/php-amqplib": "^3.4.0",
         "predis/predis": "^2.0.2",
+        "pusher/pusher-php-server": "^7.2",
         "vladimir-yuldashev/laravel-queue-rabbitmq": "^13.0"
     },
     "require-dev": {
