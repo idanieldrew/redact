@@ -50,6 +50,8 @@ jobs:
         run: cp .env.example.ci .env
       - name: Generate app key
         run: php artisan key:generate
+      - name: Optimization
+        run: php artisan optimize:clear
       - name: Migration
         run: php artisan migrate:fresh --seed
       - name: Import indexes
