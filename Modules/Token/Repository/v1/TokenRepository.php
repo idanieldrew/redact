@@ -23,6 +23,10 @@ class TokenRepository extends Repository
         ]);
     }
 
+    /**
+     * @param string $token
+     * @return bool
+     */
     public function existToken(string $token)
     {
         return $this->model()
