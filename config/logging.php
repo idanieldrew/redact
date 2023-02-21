@@ -49,9 +49,10 @@ return [
 
         'daily' => [
             'driver' => 'daily',
+            'formatter' => \Module\Share\Formatter\ElasticFormatter::class,
             'path' => storage_path('logs/laravel.log'),
             'level' => env('LOG_LEVEL', 'debug'),
-            'days' => 14,
+            'days' => 7,
         ],
 
         'slack' => [

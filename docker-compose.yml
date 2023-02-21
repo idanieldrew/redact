@@ -121,6 +121,17 @@ services:
         networks:
             - redact_network
 
+    redact_filebeat:
+        image: docker.elastic.co/beats/filebeat:8.6.2
+        container_name: redact_filebeat
+        command: filebeat -e -strict.perms=false
+        volumes:
+            - ./docker/filebeat/conf.yml:/usr/share/filebeat/filebeat.yml
+            - /var/lib/docker:/var/lib/docker:ro
+            - /var/run/docker.sock:/var/run/docker.sock
+        networks:
+            - redact_network
+
 
 #    redact_logstash:
 #        image: logstash:7.7.0
@@ -160,4 +171,6 @@ volumes:
     rabbitmq-data2:
         driver: local
     logstash:
+        driver: local
+    filebeat:
         driver: local
