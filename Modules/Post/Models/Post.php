@@ -98,7 +98,7 @@ class Post extends Model implements Explored
      */
     public function getScoutKey()
     {
-        return (string) $this->id;
+        return (string)$this->id;
     }
 
     /**
@@ -108,7 +108,7 @@ class Post extends Model implements Explored
      */
     public function getScoutKeyName()
     {
-        return (string) 'id';
+        return (string)'id';
     }
 
     public function mappableAs(): array
@@ -125,8 +125,9 @@ class Post extends Model implements Explored
     public function toSearchableArray()
     {
         return [
-            'text' => $this->getKey(),
-            'slug' => $this->getScoutKey(),
+            'id' => $this->getKey(),
+            'title' => $this->title,
+            'slug' => $this->slug,
             'details' => $this->details,
             'created_at' => $this->created_at,
         ];

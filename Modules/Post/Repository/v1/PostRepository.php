@@ -22,7 +22,7 @@ class PostRepository extends Repository
     /**
      * Paginate $this->model
      *
-     * @param  int  $number
+     * @param int $number
      * @return PostCollection
      */
     public function paginate(int $number = 10): PostCollection
@@ -35,7 +35,7 @@ class PostRepository extends Repository
     /**
      * Display the specified resource.
      *
-     * @param  string  $post
+     * @param string $post
      * @return array
      */
     public function show(string $post): array
@@ -53,15 +53,11 @@ class PostRepository extends Repository
     /**
      * Search in Module\Post\Models\Post
      *
-     * @param  string  $keyword
+     * @param string $keyword
      * @return object
      */
     public function search(string $keyword): object
     {
-        dd(Post::search($keyword)
-            ->where('published', false)
-            ->where('blue_tick', request()->blue_tick)
-            ->get(), $keyword, Post::all());
         // elastic engine
         return Post::search($keyword)
             ->where('published', false)
@@ -82,7 +78,7 @@ class PostRepository extends Repository
     /**
      * Destroy User model
      *
-     * @param  Post  $post
+     * @param Post $post
      * @return bool
      */
     public function destroy(Post $post): bool
@@ -93,7 +89,7 @@ class PostRepository extends Repository
     /**
      * Generate short link
      *
-     * @param  string  $link
+     * @param string $link
      * @return Builder|Model|object|null
      */
     public function checkUniqueShortLink($link)
@@ -115,7 +111,7 @@ class PostRepository extends Repository
     /**
      * post & similar posts
      *
-     * @param  string  $post
+     * @param string $post
      * @return array
      *
      * @throws Exception
