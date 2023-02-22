@@ -13,6 +13,8 @@ output:
   elasticsearch:
     hosts:
       - elasticsearch:9200
+setup.kibana:
+  host: redact_kibana:5601
 
 logging:
   files:

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Module\Auth\Services\v2\AuthService;
 use Module\Share\Contracts\Response\ResponseGenerator;
 
-class ForgetPassword extends Controller implements ResponseGenerator
+class ForgetPsdController extends Controller implements ResponseGenerator
 {
     protected function service()
     {

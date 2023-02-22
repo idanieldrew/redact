@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Module\Auth\Services\AuthService as Service;
 use Module\Auth\Services\v2\Email\ForgetPasswordEmail;
 use Module\Token\Repository\v1\TokenRepository;
+use Module\User\Http\Resources\v2\UserResource;
 use Module\User\Models\User;
 use Module\User\Repository\v1\UserRepository;
 use stdClass;
@@ -53,7 +54,7 @@ class AuthService extends Service
         $user = User::whereEmail($request->email)->first();
 
         // Check exist user
-        if (! $user || ! Hash::check($request->password, $user->password)) {
+        if (!$user || !Hash::check($request->password, $user->password)) {
             return $this->response(
                 'error',
                 Response::HTTP_UNAUTHORIZED,
@@ -75,7 +76,7 @@ class AuthService extends Service
     /**
      * Forget password
      *
-     * @param  string  $field
+     * @param string $field
      * @return array
      */
     public function forgetPassword(string $field)
@@ -84,7 +85,7 @@ class AuthService extends Service
 
         // check exist user
         $user = (new UserRepository)->getCustomRow($data, $field);
-        if (! $user) {
+        if (!$user) {
             return $this->response('fail', Response::HTTP_UNAUTHORIZED, 'email not found', null);
         }
 
@@ -101,6 +102,25 @@ class AuthService extends Service
         return $this->response('success', Response::HTTP_OK, 'send token for forgot password', null);
     }
 
+    /**
+     * @param string $token
+     * @return array
+     */
+    public function changePsd($request)
+    {
+        if (!Hash::check($request->old_password, auth()->user()->password)) {
+            return $this->response('fail', 400, "mot match", null);
+        }
+
+        $user = auth()->user();
+        $user = tap($user, function ($user) use ($request) {
+            $user->update([
+                'password' => Hash::make($request->password)
+            ]);
+        });
+        return $this->response('success', 200, "match", new UserResource($user));
+    }
+
     public function verfyToken(string $token)
     {
         $res = (new TokenRepository)->existToken($token);
@@ -113,9 +133,9 @@ class AuthService extends Service
     /**
      * Return array
      *
-     * @param  string  $status
-     * @param  int  $code
-     * @param  string  $message
+     * @param string $status
+     * @param int $code
+     * @param string $message
      * @param $data
      * @return array
      */
