@@ -10,7 +10,7 @@ Route::get('search', [PostController::class, 'search'])->name('post.search');
 // Post
 Route::get('{post:slug}', [PostController::class, 'show'])->name('post.show');
 
-Route::middleware(['auth:sanctum'])->group(function () {
+Route::middleware(['auth:sanctum', 'throttle:store'])->group(function () {
     // Store post
     Route::post('/', [PostController::class, 'store'])->name('post.store');
     // Update post

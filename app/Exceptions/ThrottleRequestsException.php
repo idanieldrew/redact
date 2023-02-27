@@ -17,7 +17,7 @@ class ThrottleRequestsException extends Exception
     {
         return response()->json([
             'status' => 'fail',
-            'message' => $this->getMessage(),
+            'message' => 'Try to later',
         ], Response::HTTP_TOO_MANY_REQUESTS);
     }
 }

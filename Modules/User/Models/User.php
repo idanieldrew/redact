@@ -96,4 +96,12 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Subscribe::class);
     }
+
+    public function isVip()
+    {
+        return match ($this->role->name) {
+            'super', 'admin' => true,
+            default => false,
+        };
+    }
 }

@@ -26,6 +26,8 @@ class Role extends Model
         return $query->where('name', $username);
     }
 
+    /** relations */
+
     public function users()
     {
         return $this->hasMany(User::class);

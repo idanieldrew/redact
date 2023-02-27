@@ -2,6 +2,9 @@
 
 namespace Module\Post\Providers;
 
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Module\Post\Models\Post;
@@ -24,24 +27,30 @@ class PostServiceProvider extends ServiceProvider
     public function boot()
     {
         // Migrations
-        $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
 
         // Routes
         Route::prefix('api/posts')
             ->middleware(['api', 'lang'])
             ->namespace($this->namespace)
-            ->group(__DIR__.'/../Routes/post_route.php');
+            ->group(__DIR__ . '/../Routes/post_route.php');
 
         // Routes
         Route::prefix('api')
             ->middleware(['api', 'lang'])
             ->namespace($this->namespace)
-            ->group(__DIR__.'/../Routes/single_route_post.php');
+            ->group(__DIR__ . '/../Routes/single_route_post.php');
 
         // View
-        $this->loadViewsFrom(__DIR__.'/../Resources/views/Post', 'post');
+        $this->loadViewsFrom(__DIR__ . '/../Resources/views/Post', 'post');
 
         // Observer Post
         Post::observe(PostObserver::class);
+
+        RateLimiter::for('store', function (Request $request) {
+            return $request->user()->isVip()
+                ? Limit::none()
+                : Limit::perMinutes(30,1);
+        });
     }
 }

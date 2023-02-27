@@ -60,7 +60,6 @@ class PostController extends Controller implements ResponseGenerator
      *
      * @param  PostRequest  $request
      * @return JsonResponse
-     *
      * @throws AuthorizationException|\Throwable
      */
     public function store(PostRequest $request): JsonResponse
