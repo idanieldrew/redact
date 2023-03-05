@@ -94,10 +94,10 @@ class MediaService
 
         // Upload images & videos & others
         // Image:  \Module\Media\Services\v1\ImageService::upload
-        $media->files = ($service::upload(self::$file, $name, self::$dir))['files'];
+        $media->files = $service::upload(self::$file, $name, self::$dir);
         $media->type = $key;
         $media->user_id = auth()->id();
-        $media->name = ($service::upload(self::$file, $name, self::$dir))['name'];
+        $media->name = $name;
         $media->isPrivate = self::$isPrivate;
 
         return $media;

@@ -9,6 +9,7 @@ use Module\Category\Repository\v1\CategoryRepository;
 use Module\Comment\Http\Resources\v1\CommentResource;
 use Module\Comment\Services\v1\CommentService;
 use Module\Media\Jobs\ConvertVideoForDownloading;
+use Module\Media\Jobs\ConvertVideoForStreaming;
 use Module\Media\Services\v1\ImageService;
 use Module\Media\Services\v1\MediaService;
 use Module\Post\Events\PostPublish;
@@ -101,6 +102,7 @@ class PostService extends Service
         ]);
 
         ConvertVideoForDownloading::dispatch($m);
+        ConvertVideoForStreaming::dispatch($m);
     }
 
     /**
