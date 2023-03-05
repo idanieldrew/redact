@@ -50,7 +50,7 @@ class PostServiceProvider extends ServiceProvider
         RateLimiter::for('store', function (Request $request) {
             return $request->user()->isVip()
                 ? Limit::none()
-                : Limit::perMinutes(30,1);
+                : Limit::perMinutes(60,100);
         });
     }
 }

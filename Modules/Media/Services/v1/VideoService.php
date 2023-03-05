@@ -16,8 +16,11 @@ class VideoService extends Service implements FileContract
 
         $filename = Str::slug($filename);
 
-        Storage::putFileAs("$dir/video", $file, $filename.'.'.$extension);
+        Storage::putFileAs($dir . "/video", $file, $filename . '.' . $extension);
 
-        return "$dir/video/$filename.$extension";
+        return [
+            'files' => "$dir/video/$filename.$extension",
+            'name' => "$filename.$extension"
+        ];
     }
 }

@@ -62,7 +62,7 @@ class PostController extends Controller implements ResponseGenerator
      * @return JsonResponse
      * @throws AuthorizationException|\Throwable
      */
-    public function store(PostRequest $request): JsonResponse
+    public function store(Request $request): JsonResponse
     {
         // Check permissions
         $this->authorize('create', Post::class);

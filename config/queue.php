@@ -95,11 +95,7 @@ return [
                     'passphrase' => env('RABBITMQ_SSL_PASSPHRASE', null),
                 ],
                 'queue' => [
-                    'job' => VladimirYuldashev\LaravelQueueRabbitMQ\Queue\Jobs\RabbitMQJob::class,
-                    'reroute_failed' => true,
-                    'failed_exchange' => 'failed-exchange',
-                    'failed_routing_key' => 'application-x.%s',
-                ],
+                    'job' => VladimirYuldashev\LaravelQueueRabbitMQ\Queue\Jobs\RabbitMQJob::class],
             ],
 
             /*
@@ -110,5 +106,9 @@ return [
         ],
 
     ],
-
+    'failed' => [
+        'driver' => env('QUEUE_FAILED_DRIVER', 'database-uuids'),
+        'database' => env('DB_CONNECTION', 'mysql'),
+        'table' => 'failed_jobs',
+    ],
 ];

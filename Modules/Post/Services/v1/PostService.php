@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Module\Category\Repository\v1\CategoryRepository;
 use Module\Comment\Http\Resources\v1\CommentResource;
 use Module\Comment\Services\v1\CommentService;
+use Module\Media\Jobs\ConvertVideoForDownloading;
 use Module\Media\Services\v1\ImageService;
 use Module\Media\Services\v1\MediaService;
 use Module\Post\Events\PostPublish;
@@ -83,7 +84,7 @@ class PostService extends Service
      *
      * @param $post
      * @param $request
-     * @param  bool  $private
+     * @param bool $private
      */
     protected function uploadMedia($post, $request, bool $private = true)
     {
@@ -91,13 +92,15 @@ class PostService extends Service
             MediaService::privateUpload($request) :
             MediaService::publicUpload($request);
 
-        $post->media()->create([
+        $m = $post->media()->create([
             'files' => $media->files,
             'type' => $media->type,
             'name' => $media->name,
             'isPrivate' => $media->isPrivate,
             'user_id' => $media->user_id,
         ]);
+
+        ConvertVideoForDownloading::dispatch($m);
     }
 
     /**
@@ -193,7 +196,7 @@ class PostService extends Service
     /**
      * admin update status
      *
-     * @param  Post  $post
+     * @param Post $post
      * @param $request
      */
     public function update_license(Post $post, $request)

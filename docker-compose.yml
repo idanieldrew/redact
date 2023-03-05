@@ -16,7 +16,7 @@ services:
         volumes:
             - .:/var/www
             - ./docker/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-        #            - ./docker/php.ini:/usr/local/etc/php/conf.d/local.ini
+            - ./docker/php.ini:/usr/local/etc/php/conf.d/local.ini
         networks:
             - redact_network
 
@@ -94,7 +94,7 @@ services:
 
     redact_rabbitmq:
         image: rabbitmq:3.11.3-management
-        container_name: redact_rabbit
+        container_name: redact_rabbitmq
         tty: true
         environment:
             DEFAULT_VHOST: /
@@ -134,6 +134,17 @@ services:
         networks:
             - redact_network
 
+    minio:
+        image: minio/minio
+        ports:
+            - "9002:9000"
+            - "9001:9001"
+        volumes:
+            - minio_storage:/data
+        environment:
+            MINIO_ROOT_USER: dani
+            MINIO_ROOT_PASSWORD: password
+        command: server --console-address ":9001" /data
 
 #    redact_logstash:
 #        image: logstash:7.7.0
@@ -175,4 +186,6 @@ volumes:
     logstash:
         driver: local
     filebeat:
+        driver: local
+    minio_storage:
         driver: local

@@ -11,6 +11,11 @@ class Media extends Model
 {
     use HasFactory, UseUuid;
 
+    protected $dates = [
+        'converted_for_downloading_at',
+        'converted_for_streaming_at',
+    ];
+
     protected $guarded = [];
 
     protected $casts = [

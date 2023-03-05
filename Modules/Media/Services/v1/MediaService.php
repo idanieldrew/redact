@@ -17,13 +17,13 @@ class MediaService
     /**
      * Private upload
      *
-     * @param  UploadedFile  $file
+     * @param UploadedFile $file
      * @return Media|void
      */
     public static function privateUpload(UploadedFile $file)
     {
         self::$file = $file;
-        self::$dir = 'private/';
+        self::$dir = 'private';
         self::$isPrivate = true;
 
         return self::upload();
@@ -32,7 +32,7 @@ class MediaService
     /**
      * Public upload
      *
-     * @param  UploadedFile  $file
+     * @param UploadedFile $file
      * @return Media|void
      */
     public static function publicUpload(UploadedFile $file)
@@ -62,7 +62,7 @@ class MediaService
     /**
      * To lower extension
      *
-     * @param  UploadedFile  $file
+     * @param UploadedFile $file
      * @return string
      */
     private static function normalizeExtension(UploadedFile $file): string
@@ -83,20 +83,21 @@ class MediaService
     /**
      * To lower extension
      *
-     * @param  FileContract  $service
-     * @param  string  $key
+     * @param FileContract $service
+     * @param string $key
      * @return Media
      */
     private static function uploadByHandler(FileContract $service, string $key): Media
     {
         $media = new Media();
+        $name = self::filenameGenerator();
 
         // Upload images & videos & others
         // Image:  \Module\Media\Services\v1\ImageService::upload
-        $media->files = $service::upload(self::$file, self::filenameGenerator(), self::$dir);
+        $media->files = ($service::upload(self::$file, $name, self::$dir))['files'];
         $media->type = $key;
         $media->user_id = auth()->id();
-        $media->name = self::$file->getClientOriginalName();
+        $media->name = ($service::upload(self::$file, $name, self::$dir))['name'];
         $media->isPrivate = self::$isPrivate;
 
         return $media;

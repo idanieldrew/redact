@@ -29,6 +29,7 @@ class PostRequest extends FormRequest
             'description' => 'required',
             'banner' => 'required|mimes:png,jpg',
             'attachment' => 'nullable|array',
+            'attachment.*' => 'file|mimetypes:video/mp4,video/mpeg,video/x-matroska',
             'tag' => 'required|array',
             'category' => 'required|array',
         ];

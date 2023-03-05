@@ -21,6 +21,8 @@ class CreateMediaTable extends Migration
             $table->boolean('isPrivate');
             $table->foreignUuid('user_id')->constrained()->onDelete('cascade');
             $table->uuidMorphs('mediaable');
+            $table->datetime('converted_for_downloading_at')->nullable();
+            $table->datetime('converted_for_streaming_at')->nullable();
             $table->timestamps();
         });
     }
