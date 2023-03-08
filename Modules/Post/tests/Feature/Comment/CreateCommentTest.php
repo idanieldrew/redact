@@ -12,8 +12,9 @@ class CreateCommentTest extends CustomTestCase
     use DatabaseMigrations;
 
     /** @test */
-    public function create_comment()
+    public function create_comment_for_post()
     {
+        $this->withoutExceptionHandling();
         $this->storePost();
         $post = Post::first();
         $this->post(route('post.store_comment', $post->slug), ['body' => 'test comment'])

@@ -4,6 +4,7 @@ namespace Module\Media\Jobs;
 
 use FFMpeg\Coordinate\Dimension;
 use FFMpeg\Format\Video\X264;
+use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -14,7 +15,7 @@ use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
 
 class ConvertVideoForStreaming implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, Batchable;
 
     /**
      * Create a new job instance.

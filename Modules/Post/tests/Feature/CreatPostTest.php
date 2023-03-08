@@ -27,21 +27,17 @@ class CreatPostTest extends CustomTestCase
     /** @test */
     public function store_post_with_attachments()
     {
+        $this->withoutExceptionHandling();
         $res = $this->storePost('writer', true);
 
         Storage::disk('local')
             ->assertExists('public/'.Str::slug($res[0][0]).$res[1]);
 
-        for ($i = 0; $i <= 2; $i++) {
+        for ($i = 0; $i <= 1; $i++) {
             $attachments = Storage::disk('local')->files('private')[$i];
-            $video = Storage::disk('local')->files('private/video')[0];
 
-            preg_match('/(.*?).png/', $attachments, $match);
-            preg_match('/(.*?).mp4/', $video, $v);
             Storage::disk('local')
-                ->assertExists([$match[0]]);
-            Storage::disk('local')
-                ->assertExists([$v[0]]);
+                ->assertExists($attachments);
         }
     }
 

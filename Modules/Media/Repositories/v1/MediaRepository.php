@@ -2,18 +2,25 @@
 
 namespace Module\Media\Repositories\v1;
 
+use Illuminate\Database\Eloquent\Model;
+use Module\Media\Models\Media;
 use Module\Media\Repositories\MediaRepository as Repository;
 
 class MediaRepository extends Repository
 {
     /**
-     * @param  int  $number
-     * @return PostCollection
+     * @param Model $model
+     * @param Media $media
+     * @return mixed
      */
-    public function paginate(int $number = 10): PostCollection
+    public function store(Model $model, Media $media): mixed
     {
-        return Cache::remember('posts.all', 900, function () use ($number) {
-            return new PostCollection(Post::query()->with(['user', 'tags:name'])->paginate($number));
-        });
+        return $model->media()->create([
+            'files' => $media->files,
+            'type' => $media->type,
+            'name' => $media->name,
+            'isPrivate' => $media->isPrivate,
+            'user_id' => $media->user_id,
+        ]);
     }
 }

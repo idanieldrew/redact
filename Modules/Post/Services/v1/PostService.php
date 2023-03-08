@@ -3,13 +3,18 @@
 namespace Module\Post\Services\v1;
 
 use Exception;
+use Illuminate\Bus\Batch;
+use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Module\Category\Repository\v1\CategoryRepository;
 use Module\Comment\Http\Resources\v1\CommentResource;
 use Module\Comment\Services\v1\CommentService;
 use Module\Media\Jobs\ConvertVideoForDownloading;
 use Module\Media\Jobs\ConvertVideoForStreaming;
+use Module\Media\Models\Media;
+use Module\Media\Repositories\v1\MediaRepository;
 use Module\Media\Services\v1\ImageService;
 use Module\Media\Services\v1\MediaService;
 use Module\Post\Events\PostPublish;
@@ -22,6 +27,11 @@ use Module\Tag\Services\v1\TagService;
 
 class PostService extends Service
 {
+    protected function repo()
+    {
+        return resolve(PostRepository::class);
+    }
+
     /**
      * Create new post
      *
@@ -35,18 +45,17 @@ class PostService extends Service
         DB::beginTransaction();
 
         try {
-            // Create post
-            $post = auth()->user()->posts()->create([
-                'title' => $title = $request->title,
-                'details' => $request->details,
-                'description' => $request->description,
-                'banner' => $this->uploadBanner($request->banner, $title),
-            ]);
+            // Store post
+            $post = $this->repo()->store($request);
 
             // Upload media(s)
             if ($request->attachment) {
-                foreach ($request->attachment as $attachment) {
-                    $this->uploadMedia($post, $attachment);
+                foreach ($request->attachment as $attachment => $type) {
+                    match ($attachment) {
+                        'video' => $this->uploadMedia($post, $type, true, true),
+                        'image' => $this->uploadMedia($post, $type),
+                        default => 'unknown'
+                    };
                 }
             }
 
@@ -83,26 +92,29 @@ class PostService extends Service
     /**
      * Make media(s) for post
      *
-     * @param $post
+     * @param Post $post
      * @param $request
      * @param bool $private
+     * @param bool $video
+     * @throws \Throwable
      */
-    protected function uploadMedia($post, $request, bool $private = true)
+    protected function uploadMedia(Post $post, $request, bool $private = true, bool $video = false)
     {
-        $media = $private ?
-            MediaService::privateUpload($request) :
-            MediaService::publicUpload($request);
+        foreach ($request as $value) {
+            $media = $private ?
+                MediaService::privateUpload($value) :
+                MediaService::publicUpload($value);
+            $media = $this->storeMedia($post, $media);
 
-        $m = $post->media()->create([
-            'files' => $media->files,
-            'type' => $media->type,
-            'name' => $media->name,
-            'isPrivate' => $media->isPrivate,
-            'user_id' => $media->user_id,
-        ]);
-
-        ConvertVideoForDownloading::dispatch($m);
-        ConvertVideoForStreaming::dispatch($m);
+            if ($video) {
+                Bus::batch([
+                    new ConvertVideoForDownloading($media),
+                    new ConvertVideoForStreaming($media)
+                ])->catch(function (Batch $batch, \Throwable $throwable) {
+                    Log::error("this $batch has $throwable");
+                })->name('video_operation')->dispatch();
+            }
+        }
     }
 
     /**
@@ -112,7 +124,7 @@ class PostService extends Service
      * @param $filename
      * @return mixed
      */
-    protected function uploadBanner($request, $filename)
+    public function uploadBanner($request, $filename)
     {
         $imageService = resolve(ImageService::class);
 
@@ -209,5 +221,24 @@ class PostService extends Service
             'name' => $request->name,
             'reason' => $request->reason,
         ]);
+    }
+
+    /**
+     * Store media for post
+     *
+     * @param Post $post
+     * @param Media $media
+     * @return mixed
+     */
+    private function storeMedia(Post $post, Media $media)
+    {
+        return (new MediaRepository)->store($post, $media);
+    }
+
+    private function handleVideoWorks($media)
+    {
+        dd(777);
+        ConvertVideoForDownloading::dispatch($media);
+        ConvertVideoForStreaming::dispatch($media);
     }
 }

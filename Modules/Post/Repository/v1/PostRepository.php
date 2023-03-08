@@ -16,9 +16,16 @@ use Module\Post\Http\Resources\v1\PostCollection;
 use Module\Post\Http\Resources\v1\PostResource;
 use Module\Post\Models\Post;
 use Module\Post\Repository\PostRepository as Repository;
+use Module\Post\Services\v1\PostService;
+use Module\User\Models\User;
 
 class PostRepository extends Repository
 {
+    protected function service()
+    {
+        return resolve(PostService::class);
+    }
+
     /**
      * Paginate $this->model
      *
@@ -137,5 +144,18 @@ class PostRepository extends Repository
         }
 
         return [$mainPost, $otherPosts];
+    }
+
+    /**
+     *
+     */
+    public function store($request)
+    {
+        return auth()->user()->posts()->create([
+            'title' => $title = $request->title,
+            'details' => $request->details,
+            'description' => $request->description,
+            'banner' => $this->service()->uploadBanner($request->banner, $title),
+        ]);
     }
 }

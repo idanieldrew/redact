@@ -11,14 +11,16 @@ class PostObserver
     /**
      * Handle the Post "creating" event.
      *
-     * @param  \Module\Post\Models\Post  $post
+     * @param \Module\Post\Models\Post $post
      * @return void
      */
     public function creating(Post $post)
     {
         $service = resolve(PostService::class);
 
+        // slug
         $post->slug = Str::slug($post->title);
+        // short link
         $post->short_link = $service->generateLink();
     }
 
@@ -33,7 +35,7 @@ class PostObserver
     /**
      * Handle the Post "updating" event.
      *
-     * @param  \Module\Post\Models\Post  $post
+     * @param \Module\Post\Models\Post $post
      * @return void
      */
     public function updating(Post $post)

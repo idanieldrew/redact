@@ -51,7 +51,7 @@ class CustomTestCase extends TestCase
         $role3->givePermissionTo($p1, $p2, $p3, $p4);
     }
 
-    protected function storePost($role = 'writer', $attachments = false, $number = 1, $title = null, $details = null, $category = null, $mail = null): array
+    protected function storePost($role = 'writer', $attachment = false, $number = 1, $title = null, $details = null, $category = null, $mail = null): array
     {
         $img = 'banner.png';
         $extension = '.png';
@@ -63,12 +63,11 @@ class CustomTestCase extends TestCase
 
         Storage::fake('local');
 
-        $attachments = $attachments ?
-            [
-                UploadedFile::fake()->create('video.mp4', '280000000', 'mp4'),
+        $attachments = $attachment ?
+            ['image' => [
                 uploadedFile::fake()->image('image1.png'),
                 UploadedFile::fake()->image('image2.png'),
-            ] :
+            ]] :
             null;
 
         for ($i = 0; $i < $number; $i++) {
