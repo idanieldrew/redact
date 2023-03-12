@@ -2,6 +2,7 @@
 
 namespace Module\Media\Services\v1;
 
+use Carbon\Carbon;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -18,10 +19,10 @@ class ImageService extends Service implements FileContract
     /**
      * Upload media
      *
-     * @param  UploadedFile  $file
+     * @param UploadedFile $file
      * @param $filename string
      * @param $dir string
-     * @param  bool  $resize
+     * @param bool $resize
      * @return array | string
      */
     public static function upload(UploadedFile $file, string $filename, string $dir, bool $resize = true)
@@ -51,14 +52,14 @@ class ImageService extends Service implements FileContract
     {
         $img = Intervention::make($img);
 
-        $images['original'] = $name.'.'.$extension;
+        $images['original'] = $name . '.' . $extension;
 
         foreach (self::$sizes as $size) {
-            $images[$size] = $name.'_'.$size.'.'.$extension;
+            $images[$size] = $name . '_' . $size . '.' . $extension;
             $img->resize($size, null, function ($aspect) {
                 $aspect->aspectRatio();
             })
-                ->save(Storage::path($dir).$name.'_'.$size.'.'.$extension);
+                ->save(Storage::path($dir) . $name . '_' . $size . '.' . $extension);
         }
 
         return $images;

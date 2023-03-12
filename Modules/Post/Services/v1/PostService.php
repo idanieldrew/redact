@@ -234,11 +234,4 @@ class PostService extends Service
     {
         return (new MediaRepository)->store($post, $media);
     }
-
-    private function handleVideoWorks($media)
-    {
-        dd(777);
-        ConvertVideoForDownloading::dispatch($media);
-        ConvertVideoForStreaming::dispatch($media);
-    }
 }

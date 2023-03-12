@@ -30,6 +30,7 @@
         "laravel/sanctum": "^2.11",
         "laravel/scout": "^9.6",
         "laravel/tinker": "^2.7",
+        "league/flysystem-aws-s3-v3": "^3.175.1",
         "morilog/jalali": "3.*",
         "pbmedia/laravel-ffmpeg": "^8.3",
         "php-amqplib/php-amqplib": "^3.4.0",
@@ -41,10 +42,10 @@
         "fakerphp/faker": "^1.9.1",
         "laravel/pint": "^1.0",
         "laravel/sail": "^1.0.1",
+        "laravel/telescope": "^4.9",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^6.1",
         "spatie/laravel-ignition": "^1.0",
-        "laravel/telescope": "^4.9",
         "phpunit/phpunit": "^9.5.10"
     },
     "autoload": {

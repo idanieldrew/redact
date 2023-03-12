@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Module\Post\Events\PostPublish;
+use Module\Post\Models\Post;
 use Tests\CustomTestCase;
 
 class CreatPostTest extends CustomTestCase
@@ -20,26 +21,25 @@ class CreatPostTest extends CustomTestCase
     public function store_post_without_attachments()
     {
         $res = $this->storePost();
-
-        Storage::disk('local')->assertExists('public/'.Str::slug($res[0][0]).$res[1]);
+        Storage::disk('local')->assertExists('public/' . Str::slug($res[0][0]) . $res[1]);
     }
 
     /** @test */
-    public function store_post_with_attachments()
-    {
-        $this->withoutExceptionHandling();
-        $res = $this->storePost('writer', true);
-
-        Storage::disk('local')
-            ->assertExists('public/'.Str::slug($res[0][0]).$res[1]);
-
-        for ($i = 0; $i <= 1; $i++) {
-            $attachments = Storage::disk('local')->files('private')[$i];
+        public function store_post_with_attachments()
+        {
+            $this->withoutExceptionHandling();
+            $res = $this->storePost('writer', true);
 
             Storage::disk('local')
-                ->assertExists($attachments);
+                ->assertExists('public/'.Str::slug($res[0][0]).$res[1]);
+
+            for ($i = 0; $i <= 1; $i++) {
+                $attachments = Storage::disk('local')->files('private')[$i];
+
+                Storage::disk('local')
+                    ->assertExists($attachments);
+            }
         }
-    }
 
     /** @test */
     public function required_fields_when_store_post()

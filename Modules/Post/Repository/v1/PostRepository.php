@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Module\Comment\Http\Resources\v1\CommentCollection;
 use Module\Post\Filters\BlueTick;
 use Module\Post\Filters\FilterPost;

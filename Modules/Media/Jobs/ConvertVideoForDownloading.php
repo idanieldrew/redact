@@ -34,15 +34,15 @@ class ConvertVideoForDownloading implements ShouldQueue
     {
         $lowBitrateFormat = (new X264)->setKiloBitrate(500);
 
-        FFMpeg::fromDisk('local')
+        FFMpeg::fromDisk('minio')
             ->open($this->media->files)
             ->addFilter(function ($filters) {
                 $filters->resize(new Dimension(960, 540));
             })
             ->export()
-            ->toDisk('public')
+            ->toDisk('minio')
             ->inFormat($lowBitrateFormat)
-            ->save("download-" . $this->media->name . ".mp4");
+            ->save("download/" . $this->media->name . ".mp4");
 
         $this->media->update([
             'converted_for_downloading_at' => now(),

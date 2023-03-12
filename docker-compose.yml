@@ -134,10 +134,12 @@ services:
         networks:
             - redact_network
 
-    minio:
+    redact_minio:
         image: minio/minio
+        container_name: redact_minio
+        hostname: minio_redact
         ports:
-            - "9002:9000"
+            - "9010:9000"
             - "9001:9001"
         volumes:
             - minio_storage:/data
@@ -145,6 +147,8 @@ services:
             MINIO_ROOT_USER: dani
             MINIO_ROOT_PASSWORD: password
         command: server --console-address ":9001" /data
+        networks:
+            - redact_network
 
 #    redact_logstash:
 #        image: logstash:7.7.0
