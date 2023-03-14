@@ -73,24 +73,16 @@ services:
         image: docker.elastic.co/elasticsearch/elasticsearch:7.4.0
         container_name: redact_elastic
         environment:
-            - xpack.security.enabled=false
-            - discovery.type=single-node
-        ulimits:
-            memlock:
-                soft: -1
-                hard: -1
-            nofile:
-                soft: 65536
-                hard: 65536
-        cap_add:
-            - IPC_LOCK
+            - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+            - "discovery.type=single-node"
         volumes:
             - elastic:/usr/share/elasticsearch/data
         ports:
             - "9200:9200"
             - "9300:9300"
         networks:
-            - redact_network
+            redact_network:
+                ipv4_address: ${CUSTOM_ELASTIC_IP}
 
     redact_rabbitmq:
         image: rabbitmq:3.11.3-management
@@ -113,23 +105,22 @@ services:
         image: docker.elastic.co/kibana/kibana:7.4.0
         container_name: redact_kibana
         environment:
-            - ELASTICSEARCH_HOSTS=http://redact_elasticsearch:9200
+            ELASTICSEARCH_URL: http://redact_elasticsearch:9200
+            ELASTICSEARCH_HOSTS: http://redact_elasticsearch:9200
         depends_on:
             - redact_elasticsearch
         ports:
-            - 5601:5601
+            - "5601:5601"
         networks:
-            - redact_network
+            redact_network:
+                ipv4_address: ${CUSTOM_KIBANA_IP}
 
     redact_filebeat:
-        image: docker.elastic.co/beats/filebeat:8.6.2
+        image: docker.elastic.co/beats/filebeat:7.4.0
         container_name: redact_filebeat
-        command: filebeat -e -strict.perms=false
-        depends_on:
-            - redact_elasticsearch
         volumes:
-            - ./docker/filebeat/conf.yml:/usr/share/filebeat/filebeat.yml
-            - /var/lib/docker:/var/lib/docker:ro
+            - ./docker/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+            - /var/lib/docker:/var/lib/docker/containers:ro
             - /var/run/docker.sock:/var/run/docker.sock
         networks:
             - redact_network
@@ -148,33 +139,16 @@ services:
             MINIO_ROOT_PASSWORD: password
         command: server --console-address ":9001" /data
         networks:
-            - redact_network
-
-#    redact_logstash:
-#        image: logstash:7.7.0
-#        ports:
-#            - "9600:9600"
-#            - "8089:8089"
-#        links:
-#            - "redact_elasticsearch"
-#        environment:
-#            - LOGSTASH_JDBC_URL=jdbc:postgresql://redact_db:5432/postgres
-#            - LOGSTASH_JDBC_DRIVER=org.postgresql.Driver
-##            - LOGSTASH_JDBC_DRIVER_JAR_LOCATION=docker/logstash/postgresql.jar
-#            - LOGSTASH_JDBC_USERNAME=dani
-#            - LOGSTASH_JDBC_PASSWORD=password
-#            - LOGSTASH_ELASTICSEARCH_HOST=http://redact_elasticsearch:9200
-#        volumes:
-#            - ./docker/logstash/postgresql.jar:/usr/share/logstash/logstash-core/lib/jars/postgresql.jar
-#            - ./docker/logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
-#        depends_on:
-#            - redact_elasticsearch
-#        networks:
-#            - redact_network
+            redact_network:
+                ipv4_address: ${CUSTOM_MINIO_IP}
 
 networks:
     redact_network:
-        driver: bridge
+        ipam:
+            driver: bridge
+            config:
+                - subnet: ${SUBNET}
+
 
 volumes:
     dbdata:

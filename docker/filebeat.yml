@@ -1,0 +1,10 @@
+filebeat.inputs:
+  - type: log
+    paths:
+      - /var/www/storage/logs/laravel.log
+    enabled: true
+
+output.elasticsearch:
+  hosts: ["http://172.19.0.30:9200"]
+
+setup.kibana.host: "172.19.0.40:5601"
