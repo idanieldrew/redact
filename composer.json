@@ -21,6 +21,7 @@
     "require": {
         "php": "^8.0||^8.1",
         "ext-json": "*",
+        "ankitpokhrel/tus-php": "^2.3",
         "fruitcake/laravel-cors": "^3.0",
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "^2.7",

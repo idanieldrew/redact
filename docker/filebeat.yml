@@ -1,7 +1,7 @@
 filebeat.inputs:
-  - type: log
+  - type: container
     paths:
-      - /var/www/storage/logs/laravel.log
+      - /var/www/storage/logs/laravel*.log
     enabled: true
 
 output.elasticsearch:
