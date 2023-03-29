@@ -82,7 +82,8 @@ services:
             - "9200:9200"
             - "9300:9300"
         networks:
-            - redact_network
+            redact_network:
+                ipv4_address: ${CUSTOM_ELASTIC_IP}
 
     redact_rabbitmq:
         image: rabbitmq:3.11.3-management
@@ -105,13 +106,14 @@ services:
         image: docker.elastic.co/kibana/kibana:8.6.2
         container_name: redact_kibana
         environment:
-            ELASTICSEARCH_HOSTS: http://redact_elastic22:9200
+            ELASTICSEARCH_HOSTS: http://redact_elasticsearch:9200
         depends_on:
-            - redact_elastic22
+            - redact_elasticsearch
         ports:
             - "5601:5601"
         networks:
-            - redact_network
+            redact_network:
+                ipv4_address: ${CUSTOM_KIBANA_IP}
 
     redact_filebeat:
         image: docker.elastic.co/beats/filebeat:8.6.2
@@ -120,6 +122,7 @@ services:
             - ./docker/file.yml:/usr/share/filebeat/filebeat.yml:ro
             - /var/lib/docker:/var/lib/docker/containers:ro
             - /var/run/docker.sock:/var/run/docker.sock
+            - ./storage/logs:/usr/share/filebeat/mylog:rw
         networks:
             - redact_network
 
@@ -141,8 +144,10 @@ services:
 
 networks:
     redact_network:
-        driver: bridge
-
+        ipam:
+            driver: bridge
+            config:
+                - subnet: ${SUBNET}
 
 volumes:
     dbdata:
