@@ -45,7 +45,7 @@ class PostController extends Controller implements ResponseGenerator
     /**
      * Display the specified resource.
      *
-     * @param  string  $post
+     * @param string $post
      * @return JsonResponse
      */
     public function show(string $post): JsonResponse
@@ -58,7 +58,7 @@ class PostController extends Controller implements ResponseGenerator
     /**
      * Store a newly created resource in storage.
      *
-     * @param  PostRequest  $request
+     * @param PostRequest $request
      * @return JsonResponse
      * @throws AuthorizationException|\Throwable
      */
@@ -75,8 +75,8 @@ class PostController extends Controller implements ResponseGenerator
     /**
      * Update the specified resource in storage.
      *
-     * @param  UpdateRequest  $request
-     * @param  Post  $post
+     * @param UpdateRequest $request
+     * @param Post $post
      * @return JsonResponse
      *
      * @throws AuthorizationException
@@ -94,7 +94,7 @@ class PostController extends Controller implements ResponseGenerator
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Post  $post
+     * @param Post $post
      * @return JsonResponse
      *
      * @throws AuthorizationException
@@ -112,7 +112,7 @@ class PostController extends Controller implements ResponseGenerator
     /**
      * Search with elasticsearch or pipeline
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return JsonResponse
      */
     public function search(Request $request)
@@ -156,4 +156,27 @@ class PostController extends Controller implements ResponseGenerator
             'data' => $data,
         ], $code);
     }
+
+    /* Logic for upload file with tus,coming soon complete it
+    public function uploadWithTus(Request $request)
+    {
+        $client = Storage::disk('minio');
+        $client->getClient()->registerStreamWrapper();
+
+        $bucket = config('filesystems.disks.minio.bucket');
+        $basePath = "/projectz/hhh";
+        $fullPath = "minio://$bucket/$basePath";
+
+        $server = new Server('file');
+        $server->setApiPath($request->getRequestUri())->setUploadDir($fullPath);
+        $server->event()->addListener('tus-server.upload.complete', listener: function (TusEvent $event) use ($basePath, $fullPath) {
+            $filemeta = $event->getFile()->details();
+            $basePath = $basePath . DIRECTORY_SEPARATOR;
+            $originalName = $filemeta['metadata']['filename'];
+            $newFilename = Str::uuid() . pathinfo($originalName, PATHINFO_EXTENSION);
+            $client->move("{$basePath}{$originalName}", "{$basePath}{$newFilename}");
+        });
+
+        $server->serve();
+    }*/
 }

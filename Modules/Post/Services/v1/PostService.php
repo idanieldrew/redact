@@ -234,4 +234,26 @@ class PostService extends Service
     {
         return (new MediaRepository)->store($post, $media);
     }
+
+    /*    public function xxxx($request)
+        {
+            $client = Storage::disk('minio');
+            $client->getClient()->registerStreamWrapper();
+
+            $bucket = config('filesystems.disks.minio.bucket');
+            $basePath = '/s';
+            $fullPath = '/sss';
+
+            $server = new Server('file');
+            $server->setApiPath($request)->setUploadDir($fullPath);
+            $server->event()->addListener('tus-server.upload.complete', listener: function (TusEvent $event) use ($basePath, $fullPath) {
+                $filemeta = $event->getFile()->details();
+                $basePath = $basePath . DIRECTORY_SEPARATOR;
+                $originalName = $filemeta['metadata']['filename'];
+                $newFilename = Str::uuid() . pathinfo($originalName, PATHINFO_EXTENSION);
+                $client->move("{$basePath}{$originalName}", "{$basePath}{$newFilename}");
+            });
+
+            $server->serve();
+        }*/
 }
