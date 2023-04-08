@@ -101,6 +101,13 @@ return [
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
         ],
+
+        'sentry' => [
+            'driver'  => 'sentry',
+            'level'   => env('SENTRY_LEVEL', 'error'),
+            'dsn'     => env('SENTRY_DSN'),
+            'release' => env('SENTRY_RELEASE', null),
+        ],
     ],
 
 ];
