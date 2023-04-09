@@ -9,7 +9,7 @@ return [
      * https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/configuration.html
      */
     'connection' => [
-        'host' => env('ELASTIC_HOST', 'localhost'),
+        'host' => env('CUSTOM_ELASTIC_IP', 'localhost'),
         'port' => '9200',
         'scheme' => 'http',
     ],
