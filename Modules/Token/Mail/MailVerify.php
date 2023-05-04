@@ -17,10 +17,11 @@ class MailVerify extends Mailable
      * @return void
      */
     public function __construct(
-        private        $id,
+        private string $id,
         private string $mail,
         private string $name,
-    ) {
+    )
+    {
         //
     }
 
@@ -32,7 +33,7 @@ class MailVerify extends Mailable
     public function build()
     {
         $url = URL::temporarySignedRoute('verify.v2',
-            now()->addMinutes(15),
+            now()->addMinutes(1),
             ['user' => $this->id]
         );
 

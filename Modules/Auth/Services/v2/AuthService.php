@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Module\Auth\Services\AuthService as Service;
 use Module\Auth\Services\v2\Email\ForgetPasswordEmail;
+use Module\Status\Repository\v1\StatusRepository;
 use Module\Token\Repository\v1\TokenRepository;
 use Module\User\Http\Resources\v2\UserResource;
 use Module\User\Models\User;
@@ -128,6 +129,18 @@ class AuthService extends Service
         return $res ?
             $this->response('success', '200', 'correct', null) :
             $this->response('fail', '404', 'incorrect', null);
+    }
+
+    /**
+     * Handle verify action
+     *
+     * @param User $user
+     * @param array $data
+     * @return mixed
+     */
+    public function verifyHandler(User $user, array $data)
+    {
+        return (new StatusRepository)->update($user, $data);
     }
 
     /**

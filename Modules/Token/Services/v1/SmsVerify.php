@@ -6,7 +6,11 @@ use Module\User\Models\User;
 
 class SmsVerify implements VerifyInterface
 {
-    public function send(User $user)
+    public function __construct(public User $user)
+    {
+    }
+
+    public function send()
     {
         echo 'send sms';
     }

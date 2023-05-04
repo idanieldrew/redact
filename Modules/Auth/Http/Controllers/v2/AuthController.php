@@ -3,6 +3,7 @@
 namespace Module\Auth\Http\Controllers\v2;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 use Module\Auth\Http\Requests\v2\LoginRequest;
 use Module\Auth\Http\Requests\v2\RegisterRequest;
 use Module\Auth\Services\v2\AuthService;
@@ -21,8 +22,8 @@ class AuthController extends Controller implements ResponseGenerator
     /**
      * Register user
      *
-     * @param    $request
-     * @return \Illuminate\Http\JsonResponse
+     * @param RegisterRequest $request
+     * @return JsonResponse
      */
     public function register(RegisterRequest $request)
     {
