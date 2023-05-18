@@ -1,7 +1,12 @@
 # Modular blog
 
+<img src="docs/images/logo.png" alt="Mailu">
+
 ## About Redact
-Redact is built with php and laravel. Redact is a place to write articles. Redact is suitable for developers who want to learn more about Laravel and know how to use technologies.
+
+Redact is built with php and laravel. Redact is a place to write articles. Redact is suitable for developers who want to
+learn more about Laravel and know how to use technologies.
+
 ### Installation With Docker
 
 ```sh
@@ -31,26 +36,33 @@ composer install
 ```
 
 ## Tests
+
 ```sh
 docker-compose exec redact_application php artisan test
 ```
 
 ## Fake data
+
 ```sh
 docker-compose exec weblog_application php artisan migrate:fresh --seed
 ```
 
 ## Elasticsearch
+
 If you use elasticsearch,you must create index.
+
 ```sh
 docker-compose exec weblog_application php artisan scout:index posts
 ```
+
 and then you can see other information in kibana
+
 ```sh
 http://localhost:5601
 ```
 
 ### Infrastructure Description
+
 - This project is built with laravel and php
 - This project offers a special api for blog
 - I tried to make the architecture of the project based on
@@ -89,7 +101,8 @@ http://localhost:5601
   form [spatie package](https://github.com/spatie/laravel-permission). This package gives you many possibilities,but i
   don't need all this.That's why i made this module.
 - Use cache for queries(redis)
-- I tried to clean code so use Solid and Design patterns. If you have an idea to make the code cleaner,do a pull request.
+- I tried to clean code so use Solid and Design patterns. If you have an idea to make the code cleaner,do a pull
+  request.
 
 ## Pull Requests
 

@@ -3,7 +3,6 @@
 namespace Module\Status\Repository\v1;
 
 use Illuminate\Database\Eloquent\Model;
-use Module\Status\Models\Status;
 use Module\Status\Repository\StatusRepository as Repository;
 
 class StatusRepository extends Repository
