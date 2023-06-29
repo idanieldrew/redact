@@ -9,9 +9,9 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Module\Post\Models\Post;
 
-class PostPublish implements ShouldBroadcast
+class PostPublish
 {
-    use Dispatchable, SerializesModels, InteractsWithSockets;
+    use Dispatchable, SerializesModels;
 
     /**
      * Get slug($post)
@@ -32,10 +32,5 @@ class PostPublish implements ShouldBroadcast
      */
     public function __construct(public $post)
     {
-    }
-
-    public function broadcastOn()
-    {
-        return new PrivateChannel('new_posts');
     }
 }

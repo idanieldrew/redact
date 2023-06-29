@@ -140,7 +140,9 @@ services:
             MINIO_ROOT_PASSWORD: password
         command: server --console-address ":9001" /data
         networks:
-            - redact_network
+            redact_network:
+                ipv4_address: ${CUSTOM_MINIO_IP}
+
 
 networks:
     redact_network:

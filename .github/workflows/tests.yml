@@ -52,7 +52,7 @@ jobs:
         run: php artisan key:generate
       - name: Optimization
         run: php artisan optimize:clear
-      - name: Migration
+      - name: Migrationخدمت به شاید ها نیست
         run: php artisan migrate:fresh --seed
       - name: Import indexes
         run: php artisan scout:index posts
