@@ -7,7 +7,18 @@
 Redact is built with php and laravel. Redact is a place to write articles. Redact is suitable for developers who want to
 learn more about Laravel and know how to use technologies.
 
-### Installation With Docker
+* [Installation](#installation)
+    * [Docker](#docker)
+    * [Without Docker](#without-docker)
+
+* [Technology](#usage)
+    * [Horizon](#horizon)
+        * [Publish](#publish)
+        * [Consume](#consume)
+
+## Installation
+If you have docker,set up with it:
+### Docker
 
 ```sh
 git clone https://github.com/idanieldrew/redact
@@ -21,7 +32,7 @@ copy .env.example .env
 docker-compose up --build
 ```
 
-### Installation Without Docker
+### Without Docker
 
 ```sh
 git clone https://github.com/idanieldrew/redact
@@ -35,9 +46,24 @@ copy .env.example .env
 composer install
 ```
 
+## Technology
+
+### Horizon
+In docker-compose,I used RabbitMQ for queue driver for laravel,if you want use redis,pay attention environment.
+First,Running horizon
+```
+php artisan horizon
+```
+and then open this url:
+```
+http://127.0.0.1/horizon/dashboard
+```
+
+
+
 ## Tests
 
-```sh
+```
 docker-compose exec redact_application php artisan test
 ```
 
