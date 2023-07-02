@@ -13,11 +13,12 @@ learn more about Laravel and know how to use technologies.
 
 * [Technology](#usage)
     * [Horizon](#horizon)
-        * [Publish](#publish)
-        * [Consume](#consume)
+    * [Kibana](#kibana)
 
 ## Installation
+
 If you have docker,set up with it:
+
 ### Docker
 
 ```sh
@@ -49,17 +50,33 @@ composer install
 ## Technology
 
 ### Horizon
+
 In docker-compose,I used RabbitMQ for queue driver for laravel,if you want use redis,pay attention environment.
 First,Running horizon
+
 ```
 php artisan horizon
 ```
+
 and then open this url:
+
 ```
 http://127.0.0.1/horizon/dashboard
 ```
 
+### Kibana
 
+In Kibana,I stored data and also stored logs with Filebeat and then transform with elastic
+
+```
+http://localhost:5601
+```
+
+and then create dashboards and also run queue driver for transform post model to elastic.
+
+```
+php artisan queue:work //Pay attension queue driver
+```
 
 ## Tests
 
@@ -72,31 +89,6 @@ docker-compose exec redact_application php artisan test
 ```sh
 docker-compose exec weblog_application php artisan migrate:fresh --seed
 ```
-
-## Elasticsearch
-
-If you use elasticsearch,you must create index.
-
-```sh
-docker-compose exec weblog_application php artisan scout:index posts
-```
-
-and then you can see other information in kibana
-
-```sh
-http://localhost:5601
-```
-
-### Infrastructure Description
-
-- This project is built with laravel and php
-- This project offers a special api for blog
-- I tried to make the architecture of the project based on
-  this [book](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
-- Support [laravel 8 with php 7.4](https://github.com/idanieldrew/modular-blog/releases/tag/v1.2.0)
-  & [laravel 9 with php 8.1](https://github.com/idanieldrew/modular-blog/releases/tag/v2.0)
-- Docker is used for containers
-- Rabbitmq is used for queues
 
 ## Database Description
 
