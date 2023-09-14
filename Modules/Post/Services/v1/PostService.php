@@ -70,6 +70,7 @@ class PostService extends Service
 
             DB::commit();
         } catch (Exception $e) {
+            dd($e);
             DB::rollBack();
             throw $e;
         }

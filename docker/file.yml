@@ -9,10 +9,10 @@ filebeat.inputs:
     type: filestream
 
 output.elasticsearch:
-  hosts: [ "172.22.0.31:9200" ]
+  hosts: [ "172.21.0.3:9200" ]
 
 logging:
   files:
     rotateeverybytes: 10485760
 
-setup.kibana.host: "172.22.0.41:5601"
+setup.kibana.host: "172.21.0.6:5601"

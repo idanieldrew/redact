@@ -82,8 +82,7 @@ services:
             - "9200:9200"
             - "9300:9300"
         networks:
-            redact_network:
-                ipv4_address: ${CUSTOM_ELASTIC_IP}
+            - redact_network
 
     redact_rabbitmq:
         image: rabbitmq:3.11.3-management
@@ -112,8 +111,7 @@ services:
         ports:
             - "5601:5601"
         networks:
-            redact_network:
-                ipv4_address: ${CUSTOM_KIBANA_IP}
+            - redact_network
 
     redact_filebeat:
         image: docker.elastic.co/beats/filebeat:8.6.2
@@ -140,16 +138,13 @@ services:
             MINIO_ROOT_PASSWORD: password
         command: server --console-address ":9001" /data
         networks:
-            redact_network:
-                ipv4_address: ${CUSTOM_MINIO_IP}
+            - redact_network
 
 
 networks:
     redact_network:
-        ipam:
-            driver: bridge
-            config:
-                - subnet: ${SUBNET}
+        driver: bridge
+
 
 volumes:
     dbdata:

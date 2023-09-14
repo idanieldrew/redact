@@ -5,9 +5,16 @@ parameters:
 
     paths:
         - app/
+        - Modules/
 
     # Level 9 is the highest level
-    level: 5
+    level: 9
+    excludePaths:
+        - 'app/Http/Kernel.php'
+        - 'app/Console/Kernel.php'
+        - 'app/Exceptions/*.php'
+        - 'app/Http/Middleware/*.php'
+        - 'app/Providers/*.php'
 
 #    ignoreErrors:
 #        - '#PHPDoc tag @var#'

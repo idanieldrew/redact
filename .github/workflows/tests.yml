@@ -1,7 +1,7 @@
 name: Tests
 on: [ push, pull_request ]
 jobs:
-  laravel-blog:
+  redact:
     runs-on: ubuntu-latest
     services:
       elasticsearch:
@@ -67,3 +67,5 @@ jobs:
           DB_PASSWORD: password
         run:
           php artisan test
+      - name: Run php stan
+        run: ./vendor/bin/phpstan analyse --memory-limit=2G
