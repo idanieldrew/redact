@@ -47,10 +47,11 @@
         "laravel/telescope": "^4.9",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^6.1",
-        "spatie/laravel-ignition": "^1.0",
+        "nunomaduro/larastan": "^2.0",
         "pestphp/pest": "1.22.6",
         "pestphp/pest-plugin-laravel": "1.x",
-        "phpunit/phpunit": "^9.5.10"
+        "phpunit/phpunit": "^9.5.10",
+        "spatie/laravel-ignition": "^1.0"
     },
     "autoload": {
         "files": [
