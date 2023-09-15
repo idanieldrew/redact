@@ -7,7 +7,10 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Http\Response;
+use Illuminate\Support\Collection;
 use Module\Post\Http\Requests\v1\PostRequest;
 use Module\Post\Http\Requests\v1\UpdateRequest;
 use Module\Post\Http\Resources\v1\PostCollection;
@@ -136,7 +139,7 @@ class PostController extends Controller implements ResponseGenerator
     }
 
     /**
-     * @return void
+     * @return JsonResponse
      * @throws AuthorizationException
      */
     public function updateLicense(Post $post, Request $request)
@@ -148,7 +151,7 @@ class PostController extends Controller implements ResponseGenerator
         return $this->res('success', Response::HTTP_OK, null, new PostResource($post));
     }
 
-    public function res(string $status, int $code, string|null $message, mixed $data = null): JsonResponse
+    public function res(string $status, int $code, string|null $message, array|int|JsonResource $data = null): JsonResponse
     {
         return response()->json([
             'status' => $status,

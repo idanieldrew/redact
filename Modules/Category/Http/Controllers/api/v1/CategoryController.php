@@ -5,7 +5,10 @@ namespace Module\Category\Http\Controllers\api\v1;
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Http\Response;
+use Illuminate\Support\Collection;
 use Module\Category\Http\Requests\v1\StoreRequest;
 use Module\Category\Http\Requests\v1\UpdateRequest;
 use Module\Category\Http\Resources\v1\CategoryCollection;
@@ -99,7 +102,7 @@ class CategoryController extends Controller implements ResponseGenerator
     }
 
     // manage response
-    public function res(string $status, int $code, string|null $message, mixed $data = null): JsonResponse
+    public function res(string $status, int $code, string|null $message, array|int|JsonResource $data = null): JsonResponse
     {
         return response()->json([
             'status' => $status,

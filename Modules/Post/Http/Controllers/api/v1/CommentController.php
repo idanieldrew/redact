@@ -4,7 +4,10 @@ namespace Module\Post\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Http\Response;
+use Illuminate\Support\Collection;
 use Module\Comment\Models\Comment;
 use Module\Comment\Request\v1\CommentRequest;
 use Module\Post\Models\Post;
@@ -56,7 +59,7 @@ class CommentController extends Controller implements ResponseGenerator
         return $this->res('success', Response::HTTP_CREATED, 'Successfully add reply for comment', $service);
     }
 
-    public function res(string $status, int $code, string|null $message, mixed $data = null): JsonResponse
+    public function res(string $status, int $code, string|null $message, array|int|JsonResource $data = null): JsonResponse
     {
         return response()->json([
             'status' => $status,

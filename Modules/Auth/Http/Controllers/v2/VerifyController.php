@@ -4,6 +4,9 @@ namespace Module\Auth\Http\Controllers\v2;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Support\Collection;
 use Module\Auth\Services\v2\AuthService;
 use Module\Share\Contracts\Response\ResponseGenerator;
 use Module\User\Models\User;
@@ -26,7 +29,7 @@ class VerifyController extends Controller implements ResponseGenerator
         );
     }
 
-    public function res(string $status, int $code, string|null $message, mixed $data = null): JsonResponse
+    public function res(string $status, int $code, string|null $message, array|int|JsonResource $data = null): JsonResponse
     {
         return response()->json([
             'status' => $status,

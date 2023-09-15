@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Http\Response;
+use Illuminate\Support\Collection;
 use Module\Plan\Http\Requests\v1\PlanRequest;
 use Module\Plan\Models\Plan;
 use Module\Plan\Services\v1\PlanService;
@@ -82,7 +85,7 @@ class PlanController extends Controller implements ResponseGenerator
         //
     }
 
-    public function res(string $status, int $code, string|null $message, mixed $data = null): JsonResponse
+    public function res(string $status, int $code, string|null $message, array|int|JsonResource $data = null): JsonResponse
     {
         return response()->json([
             'status' => $status,
