@@ -13,7 +13,7 @@ use Module\Share\Contracts\Response\ResponseGenerator;
 
 class ForgetPsdController extends Controller implements ResponseGenerator
 {
-    protected function service()
+    protected function service():AuthService
     {
         return resolve(AuthService::class);
     }

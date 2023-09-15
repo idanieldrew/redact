@@ -19,10 +19,15 @@ class VerifyController extends Controller
         return 'ok,verify it';
     }
 
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function send(Request $request)
     {
-        $request->user()->sendEmailVerificationNotification();
+        return null;
+        /*$request->user()->sendEmailVerificationNotification();
 
-        return 'send it';
+        return 'send it';*/
     }
 }

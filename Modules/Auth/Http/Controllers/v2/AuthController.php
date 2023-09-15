@@ -38,8 +38,8 @@ class AuthController extends Controller implements ResponseGenerator
     /**
      * Login user
      *
-     * @param  \Module\User\Http\Requests\v2\LoginRequest  $request
-     * @return \Illuminate\Http\JsonResponse $this->response($status,$message,$data)
+     * @param LoginRequest $request
+     * @return JsonResponse $this->response($status,$message,$data)
      */
     public function login(LoginRequest $request): \Illuminate\Http\JsonResponse
     {
