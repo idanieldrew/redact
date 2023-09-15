@@ -3,6 +3,7 @@
 namespace Module\Auth\Http\Controllers\v2;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Module\Auth\Services\v2\AuthService;
 use Module\Share\Contracts\Response\ResponseGenerator;
@@ -40,7 +41,7 @@ class ForgetPsdController extends Controller implements ResponseGenerator
         return $this->res($res['status'], $res['code'], $res['message']);
     }
 
-    public function res($status, $code, $message, $data = null): \Illuminate\Http\JsonResponse
+    public function res(string $status, int $code, string|null $message, mixed $data = null): JsonResponse
     {
         return response()->json([
             'status' => $status,

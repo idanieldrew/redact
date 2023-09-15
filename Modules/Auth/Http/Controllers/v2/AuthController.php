@@ -45,7 +45,7 @@ class AuthController extends Controller implements ResponseGenerator
         return $this->res($login['status'], $login['code'], $login['message'], $login['data']);
     }
 
-    public function res($status, $code, $message, $data = null): \Illuminate\Http\JsonResponse
+    public function res(string $status, int $code, string|null $message, mixed $data = null): JsonResponse
     {
         return response()->json([
             'status' => $status,

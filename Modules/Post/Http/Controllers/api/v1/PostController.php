@@ -148,7 +148,7 @@ class PostController extends Controller implements ResponseGenerator
         return $this->res('success', Response::HTTP_OK, null, new PostResource($post));
     }
 
-    public function res($status, $code, $message, $data = null)
+    public function res(string $status, int $code, string|null $message, mixed $data = null): JsonResponse
     {
         return response()->json([
             'status' => $status,

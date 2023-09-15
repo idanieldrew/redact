@@ -3,6 +3,7 @@
 namespace Module\Auth\Http\Controllers\v2;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 use Module\Auth\Http\Requests\v2\ChangePsdRequest;
 use Module\Auth\Services\v2\AuthService;
 use Module\Share\Contracts\Response\ResponseGenerator;
@@ -22,7 +23,7 @@ class ChangePsdController extends Controller implements ResponseGenerator
         return $this->res($result['status'], $result['code'], $result['message'], $result['data']);
     }
 
-    public function res($status, $code, $message, $data = null): \Illuminate\Http\JsonResponse
+    public function res(string $status, int $code, string|null $message, mixed $data = null): JsonResponse
     {
         return response()->json([
             'status' => $status,

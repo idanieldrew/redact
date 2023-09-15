@@ -56,7 +56,7 @@ class CommentController extends Controller implements ResponseGenerator
         return $this->res('success', Response::HTTP_CREATED, 'Successfully add reply for comment', $service);
     }
 
-    public function res($status, $code, $message, $data = null)
+    public function res(string $status, int $code, string|null $message, mixed $data = null): JsonResponse
     {
         return response()->json([
             'status' => $status,

@@ -4,6 +4,7 @@ namespace Module\Plan\Http\Controllers\v1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Module\Plan\Http\Requests\v1\PlanRequest;
@@ -81,7 +82,7 @@ class PlanController extends Controller implements ResponseGenerator
         //
     }
 
-    public function res($status, $code, $message, $data = null)
+    public function res(string $status, int $code, string|null $message, mixed $data = null): JsonResponse
     {
         return response()->json([
             'status' => $status,

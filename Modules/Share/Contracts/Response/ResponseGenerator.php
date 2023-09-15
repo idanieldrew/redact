@@ -4,5 +4,5 @@ namespace Module\Share\Contracts\Response;
 
 interface ResponseGenerator
 {
-    public function res($status, $code, $message, $data = null);
+    public function res(string $status, int $code, string|null $message, mixed $data = null);
 }

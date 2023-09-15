@@ -99,7 +99,7 @@ class CategoryController extends Controller implements ResponseGenerator
     }
 
     // manage response
-    public function res($status, $code, $message, $data = null): JsonResponse
+    public function res(string $status, int $code, string|null $message, mixed $data = null): JsonResponse
     {
         return response()->json([
             'status' => $status,
