@@ -17,9 +17,9 @@ class ChangePsdController extends Controller implements ResponseGenerator
      * Change password operation
      *
      * @param ChangePsdRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function changPsd(ChangePsdRequest $request)
+    public function changPsd(ChangePsdRequest $request):JsonResponse
     {
         $result = (new AuthService)->changePsd($request);
 

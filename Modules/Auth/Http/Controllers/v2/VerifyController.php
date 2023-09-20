@@ -13,7 +13,12 @@ use Module\User\Models\User;
 
 class VerifyController extends Controller implements ResponseGenerator
 {
-    public function verify(User $user, AuthService $service)
+    /**
+     * @param User $user
+     * @param AuthService $service
+     * @return JsonResponse
+     */
+    public function verify(User $user, AuthService $service): JsonResponse
     {
         $data = [
             'name' => 'verified',

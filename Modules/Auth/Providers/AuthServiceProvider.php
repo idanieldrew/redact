@@ -9,7 +9,7 @@ class AuthServiceProvider extends ServiceProvider
 {
     private string $namespace = 'Module\Auth\Http\Controllers';
 
-    public function boot()
+    public function boot():void
     {
         Route::prefix('api/auth')
             ->middleware('api')
