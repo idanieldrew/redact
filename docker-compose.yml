@@ -140,6 +140,17 @@ services:
         networks:
             - redact_network
 
+    redact_prometheus:
+        image: quay.io/prometheus/prometheus
+        container_name: redact_prometheus
+        volumes:
+            - ./docker/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+        command: "--config.file=/etc/prometheus/prometheus.yml --storage.tsdb.path=/prometheus"
+        restart: always
+        ports:
+            - "9090:9090"
+        networks:
+            - redact_network
 
 networks:
     redact_network:

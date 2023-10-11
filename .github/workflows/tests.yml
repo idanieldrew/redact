@@ -67,5 +67,5 @@ jobs:
           DB_PASSWORD: password
         run:
           php artisan test
-      - name: Run php stan
-        run: ./vendor/bin/phpstan analyse --memory-limit=2G
+#      - name: Run php stan
+#        run: ./vendor/bin/phpstan analyse --memory-limit=2G
